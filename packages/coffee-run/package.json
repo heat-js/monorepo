@@ -1,0 +1,47 @@
+{
+	"name": "@heat/coffee-run",
+	"version": "0.0.19",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"bin": "./index.js",
+	"main": "./index.js",
+	"scripts": {
+		"test": "./node_modules/.bin/jest",
+		"run": "coffee ./src/index.coffee",
+		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
+		"minor": "yarn version --minor; ./node_modules/.bin/ncp",
+		"major": "yarn version --major; ./node_modules/.bin/ncp"
+	},
+	"babel": {
+		"plugins": [
+			"@babel/plugin-transform-modules-commonjs"
+		]
+	},
+	"jest": {
+		"preset": "jest-preset-coffeescript",
+		"testEnvironment": "node",
+		"rootDir": "./test/",
+		"testPathIgnorePatterns": [
+			"/data/"
+		]
+	},
+	"dependencies": {
+		"@rollup/plugin-commonjs": "^21.0.1",
+		"@rollup/plugin-json": "^4.1.0",
+		"commander": "^8.1.0",
+		"rollup": "^2.56.0",
+		"rollup-plugin-coffee-script": "^2.0.0",
+		"rollup-plugin-node-resolve": "^5.2.0"
+	},
+	"devDependencies": {
+		"@heat/npm-coffee-publisher": "^0.2.0",
+		"jest": "^24.8.0",
+		"jest-preset-coffeescript": "1.1.1"
+	}
+}

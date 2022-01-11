@@ -1,0 +1,41 @@
+{
+	"name": "@heat/s3-sync",
+	"version": "0.0.13",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"scripts": {
+		"test": "./node_modules/.bin/jest",
+		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
+		"minor": "yarn version --minor; ./node_modules/.bin/ncp",
+		"major": "yarn version --major; ./node_modules/.bin/ncp",
+		"deploy": "yarn version; ./node_modules/.bin/ncp",
+		"clear-cache": "zsh -c 'PROFILE=${1} coffee -t ./cli/clear-cache.coffee' --",
+		"sync": "coffee -t ./cli/sync.coffee"
+	},
+	"babel": {
+		"plugins": [
+			"@babel/plugin-transform-modules-commonjs"
+		]
+	},
+	"devDependencies": {
+		"@babel/core": "^7.8.7",
+		"@babel/plugin-transform-modules-commonjs": "^7.8.3",
+		"@heat/npm-coffee-publisher": "^0.1.6",
+		"coffeescript": "^2.5.1"
+	},
+	"dependencies": {
+		"array-chunk": "^1.0.0",
+		"async": "^3.2.0",
+		"aws-sdk": "^2.639.0",
+		"content-security-policy-builder": "^2.1.0",
+		"etag-hash": "^1.0.1",
+		"mime-types": "^2.1.26",
+		"recursive-readdir": "^2.2.2"
+	}
+}
