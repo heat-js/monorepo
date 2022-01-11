@@ -39,10 +39,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/crypto"
       },
       {
-        "name": "@heat/env-parser",
-        "reference": "workspace:packages/env-parser"
-      },
-      {
         "name": "@heat/lambda",
         "reference": "workspace:packages/lambda"
       },
@@ -3689,7 +3685,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:7.16.7"],
             ["@bugsnag/source-maps", "npm:2.3.0"],
             ["@graphql-tools/merge", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:6.2.17"],
-            ["@heat/cloud-front-function", "npm:0.0.15"],
+            ["@heat/cloud-front-function", "npm:0.0.17"],
             ["@heat/s3-deploy", "npm:0.0.13"],
             ["@rollup/plugin-babel", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:5.3.0"],
             ["@rollup/plugin-commonjs", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:20.0.0"],
@@ -3748,10 +3744,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@heat/cloud-front-function", [
-        ["npm:0.0.15", {
-          "packageLocation": "./.yarn/cache/@heat-cloud-front-function-npm-0.0.15-b0dbc32815-47043531e3.zip/node_modules/@heat/cloud-front-function/",
+        ["npm:0.0.17", {
+          "packageLocation": "./.yarn/cache/@heat-cloud-front-function-npm-0.0.17-c867aaa4f0-aca386f1b0.zip/node_modules/@heat/cloud-front-function/",
           "packageDependencies": [
-            ["@heat/cloud-front-function", "npm:0.0.15"],
+            ["@heat/cloud-front-function", "npm:0.0.17"],
             ["js-base64", "npm:2.6.4"]
           ],
           "linkType": "HARD",
@@ -3787,15 +3783,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@heat/crypto", "workspace:packages/crypto"],
             ["bcrypt", "npm:3.0.8"]
-          ],
-          "linkType": "SOFT",
-        }]
-      ]],
-      ["@heat/env-parser", [
-        ["workspace:packages/env-parser", {
-          "packageLocation": "./packages/env-parser/",
-          "packageDependencies": [
-            ["@heat/env-parser", "workspace:packages/env-parser"]
           ],
           "linkType": "SOFT",
         }]

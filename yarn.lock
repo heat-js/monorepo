@@ -1513,8 +1513,8 @@ __metadata:
     "@babel/preset-env": ^7.14.8
     "@bugsnag/source-maps": ^2.0.0
     "@graphql-tools/merge": ^6.2.7
-    "@heat/cloud-front-function": ^0.0.15
-    "@heat/s3-deploy": ^0.0.13
+    "@heat/cloud-front-function": "npm:latest"
+    "@heat/s3-deploy": "npm:latest"
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^20.0.0
     "@rollup/plugin-node-resolve": ^13.0.4
@@ -1572,12 +1572,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/cloud-front-function@npm:^0.0.15":
-  version: 0.0.15
-  resolution: "@heat/cloud-front-function@npm:0.0.15"
+"@heat/cloud-front-function@npm:latest":
+  version: 0.0.17
+  resolution: "@heat/cloud-front-function@npm:0.0.17"
   dependencies:
     js-base64: 2.6.4
-  checksum: 47043531e3ab682bd45e8c89b2282a9d141ba9501a1d70d220fd96877edaf89d86c0a5a1ce83b8b15a3774c1110c900f51023b0a717409dcdbfd10f72f5c082d
+  checksum: aca386f1b0de70e0f6b89a6d8aee2dd07b98dd56323c03da6b1498bce635472c18a5e0b2469d3c21d337ffbf6114f0031837f2818b9455ce6fc9dbe79b6a2fa7
   languageName: node
   linkType: hard
 
@@ -1607,12 +1607,6 @@ __metadata:
   resolution: "@heat/crypto@workspace:packages/crypto"
   dependencies:
     bcrypt: ^3.0.3
-  languageName: unknown
-  linkType: soft
-
-"@heat/env-parser@workspace:packages/env-parser":
-  version: 0.0.0-use.local
-  resolution: "@heat/env-parser@workspace:packages/env-parser"
   languageName: unknown
   linkType: soft
 
@@ -1692,7 +1686,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/s3-deploy@npm:^0.0.13":
+"@heat/s3-deploy@npm:^0.0.13, @heat/s3-deploy@npm:latest":
   version: 0.0.13
   resolution: "@heat/s3-deploy@npm:0.0.13"
   dependencies:
