@@ -2432,13 +2432,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
-        ["npm:7.16.8", {
-          "packageLocation": "./.yarn/cache/@babel-plugin-transform-modules-commonjs-npm-7.16.8-b70dd72ac5-c0ac00f545.zip/node_modules/@babel/plugin-transform-modules-commonjs/",
-          "packageDependencies": [
-            ["@babel/plugin-transform-modules-commonjs", "npm:7.16.8"]
-          ],
-          "linkType": "SOFT",
-        }],
         ["virtual:275f1abcbcf1c41caf7b91aecf0058be4bcf7f08d7e3a4d308fffaf574c4b7d0bc02249a14daed4c1c5fa8fadd1f65ce3c6f10a3f38811909a9569181b029a93#npm:7.16.7", {
           "packageLocation": "./.yarn/__virtual__/@babel-plugin-transform-modules-commonjs-virtual-1581840ca1/0/cache/@babel-plugin-transform-modules-commonjs-npm-7.16.7-b6e9dbf2bb-793c579c2c.zip/node_modules/@babel/plugin-transform-modules-commonjs/",
           "packageDependencies": [
@@ -2460,23 +2453,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@babel-plugin-transform-modules-commonjs-virtual-d5023a59f6/0/cache/@babel-plugin-transform-modules-commonjs-npm-7.16.7-b6e9dbf2bb-793c579c2c.zip/node_modules/@babel/plugin-transform-modules-commonjs/",
           "packageDependencies": [
             ["@babel/plugin-transform-modules-commonjs", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.16.7"],
-            ["@babel/core", "npm:7.16.7"],
-            ["@babel/helper-module-transforms", "npm:7.16.7"],
-            ["@babel/helper-plugin-utils", "npm:7.16.7"],
-            ["@babel/helper-simple-access", "npm:7.16.7"],
-            ["@types/babel__core", null],
-            ["babel-plugin-dynamic-import-node", "npm:2.3.3"]
-          ],
-          "packagePeers": [
-            "@babel/core",
-            "@types/babel__core"
-          ],
-          "linkType": "HARD",
-        }],
-        ["virtual:90986eb6c9897e829d4b83639b83eedbfe41e3a18be07901f18440f698a17aadf6ce2bfb95dd2383015ee37aae6a707258e7be54507a2a88168c80e6756414a2#npm:7.16.8", {
-          "packageLocation": "./.yarn/__virtual__/@babel-plugin-transform-modules-commonjs-virtual-9254f94235/0/cache/@babel-plugin-transform-modules-commonjs-npm-7.16.8-b70dd72ac5-c0ac00f545.zip/node_modules/@babel/plugin-transform-modules-commonjs/",
-          "packageDependencies": [
-            ["@babel/plugin-transform-modules-commonjs", "virtual:90986eb6c9897e829d4b83639b83eedbfe41e3a18be07901f18440f698a17aadf6ce2bfb95dd2383015ee37aae6a707258e7be54507a2a88168c80e6756414a2#npm:7.16.8"],
             ["@babel/core", "npm:7.16.7"],
             ["@babel/helper-module-transforms", "npm:7.16.7"],
             ["@babel/helper-plugin-utils", "npm:7.16.7"],
@@ -3798,12 +3774,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/coffee-run/",
           "packageDependencies": [
             ["@heat/coffee-run", "workspace:packages/coffee-run"],
-            ["@heat/npm-coffee-publisher", "workspace:packages/npm-coffee-publisher"],
             ["@rollup/plugin-commonjs", "virtual:bd17576258eef37ef0f7ae0d2ed3e48b9d77e6ada8fe3c81559d97abf3e01c285ffbd2c44f8933139934ba2cd8fa8d2098fb607b597f7db19bff546ddd4a863f#npm:21.0.1"],
             ["@rollup/plugin-json", "virtual:bd17576258eef37ef0f7ae0d2ed3e48b9d77e6ada8fe3c81559d97abf3e01c285ffbd2c44f8933139934ba2cd8fa8d2098fb607b597f7db19bff546ddd4a863f#npm:4.1.0"],
             ["commander", "npm:8.3.0"],
-            ["jest", "npm:24.9.0"],
-            ["jest-preset-coffeescript", "virtual:bd17576258eef37ef0f7ae0d2ed3e48b9d77e6ada8fe3c81559d97abf3e01c285ffbd2c44f8933139934ba2cd8fa8d2098fb607b597f7db19bff546ddd4a863f#npm:1.1.1"],
             ["rollup", "npm:2.63.0"],
             ["rollup-plugin-coffee-script", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:2.0.0"],
             ["rollup-plugin-node-resolve", "virtual:bd17576258eef37ef0f7ae0d2ed3e48b9d77e6ada8fe3c81559d97abf3e01c285ffbd2c44f8933139934ba2cd8fa8d2098fb607b597f7db19bff546ddd4a863f#npm:5.2.0"]
@@ -3872,17 +3845,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@heat/npm-coffee-publisher", [
-        ["npm:0.1.8", {
-          "packageLocation": "./.yarn/cache/@heat-npm-coffee-publisher-npm-0.1.8-b5372826c2-252f6deda1.zip/node_modules/@heat/npm-coffee-publisher/",
-          "packageDependencies": [
-            ["@heat/npm-coffee-publisher", "npm:0.1.8"],
-            ["@babel/core", "npm:7.16.7"],
-            ["babel-plugin-transform-es2015-modules-commonjs", "npm:6.26.2"],
-            ["coffeescript", "npm:2.6.1"],
-            ["rimraf", "npm:2.7.1"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:0.2.0", {
           "packageLocation": "./.yarn/cache/@heat-npm-coffee-publisher-npm-0.2.0-5a1c3c6f28-707156f5ab.zip/node_modules/@heat/npm-coffee-publisher/",
           "packageDependencies": [
@@ -3942,13 +3904,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/s3-sync/",
           "packageDependencies": [
             ["@heat/s3-sync", "workspace:packages/s3-sync"],
-            ["@babel/core", "npm:7.16.7"],
-            ["@babel/plugin-transform-modules-commonjs", "virtual:90986eb6c9897e829d4b83639b83eedbfe41e3a18be07901f18440f698a17aadf6ce2bfb95dd2383015ee37aae6a707258e7be54507a2a88168c80e6756414a2#npm:7.16.8"],
-            ["@heat/npm-coffee-publisher", "npm:0.1.8"],
             ["array-chunk", "npm:1.0.0"],
             ["async", "npm:3.2.2"],
             ["aws-sdk", "npm:2.1053.0"],
-            ["coffeescript", "npm:2.6.1"],
             ["content-security-policy-builder", "npm:2.1.0"],
             ["etag-hash", "npm:1.1.3"],
             ["mime-types", "npm:2.1.34"],
@@ -3958,6 +3916,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@heat/step-functions-local", [
+        ["npm:0.0.6", {
+          "packageLocation": "./.yarn/unplugged/@heat-step-functions-local-npm-0.0.6-859a5a0d61/node_modules/@heat/step-functions-local/",
+          "packageDependencies": [
+            ["@heat/step-functions-local", "npm:0.0.6"]
+          ],
+          "linkType": "HARD",
+        }],
         ["workspace:packages/step-functions-local", {
           "packageLocation": "./packages/step-functions-local/",
           "packageDependencies": [
@@ -3973,7 +3938,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@heat/test", "workspace:packages/test"],
             ["@babel/core", "npm:7.16.7"],
             ["@heat/awsless", "npm:0.1.109"],
-            ["@heat/step-functions-local", "workspace:packages/step-functions-local"],
+            ["@heat/step-functions-local", "npm:0.0.6"],
             ["asl-validator", "npm:1.10.0"],
             ["dynamo-db-local", "npm:3.2.7"],
             ["get-port", "npm:5.1.1"],
@@ -6104,21 +6069,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/babel__core", null],
             ["babel-plugin-jest-hoist", "npm:27.4.0"],
             ["babel-preset-current-node-syntax", "virtual:fba39b99439252a32992dfc3e3498041d2e97153838457fb4fcf0506b7d65a3739d3eb32ee4ea3d25cd4c78ce6f886f531672dacd9f6352f01bf8ecf6b0a0dda#npm:1.0.1"]
-          ],
-          "packagePeers": [
-            "@babel/core",
-            "@types/babel__core"
-          ],
-          "linkType": "HARD",
-        }],
-        ["virtual:7c103150d73c2499b436759b66bcec0a59ed144030e0954ac5847f7fa8d686f2b8a694e6537d48f1aa14da76050763da8cce5b7cc5c177a8c450bc893941f48f#npm:24.9.0", {
-          "packageLocation": "./.yarn/__virtual__/babel-preset-jest-virtual-ec3c916675/0/cache/babel-preset-jest-npm-24.9.0-4ca5b59098-d32ab6255e.zip/node_modules/babel-preset-jest/",
-          "packageDependencies": [
-            ["babel-preset-jest", "virtual:7c103150d73c2499b436759b66bcec0a59ed144030e0954ac5847f7fa8d686f2b8a694e6537d48f1aa14da76050763da8cce5b7cc5c177a8c450bc893941f48f#npm:24.9.0"],
-            ["@babel/core", null],
-            ["@babel/plugin-syntax-object-rest-spread", "virtual:275f1abcbcf1c41caf7b91aecf0058be4bcf7f08d7e3a4d308fffaf574c4b7d0bc02249a14daed4c1c5fa8fadd1f65ce3c6f10a3f38811909a9569181b029a93#npm:7.8.3"],
-            ["@types/babel__core", null],
-            ["babel-plugin-jest-hoist", "npm:24.9.0"]
           ],
           "packagePeers": [
             "@babel/core",
@@ -10683,29 +10633,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", null],
             ["babel-preset-jest", "virtual:d8ba942855fc31d64e986aedb322364b9c525dcd50429cdaf342795338e79bc7e28296d5fcf73f578cf92c34c5e25da6f8e92120e9df45a4dbc718131e62b981#npm:24.9.0"],
             ["coffeescript", "npm:2.6.1"],
-            ["jest", "npm:24.9.0"]
-          ],
-          "packagePeers": [
-            "@babel/core",
-            "@types/babel__core",
-            "@types/coffeescript",
-            "@types/jest",
-            "coffeescript",
-            "jest"
-          ],
-          "linkType": "HARD",
-        }],
-        ["virtual:bd17576258eef37ef0f7ae0d2ed3e48b9d77e6ada8fe3c81559d97abf3e01c285ffbd2c44f8933139934ba2cd8fa8d2098fb607b597f7db19bff546ddd4a863f#npm:1.1.1", {
-          "packageLocation": "./.yarn/__virtual__/jest-preset-coffeescript-virtual-7c103150d7/0/cache/jest-preset-coffeescript-npm-1.1.1-cd119c07c8-64a0e76d13.zip/node_modules/jest-preset-coffeescript/",
-          "packageDependencies": [
-            ["jest-preset-coffeescript", "virtual:bd17576258eef37ef0f7ae0d2ed3e48b9d77e6ada8fe3c81559d97abf3e01c285ffbd2c44f8933139934ba2cd8fa8d2098fb607b597f7db19bff546ddd4a863f#npm:1.1.1"],
-            ["@babel/core", null],
-            ["@babel/plugin-transform-modules-commonjs", "virtual:275f1abcbcf1c41caf7b91aecf0058be4bcf7f08d7e3a4d308fffaf574c4b7d0bc02249a14daed4c1c5fa8fadd1f65ce3c6f10a3f38811909a9569181b029a93#npm:7.16.7"],
-            ["@types/babel__core", null],
-            ["@types/coffeescript", null],
-            ["@types/jest", null],
-            ["babel-preset-jest", "virtual:7c103150d73c2499b436759b66bcec0a59ed144030e0954ac5847f7fa8d686f2b8a694e6537d48f1aa14da76050763da8cce5b7cc5c177a8c450bc893941f48f#npm:24.9.0"],
-            ["coffeescript", null],
             ["jest", "npm:24.9.0"]
           ],
           "packagePeers": [

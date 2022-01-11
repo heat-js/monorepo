@@ -10,24 +10,15 @@
 		"url": "https://github.com/heat-js/monorepo/issues"
 	},
 	"scripts": {
-		"test": "./node_modules/.bin/jest",
-		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
-		"minor": "yarn version --minor; ./node_modules/.bin/ncp",
-		"major": "yarn version --major; ./node_modules/.bin/ncp",
-		"deploy": "yarn version; ./node_modules/.bin/ncp",
-		"clear-cache": "zsh -c 'PROFILE=${1} coffee -t ./cli/clear-cache.coffee' --",
-		"sync": "coffee -t ./cli/sync.coffee"
+		"patch": "yarn version --patch; yarn run -T ncp",
+		"minor": "yarn version --minor; yarn run -T ncp",
+		"major": "yarn version --major; yarn run -T ncp",
+		"deploy": "yarn version; yarn run -T ncp"
 	},
 	"babel": {
 		"plugins": [
 			"@babel/plugin-transform-modules-commonjs"
 		]
-	},
-	"devDependencies": {
-		"@babel/core": "^7.8.7",
-		"@babel/plugin-transform-modules-commonjs": "^7.8.3",
-		"@heat/npm-coffee-publisher": "^0.1.6",
-		"coffeescript": "^2.5.1"
 	},
 	"dependencies": {
 		"array-chunk": "^1.0.0",

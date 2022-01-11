@@ -33,7 +33,7 @@
 		"@babel/preset-env": "^7.14.8",
 		"@bugsnag/source-maps": "^2.0.0",
 		"@graphql-tools/merge": "^6.2.7",
-		"@heat/s3-deploy": "npm:latest",
+		"@heat/s3-deploy": "^0.0.13",
 		"@rollup/plugin-babel": "^5.3.0",
 		"@rollup/plugin-commonjs": "^20.0.0",
 		"@rollup/plugin-node-resolve": "^13.0.4",

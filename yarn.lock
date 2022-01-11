@@ -21,7 +21,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.1.0, @babel/core@npm:^7.16.7, @babel/core@npm:^7.4.0, @babel/core@npm:^7.5.0, @babel/core@npm:^7.8.7":
+"@babel/core@npm:^7.1.0, @babel/core@npm:^7.16.7, @babel/core@npm:^7.4.0, @babel/core@npm:^7.5.0":
   version: 7.16.7
   resolution: "@babel/core@npm:7.16.7"
   dependencies:
@@ -922,20 +922,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-modules-commonjs@npm:^7.8.3":
-  version: 7.16.8
-  resolution: "@babel/plugin-transform-modules-commonjs@npm:7.16.8"
-  dependencies:
-    "@babel/helper-module-transforms": ^7.16.7
-    "@babel/helper-plugin-utils": ^7.16.7
-    "@babel/helper-simple-access": ^7.16.7
-    babel-plugin-dynamic-import-node: ^2.3.3
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: c0ac00f5457e12cac7825b14725b6fc787bef78945181469ff79f07ef0fd7df021cb00fe1d3a9f35fc9bc92ae59e6e3fc9075a70b627dfe10e00d0907892aace
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-modules-systemjs@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/plugin-transform-modules-systemjs@npm:7.16.7"
@@ -1452,7 +1438,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heat/awsless@npm:latest":
+"@heat/awsless@npm:^0.1.109":
   version: 0.1.109
   resolution: "@heat/awsless@npm:0.1.109"
   dependencies:
@@ -1528,7 +1514,7 @@ __metadata:
     "@bugsnag/source-maps": ^2.0.0
     "@graphql-tools/merge": ^6.2.7
     "@heat/cloud-front-function": "npm:latest"
-    "@heat/s3-deploy": "npm:latest"
+    "@heat/s3-deploy": ^0.0.13
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^20.0.0
     "@rollup/plugin-node-resolve": ^13.0.4
@@ -1607,12 +1593,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/coffee-run@workspace:packages/coffee-run"
   dependencies:
-    "@heat/npm-coffee-publisher": ^0.2.0
     "@rollup/plugin-commonjs": ^21.0.1
     "@rollup/plugin-json": ^4.1.0
     commander: ^8.1.0
-    jest: ^24.8.0
-    jest-preset-coffeescript: 1.1.1
     rollup: ^2.56.0
     rollup-plugin-coffee-script: ^2.0.0
     rollup-plugin-node-resolve: ^5.2.0
@@ -1663,7 +1646,7 @@ __metadata:
     "@babel/core": ^7.16.7
     "@babel/plugin-transform-modules-commonjs": ^7.16.7
     "@babel/preset-env": ^7.16.7
-    "@heat/npm-coffee-publisher": "npm:latest"
+    "@heat/npm-coffee-publisher": ^0.2.0
     aws-sdk: ^2.1053.0
     babel-preset-jest: ^27.4.0
     coffeescript: ^2.6.1
@@ -1672,40 +1655,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/npm-coffee-publisher@^0.2.0, @heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher":
-  version: 0.0.0-use.local
-  resolution: "@heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher"
-  dependencies:
-    "@babel/core": ^7.4.0
-    babel-plugin-transform-es2015-modules-commonjs: ^6.26.2
-    coffeescript: ^2.3.2
-    rimraf: ^2.6.3
-  bin:
-    ncp: src/index.js
-    ncp-build: src/build.js
-    ncp-clean: src/clean.js
-    ncp-publish: src/publish.js
-  languageName: unknown
-  linkType: soft
-
-"@heat/npm-coffee-publisher@npm:^0.1.6":
-  version: 0.1.8
-  resolution: "@heat/npm-coffee-publisher@npm:0.1.8"
-  dependencies:
-    "@babel/core": ^7.4.0
-    babel-plugin-transform-es2015-modules-commonjs: ^6.26.2
-    coffeescript: ^2.3.2
-    rimraf: ^2.6.3
-  bin:
-    ncp: src/index.js
-    ncp-build: src/build.js
-    ncp-clean: src/clean.js
-    ncp-publish: src/publish.js
-  checksum: 252f6deda1dfba11b54ab5c404ae9470fa3f6244abc87fcea2ce2b0a8826aa79539d78952e6113f6d545bb7ffb0fb5a643f261a3a1cfca5566d627fd6a59c4f3
-  languageName: node
-  linkType: hard
-
-"@heat/npm-coffee-publisher@npm:latest":
+"@heat/npm-coffee-publisher@npm:^0.2.0":
   version: 0.2.0
   resolution: "@heat/npm-coffee-publisher@npm:0.2.0"
   dependencies:
@@ -1722,6 +1672,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher":
+  version: 0.0.0-use.local
+  resolution: "@heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher"
+  dependencies:
+    "@babel/core": ^7.4.0
+    babel-plugin-transform-es2015-modules-commonjs: ^6.26.2
+    coffeescript: ^2.3.2
+    rimraf: ^2.6.3
+  bin:
+    ncp: src/index.js
+    ncp-build: src/build.js
+    ncp-clean: src/clean.js
+    ncp-publish: src/publish.js
+  languageName: unknown
+  linkType: soft
+
 "@heat/redis-token-bucket-ratelimiter@workspace:packages/node-redis-token-bucket-ratelimiter":
   version: 0.0.0-use.local
   resolution: "@heat/redis-token-bucket-ratelimiter@workspace:packages/node-redis-token-bucket-ratelimiter"
@@ -1735,7 +1701,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/s3-deploy@npm:^0.0.13, @heat/s3-deploy@npm:latest":
+"@heat/s3-deploy@npm:^0.0.13":
   version: 0.0.13
   resolution: "@heat/s3-deploy@npm:0.0.13"
   dependencies:
@@ -1754,13 +1720,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/s3-sync@workspace:packages/s3-sync"
   dependencies:
-    "@babel/core": ^7.8.7
-    "@babel/plugin-transform-modules-commonjs": ^7.8.3
-    "@heat/npm-coffee-publisher": ^0.1.6
     array-chunk: ^1.0.0
     async: ^3.2.0
     aws-sdk: ^2.639.0
-    coffeescript: ^2.5.1
     content-security-policy-builder: ^2.1.0
     etag-hash: ^1.0.1
     mime-types: ^2.1.26
@@ -1768,7 +1730,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/step-functions-local@^0.0.6, @heat/step-functions-local@workspace:packages/step-functions-local":
+"@heat/step-functions-local@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@heat/step-functions-local@npm:0.0.6"
+  checksum: 703e24084404b3a60cb272498301c2639f7ca102a4bdbc7797314e826b026f14ab62b6a7f39c183653c1092e7d057e2c503646ed7bf60dfa2e54c053f5c14218
+  languageName: node
+  linkType: hard
+
+"@heat/step-functions-local@workspace:packages/step-functions-local":
   version: 0.0.0-use.local
   resolution: "@heat/step-functions-local@workspace:packages/step-functions-local"
   languageName: unknown
@@ -1779,7 +1748,7 @@ __metadata:
   resolution: "@heat/test@workspace:packages/test"
   dependencies:
     "@babel/core": ^7.5.0
-    "@heat/awsless": "npm:latest"
+    "@heat/awsless": ^0.1.109
     "@heat/step-functions-local": ^0.0.6
     asl-validator: ^1.3.0
     dynamo-db-local: ^3.2.1
@@ -4418,7 +4387,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"coffeescript@npm:^2.3.2, coffeescript@npm:^2.5.1, coffeescript@npm:^2.6.1":
+"coffeescript@npm:^2.3.2, coffeescript@npm:^2.6.1":
   version: 2.6.1
   resolution: "coffeescript@npm:2.6.1"
   bin:

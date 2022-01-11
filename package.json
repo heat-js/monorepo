@@ -9,7 +9,7 @@
 		"@babel/core": "^7.16.7",
 		"@babel/plugin-transform-modules-commonjs": "^7.16.7",
 		"@babel/preset-env": "^7.16.7",
-		"@heat/npm-coffee-publisher": "npm:latest",
+		"@heat/npm-coffee-publisher": "^0.2.0",
 		"aws-sdk": "^2.1053.0",
 		"babel-preset-jest": "^27.4.0",
 		"coffeescript": "^2.6.1",
