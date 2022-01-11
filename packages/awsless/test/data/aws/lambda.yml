@@ -1,0 +1,23 @@
+
+GetLambda:
+  Type: Custom::Lambda::Function
+  Properties:
+    Name: ${var:Config.Stack}__get
+    Handle: lambda/index.default
+    # Warmer: true
+    # Logging: true
+
+# SetLambda:
+#   Type: Custom::Lambda::Function
+#   Properties:
+#     Name: ${var:Config.Stack}__set
+#     Handle: lambda/index.default
+#     Events:
+#       - Type: CRON
+#         Rate: rate(5 minutes)
+
+#       - Type: SNS
+#         Topic: !Ref TestTopic
+
+#       - Type: SQS
+#         Queue: !GetAtt TestQueue.Arn

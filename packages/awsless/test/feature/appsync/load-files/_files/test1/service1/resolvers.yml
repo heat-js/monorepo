@@ -1,0 +1,11 @@
+
+- Type: Query
+  Field: search
+  Request: template.vtl
+  Response: template.vtl
+
+- Type: Query
+  Field: posts
+  Lambda: posts__list
+  Request: template.vtl
+  Response: template.vtl

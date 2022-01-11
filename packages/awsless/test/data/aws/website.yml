@@ -1,0 +1,20 @@
+
+# Domain:
+#   Type: Custom::Domain
+
+
+# Certificate:
+#   Type: Custom::Certificate
+
+
+# Website:
+#   Type: Custom::Website
+#   Properties:
+#     DomainName: cf-test.${ssm:domain}
+#     # Certificate: ${cf:us-east-1:CertifcateArn}
+#     Certificate: arn:aws:acm:us-east-1:468004125411:certificate/932f22c6-e7df-402c-b786-d77553b3b5e3
+
+#     Syncing:
+#       Folder: public
+#       IgnoreExtensions:
+#         - map

@@ -1,0 +1,14 @@
+
+type SearchQuery {
+	posts: [ Post ]!
+}
+
+type Post {
+	title: String!
+	content: String!
+}
+
+type Query {
+	posts: [ Post ]!
+	search: SearchQuery!
+}

@@ -1,0 +1,5 @@
+
+test:
+  lol1: !cf eu-west-1:adasd
+  lol2: !cf [ eu-west-1, asdasd ]
+  lol3: !opt asdasd

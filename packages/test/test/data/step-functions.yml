@@ -1,0 +1,55 @@
+
+TestStepFunctions:
+  name: ${self:service}__test
+
+  definition:
+    StartAt: WaitForTaskToken
+    States:
+      WaitForTaskToken:
+        Type: Task
+        Next: Lambda
+        Resource: arn:aws:states:::lambda:invoke.waitForTaskToken
+        Parameters:
+          FunctionName: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:functions.lambda.name}
+          Payload:
+            taskToken.$: $$.Task.Token
+        ResultPath: null
+      Lambda:
+        Type: Task
+        Next: SQS
+        Resource: arn:aws:lambda:#{AWS_REGION}:#{AWS::AccountId}:function:${self:service}__testLambda123
+        Parameters:
+          address.$: $.address
+        ResultPath: $.output
+      SQS:
+        Type: Task
+        Next: SQS2
+        Resource: arn:aws:states:::sqs:sendMessage
+        Parameters:
+          QueueUrl: https://sqs.#{AWS::Region}.amazonaws.com/#{AWS::AccountId}/dummyQueue
+          MessageBody:
+            data.$: $
+            state.$: $$
+          MessageAttributes:
+            queue:
+              DataType: String
+              StringValue: dummyQueue
+        ResultPath: null
+      SQS2:
+        Type: Task
+        Next: SNS
+        Resource: arn:aws:states:::sqs:sendMessage
+        Parameters:
+          QueueUrl: https://sqs.#{AWS::Region}.amazonaws.com/#{AWS::AccountId}/dummyQueue2
+          MessageBody: someData
+        ResultPath: null
+      SNS:
+        Type: Task
+        End: true
+        Resource: arn:aws:states:::sns:publish
+        Parameters:
+          TopicArn: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:testTopic
+          Message:
+            data.$: $
+            state.$: $$
+        ResultPath: null

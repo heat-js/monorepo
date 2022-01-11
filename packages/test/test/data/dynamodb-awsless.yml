@@ -1,0 +1,8 @@
+
+TestTable:
+  Type: Awsless::DynamoDB::Table
+  Properties:
+    Name: test
+    BillingMode: !when [ Config.Profile, is, jacksclub, PAY_PER_REQUEST, PROVISIONED ]
+    Schema:
+      HASH: { S: id }

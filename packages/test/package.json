@@ -1,0 +1,42 @@
+{
+  "name": "@heat/test",
+  "version": "0.2.107",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heat-js/test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/heat-js/test/issues"
+  },
+  "scripts": {
+    "test": "yarn run -T jest",
+    "patch": "yarn version --patch; yarn run -T ncp",
+    "minor": "yarn version --minor; yarn run -T ncp",
+    "major": "yarn version --major; yarn run -T ncp",
+    "deploy": "zsh -c 'if yarn test; then yarn version; yarn run -T ncp; fi' --"
+  },
+  "jest": {
+    "preset": "jest-preset-coffeescript",
+    "testEnvironment": "node",
+    "rootDir": "./test/"
+  },
+  "dependencies": {
+    "@babel/core": "^7.5.0",
+    "@heat/awsless": "npm:latest",
+    "@heat/step-functions-local": "^0.0.6",
+    "asl-validator": "^1.3.0",
+    "dynamo-db-local": "^3.2.1",
+    "get-port": "^5.0.0",
+    "js-yaml": "^4.1.0",
+    "koa": "^2.7.0",
+    "proper-lockfile": "^4.1.1",
+    "redis": "^3.0.2",
+    "redis-server": "^1.2.2"
+  },
+  "peerDependencies": {
+    "aws-sdk": "^2.389.0",
+    "jest": "^24.8.0",
+    "jest-preset-coffeescript": "1.1.1"
+  }
+}

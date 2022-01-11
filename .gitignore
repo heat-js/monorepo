@@ -1,0 +1,31 @@
+
+# My Files
+.env
+.serverless
+.awsless
+.webpack
+.build
+node_modules/
+yarn-error.log*
+yarn-debug.log*
+dump.rdb
+.svelte-kit
+.percel
+
+# OS Files
+.DS_Store*
+.AppleDouble
+Icon?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.directory
+*~
+
+# Yarn
+.yarn/*
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

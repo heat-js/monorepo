@@ -1,0 +1,28 @@
+{
+  "name": "@heat/cloud-front-function",
+  "main": "index",
+  "version": "0.0.17",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heat-js/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/heat-js/monorepo/issues"
+  },
+  "scripts": {
+    "test": "yarn run -T jest",
+    "patch": "if yarn test; then yarn version --patch; yarn run -T ncp; fi",
+    "minor": "if yarn test; then yarn version --minor; yarn run -T ncp; fi",
+    "major": "if yarn test; then yarn version --major; yarn run -T ncp; fi",
+    "deploy": "if yarn test; then yarn version; yarn run -T ncp; fi"
+  },
+  "jest": {
+    "preset": "jest-preset-coffeescript",
+    "testEnvironment": "node",
+    "rootDir": "./test/"
+  },
+  "dependencies": {
+    "js-base64": "2.6.4"
+  }
+}

@@ -1,0 +1,5 @@
+
+TestTopic:
+  Type: AWS::SNS::Topic
+  Properties:
+    TopicName: ${var:Config.Stack}__topic

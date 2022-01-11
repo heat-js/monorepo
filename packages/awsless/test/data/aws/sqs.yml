@@ -1,0 +1,15 @@
+
+TestQueue:
+  Type: Custom::SQS::Queue
+  Properties:
+    Name: ${var:Config.Stack}__queue
+
+# Test2Queue:
+#   Type: Custom::SQS::Queue
+#   Properties:
+#     Name: ${var:Config.Stack}__test2
+
+# ContestQueue:
+#   Type: Custom::SQS::Queue
+#   Properties:
+#     Name: ${var:Config.Name}__contest

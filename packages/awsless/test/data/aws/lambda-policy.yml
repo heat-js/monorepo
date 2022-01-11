@@ -1,0 +1,65 @@
+
+LambdaPolicy:
+  Type: Custom::Lambda::Policy
+  Properties:
+
+    # -------------------------------------
+    # SSM
+    # -------------------------------------
+
+    - Effect: Allow
+      Action:
+        - ssm:GetParameter
+        - ssm:GetParameters
+        - ssm:GetParametersByPath
+      Resource:
+        - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/bugsnag/*'
+        - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/exchange-rate'
+
+    # -------------------------------------
+    # Lambda
+    # -------------------------------------
+
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:InvokeAsyncFunction
+      Resource:
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, redis-proxy-contest__run ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, redis-proxy-contest__eval ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, redis-proxy-contest__eval-sha ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, bonus__add ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, chat__bot-send ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, statistics__put ]]
+
+    # # -------------------------------------
+    # # DynamoDB
+    # # -------------------------------------
+
+    # - Effect: Allow
+    #   Action:
+    #     - dynamodb:GetItem
+    #     - dynamodb:PutItem
+    #     - dynamodb:UpdateItem
+    #     - dynamodb:Query
+    #     - dynamodb:Scan
+    #   Resource:
+    #     - !GetAtt ContestProgressTable.Arn
+    #     - !GetAtt ContestCompletedTable.Arn
+
+    # - Effect: Allow
+    #   Action:
+    #     - dynamodb:DeleteItem
+    #   Resource:
+    #     - !GetAtt ContestProgressTable.Arn
+
+    # # -------------------------------------
+    # # SQS
+    # # -------------------------------------
+
+    # - Effect: Allow
+    #   Action:
+    #     - sqs:SendMessage
+    #     - sqs:GetQueueUrl
+    #   Resource:
+    #     - !GetAtt ContestQueue.Arn

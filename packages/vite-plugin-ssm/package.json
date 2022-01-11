@@ -1,0 +1,23 @@
+{
+	"name": "@heat/vite-plugin-ssm",
+	"main": "index",
+	"version": "0.0.1",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"scripts": {
+		"patch": "yarn version patch; yarn npm publish --access=public",
+		"minor": "yarn version minor; yarn npm publish --access=public",
+		"major": "yarn version major; yarn npm publish --access=public",
+		"deploy": "yarn npm publish --access=public"
+	},
+	"dependencies": {
+		"aws-param-store": "^3.2.0",
+		"aws-sdk": "^2.1052.0"
+	}
+}

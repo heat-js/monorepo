@@ -1,0 +1,6 @@
+
+- Type: Mutation
+  Field: createPost
+  Lambda: posts__create
+  Request: template.vtl
+  Response: template.vtl

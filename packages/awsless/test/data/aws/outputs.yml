@@ -1,0 +1,26 @@
+
+TestOutput:
+  Type: Custom::Output
+  Properties:
+    Name: Test
+    Region: us-east-1
+    Value: ${var:Config.Stack}
+
+# Test2Output:
+#   Type: Custom::Output
+#   Properties:
+#     Name: Domain
+#     Value: ${ssm:domain}
+
+# Test3Output:
+#   Type: Custom::Output
+#   Properties:
+#     Name: DomainLOL
+#     Value: ${ var:Test2Output.Properties.Value }
+
+
+# Test:
+#   Type: Custom::Test
+#   Region: us-east-1
+#   Properties:
+#     Name: lolie

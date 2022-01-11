@@ -1,0 +1,13 @@
+
+Config:
+  Stack: cf-test
+  Region: eu-west-1
+  Profile: ${opt:profile}
+  Lambda:
+    Runtime: nodejs12.x
+    MemorySize: 384
+    Timeout: 10
+    DeploymentBucket: serverless-stack
+
+    Env:
+      AWS_ACCOUNT_ID: !Ref AWS::AccountId

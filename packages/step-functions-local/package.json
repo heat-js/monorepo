@@ -1,0 +1,24 @@
+{
+  "name": "@heat/step-functions-local",
+  "version": "0.0.6",
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heat-js/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/heat-js/monorepo/issues"
+  },
+  "scripts": {
+    "test": "yarn run -T jest",
+    "patch": "if yarn test; then yarn version --patch; yarn npm publish --access=public; fi",
+    "minor": "if yarn test; then yarn version --minor; yarn npm publish --access=public; fi",
+    "major": "if yarn test; then yarn version --major; yarn npm publish --access=public; fi",
+    "deploy": "if yarn test; then yarn version; yarn npm publish --access=public; fi"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testRegex": "tests?/.*\\.(js)$"
+  }
+}

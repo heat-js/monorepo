@@ -1,0 +1,90 @@
+
+TestTable:
+  Type: Awsless::DynamoDB::Table
+  Properties:
+    Name: test
+    # BillingMode: PROVISIONED
+    BillingMode: PAY_PER_REQUEST
+    PointInTimeRecovery: true
+    TTL: ttl
+    # Stream: NEW_IMAGE
+    WCU: 25
+    RCU: 10
+
+    Schema:
+      HASH: { S: hash }
+      SORT: { N: sort }
+
+    Indexes:
+      - Name: id-index
+        # RCU: 50
+        # Projection: ALL
+        Schema:
+          HASH: { S: hash }
+          SORT: { N: sort }
+
+        Scaling:
+          Read:
+            Max: 100
+            Min: 1
+
+    Scaling:
+      Write:
+        Max: 100
+        Min: 1
+        # TargetValue:
+        # ScaleIn:
+        # ScaleOut:
+
+      Read:
+        Max: 100
+        Min: 1
+
+
+
+# WalletTableWriteCapacity:
+#   Type: AWS::ApplicationAutoScaling::ScalableTarget
+#   Properties:
+#     MaxCapacity: 100
+#     MinCapacity: 1
+#     ResourceId: !Join [ '/', [ table, !Ref WalletTable ]]
+#     RoleARN: !GetAtt ScalingRole.Arn
+#     ScalableDimension: dynamodb:table:WriteCapacityUnits
+#     ServiceNamespace: dynamodb
+
+
+# WalletTableWriteScalingPolicy:
+#   Type: AWS::ApplicationAutoScaling::ScalingPolicy
+#   Properties:
+#     PolicyName: WalletTableWriteAutoScalingPolicy
+#     PolicyType: TargetTrackingScaling
+#     ScalingTargetId: !Ref WalletTableWriteCapacity
+#     TargetTrackingScalingPolicyConfiguration:
+#       TargetValue: 80
+#       ScaleInCooldown: 60
+#       ScaleOutCooldown: 60
+#       PredefinedMetricSpecification:
+#         PredefinedMetricType: DynamoDBWriteCapacityUtilization
+
+# WalletTableReadCapacity:
+#   Type: AWS::ApplicationAutoScaling::ScalableTarget
+#   Properties:
+#     MaxCapacity: 100
+#     MinCapacity: 1
+#     ResourceId: !Join [ '/', [ table, !Ref WalletTable ]]
+#     RoleARN: !GetAtt ScalingRole.Arn
+#     ScalableDimension: dynamodb:table:ReadCapacityUnits
+#     ServiceNamespace: dynamodb
+
+# WalletTableReadScalingPolicy:
+#   Type: AWS::ApplicationAutoScaling::ScalingPolicy
+#   Properties:
+#     PolicyName: WalletTableReadAutoScalingPolicy
+#     PolicyType: TargetTrackingScaling
+#     ScalingTargetId: !Ref WalletTableReadCapacity
+#     TargetTrackingScalingPolicyConfiguration:
+#       TargetValue: 80
+#       ScaleInCooldown: 60
+#       ScaleOutCooldown: 60
+#       PredefinedMetricSpecification:
+#         PredefinedMetricType: DynamoDBReadCapacityUtilization
