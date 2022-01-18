@@ -11,10 +11,9 @@
 		"url": "https://github.com/heat-js/monorepo/issues"
 	},
 	"scripts": {
-		"patch": "yarn version patch; yarn npm publish --access=public",
-		"minor": "yarn version minor; yarn npm publish --access=public",
-		"major": "yarn version major; yarn npm publish --access=public",
-		"deploy": "yarn npm publish --access=public"
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
 	},
 	"dependencies": {
 		"aws-param-store": "^3.2.0",

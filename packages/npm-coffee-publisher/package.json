@@ -1,7 +1,7 @@
 {
   "name": "@heat/npm-coffee-publisher",
   "license": "MIT",
-  "version": "0.2.0",
+  "version": "0.2.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/heat-js/monorepo.git"
@@ -10,10 +10,15 @@
     "url": "https://github.com/heat-js/monorepo/issues"
   },
   "bin": {
-    "ncp": "src/index.js",
-    "ncp-build": "src/build.js",
-    "ncp-clean": "src/clean.js",
-    "ncp-publish": "src/publish.js"
+    "ncp": "./src/index.js",
+    "ncp-build": "./src/build.js",
+    "ncp-clean": "./src/clean.js",
+    "ncp-publish": "./src/publish.js"
+  },
+  "scripts": {
+    "patch": "npm version patch; npm publish --access=public",
+    "minor": "npm version minor; npm publish --access=public",
+    "major": "npm version major; npm publish --access=public"
   },
   "dependencies": {
     "@babel/core": "^7.4.0",

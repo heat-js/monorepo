@@ -85,8 +85,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.16.7"],
             ["@babel/plugin-transform-modules-commonjs", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.16.7"],
             ["@babel/preset-env", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.16.7"],
-            ["@heat/npm-coffee-publisher", "npm:0.2.0"],
+            ["@heat/npm-coffee-publisher", "npm:0.2.8"],
             ["aws-sdk", "npm:2.1053.0"],
+            ["babel-plugin-transform-es2015-modules-commonjs", "npm:6.26.2"],
             ["babel-preset-jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:27.4.0"],
             ["coffeescript", "npm:2.6.1"],
             ["jest", "npm:24.9.0"],
@@ -3834,8 +3835,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.16.7"],
             ["@babel/plugin-transform-modules-commonjs", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.16.7"],
             ["@babel/preset-env", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.16.7"],
-            ["@heat/npm-coffee-publisher", "npm:0.2.0"],
+            ["@heat/npm-coffee-publisher", "npm:0.2.8"],
             ["aws-sdk", "npm:2.1053.0"],
+            ["babel-plugin-transform-es2015-modules-commonjs", "npm:6.26.2"],
             ["babel-preset-jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:27.4.0"],
             ["coffeescript", "npm:2.6.1"],
             ["jest", "npm:24.9.0"],
@@ -3845,10 +3847,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@heat/npm-coffee-publisher", [
-        ["npm:0.2.0", {
-          "packageLocation": "./.yarn/cache/@heat-npm-coffee-publisher-npm-0.2.0-5a1c3c6f28-707156f5ab.zip/node_modules/@heat/npm-coffee-publisher/",
+        ["npm:0.2.8", {
+          "packageLocation": "./.yarn/cache/@heat-npm-coffee-publisher-npm-0.2.8-e1ea88f9b1-205d6b9ec7.zip/node_modules/@heat/npm-coffee-publisher/",
           "packageDependencies": [
-            ["@heat/npm-coffee-publisher", "npm:0.2.0"],
+            ["@heat/npm-coffee-publisher", "npm:0.2.8"],
             ["@babel/core", "npm:7.16.7"],
             ["babel-plugin-transform-es2015-modules-commonjs", "npm:6.26.2"],
             ["coffeescript", "npm:2.6.1"],

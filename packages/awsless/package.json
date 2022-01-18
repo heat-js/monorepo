@@ -1,6 +1,6 @@
 {
 	"name": "@heat/awsless",
-	"version": "0.1.109",
+	"version": "0.1.110",
 	"license": "MIT",
 	"bin": "./awsless.js",
 	"main": "./index.js",
@@ -15,9 +15,9 @@
 		"test": "yarn run -T jest",
 		"demo": "yarn run -T coffee -t ./cli/demo.coffee",
 		"demo-yaml": "yarn run -T -t ./cli/yaml.coffee",
-		"patch": "yarn version --patch; yarn run -T ncp",
-		"minor": "yarn version --minor; yarn run -T ncp",
-		"major": "yarn version --major; yarn run -T ncp"
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
 	},
 	"jest": {
 		"preset": "jest-preset-coffeescript",
@@ -88,6 +88,6 @@
 		"webpack-merge": "^5.8.0"
 	},
 	"devDependencies": {
-		"@heat/cloud-front-function": "npm:latest"
+		"@heat/cloud-front-function": "^0.0.17"
 	}
 }

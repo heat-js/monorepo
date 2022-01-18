@@ -1513,7 +1513,7 @@ __metadata:
     "@babel/preset-env": ^7.14.8
     "@bugsnag/source-maps": ^2.0.0
     "@graphql-tools/merge": ^6.2.7
-    "@heat/cloud-front-function": "npm:latest"
+    "@heat/cloud-front-function": ^0.0.17
     "@heat/s3-deploy": ^0.0.13
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^20.0.0
@@ -1572,7 +1572,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/cloud-front-function@npm:latest":
+"@heat/cloud-front-function@npm:^0.0.17":
   version: 0.0.17
   resolution: "@heat/cloud-front-function@npm:0.0.17"
   dependencies:
@@ -1646,8 +1646,9 @@ __metadata:
     "@babel/core": ^7.16.7
     "@babel/plugin-transform-modules-commonjs": ^7.16.7
     "@babel/preset-env": ^7.16.7
-    "@heat/npm-coffee-publisher": ^0.2.0
+    "@heat/npm-coffee-publisher": ^0.2.8
     aws-sdk: ^2.1053.0
+    babel-plugin-transform-es2015-modules-commonjs: ^6.26.2
     babel-preset-jest: ^27.4.0
     coffeescript: ^2.6.1
     jest: ^24.8.0
@@ -1655,9 +1656,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/npm-coffee-publisher@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@heat/npm-coffee-publisher@npm:0.2.0"
+"@heat/npm-coffee-publisher@npm:^0.2.8":
+  version: 0.2.8
+  resolution: "@heat/npm-coffee-publisher@npm:0.2.8"
   dependencies:
     "@babel/core": ^7.4.0
     babel-plugin-transform-es2015-modules-commonjs: ^6.26.2
@@ -1668,7 +1669,7 @@ __metadata:
     ncp-build: src/build.js
     ncp-clean: src/clean.js
     ncp-publish: src/publish.js
-  checksum: 707156f5ab41069849b5a644e07064ca7b36a9df1c11bc6bf56ad48716e8bf5898862f6b6f3ab67deb19390dc41e72d1d7144b2fc62756a6260d48534870fb12
+  checksum: 205d6b9ec786285921a029aa4f20b7a00ed2ad423a73d167e5d1c1e046c8c26264bbb6671204a93b814a04f062b843fceb914551d1d6afb081b260c29b03b43e
   languageName: node
   linkType: hard
 
@@ -1681,10 +1682,10 @@ __metadata:
     coffeescript: ^2.3.2
     rimraf: ^2.6.3
   bin:
-    ncp: src/index.js
-    ncp-build: src/build.js
-    ncp-clean: src/clean.js
-    ncp-publish: src/publish.js
+    ncp: ./src/index.js
+    ncp-build: ./src/build.js
+    ncp-clean: ./src/clean.js
+    ncp-publish: ./src/publish.js
   languageName: unknown
   linkType: soft
 

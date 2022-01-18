@@ -3,7 +3,7 @@ import fs from 'fs'
 
 export default (directory) ->
 
-	await fs.promises.rmdir directory, { recursive: true }
+	await fs.promises.rm directory, { recursive: true }
 
 
 # import rimraf from 'rimraf'

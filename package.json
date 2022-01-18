@@ -1,5 +1,6 @@
 {
 	"name": "@heat/monorepo",
+	"version": "0.0.1",
 	"private": true,
 	"workspaces": [
 		"packages/*"
@@ -9,8 +10,9 @@
 		"@babel/core": "^7.16.7",
 		"@babel/plugin-transform-modules-commonjs": "^7.16.7",
 		"@babel/preset-env": "^7.16.7",
-		"@heat/npm-coffee-publisher": "^0.2.0",
+		"@heat/npm-coffee-publisher": "^0.2.8",
 		"aws-sdk": "^2.1053.0",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
 		"babel-preset-jest": "^27.4.0",
 		"coffeescript": "^2.6.1",
 		"jest": "^24.8.0",

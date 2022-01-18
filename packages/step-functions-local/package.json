@@ -12,10 +12,9 @@
   },
   "scripts": {
     "test": "yarn run -T jest",
-    "patch": "if yarn test; then yarn version --patch; yarn npm publish --access=public; fi",
-    "minor": "if yarn test; then yarn version --minor; yarn npm publish --access=public; fi",
-    "major": "if yarn test; then yarn version --major; yarn npm publish --access=public; fi",
-    "deploy": "if yarn test; then yarn version; yarn npm publish --access=public; fi"
+    "patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
   },
   "jest": {
     "testEnvironment": "node",

@@ -14,10 +14,9 @@
 	"scripts": {
 		"test": "yarn run -T jest",
 		"run": "yarn run -T coffee ./src/index.coffee",
-		"patch": "yarn version --patch; yarn run -T ncp",
-		"minor": "yarn version --minor; yarn run -T ncp",
-		"major": "yarn version --major; yarn run -T ncp",
-		"deploy": "yarn version; yarn run -T ncp' --"
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
 	},
 	"babel": {
 		"plugins": [
