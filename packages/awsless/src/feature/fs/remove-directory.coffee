@@ -2,8 +2,8 @@
 import fs from 'fs'
 
 export default (directory) ->
-
-	await fs.promises.rm directory, { recursive: true }
+	if fs.existsSync directory
+		fs.rmdirSync directory, { recursive: true }
 
 
 # import rimraf from 'rimraf'

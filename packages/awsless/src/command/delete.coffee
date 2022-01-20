@@ -85,10 +85,8 @@ export default (options) ->
 
 		await run (task) ->
 			task.setContent 'Cleaning up...'
-			await Promise.all [
-				removeDirectory cloudformationDir
-				context.emitter.emit 'cleanup'
-			]
+			removeDirectory cloudformationDir
+			await context.emitter.emit 'cleanup'
 
 		# -----------------------------------------------------
 		# Run events before stack delete

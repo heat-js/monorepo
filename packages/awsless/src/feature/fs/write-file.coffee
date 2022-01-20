@@ -4,5 +4,7 @@ import fs		from 'fs'
 import path		from 'path'
 
 export default (file, data) ->
-	await mkdirp path.dirname file
-	await fs.promises.writeFile file, data
+	directory = path.dirname file
+	# await mkdirp directory
+	fs.mkdirSync directory, { recursive: true }
+	fs.writeFileSync file, data
