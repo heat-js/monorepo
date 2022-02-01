@@ -1,5 +1,6 @@
 
 import Middleware 	from './abstract'
+import Signer		from 'aws-sdk/lib/rds/signer'
 import knex 		from 'knex'
 
 export default class Knex extends Middleware
