@@ -8,11 +8,11 @@ export default class Knex extends Middleware
 
 		db = null
 		app.knex = ->
-			config  = app.config.knex
-			isProxy = config.proxy
-			del config.proxy
+			config 	 = app.config.knex
+			iamProxy = config.iamProxy
+			delete config.iamProxy
 
-			if isProxy
+			if iamProxy
 				config = Object.assign {}, config, {
 					connection: @iamProxyConnectionConfig config.connection
 				}
