@@ -8,7 +8,16 @@ export default class Knex extends Middleware
 
 		db = null
 		app.knex = ->
-			db = knex app.config.knex
+			config  = app.config.knex
+			isProxy = config.proxy
+			del config.proxy
+
+			if isProxy
+				config = Object.assign {}, config, {
+					connection: @iamProxyConnectionConfig config.connection
+				}
+
+			db = knex config
 			return db
 
 		try
@@ -23,3 +32,30 @@ export default class Knex extends Middleware
 	destroy: (db) ->
 		if db
 			await db.destroy()
+
+	iamProxyConnectionConfig: (connection) ->
+		signer = new Signer {
+			region: 	@region()
+			hostname: 	connection.host
+			port: 		connection.port
+			username: 	connection.username
+		}
+
+		token = signer.getAuthToken {
+			username: connection.username
+		}
+
+		return {
+			host: 		connection.host
+			port: 		connection.port
+			user: 		connection.username
+			password: 	token
+			database: 	connection.database
+			ssl: 		{ rejectUnauthorized: false }
+
+			authSwitchHandler: ({ pluginName, pluginData }, cb) ->
+				if pluginName is 'mysql_clear_password'
+					password =  token + '\0'
+					buffer = Buffer.from password
+					cb null, password
+		}
