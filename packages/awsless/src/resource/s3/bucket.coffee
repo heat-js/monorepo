@@ -10,6 +10,20 @@ import { run }			from '../../feature/terminal/task'
 import time				from '../../feature/performance/time'
 # import output			from './output'
 
+websiteConfiguration = (ctx) ->
+	IndexDocument = ctx.string 'Website.Index', ''
+	ErrorDocument = ctx.string 'Website.Error', ''
+
+	if not ErrorDocument and not IndexDocument
+		return {}
+
+	return {
+		WebsiteConfiguration: {
+			IndexDocument
+			ErrorDocument
+		}
+	}
+
 export default resource (ctx) ->
 
 	region				= ctx.string '@Config.Region'
@@ -26,6 +40,7 @@ export default resource (ctx) ->
 		Properties: {
 			BucketName
 			AccessControl
+			...websiteConfiguration ctx
 			PublicAccessBlockConfiguration: {
 				BlockPublicAcls:		ctx.boolean 'Block.Acls',		true
 				BlockPublicPolicy:		ctx.boolean 'Block.Policy',		true

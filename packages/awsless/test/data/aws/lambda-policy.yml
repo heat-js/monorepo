@@ -13,8 +13,8 @@ LambdaPolicy:
         - ssm:GetParameters
         - ssm:GetParametersByPath
       Resource:
-        - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/bugsnag/*'
-        - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/exchange-rate'
+        - !Sub 'arn:aws:ssm:${AWS::}:${AWS::AccountId}:parameter/bugsnag/*'
+        - !Sub 'arn:aws:ssm:${AWS::}:${AWS::AccountId}:parameter/exchange-rate'
 
     # -------------------------------------
     # Lambda
@@ -25,12 +25,12 @@ LambdaPolicy:
         - lambda:InvokeFunction
         - lambda:InvokeAsyncFunction
       Resource:
-        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, redis-proxy-contest__run ]]
-        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, redis-proxy-contest__eval ]]
-        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, redis-proxy-contest__eval-sha ]]
-        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, bonus__add ]]
-        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, chat__bot-send ]]
-        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::Region, Ref: AWS::AccountId, function, statistics__put ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::, Ref: AWS::AccountId, function, redis-proxy-contest__run ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::, Ref: AWS::AccountId, function, redis-proxy-contest__eval ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::, Ref: AWS::AccountId, function, redis-proxy-contest__eval-sha ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::, Ref: AWS::AccountId, function, bonus__add ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::, Ref: AWS::AccountId, function, chat__bot-send ]]
+        - Fn::Join: [ ':', [ arn:aws:lambda, Ref: AWS::, Ref: AWS::AccountId, function, statistics__put ]]
 
     # # -------------------------------------
     # # DynamoDB
