@@ -19,7 +19,7 @@ export default class KnexProxy extends Middleware
 	handle: (app, next) ->
 		db = null
 		app.knex = ->
-			config = {}, app.config.knex, {
+			config = Object.assign {}, app.config.knex, {
 				connection: @iamProxyConnectionConfig app.config.knex.connection
 			}
 
