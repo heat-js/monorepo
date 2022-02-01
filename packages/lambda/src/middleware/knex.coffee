@@ -7,7 +7,7 @@ export default class Knex extends Middleware
 	handle: (app, next) ->
 
 		db = null
-		app.knex = ->
+		app.knex = =>
 			config 	= app.config.knex
 			isProxy = config.proxy
 			delete config.proxy
