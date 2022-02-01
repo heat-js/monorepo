@@ -8,11 +8,11 @@ export default class Knex extends Middleware
 
 		db = null
 		app.knex = ->
-			config 	 = app.config.knex
-			iamProxy = config.iamProxy
-			delete config.iamProxy
+			config 	= app.config.knex
+			isProxy = config.iamPrproxyoxy
+			delete config.proxy
 
-			if iamProxy
+			if isProxy
 				config = Object.assign {}, config, {
 					connection: @iamProxyConnectionConfig config.connection
 				}
@@ -42,15 +42,11 @@ export default class Knex extends Middleware
 		}
 
 		token = signer.getAuthToken {
-			username: connection.username
+			username: 	connection.username
 		}
 
-		return {
-			host: 		connection.host
-			port: 		connection.port
-			user: 		connection.username
+		return Object.assign {}, connection, {
 			password: 	token
-			database: 	connection.database
 			ssl: 		{ rejectUnauthorized: false }
 
 			authSwitchHandler: ({ pluginName, pluginData }, cb) ->
