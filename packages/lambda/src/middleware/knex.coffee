@@ -9,7 +9,7 @@ export default class Knex extends Middleware
 		db = null
 		app.knex = ->
 			config 	= app.config.knex
-			isProxy = config.iamPrproxyoxy
+			isProxy = config.proxy
 			delete config.proxy
 
 			if isProxy
