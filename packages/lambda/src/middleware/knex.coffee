@@ -20,6 +20,9 @@ export default class Knex extends Middleware
 
 		db = null
 		app.knex = =>
+			if not app.config?.knex
+				throw new Error 'Cannot find a knex configuration in the config'
+
 			if app.config.knex.proxy
 				delete app.config.knex.proxy
 
