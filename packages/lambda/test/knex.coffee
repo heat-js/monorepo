@@ -31,7 +31,7 @@ describe 'Test Knex Middleware', ->
 			proxy: true
 			client: 'mysql2'
 			connection:
-				username:	'username'
+				user:		'username'
 				host:		'127.0.0.1'
 				port:		3306
 				database:	'test'
@@ -55,10 +55,10 @@ describe 'Test Knex Middleware', ->
 
 		expect result.connection()
 			.toEqual {
-				host: 		'127.0.0.1'
-				port:		3306
 				user: 		'username'
 				password: 	'127.0.0.1:3306/'
+				host: 		'127.0.0.1'
+				port:		3306
 				database: 	'test'
 				ssl: { rejectUnauthorized: false }
 				authSwitchHandler: expect.any Function

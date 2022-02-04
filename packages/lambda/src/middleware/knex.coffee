@@ -30,19 +30,19 @@ export default class Knex extends Middleware
 					region:		@region app
 					hostname: 	app.config.knex.connection.host
 					port: 		app.config.knex.connection.port
-					username: 	app.config.knex.connection.username
+					username: 	app.config.knex.connection.user
 				}
 
 				config = Object.assign {}, app.config.knex, {
 					connection: ->
 						token = signer.getAuthToken {
-							username: app.config.knex.connection.username
+							username: app.config.knex.connection.user
 						}
 
 						return {
 							host: 		app.config.knex.connection.host
 							port: 		app.config.knex.connection.port
-							user: 		app.config.knex.connection.username
+							user: 		app.config.knex.connection.user
 							password: 	token
 							database: 	app.config.knex.connection.database
 							ssl: 		{ rejectUnauthorized: false }
@@ -78,11 +78,11 @@ export default class Knex extends Middleware
 	# 		region
 	# 		hostname: 	connection.host
 	# 		port: 		connection.port
-	# 		username: 	connection.username
+	# 		username: 	connection.user
 	# 	}
 
 	# 	token = signer.getAuthToken {
-	# 		username: 	connection.username
+	# 		username: 	connection.user
 	# 	}
 
 	# 	return Object.assign {}, connection, {
