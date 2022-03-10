@@ -16,5 +16,3 @@ export default class SnsMock
 
 export createSnsMock = (topics) ->
 	return new SnsMock topics
-
-export snsMock = new SnsMock

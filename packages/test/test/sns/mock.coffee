@@ -1,5 +1,5 @@
 
-import { createSnsMock } from '../../src/sns/mock'
+import { createSnsMock } from '../../src/index'
 
 describe 'Sns Mock', ->
 

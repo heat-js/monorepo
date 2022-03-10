@@ -1,5 +1,5 @@
 
-import { createLambdaMock } from '../../src/lambda/mock'
+import { createLambdaMock } from '../../src/index'
 
 describe 'Lambda Mock', ->
 
