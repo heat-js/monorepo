@@ -110,6 +110,7 @@ export default resource (ctx) ->
 	role			= ctx.string [ 'Role', '@Config.Lambda.Role' ], ''
 	layers			= ctx.array [ 'Layers', '@Config.Lambda.Layers' ], []
 	logging			= ctx.boolean [ 'Logging', '@Config.Lambda.Logging' ], false
+	architecture	= ctx.string [ 'Architecture', '@Config.Lambda.Architecture' ], 'x86_64'
 	warmer			= ctx.boolean [ 'Warmer', '@Config.Lambda.Warmer' ], false
 	events			= ctx.array 'Events', []
 	externals		= ctx.array [ 'Externals', '@Config.Lambda.Externals' ], []
@@ -241,7 +242,7 @@ export default resource (ctx) ->
 				Role:			role or GetAtt 'LambdaPolicyIamRole', 'Arn'
 				MemorySize:		ctx.number [ 'MemorySize', '@Config.Lambda.MemorySize' ], 128
 				Runtime:		ctx.string [ 'Runtime', '@Config.Lambda.Runtime' ], 'nodejs12.x'
-				Architectures:	[ ctx.string [ 'Architecture', '@Config.Lambda.Architecture' ], 'arm64' ]
+				Architectures:	[ architecture ]
 				Timeout:		ctx.number [ 'Timeout', '@Config.Lambda.Timeout' ], 30
 				Layers:			layers
 
