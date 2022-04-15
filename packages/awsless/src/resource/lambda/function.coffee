@@ -13,6 +13,7 @@ import dynamodb				from './event/dynamodb'
 import elb					from './event/elb'
 import iot					from './event/iot'
 import eventInvokeConfig	from './event-invoke-config'
+import url					from './url'
 import output				from '../output'
 import addPolicy, { addManagedPolicy, policyChecksum } from './policy'
 
@@ -116,6 +117,7 @@ export default resource (ctx) ->
 	externals		= ctx.array [ 'Externals', '@Config.Lambda.Externals' ], []
 	files			= ctx.object [ 'Files',	'@Config.Lambda.Files' ], {}
 	asyncConfig		= ctx.object [ 'Async', '@Config.Lambda.Async' ], {}
+	urlConfig		= ctx.object [ 'Url', '@Config.Lambda.Url' ], {}
 	bugsnagApiKey	= ctx.string [ 'Bugsnag.ApiKey', '@Config.Bugsnag.ApiKey' ], ''
 	webpackConfig	= ctx.object [ 'WebpackConfig', '@Config.Lambda.WebpackConfig' ], {}
 
@@ -180,6 +182,17 @@ export default resource (ctx) ->
 			"#{ ctx.name }AsyncConfig"
 			{
 				...asyncConfig
+				Name: Ref ctx.name
+			}
+			{ Region: region }
+		)
+
+	if Object.keys(urlConfig).length
+		url(
+			ctx
+			"#{ ctx.name }Url"
+			{
+				...urlConfig
 				Name: Ref ctx.name
 			}
 			{ Region: region }
