@@ -315,6 +315,7 @@ export default resource (ctx) ->
 		DeletionPolicy: ctx.string '#DeletionPolicy', 'Delete'
 		Properties: {
 			TableName: name
+			TableClass: ctx.string [ 'Class', 'TableClass' ], 'STANDARD'
 			...keySchema ctx.object [ 'KeySchema', 'Schema' ]
 			...billing ctx
 			...attributeDefinitions ctx
