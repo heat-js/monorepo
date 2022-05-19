@@ -1,5 +1,6 @@
 
-import resource	from '../../feature/resource'
+import resource		from '../../feature/resource'
+import addPolicy 	from './policy'
 
 corsConfig = (ctx) ->
 	cors = ctx.object 'Cors', {}
@@ -11,6 +12,7 @@ corsConfig = (ctx) ->
 
 export default resource (ctx) ->
 	Region = ctx.string [ '#Region', '@Config.Region' ]
+	authType = ctx.string 'AuthType', 'NONE'
 
 	ctx.addResource ctx.name, {
 		Type: 'AWS::Lambda::Url'
@@ -18,6 +20,13 @@ export default resource (ctx) ->
 		Properties: {
 			...corsConfig ctx
 			TargetFunctionArn:	ctx.string [ 'Name', 'FunctionName' ]
-			AuthType:			ctx.string 'AuthType', 'NONE'
+			AuthType:			authType
 		}
 	}
+
+	if authType is 'NONE'
+		addPolicy ctx, 'lambda-function-url', {
+			Effect:		'Allow'
+			Action:		'lambda:invokeFunctionUrl'
+			Resource:	'*'
+		}
