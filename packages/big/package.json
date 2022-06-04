@@ -1,0 +1,34 @@
+{
+	"name": "@heat/big",
+	"version": "0.0.1",
+	"license": "MIT",
+	"main": "./index.ts",
+	"scripts": {
+		"test": "./node_modules/.bin/jest",
+		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
+		"minor": "yarn version --minor; ./node_modules/.bin/ncp",
+		"major": "yarn version --major; ./node_modules/.bin/ncp"
+	},
+	"babel": {
+		"plugins": [
+			"@babel/plugin-transform-modules-commonjs"
+		]
+	},
+	"jest": {
+		"preset": "ts-jest",
+		"testEnvironment": "node",
+		"testMatch": [
+			"**/test/**"
+		]
+	},
+	"dependencies": {
+		"from-exponential": "^1.1.1"
+	},
+	"devDependencies": {
+		"@babel/plugin-transform-modules-commonjs": "^7.17.7",
+		"@types/jest": "^27.4.1",
+		"jest": "^27.5.1",
+		"ts-jest": "^27.1.4",
+		"typescript": "^4.6.3"
+	}
+}
