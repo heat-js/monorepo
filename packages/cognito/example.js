@@ -18,9 +18,9 @@ const result = await signInCommand({
 	password
 });
 
-console.info('----------------------------------');
-console.info('First time logged in successfully');
-console.info('----------------------------------');
+console.log('---------------------------------');
+console.log('First time logged in successfully');
+console.log('---------------------------------');
 
 
 // -------------------------------------------------------------------
@@ -33,6 +33,6 @@ const result2 = await signInCommand({
 });
 
 // This log will almost never happen.
-console.info('----------------------------------');
+console.log('----------------------------------');
 console.log('Second time logged in successfully');
-console.info('----------------------------------');
+console.log('----------------------------------');
