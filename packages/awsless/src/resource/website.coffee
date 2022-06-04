@@ -23,6 +23,25 @@ formatHostedZoneName = (domain) ->
 
 	return "#{ result.domain }.#{ result.topLevelDomains.join '.' }."
 
+customerHeaders = (ctx) ->
+	headers = ctx.object [ 'CustomHeaders', 'OriginCustomHeaders' ], {}
+
+	keys = Object.keys headers
+
+	if not keys.length
+		return {}
+
+	customHeaders = []
+	for key in keys
+		customHeaders.push {
+			HeaderName: 	key
+			HeaderValue: 	headers[key]
+		}
+
+	return {
+		OriginCustomHeaders: customHeaders
+	}
+
 forwardedValues = (ctx) ->
 	forwarded = {}
 
@@ -158,6 +177,7 @@ export default resource (ctx) ->
 					CustomOriginConfig: {
 						OriginProtocolPolicy: 'http-only'
 					}
+					...customerHeaders ctx
 				} ]
 				DefaultCacheBehavior: {
 					TargetOriginId: 'S3BucketOrigin'
