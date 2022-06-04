@@ -2,7 +2,7 @@
 	"name": "@heat/cognito",
 	"version": "0.0.1",
 	"license": "MIT",
-	"main": "./cognito.js",
+	"main": "./src/index.js",
 	"type": "module",
 	"scripts": {
 		"test": "yarn run -T jest",

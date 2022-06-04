@@ -1,9 +1,7 @@
 
-import cookie from 'js-cookie';
+const supported = typeof (window) !== 'undefined' && typeof (localStorage) !== 'undefined';
 
-const browser = typeof (window) !== 'undefined';
-
-export class CookieStore {
+export class LocalStore {
 	constructor() {
 		this.serverSideData = {};
 	}
@@ -13,7 +11,7 @@ export class CookieStore {
 	}
 
 	get(key) {
-		const value = browser ? cookie.get(key) : this.serverSideData[key];
+		const value = supported ? localStorage.getItem(key) : this.serverSideData[key];
 
 		if (typeof value === 'undefined') {
 			return;
@@ -29,12 +27,8 @@ export class CookieStore {
 	set(key, value) {
 		const json = JSON.stringify(value);
 
-		if (browser) {
-			cookie.set(key, json, {
-				secure: location.hostname !== 'localhost',
-				expires: 3650,
-				sameSite: 'strict',
-			});
+		if (supported) {
+			localStorage.setItem(key, json);
 		} else {
 			this.serverSideData[key] = json;
 		}
@@ -43,8 +37,8 @@ export class CookieStore {
 	}
 
 	remove(key) {
-		if (browser) {
-			cookie.remove(key);
+		if (supported) {
+			localStorage.removeItem(key);
 		} else {
 			delete this.serverSideData[key];
 		}
