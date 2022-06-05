@@ -48,7 +48,7 @@ export const signInCommand = async ({ client, store, username, password, attribu
 	});
 
 	return session;
-}
+};
 
 const userSrpAuth = async ({ client, device, username, password, attributes }) => {
 	const [A, next] = await srp(client.getUserPoolId());
@@ -99,7 +99,7 @@ const userSrpAuth = async ({ client, device, username, password, attributes }) =
 	}
 
 	return result;
-}
+};
 
 const deviceSrpAuth = async ({ client, device, username, session }) => {
 	const [A, next] = await srp(device.group);
@@ -158,4 +158,4 @@ const confirmDevice = async ({ client, store, accessToken, key, group }) => {
 		group,
 		secret,
 	});
-}
+};

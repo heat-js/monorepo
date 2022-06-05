@@ -3,12 +3,12 @@ import { Client, MemoryStore, signInCommand, sessionCommand } from './src/index.
 
 const store = new MemoryStore();
 const client = new Client({
-	clientId: 'qbe17juek4ji0v5mlj3bms54o',
-	userPoolId: 'eu-west-1_nO4A8A5QS'
+	clientId: 'CLIENT_ID',
+	userPoolId: 'USER_POOL_ID'
 });
 
-const username = 'jack';
-const password = 'Doner12345!';
+const username = 'USER';
+const password = 'PASS';
 
 // -------------------------------------------------------------------
 // The first time you login a new device will be confirmed.

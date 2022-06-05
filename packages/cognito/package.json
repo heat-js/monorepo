@@ -5,22 +5,10 @@
 	"main": "./src/index.js",
 	"type": "module",
 	"scripts": {
-		"test": "yarn run -T jest",
+		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
 		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
 		"minor": "yarn version --minor; ./node_modules/.bin/ncp",
 		"major": "yarn version --major; ./node_modules/.bin/ncp"
-	},
-	"babel": {
-		"presets": [
-			[
-				"@babel/preset-env",
-				{
-					"targets": {
-						"node": "current"
-					}
-				}
-			]
-		]
 	},
 	"jest": {
 		"testEnvironment": "node",
@@ -36,12 +24,6 @@
 		"jwt-decode": "^3.1.2"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.18.2",
-		"@babel/plugin-transform-modules-commonjs": "^7.17.7",
-		"@babel/preset-env": "^7.18.2",
-		"babel-jest": "^28.1.0",
-		"jest": "^28.1.0",
-		"node-fetch": "^3.2.5",
-		"sjcl-aws": "^1.0.8"
+		"jest": "^28.1.0"
 	}
 }

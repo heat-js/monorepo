@@ -8,9 +8,3 @@ export const changePasswordCommand = async ({ client, store, previousPassword, p
 		AccessToken: session.accessToken.toString(),
 	});
 };
-
-// resendConfirmationCode: (username) ->
-// 	return @call 'ResendConfirmationCode', {
-// 		ClientId: @clientId
-// 		Username: username
-// 	}
