@@ -5,24 +5,30 @@ import { Token } from "../token.js";
 export const signInCommand = async ({ client, store, username, password, attributes = {} }) => {
 
 	const device = store.get('device') || {};
+	var result;
 
-	var result = await userSrpAuth({
-		client,
-		device,
-		username,
-		password,
-		attributes: Object.entries(attributes).map(([key, value]) => {
-			return { Name: key, Value: value };
-		})
-	});
-
-	if (result.ChallengeName === 'DEVICE_SRP_AUTH') {
-		result = await deviceSrpAuth({
+	try {
+		result = await userAuth({
 			client,
 			device,
 			username,
-			session: result.Session
+			password,
+			attributes
 		});
+	} catch (error) {
+		if (error.code === 'ResourceNotFoundException' && error.message.toLowerCase().includes('device')) {
+			store.remove('device');
+
+			result = await userAuth({
+				client,
+				device: {},
+				username,
+				password,
+				attributes
+			});
+		} else {
+			throw error;
+		}
 	}
 
 	const data = result.AuthenticationResult;
@@ -50,6 +56,29 @@ export const signInCommand = async ({ client, store, username, password, attribu
 	});
 
 	return session;
+};
+
+const userAuth = async ({ client, device, username, password, attributes }) => {
+	const result = await userSrpAuth({
+		client,
+		device,
+		username,
+		password,
+		attributes: Object.entries(attributes).map(([key, value]) => {
+			return { Name: key, Value: value };
+		})
+	});
+
+	if (result.ChallengeName === 'DEVICE_SRP_AUTH') {
+		return deviceSrpAuth({
+			client,
+			device,
+			username,
+			session: result.Session
+		});
+	}
+
+	return result;
 };
 
 const userSrpAuth = async ({ client, device, username, password, attributes }) => {

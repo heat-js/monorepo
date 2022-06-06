@@ -1,6 +1,6 @@
 
-export const resendConfirmationCode = async ({ client, username }) => {
-	await client.call('ResendConfirmationCode', {
+export const resendConfirmationCodeCommand = ({ client, username }) => {
+	return client.call('ResendConfirmationCode', {
 		ClientId: client.getClientId(),
 		Username: username,
 	});

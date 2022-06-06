@@ -2,7 +2,7 @@
 
 Lightweight AWS Cognito client for the browser. Uses the native web crypto & BigInt features in the browser & designed the API to be tree shakable to keep the package as small as possible.
 
-_GZip Size: ~10kB_
+_GZip Size: ~12kB_
 
 __The code is still a bit buggy.__
 

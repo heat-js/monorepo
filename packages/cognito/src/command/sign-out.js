@@ -28,5 +28,5 @@ export const signOutCommand = async ({ client, store }) => {
 	}
 
 	store.remove('token');
-	store.remove('device');
+	// store.remove('device');
 };

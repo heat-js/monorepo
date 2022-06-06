@@ -1,6 +1,6 @@
 
-export const signUpCommand = async ({ client, username, password, attributes }) => {
-	await client.call('GlobalSignOut', {
+export const signUpCommand = async ({ client, username, password, attributes = {} }) => {
+	await client.call('SignUp', {
 		ClientId: client.getClientId(),
 		Username: username,
 		Password: password,
