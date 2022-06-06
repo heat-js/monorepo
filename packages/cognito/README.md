@@ -1,6 +1,6 @@
 # @heat/cognito [![NPM Version](https://img.shields.io/npm/v/@heat/cognito.svg)](https://www.npmjs.com/package/@heat/cognito)
 
-Lightweight AWS Cognito client package for the browser. Uses the native web crypto & BigInt features in the browser & designed the API to be tree shakable to keep the package as small as possible.
+Lightweight AWS Cognito client for the browser. Uses the native web crypto & BigInt features in the browser & designed the API to be tree shakable to keep the package as small as possible.
 
 _GZip Size: ~10kB_
 

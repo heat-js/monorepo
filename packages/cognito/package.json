@@ -1,9 +1,21 @@
 {
 	"name": "@heat/cognito",
-	"version": "0.0.7",
+	"version": "0.0.9",
 	"license": "MIT",
 	"main": "./src/index.js",
 	"type": "module",
+	"description": "Lightweight AWS Cognito client for the browser.",
+	"keywords": [
+		"amazon",
+		"aws",
+		"cognito",
+		"auth",
+		"identity"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo/tree/master/packages/cognito"
+	},
 	"scripts": {
 		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
 		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
