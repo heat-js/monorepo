@@ -1,15 +1,20 @@
 
 import { toBigInt, fromUtf8 } from './encoding.js';
-import { webcrypto } from 'crypto';
+
+// import crypto from './web-crypto.js';
 
 // const g = Function('return this')() || (42, eval)('this');
-// const webcrypto = g.crypto || g.msCrypto || import('crypto').webcrypto;
+// const crypto = g.crypto || g.msCrypto || import('crypto').webcrypto;
+
+// console.log(import('crypto'));
+
+// console.log(globalThis.crypto);
 
 export const BASE_32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 export const BASE_58 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz234567';
 
 export const randomBytes = (array) => {
-	return webcrypto.getRandomValues(array);
+	return crypto.getRandomValues(array);
 }
 
 export const generateRandomBigInt = (numBytes = 16) => {
@@ -34,7 +39,7 @@ export const generateRandomBuffer = (numBytes) => {
 };
 
 export const hkdf = async (algorithm, ikm, salt, info, keylen) => {
-	const cryptoKey = await webcrypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
+	const cryptoKey = await crypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
 	const params = {
 		name: 'HKDF',
 		hash: algorithm,
@@ -42,7 +47,7 @@ export const hkdf = async (algorithm, ikm, salt, info, keylen) => {
 		info
 	};
 
-	const bytes = await webcrypto.subtle.deriveBits(params, cryptoKey, keylen);
+	const bytes = await crypto.subtle.deriveBits(params, cryptoKey, keylen);
 	return new Uint8Array(bytes);
 };
 
@@ -51,7 +56,7 @@ export const hash = (algorithm, message) => {
 		message = fromUtf8(message);
 	}
 
-	return webcrypto.subtle.digest(algorithm, message);
+	return crypto.subtle.digest(algorithm, message);
 };
 
 export const hmac = async (algorithm, message, key) => {
@@ -63,7 +68,7 @@ export const hmac = async (algorithm, message, key) => {
 		message = fromUtf8(message);
 	}
 
-	const cryptoKey = await webcrypto.subtle.importKey(
+	const cryptoKey = await crypto.subtle.importKey(
 		'raw',
 		key,
 		{ name: 'HMAC', hash: { name: algorithm } },
@@ -71,5 +76,5 @@ export const hmac = async (algorithm, message, key) => {
 		['sign']
 	);
 
-	return webcrypto.subtle.sign('HMAC', cryptoKey, message);
+	return crypto.subtle.sign('HMAC', cryptoKey, message);
 };

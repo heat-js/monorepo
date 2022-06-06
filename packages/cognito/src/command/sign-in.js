@@ -11,7 +11,9 @@ export const signInCommand = async ({ client, store, username, password, attribu
 		device,
 		username,
 		password,
-		attributes
+		attributes: Object.entries(attributes).map(([key, value]) => {
+			return { Name: key, Value: value };
+		})
 	});
 
 	if (result.ChallengeName === 'DEVICE_SRP_AUTH') {
@@ -53,6 +55,7 @@ export const signInCommand = async ({ client, store, username, password, attribu
 const userSrpAuth = async ({ client, device, username, password, attributes }) => {
 	const [A, next] = await srp(client.getUserPoolId());
 
+	const metadata = attributes.length > 0 ? attributes : undefined;
 	const params = {
 		USERNAME: username,
 		SRP_A: A,
@@ -62,10 +65,11 @@ const userSrpAuth = async ({ client, device, username, password, attributes }) =
 		params.DEVICE_KEY = device.key;
 	}
 
+
 	const result = await client.call('InitiateAuth', {
 		ClientId: client.getClientId(),
 		AuthFlow: 'USER_SRP_AUTH',
-		ClientMetadata: attributes,
+		ClientMetadata: metadata,
 		AuthParameters: params,
 	});
 
@@ -93,7 +97,7 @@ const userSrpAuth = async ({ client, device, username, password, attributes }) =
 			ChallengeName: 'PASSWORD_VERIFIER',
 			ChallengeResponses: responses,
 			ClientId: client.getClientId(),
-			ClientMetadata: attributes,
+			ClientMetadata: metadata,
 			Session: result.Session,
 		});
 	}

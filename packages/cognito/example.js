@@ -1,5 +1,8 @@
 
 import { Client, MemoryStore, signInCommand, sessionCommand } from './src/index.js'
+import { webcrypto } from 'crypto';
+
+globalThis.crypto = webcrypto;
 
 const store = new MemoryStore();
 const client = new Client({
@@ -12,7 +15,7 @@ const password = 'PASS';
 
 // -------------------------------------------------------------------
 // The first time you login a new device will be confirmed.
-const result = await signInCommand({
+await signInCommand({
 	client,
 	store,
 	username,
@@ -25,7 +28,7 @@ console.log('---------------------------------');
 
 // -------------------------------------------------------------------
 // The second time you login the device will need to be verified.
-const result2 = await signInCommand({
+await signInCommand({
 	client,
 	store,
 	username,
