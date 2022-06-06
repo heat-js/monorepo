@@ -17,13 +17,13 @@ yarn add @heat/cognito
 
 # Stores
 
-Depending on your usecase you might want to use 1 of the following stores.
+Depending on your use case you might want to use one of the following stores.
 
-- __MemoryStore__ - Mostly used for debugging and when you don't want to persit the login token.
+- __MemoryStore__ - Mostly used for debugging and when you don't want to persist the login token.
 
 - __LocalStore__ - Used to store the login token on the client only.
 
-- __CookieStore__ - The CookieStore is usefull in senario's like SSR, when you need access to the login token on the client aswell as on the server. (The server will need to polyfill the fetch & web crypto API)
+- __CookieStore__ - The CookieStore is useful in scenarios like SSR, when you need access to the login token on the client as well as on the server. (The server will need to polyfill the fetch & web crypto API)
 
 # Examples
 
@@ -74,13 +74,13 @@ const session = await signInCommand({
 console.log(session.getUser());
 ```
 
-## Sign out
+## Sign Out
 
 ```js
 await signOutCommand({ client, store });
 ```
 
-## Get active login session
+## Get Active Login Session
 
 ```js
 const session = await sessionCommand({ client, store });
@@ -89,7 +89,7 @@ const session = await sessionCommand({ client, store });
 console.log(session.accessToken.toString());
 ```
 
-## Change password
+## Change Password
 
 ```js
 await changePasswordCommand({
@@ -100,7 +100,7 @@ await changePasswordCommand({
 });
 ```
 
-## Custom call
+## Custom Call
 
 ```js
 const response = await client.call('API_NAME', {
