@@ -1,6 +1,6 @@
 
 import { Client, MemoryStore, signInCommand, sessionCommand } from './src/index.js'
-import { webcrypto } from 'crypto';
+import { webcrypto } from 'node:crypto';
 
 globalThis.crypto = webcrypto;
 

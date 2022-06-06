@@ -1,5 +1,8 @@
 
 import { srp, generateVerifier } from '../src/index'
+import { webcrypto } from 'node:crypto';
+
+globalThis.crypto = webcrypto;
 
 describe('srp', () => {
 
