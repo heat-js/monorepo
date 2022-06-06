@@ -34,8 +34,8 @@ import { Client, LocalStore } from '@heat/cognito';
 
 const store = new LocalStore();
 const client = new Client({
-	clientId: 'CLIENT_ID',
-	userPoolId: 'USER_POOL_ID'
+  clientId: 'CLIENT_ID',
+  userPoolId: 'USER_POOL_ID'
 });
 ```
 
@@ -45,18 +45,18 @@ const client = new Client({
 import { signUpCommand, confirmSignUpCommand } from '@heat/cognito';
 
 await signUpCommand({
-	client,
-	store,
-	email: 'EMAIL',
-	username: 'USER',
-	password: 'PASS',
+  client,
+  store,
+  email: 'EMAIL',
+  username: 'USER',
+  password: 'PASS',
 });
 
 // Let the user fill in his confirmation code.
 await confirmSignUpCommand({
-	client,
-	username,
-	code: 'SIGN_UP_CONFIRMATION_CODE'
+  client,
+  username,
+  code: 'SIGN_UP_CONFIRMATION_CODE'
 })
 ```
 
@@ -64,10 +64,10 @@ await confirmSignUpCommand({
 
 ```js
 const session = await signInCommand({
-	client,
-	store,
-	username: 'USER',
-	password: 'PASS',
+  client,
+  store,
+  username: 'USER',
+  password: 'PASS',
 });
 
 // Log logged in user.
@@ -93,10 +93,10 @@ console.log(session.accessToken.toString());
 
 ```js
 await changePasswordCommand({
-	client,
-	store,
-	previousPassword: 'PREV_PASS',
-	proposedPassword: 'NEW_PASS',
+  client,
+  store,
+  previousPassword: 'PREV_PASS',
+  proposedPassword: 'NEW_PASS',
 });
 ```
 
@@ -104,7 +104,7 @@ await changePasswordCommand({
 
 ```js
 const response = await client.call('API_NAME', {
-	...
+  ...
 });
 ```
 
