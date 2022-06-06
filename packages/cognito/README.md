@@ -55,7 +55,7 @@ await signUpCommand({
 // Let the user fill in his confirmation code.
 await confirmSignUpCommand({
   client,
-  username,
+  username: 'USER',
   code: 'SIGN_UP_CONFIRMATION_CODE'
 })
 ```
