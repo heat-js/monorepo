@@ -37,6 +37,7 @@ export class Client {
 				'Cache-Control': 'max-age=0',
 				'Content-Type': 'application/x-amz-json-1.1',
 				'X-Amz-Target': `AWSCognitoIdentityProviderService.${action}`,
+				'X-Amz-User-Agent': '@heat/cognito',
 				// 'X-Amz-User-Agent': 'aws-amplify/5.0.4 js',
 			}
 		});

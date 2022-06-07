@@ -27,9 +27,9 @@ describe('srp', () => {
 	});
 
 	it('generate a verifier', async () => {
-		const [verifier, salt] = await generateVerifier('device', user, pass, '64');
+		const [verifier, salt] = await generateVerifier('device', user, pass, '0x64');
 
-		expect(salt).toBe('ZA==');
-		expect(verifier).toBe('ANzcuBrBdW8uWL/AKihoe5c/9sod9Xj8jPVh4LDl0RTfLxzE4u01SSHGzn7TGw9t4XapKM5d48g/tXa0rPjdA+ZwoI1jFULWtkILdetKhdCGB0YkNYSoXJ2yVnDb/6VW+BR/+6zebMfLXYEWoZwDzDeoLvcRxd8rCQTaZYqpjW12ci/HK3dFR2KWmq7uit6dCbmJIaxifxh7XV1My5x24WVZV1aJaPs53lyKJPpDmh6ltvzWWvnyQGUhZ163wRVeChW+7B1R+3x7i71iuID9/xzeHeCJog16XrT849IaZEkBL0m/dh5eBDKDhQSwSRj1z7y9UKZewmsuy9QgFJ6DhqtOdHRUCItWiikeB2s23GBs+9e8p+I26UBmSnLcWeNjPCth4TtXDYtHbsAnVZ0chDdcSvJ/91D3dZMArPDNHq9l6ls7vGbPww0cAuBRKjR6QLqbRjbLVHf65N+SLUHlOnyh40c5QZP1u6K516gvIA0IZ2A0wBeADqoL3Ou2/XZYgQ==');
+		expect(salt).toBe('AGQ=');
+		expect(verifier).toBe('I5ZZOP/GmNsXLRE+da1crd3BaJVinrD9TxNW7/FFPBmZH+2Ge7JjdxwR2YIPI8+fUHgPd/Oqcb3B+U/vNRJNj3lFVz54cKCkFHaXYoKgmJGzpTu7KcHym2MqD/l2ah/rzZXExQOVYA1bAAsv/aaVRtW9wvUMDbpBowa78/AuUvlns/R5gzqmN1iDSnpHhJc7+OhJDosdoaIra5XKnoxVjzloQquQ52ngELfcRfdYNnmjpJTHFnA7XX0PJKyfBWwsCnORLj7p6lgZqk3FSd+j2A8akCP0xlJggOFHPeDpI3G41DvvxSUlll6zDT2EidNEGTV2fKMdg/bJNwNwgbkkpRZf4iMF8EUbMIDdScQCX1aF3h/ua7k3mQSmZ6SoK2Q3/wQLOkbPttmFHVDaeH4bB9ntii0kSCcXJtvevOPkwSMkct8AGxCZFYOcjg4FEhnjVt573gj009W0Fd+PWoYiuWQjv8qbEfLbHaJDWfj9HHRvogSvo3QqGvOV/V8Az0nN');
 	});
 });

@@ -32,14 +32,18 @@ const combine = async (left, right) => {
 	);
 };
 
-const combinePad = (left, right) => {
-	return combine(padHex(left), padHex(right));
-};
+const createFullPassword = async (group, user, pass) => {
+	return toHex(
+		await hash('SHA-256',
+			fromUtf8(`${group}${user}:${pass}`)
+		)
+	);
+}
 
 export const srp = async (group, smallAValue = undefined) => {
 	const N = BigInt('0x' + initN);
 	const g = BigInt('0x2');
-	const k = await combinePad(N, g);
+	const k = await combine(padHex(N), padHex(g));
 
 	// const smallA = BigInt(smallAValue || generateRandomBigInt(128) % N);
 	const smallA = smallAValue ? BigInt(smallAValue) : toBigInt(generateRandomBuffer(128)) % N;
@@ -62,7 +66,7 @@ export const srp = async (group, smallAValue = undefined) => {
 		// const U = toBigInt(await hashHex(padHex(A) + padHex(B)));
 		// const U = toBigInt(await hash('SHA-256', fromHex(padHex(A) + padHex(B))));
 
-		const U = await combinePad(A, B);
+		const U = await combine(padHex(A), padHex(B));
 
 		if (U === ZERO) {
 			throw new Error('U cannot be zero.');
@@ -72,7 +76,8 @@ export const srp = async (group, smallAValue = undefined) => {
 		// const userPassHash = await hash('SHA-256', fromUtf8(userPass));
 		// const fullPassword = toBigInt(userPassHash).toString(16);
 
-		const fullPassword = toHex(await hash('SHA-256', fromUtf8(`${group}${user}:${pass}`)));
+		// const fullPassword = toHex(await hash('SHA-256', fromUtf8(`${group}${user}:${pass}`)));
+		const fullPassword = await createFullPassword(group, user, pass);
 
 		// const x = await combine(padHex(S), fullPassword);
 		// const gx = g % x;
@@ -130,13 +135,10 @@ export const generateVerifier = async (group, user, pass, random = undefined) =>
 	const N = BigInt('0x' + initN);
 	const g = BigInt('0x2');
 
-	const fullPassword = await hash('SHA-256', fromUtf8(`${group}${user}:${pass}`));
-	const salt = padHex(toHex(generateRandomBuffer(16)));
-	const saltedHash = await combine(salt, toHex(fullPassword));
+	const fullPassword = await createFullPassword(group, user, pass);
+	const salt = padHex(random || toHex(generateRandomBuffer(16)));
+	const saltedHash = await combine(salt, fullPassword);
 	const verifier = padHex(modPow(g, saltedHash, N).toString(16));
-
-	// console.log(toBigInt(salt));
-	// console.log(verifier);
 
 	return [
 		toBase64(fromHex(verifier)),
@@ -171,14 +173,14 @@ const padTime = (time) => {
 }
 
 const getNowString = () => {
-	const now = new Date()
-	const weekDay = WEEK_NAMES[now.getUTCDay()]
-	const month = MONTH_NAMES[now.getUTCMonth()]
-	const day = now.getUTCDate()
-	const hours = padTime(now.getUTCHours())
-	const minutes = padTime(now.getUTCMinutes())
-	const seconds = padTime(now.getUTCSeconds())
-	const year = now.getUTCFullYear()
+	const now = new Date();
+	const weekDay = WEEK_NAMES[now.getUTCDay()];
+	const month = MONTH_NAMES[now.getUTCMonth()];
+	const day = now.getUTCDate();
+	const hours = padTime(now.getUTCHours());
+	const minutes = padTime(now.getUTCMinutes());
+	const seconds = padTime(now.getUTCSeconds());
+	const year = now.getUTCFullYear();
 	const dateNow = `${weekDay} ${month} ${day} ${hours}:${minutes}:${seconds} UTC ${year}`; // ddd MMM D HH:mm:ss UTC YYYY
-	return dateNow
+	return dateNow;
 }
