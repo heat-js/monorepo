@@ -1,10 +1,12 @@
+import { getUserDevice, removeUserDevice, setUserDevice } from "../helper/device.js";
 import { Session } from "../session.js";
 import { generateDeviceSecret, generateVerifier, srp } from "../srp.js";
 import { Token } from "../token.js";
 
-export const signInCommand = async ({ client, store, username, password, attributes = {} }) => {
+export const signInCommand = async ({ client, store, deviceStore, username, password, attributes = {} }) => {
 
-	const device = store.get('device') || {};
+	const device = getUserDevice({ store, deviceStore, username });
+
 	var result;
 
 	try {
@@ -17,7 +19,8 @@ export const signInCommand = async ({ client, store, username, password, attribu
 		});
 	} catch (error) {
 		if (error.code === 'ResourceNotFoundException' && error.message.toLowerCase().includes('device')) {
-			store.remove('device');
+
+			removeUserDevice({ store, deviceStore, username });
 
 			result = await userAuth({
 				client,
@@ -42,6 +45,8 @@ export const signInCommand = async ({ client, store, username, password, attribu
 		await confirmDevice({
 			client,
 			store,
+			deviceStore,
+			username,
 			accessToken,
 			key: newDevice.DeviceKey,
 			group: newDevice.DeviceGroupKey,
@@ -64,9 +69,7 @@ const userAuth = async ({ client, device, username, password, attributes }) => {
 		device,
 		username,
 		password,
-		attributes: Object.entries(attributes).map(([key, value]) => {
-			return { Name: key, Value: value };
-		})
+		attributes,
 	});
 
 	if (result.ChallengeName === 'DEVICE_SRP_AUTH') {
@@ -84,7 +87,6 @@ const userAuth = async ({ client, device, username, password, attributes }) => {
 const userSrpAuth = async ({ client, device, username, password, attributes }) => {
 	const [A, next] = await srp(client.getUserPoolId());
 
-	const metadata = attributes.length > 0 ? attributes : undefined;
 	const params = {
 		USERNAME: username,
 		SRP_A: A,
@@ -98,7 +100,7 @@ const userSrpAuth = async ({ client, device, username, password, attributes }) =
 	const result = await client.call('InitiateAuth', {
 		ClientId: client.getClientId(),
 		AuthFlow: 'USER_SRP_AUTH',
-		ClientMetadata: metadata,
+		ClientMetadata: attributes,
 		AuthParameters: params,
 	});
 
@@ -126,7 +128,7 @@ const userSrpAuth = async ({ client, device, username, password, attributes }) =
 			ChallengeName: 'PASSWORD_VERIFIER',
 			ChallengeResponses: responses,
 			ClientId: client.getClientId(),
-			ClientMetadata: metadata,
+			ClientMetadata: attributes,
 			Session: result.Session,
 		});
 	}
@@ -170,7 +172,7 @@ const deviceSrpAuth = async ({ client, device, username, session }) => {
 	});
 }
 
-const confirmDevice = async ({ client, store, accessToken, key, group }) => {
+const confirmDevice = async ({ client, store, deviceStore, username, accessToken, key, group }) => {
 	const secret = generateDeviceSecret();
 	const name = typeof (navigator) !== 'undefined' ? navigator.userAgent : 'nodejs';
 
@@ -186,9 +188,11 @@ const confirmDevice = async ({ client, store, accessToken, key, group }) => {
 		}
 	});
 
-	store.set('device', {
+	const device = {
 		key,
 		group,
 		secret,
-	});
+	};
+
+	setUserDevice({ store, deviceStore, username, device });
 };

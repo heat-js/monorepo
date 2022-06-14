@@ -6,6 +6,9 @@ _GZip Size: ~12kB_
 
 __The code is still a bit buggy.__
 
+## Known Issue's
+- The Cognito Login API will sometimes respond with a "incorrect username or password" error, even tho the username & password are correct.
+
 ## Installation
 
 ```sh

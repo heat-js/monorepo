@@ -1,25 +1,27 @@
 
-import { Client, MemoryStore, signInCommand, sessionCommand } from './src/index.js'
+import { Client, MemoryStore, signInCommand, sessionCommand, forgetOtherDevicesCommand } from './src/index.js'
 import { webcrypto } from 'node:crypto';
 
 globalThis.crypto = webcrypto;
 
+const deviceStore = new MemoryStore();
 const store = new MemoryStore();
 // store.set('device', { key: 'unknown' });
 
 const client = new Client({
-	clientId: 'qbe17juek4ji0v5mlj3bms54o',
-	userPoolId: 'eu-west-1_nO4A8A5QS'
+	clientId: 'CLIENT',
+	userPoolId: 'USER_POOL'
 });
 
-const username = 'jack';
-const password = 'Testtest123!';
+const username = 'USER';
+const password = 'PASS';
 
 // -------------------------------------------------------------------
 // The first time you login a new device will be confirmed.
 await signInCommand({
 	client,
 	store,
+	deviceStore,
 	username,
 	password
 });
@@ -50,7 +52,19 @@ const session = await sessionCommand({
 	store,
 });
 
+const user = session.getUser();
+
 console.log('----------------------------------');
 console.log('User Session');
-console.log(session.getUser());
+console.log(user);
 console.log('----------------------------------');
+
+// await forgetOtherDevicesCommand({
+// 	client,
+// 	store,
+// 	deviceKey: user.deviceKey
+// });
+
+
+// console.log(deviceStore);
+// console.log(store);

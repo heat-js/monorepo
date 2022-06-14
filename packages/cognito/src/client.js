@@ -37,22 +37,22 @@ export class Client {
 				'Cache-Control': 'max-age=0',
 				'Content-Type': 'application/x-amz-json-1.1',
 				'X-Amz-Target': `AWSCognitoIdentityProviderService.${action}`,
-				'X-Amz-User-Agent': '@heat/cognito',
+				// 'X-Amz-User-Agent': '@heat/cognito',
 				// 'X-Amz-User-Agent': 'aws-amplify/5.0.4 js',
 			}
 		});
 
-		const result = await response.json();
+		const result = await response.text();
+		const data = result ? JSON.parse(result) : {};
 
-		// console.log(result);
 
 		if (!response.ok) {
-			const code = result._type || result.__type;
-			const message = result.message || code || 'Unknown Cognito Error';
+			const code = data._type || data.__type;
+			const message = data.message || code || 'Unknown Cognito Error';
 
 			throw new ResponseError(message, code);
 		}
 
-		return result;
+		return data
 	}
 }

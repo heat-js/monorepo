@@ -28,7 +28,11 @@ export class LocalStore {
 		const json = JSON.stringify(value);
 
 		if (supported) {
-			localStorage.setItem(key, json);
+			try {
+				localStorage.setItem(key, json);
+			} catch (error) {
+				// storing something in localstorage can fail.
+			}
 		} else {
 			this.serverSideData[key] = json;
 		}

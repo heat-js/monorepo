@@ -19,4 +19,6 @@ export { signUpCommand } from './command/sign-up.js';
 export { confirmSignUpCommand } from './command/confirm-sign-up.js';
 export { forgotPasswordCommand } from './command/forgot-password.js';
 export { confirmForgotPasswordCommand } from './command/confirm-forgot-password.js';
+export { listDevicesCommand } from './command/list-devices.js';
 export { forgetDeviceCommand } from './command/forget-device.js';
+export { forgetOtherDevicesCommand } from './command/forget-other-devices.js';
