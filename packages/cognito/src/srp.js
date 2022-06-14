@@ -1,6 +1,7 @@
 
 import { hash, hmac, hkdf, generateRandomBuffer } from './helper/crypto.js'
 import { toBigInt, fromBase64, toBase64, fromUtf8, padHex, fromHex, toHex } from './helper/encoding.js';
+import { createTimestamp } from './helper/timestamp.js';
 import concat from 'array-buffer-concat';
 import { modPow } from '@magic-akari/modpow';
 
@@ -56,6 +57,10 @@ export const srp = async (group, smallAValue = undefined) => {
 	const A = largeA.toString(16);
 
 	return [A, async (user, pass, serverB, salt, secretBlock, time = undefined) => {
+
+		// const B = toBigInt(fromHex(serverB));
+		// const S = toBigInt(fromHex(salt));
+
 		const B = BigInt('0x' + serverB);
 		const S = BigInt('0x' + salt);
 
@@ -112,7 +117,7 @@ export const srp = async (group, smallAValue = undefined) => {
 			128,
 		);
 
-		const timestamp = time || getNowString();
+		const timestamp = time || createTimestamp();
 
 		const message = concat(
 			fromUtf8(group),
@@ -162,25 +167,4 @@ export const generateVerifier = async (group, user, pass, random = undefined) =>
 
 export const generateDeviceSecret = () => {
 	return toBase64(generateRandomBuffer(40));
-}
-
-
-const WEEK_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-const padTime = (time) => {
-	return time < 10 ? ('0' + time) : time
-}
-
-const getNowString = () => {
-	const now = new Date();
-	const weekDay = WEEK_NAMES[now.getUTCDay()];
-	const month = MONTH_NAMES[now.getUTCMonth()];
-	const day = now.getUTCDate();
-	const hours = padTime(now.getUTCHours());
-	const minutes = padTime(now.getUTCMinutes());
-	const seconds = padTime(now.getUTCSeconds());
-	const year = now.getUTCFullYear();
-	const dateNow = `${weekDay} ${month} ${day} ${hours}:${minutes}:${seconds} UTC ${year}`; // ddd MMM D HH:mm:ss UTC YYYY
-	return dateNow;
 }
