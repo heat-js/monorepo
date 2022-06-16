@@ -2,14 +2,12 @@
 import { forgetDeviceCommand } from "./forget-device.js";
 import { listDevicesCommand } from "./list-devices.js";
 
-export const forgetOtherDevicesCommand = async ({ client, store, deviceKey }) => {
+export const forgetOtherDevicesCommand = async (client, { deviceKey }) => {
 	const devices = [];
 	let paginationToken;
 
 	while (true) {
-		const result = await listDevicesCommand({
-			client,
-			store,
+		const result = await listDevicesCommand(client, {
 			limit: 60,
 			paginationToken
 		});
@@ -28,9 +26,7 @@ export const forgetOtherDevicesCommand = async ({ client, store, deviceKey }) =>
 	}
 
 	return Promise.all(devices.map(deviceKey => {
-		return forgetDeviceCommand({
-			client,
-			store,
+		return forgetDeviceCommand(client, {
 			deviceKey
 		});
 	}));

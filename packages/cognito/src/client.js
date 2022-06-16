@@ -2,8 +2,10 @@
 import ResponseError from './error/response-error.js'
 
 export class Client {
-	constructor({ userPoolId, clientId, region }) {
+	constructor({ userPoolId, clientId, region, store, deviceStore }) {
 		this.clientId = clientId;
+		this.store = store;
+		this.deviceStore = deviceStore;
 
 		if (userPoolId.includes('_')) {
 			const [r, p] = userPoolId.split('_');
@@ -27,6 +29,14 @@ export class Client {
 		return this.region;
 	}
 
+	getStore() {
+		return this.store;
+	}
+
+	getDeviceStore() {
+		return this.deviceStore;
+	}
+
 	async call(action, params) {
 		const response = await fetch(`https://cognito-idp.${this.region}.amazonaws.com`, {
 			body: JSON.stringify(params),
@@ -37,14 +47,11 @@ export class Client {
 				'Cache-Control': 'max-age=0',
 				'Content-Type': 'application/x-amz-json-1.1',
 				'X-Amz-Target': `AWSCognitoIdentityProviderService.${action}`,
-				// 'X-Amz-User-Agent': '@heat/cognito',
-				// 'X-Amz-User-Agent': 'aws-amplify/5.0.4 js',
 			}
 		});
 
 		const result = await response.text();
 		const data = result ? JSON.parse(result) : {};
-
 
 		if (!response.ok) {
 			const code = data._type || data.__type;

@@ -3,7 +3,8 @@ import Unauthorized from "../error/unauthorized.js";
 import { Session } from "../session.js";
 import { Token } from "../token.js";
 
-export const sessionCommand = async ({ client, store }) => {
+export const sessionCommand = async (client) => {
+	const store = client.getStore();
 	const token = store.get('token');
 
 	if (!token) {

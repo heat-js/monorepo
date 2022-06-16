@@ -1,8 +1,8 @@
 
 import { sessionCommand } from "./session.js";
 
-export const changePasswordCommand = async ({ client, store, previousPassword, proposedPassword }) => {
-	const session = await sessionCommand({ client, store });
+export const changePasswordCommand = async (client, { previousPassword, proposedPassword }) => {
+	const session = await sessionCommand(client);
 
 	return client.call('ChangePassword', {
 		PreviousPassword: previousPassword,

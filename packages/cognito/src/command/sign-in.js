@@ -3,15 +3,14 @@ import { Session } from "../session.js";
 import { generateDeviceSecret, generateVerifier, srp } from "../srp.js";
 import { Token } from "../token.js";
 
-export const signInCommand = async ({ client, store, deviceStore, username, password, attributes = {} }) => {
+export const signInCommand = async (client, { username, password, attributes = {} }) => {
 
-	const device = getUserDevice({ store, deviceStore, username });
+	const device = getUserDevice(client, username);
 
 	var result;
 
 	try {
-		result = await userAuth({
-			client,
+		result = await userAuth(client, {
 			device,
 			username,
 			password,
@@ -20,10 +19,9 @@ export const signInCommand = async ({ client, store, deviceStore, username, pass
 	} catch (error) {
 		if (error.code === 'ResourceNotFoundException' && error.message.toLowerCase().includes('device')) {
 
-			removeUserDevice({ store, deviceStore, username });
+			removeUserDevice(client, username);
 
-			result = await userAuth({
-				client,
+			result = await userAuth(client, {
 				device: {},
 				username,
 				password,
@@ -42,10 +40,7 @@ export const signInCommand = async ({ client, store, deviceStore, username, pass
 	const session = new Session({ idToken, accessToken });
 
 	if (newDevice) {
-		await confirmDevice({
-			client,
-			store,
-			deviceStore,
+		await confirmDevice(client, {
 			username,
 			accessToken,
 			key: newDevice.DeviceKey,
@@ -53,7 +48,7 @@ export const signInCommand = async ({ client, store, deviceStore, username, pass
 		});
 	}
 
-	store.set('token', {
+	client.getStore().set('token', {
 		id: idToken.toString(),
 		access: accessToken.toString(),
 		refresh: refreshToken,
@@ -63,9 +58,8 @@ export const signInCommand = async ({ client, store, deviceStore, username, pass
 	return session;
 };
 
-const userAuth = async ({ client, device, username, password, attributes }) => {
-	const result = await userSrpAuth({
-		client,
+const userAuth = async (client, { device, username, password, attributes }) => {
+	const result = await userSrpAuth(client, {
 		device,
 		username,
 		password,
@@ -73,8 +67,7 @@ const userAuth = async ({ client, device, username, password, attributes }) => {
 	});
 
 	if (result.ChallengeName === 'DEVICE_SRP_AUTH') {
-		return deviceSrpAuth({
-			client,
+		return deviceSrpAuth(client, {
 			device,
 			username,
 			session: result.Session
@@ -84,7 +77,7 @@ const userAuth = async ({ client, device, username, password, attributes }) => {
 	return result;
 };
 
-const userSrpAuth = async ({ client, device, username, password, attributes }) => {
+const userSrpAuth = async (client, { device, username, password, attributes }) => {
 	const [A, next] = await srp(client.getUserPoolId());
 
 	const params = {
@@ -136,7 +129,7 @@ const userSrpAuth = async ({ client, device, username, password, attributes }) =
 	return result;
 };
 
-const deviceSrpAuth = async ({ client, device, username, session }) => {
+const deviceSrpAuth = async (client, { device, username, session }) => {
 	const [A, next] = await srp(device.group);
 
 	const result = await client.call('RespondToAuthChallenge', {
@@ -172,7 +165,7 @@ const deviceSrpAuth = async ({ client, device, username, session }) => {
 	});
 }
 
-const confirmDevice = async ({ client, store, deviceStore, username, accessToken, key, group }) => {
+const confirmDevice = async (client, { username, accessToken, key, group }) => {
 	const secret = generateDeviceSecret();
 	const name = typeof (navigator) !== 'undefined' ? navigator.userAgent : 'nodejs';
 
@@ -194,5 +187,5 @@ const confirmDevice = async ({ client, store, deviceStore, username, accessToken
 		secret,
 	};
 
-	setUserDevice({ store, deviceStore, username, device });
+	setUserDevice(client, username, device);
 };

@@ -1,13 +1,13 @@
 # @heat/cognito [![NPM Version](https://img.shields.io/npm/v/@heat/cognito.svg)](https://www.npmjs.com/package/@heat/cognito)
 
-Lightweight AWS Cognito client for the browser. Uses the native web crypto & BigInt features in the browser & designed the API to be tree shakable to keep the package as small as possible.
+Super lightweight AWS Cognito client for both the browser & nodejs. Uses the native web crypto & BigInt features in the browser & we designed the API to be tree shakable to keep the package as small as possible.
 
 _GZip Size: ~12kB_
 
 __The code is still a bit buggy.__
 
 ## Known Issue's
-- The Cognito Login API will sometimes respond with a "incorrect username or password" error, even tho the username & password are correct.
+- The Cognito Login API will sometimes respond with a "incorrect username or password" error, even tho the username & password are correct. (Would love some help with fixing this bug.)
 
 ## Installation
 
@@ -16,6 +16,18 @@ npm install --save @heat/cognito
 
 # using yarn:
 yarn add @heat/cognito
+```
+
+# NodeJS
+
+In nodejs you should polyfill both the webcrypto & fetch API if nodejs doesn't already support it.
+
+```sh
+import { webcrypto } from 'node:crypto';
+import fetch from 'node-fetch';
+
+globalThis.crypto = webcrypto;
+globalThis.fetch = fetch;
 ```
 
 # Stores
@@ -35,10 +47,10 @@ Depending on your use case you might want to use one of the following stores.
 ```js
 import { Client, LocalStore } from '@heat/cognito';
 
-const store = new LocalStore();
 const client = new Client({
   clientId: 'CLIENT_ID',
-  userPoolId: 'USER_POOL_ID'
+  userPoolId: 'USER_POOL_ID',
+  store: new LocalStore()
 });
 ```
 
@@ -47,17 +59,14 @@ const client = new Client({
 ```js
 import { signUpCommand, confirmSignUpCommand } from '@heat/cognito';
 
-await signUpCommand({
-  client,
-  store,
+await signUpCommand(client, {
   email: 'EMAIL',
   username: 'USER',
   password: 'PASS',
 });
 
 // Let the user fill in his confirmation code.
-await confirmSignUpCommand({
-  client,
+await confirmSignUpCommand(client, {
   username: 'USER',
   code: 'SIGN_UP_CONFIRMATION_CODE'
 })
@@ -66,9 +75,7 @@ await confirmSignUpCommand({
 ## Sign In
 
 ```js
-const session = await signInCommand({
-  client,
-  store,
+const session = await signInCommand(client, {
   username: 'USER',
   password: 'PASS',
 });
@@ -80,24 +87,25 @@ console.log(session.getUser());
 ## Sign Out
 
 ```js
-await signOutCommand({ client, store });
+await signOutCommand(client);
 ```
 
 ## Get Active Login Session
 
 ```js
-const session = await sessionCommand({ client, store });
+const session = await sessionCommand(client);
 
 // Log access token
 console.log(session.accessToken.toString());
+
+// Log ID token
+console.log(session.idToken.toString());
 ```
 
 ## Change Password
 
 ```js
-await changePasswordCommand({
-  client,
-  store,
+await changePasswordCommand(client, {
   previousPassword: 'PREV_PASS',
   proposedPassword: 'NEW_PASS',
 });

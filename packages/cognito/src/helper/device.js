@@ -1,5 +1,8 @@
 
-export const getUserDevice = ({ store, deviceStore, username }) => {
+export const getUserDevice = (client, username) => {
+	const deviceStore = client.getDeviceStore();
+	const store = client.getStore();
+
 	if (deviceStore) {
 		const device = deviceStore.get(`device.${username}`);
 		if (device) {
@@ -11,18 +14,22 @@ export const getUserDevice = ({ store, deviceStore, username }) => {
 	return store.get('device') || {};
 }
 
-export const setUserDevice = ({ store, deviceStore, username, device }) => {
+export const setUserDevice = (client, username, device) => {
+	const deviceStore = client.getDeviceStore();
+
 	if (deviceStore) {
 		deviceStore.set(`device.${username}`, device);
 	}
 
-	store.set('device', device);
+	client.getStore().set('device', device);
 }
 
-export const removeUserDevice = ({ store, deviceStore, username }) => {
+export const removeUserDevice = (client, username) => {
+	const deviceStore = client.getDeviceStore();
+
 	if (deviceStore) {
 		deviceStore.remove(`device.${username}`);
 	}
 
-	return store.remove('device');
+	return client.getStore().remove('device');
 }
