@@ -4,11 +4,6 @@ Super lightweight AWS Cognito client for both the browser & nodejs. Uses the nat
 
 _GZip Size: ~12kB_
 
-__The code is still a bit buggy.__
-
-## Known Issue's
-- The Cognito Login API will sometimes respond with a "incorrect username or password" error, even tho the username & password are correct. (Would love some help with fixing this bug.)
-
 ## Installation
 
 ```sh
@@ -22,7 +17,7 @@ yarn add @heat/cognito
 
 In nodejs you should polyfill both the webcrypto & fetch API if nodejs doesn't already support it.
 
-```sh
+```js
 import { webcrypto } from 'node:crypto';
 import fetch from 'node-fetch';
 

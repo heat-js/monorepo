@@ -1,11 +1,10 @@
 
-import { hash, hmac, hkdf, generateRandomBuffer } from './helper/crypto.js'
+import { hash, hmac, generateRandomBuffer, hkdf } from './helper/crypto.js'
 import { toBigInt, fromBase64, toBase64, fromUtf8, padHex, fromHex, toHex } from './helper/encoding.js';
 import { createTimestamp } from './helper/timestamp.js';
 import concat from 'array-buffer-concat';
-import { modPow } from '@magic-akari/modpow';
+import { modPow } from './helper/bigint.js';
 
-const ZERO = BigInt(0);
 const initN = '' +
 	'FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1' +
 	'29024E088A67CC74020BBEA63B139B22514A08798E3404DD' +
@@ -24,94 +23,80 @@ const initN = '' +
 	'BBE117577A615D6C770988C0BAD946E208E24FA074E5AB31' +
 	'43DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF';
 
-const combine = async (left, right) => {
-	return toBigInt(
-		await hash(
-			'SHA-256',
-			fromHex(left.toString(16) + right.toString(16))
-		)
-	);
-};
+const ZERO = BigInt(0);
+const Nbytes = initN.length;
 
-const createFullPassword = async (group, user, pass) => {
-	return toHex(
-		await hash('SHA-256',
-			fromUtf8(`${group}${user}:${pass}`)
+const N = BigInt('0x' + initN);
+const g = BigInt(2);
+
+const createPaddedHash = async (buffer) => {
+	const b = await hash('SHA-256', buffer);
+	const h = toHex(b).padStart(64, '0');
+	return fromHex(h);
+}
+
+const calculateScramblingParameter = async (left, right) => {
+	const buffer = await hash('SHA-256', fromHex(
+		padHex(left.toString(16)) +
+		padHex(right.toString(16))
+	));
+
+	return toBigInt(buffer);
+}
+
+const calculatePrivateKey = async (group, user, pass, salt) => {
+	const buffer = await createPaddedHash(fromUtf8(`${group}${user}:${pass}`));
+	return toBigInt(
+		await createPaddedHash(
+			fromHex(padHex(salt) + toHex(buffer))
 		)
 	);
 }
 
-export const srp = async (group, smallAValue = undefined) => {
-	const N = BigInt('0x' + initN);
-	const g = BigInt('0x2');
-	const k = await combine(padHex(N), padHex(g));
+const getMultiplierParameter = async () => {
+	const Nhex = '00' + N.toString(16);
+	const ghex = '0' + g.toString(16);
+	const buffer = await createPaddedHash(fromHex(Nhex + ghex));
 
-	// const smallA = BigInt(smallAValue || generateRandomBigInt(128) % N);
-	const smallA = smallAValue ? BigInt(smallAValue) : toBigInt(generateRandomBuffer(128)) % N;
+	return toBigInt(buffer);
+}
+
+export const srp = async (group, smallAValue = undefined) => {
+
+	const smallA = smallAValue ? toBigInt(smallAValue) : toBigInt(generateRandomBuffer(32));
 	const largeA = modPow(g, smallA, N);
 
 	if (largeA % N === ZERO) {
 		throw new Error('Illegal paramater. A mod N cannot be 0.')
 	}
 
-	const A = largeA.toString(16);
+	const A = largeA.toString(16).padStart(Nbytes, '0');
 
 	return [A, async (user, pass, serverB, salt, secretBlock, time = undefined) => {
 
-		// const B = toBigInt(fromHex(serverB));
-		// const S = toBigInt(fromHex(salt));
-
-		const B = BigInt('0x' + serverB);
-		const S = BigInt('0x' + salt);
+		const B = toBigInt(fromHex(serverB));
+		const S = toBigInt(fromHex(salt));
 
 		if (B % N === ZERO) {
 			throw new Error('B cannot be zero.');
 		}
 
-		// const U = toBigInt(await hashHex(padHex(A) + padHex(B)));
-		// const U = toBigInt(await hash('SHA-256', fromHex(padHex(A) + padHex(B))));
-
-		const U = await combine(padHex(A), padHex(B));
+		const U = await calculateScramblingParameter(A, B);
 
 		if (U === ZERO) {
 			throw new Error('U cannot be zero.');
 		}
 
-		// const userPass = `${group}${user}:${pass}`;
-		// const userPassHash = await hash('SHA-256', fromUtf8(userPass));
-		// const fullPassword = toBigInt(userPassHash).toString(16);
+		const x = await calculatePrivateKey(group, user, pass, S);
+		const k = await getMultiplierParameter();
+		const i = B - (k * modPow(g, x, N));
+		const s = modPow(i, smallA + (U * x), N) % N;
 
-		// const fullPassword = toHex(await hash('SHA-256', fromUtf8(`${group}${user}:${pass}`)));
-		const fullPassword = await createFullPassword(group, user, pass);
-
-		// const x = await combine(padHex(S), fullPassword);
-		// const gx = g % x;
-		// const sUser = (B - (k * gx)) % (smallA + (U * x));
-		// const kUser = await hash('SHA-256', fromBigInt(sUser));
-
-		const x = await combine(padHex(S), fullPassword);
-		const xn = modPow(g, x, N);
-		const int = B - (k * xn);
-		const s = modPow(int, smallA + (U * x), N) % N;
-
-		// const prk = await hmac(
-		// 	'SHA-256',
-		// 	fromHex(padHex(s)),
-		// 	fromHex(padHex(U)),
-		// );
-
-		// const hkdfValue = (await hmac(
-		// 	'SHA-256',
-		// 	concat(
-		// 		fromUtf8('Caldera Derived Key'),
-		// 		fromUtf8(String.fromCharCode(1))
-		// 	),
-		// 	prk
-		// )).slice(0, 16);
+		const sessionKey = s.toString(16).padStart(Nbytes, '0');
 
 		const kUser = await hkdf(
 			'SHA-256',
-			fromHex(padHex(s)),
+			fromHex(padHex(sessionKey)),
 			fromHex(padHex(U)),
 			fromUtf8('Caldera Derived Key'),
 			128,
@@ -136,33 +121,16 @@ export const srp = async (group, smallAValue = undefined) => {
 	}];
 }
 
-export const generateVerifier = async (group, user, pass, random = undefined) => {
-	const N = BigInt('0x' + initN);
-	const g = BigInt('0x2');
+export const generateVerifier = async (group, user, pass, salt = undefined) => {
+	salt = toHex(salt || generateRandomBuffer(16));
 
-	const fullPassword = await createFullPassword(group, user, pass);
-	const salt = padHex(random || toHex(generateRandomBuffer(16)));
-	const saltedHash = await combine(salt, fullPassword);
-	const verifier = padHex(modPow(g, saltedHash, N).toString(16));
+	const privateKey = await calculatePrivateKey(group, user, pass, salt);
+	const verifier = modPow(g, privateKey, N).toString(16).padStart(Nbytes, '0');
 
 	return [
 		toBase64(fromHex(verifier)),
 		toBase64(fromHex(salt)),
 	];
-
-
-	// const combined = fromUtf8(`${group}${user}:${pass}`);
-	// const hashed = await hash('SHA-256', combined);
-	// const paddedHash = padHex(toBigInt(hashed).toString(16));
-	// const salt = padHex(random ? BigInt('0x' + random) : generateRandomBigInt(16).toString(16));
-
-	// const saltedHash = await hash('SHA-256', fromBigInt(BigInt('0x' + salt + paddedHash)));
-	// const verifier = modPow(g, toBigInt(saltedHash), N);
-
-	// return [
-	// 	toBase64(fromHex(padHex(verifier.toString(16)))),
-	// 	toBase64(fromHex(salt.toString(16))),
-	// ];
 }
 
 export const generateDeviceSecret = () => {

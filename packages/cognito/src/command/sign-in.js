@@ -40,12 +40,12 @@ export const signInCommand = async (client, { username, password, attributes = {
 	const session = new Session({ idToken, accessToken });
 
 	if (newDevice) {
-		await confirmDevice(client, {
-			username,
-			accessToken,
-			key: newDevice.DeviceKey,
-			group: newDevice.DeviceGroupKey,
-		});
+		// await confirmDevice(client, {
+		// 	username,
+		// 	accessToken,
+		// 	key: newDevice.DeviceKey,
+		// 	group: newDevice.DeviceGroupKey,
+		// });
 	}
 
 	client.getStore().set('token', {

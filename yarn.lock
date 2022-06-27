@@ -2010,9 +2010,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/cognito@workspace:packages/cognito"
   dependencies:
-    "@magic-akari/modpow": ^0.2.1
     array-buffer-concat: ^1.0.1
-    base64-arraybuffer: ^1.0.2
+    cognito-srp: ^0.2.0
     jest: ^28.1.0
     js-cookie: ^3.0.1
     jwt-decode: ^3.1.2
@@ -2875,13 +2874,6 @@ __metadata:
   version: 4.3.1
   resolution: "@js-joda/core@npm:4.3.1"
   checksum: 6851178585ed0c6f1138b2b71de1abba7502974d9d31c0facae00b01415399882e63a1277ca8511ba050b61a1f2964c9f9a0c266d17e9d8b23518cf2dafe20d2
-  languageName: node
-  linkType: hard
-
-"@magic-akari/modpow@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@magic-akari/modpow@npm:0.2.1"
-  checksum: 05733de3ef3267212e296742bf46401b6a3690e6b76a87b8a312f2d297a9788f484c3c12b87fc5e0c6e5f8a026eb30f431524936fe14ed251ffd9623644654de
   languageName: node
   linkType: hard
 
@@ -4801,13 +4793,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-arraybuffer@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "base64-arraybuffer@npm:1.0.2"
-  checksum: 15e6400d2d028bf18be4ed97702b11418f8f8779fb8c743251c863b726638d52f69571d4cc1843224da7838abef0949c670bde46936663c45ad078e89fee5c62
-  languageName: node
-  linkType: hard
-
 "base64-js@npm:^1.0.2, base64-js@npm:^1.3.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
@@ -5744,6 +5729,15 @@ __metadata:
     cake: bin/cake
     coffee: bin/coffee
   checksum: c53db08b1baa7405b6c549fad5c28dd88eeb5f04c98a1eb495788205f1785789c4af22cb65343047f8b717f53b88293047450708cb92d4ea3b58d0cec0df7338
+  languageName: node
+  linkType: hard
+
+"cognito-srp@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "cognito-srp@npm:0.2.0"
+  dependencies:
+    jsbn: ^1.1.0
+  checksum: 2d1a2796ce8364f41ff9db63507586e0cf670411ab96646947afa4adbd3ba5185fe673e7208ac3d983ecb15af80a4f5ded2a201230254720e42b5e130d8a2490
   languageName: node
   linkType: hard
 
@@ -10452,6 +10446,13 @@ __metadata:
   version: 3.2.5
   resolution: "jsbi@npm:3.2.5"
   checksum: 642d1bb139ad1c1e96c4907eb159565e980a0d168487626b493d0d0b7b341da0e43001089d3b21703fe17b18a7a6c0f42c92026f71d54471ed0a0d1b3015ec0f
+  languageName: node
+  linkType: hard
+
+"jsbn@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "jsbn@npm:1.1.0"
+  checksum: 944f924f2bd67ad533b3850eee47603eed0f6ae425fd1ee8c760f477e8c34a05f144c1bd4f5a5dd1963141dc79a2c55f89ccc5ab77d039e7077f3ad196b64965
   languageName: node
   linkType: hard
 

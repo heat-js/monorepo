@@ -4575,9 +4575,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/cognito/",
           "packageDependencies": [
             ["@heat/cognito", "workspace:packages/cognito"],
-            ["@magic-akari/modpow", "npm:0.2.1"],
             ["array-buffer-concat", "npm:1.0.1"],
-            ["base64-arraybuffer", "npm:1.0.2"],
+            ["cognito-srp", "npm:0.2.0"],
             ["jest", "virtual:6a412f2983214f3c957c34cf6b69da991bf1f6b9c1756b0c9f586cd87305a990fca17bfa44cbfb911c39328d0a64feae86dfc6162e67c28f8008ca1b6555d376#npm:28.1.0"],
             ["js-cookie", "npm:3.0.1"],
             ["jwt-decode", "npm:3.1.2"]
@@ -5485,15 +5484,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@js-joda-core-npm-4.3.1-64dbd1779b-6851178585.zip/node_modules/@js-joda/core/",
           "packageDependencies": [
             ["@js-joda/core", "npm:4.3.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["@magic-akari/modpow", [
-        ["npm:0.2.1", {
-          "packageLocation": "./.yarn/cache/@magic-akari-modpow-npm-0.2.1-3a3d797a8f-05733de3ef.zip/node_modules/@magic-akari/modpow/",
-          "packageDependencies": [
-            ["@magic-akari/modpow", "npm:0.2.1"]
           ],
           "linkType": "HARD",
         }]
@@ -7937,15 +7927,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["base64-arraybuffer", [
-        ["npm:1.0.2", {
-          "packageLocation": "./.yarn/cache/base64-arraybuffer-npm-1.0.2-18f4899892-15e6400d2d.zip/node_modules/base64-arraybuffer/",
-          "packageDependencies": [
-            ["base64-arraybuffer", "npm:1.0.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["base64-js", [
         ["npm:1.5.1", {
           "packageLocation": "./.yarn/cache/base64-js-npm-1.5.1-b2f7275641-669632eb37.zip/node_modules/base64-js/",
@@ -8968,6 +8949,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/coffeescript-npm-2.6.1-1a31b629e6-c53db08b1b.zip/node_modules/coffeescript/",
           "packageDependencies": [
             ["coffeescript", "npm:2.6.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["cognito-srp", [
+        ["npm:0.2.0", {
+          "packageLocation": "./.yarn/cache/cognito-srp-npm-0.2.0-2e33ee4024-2d1a2796ce.zip/node_modules/cognito-srp/",
+          "packageDependencies": [
+            ["cognito-srp", "npm:0.2.0"],
+            ["jsbn", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -14163,6 +14154,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/jsbn-npm-0.1.1-0eb7132404-e5ff29c1b8.zip/node_modules/jsbn/",
           "packageDependencies": [
             ["jsbn", "npm:0.1.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/jsbn-npm-1.1.0-1da0181838-944f924f2b.zip/node_modules/jsbn/",
+          "packageDependencies": [
+            ["jsbn", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]

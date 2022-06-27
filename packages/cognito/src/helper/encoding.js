@@ -47,10 +47,9 @@ export function fromUtf8(str) {
 	return new TextEncoder('utf-8').encode(str).buffer;
 }
 
-// export function toUtf8(str, encoding = 'utf-8') {
-// 	return new TextEncoder('utf-8').decode(str);
+// export function toUtf8(str) {
+// 	return (new TextDecoder('utf-8')).decode(str);
 // }
-
 
 export const fromBase64 = (base64) => {
 	if (typeof (atob) === 'undefined') {
