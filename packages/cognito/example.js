@@ -6,17 +6,16 @@ globalThis.crypto = webcrypto;
 
 const deviceStore = new MemoryStore();
 const store = new MemoryStore();
-// store.set('device', { key: 'unknown' });
 
 const client = new Client({
-	clientId: 'CLIENT',
-	userPoolId: 'USER_POOL',
+	clientId: 'qbe17juek4ji0v5mlj3bms54o',
+	userPoolId: 'eu-west-1_nO4A8A5QS',
 	store,
 	deviceStore,
 });
 
-const username = 'USER';
-const password = 'PASS';
+const username = 'jack';
+const password = 'Testtest123!';
 
 // -------------------------------------------------------------------
 // The first time you login a new device will be confirmed.

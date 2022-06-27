@@ -1,6 +1,6 @@
 
-import { ClientPasswordChallenge } from 'cognito-srp';
-import { srp } from '../src/index'
+import { ClientPasswordChallenge, UserPool } from 'cognito-srp';
+import { srp, generateVerifier } from '../src/index'
 import { webcrypto } from 'node:crypto';
 import { fromHex } from '../src/helper/encoding';
 
@@ -50,5 +50,25 @@ describe('srp', () => {
 
 		expect(result1)
 			.toStrictEqual(result2);
+	});
+
+	it('create verifier', async () => {
+		const pool = new UserPool(userPool);
+		const result1 = await pool.createUser({ username, password }, 'ff22');
+		const verifier1 = Buffer.from(result1.verifier, 'hex').toString('base64');
+		const salt1 = Buffer.from(result1.salt, 'hex').toString('base64');
+
+		const [verifier2, salt2] = await generateVerifier(
+			userPool,
+			username,
+			password,
+			fromHex('ff22')
+		);
+
+		expect(verifier1)
+			.toBe(verifier2);
+
+		expect(salt1)
+			.toBe(salt2);
 	});
 });
