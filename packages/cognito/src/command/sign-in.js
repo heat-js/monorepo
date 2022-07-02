@@ -41,8 +41,8 @@ export const signInCommand = async (client, { username, password, attributes = {
 
 	if (newDevice) {
 		await confirmDevice(client, {
-			username,
 			accessToken,
+			userId: result.userId,
 			key: newDevice.DeviceKey,
 			group: newDevice.DeviceGroupKey,
 		});
@@ -67,11 +67,14 @@ const userAuth = async (client, { device, username, password, attributes }) => {
 	});
 
 	if (result.ChallengeName === 'DEVICE_SRP_AUTH') {
-		return deviceSrpAuth(client, {
-			device,
-			username,
-			session: result.Session
-		});
+		return {
+			userId: result.userId,
+			...(await deviceSrpAuth(client, {
+				device,
+				userId: result.userId,
+				session: result.Session
+			}))
+		};
 	}
 
 	return result;
@@ -89,7 +92,6 @@ const userSrpAuth = async (client, { device, username, password, attributes }) =
 		params.DEVICE_KEY = device.key;
 	}
 
-
 	const result = await client.call('InitiateAuth', {
 		ClientId: client.getClientId(),
 		AuthFlow: 'USER_SRP_AUTH',
@@ -97,9 +99,11 @@ const userSrpAuth = async (client, { device, username, password, attributes }) =
 		AuthParameters: params,
 	});
 
+	const userId = result.ChallengeParameters.USER_ID_FOR_SRP;
+
 	if (result.ChallengeName === 'PASSWORD_VERIFIER') {
 		const [signature, timestamp] = await next(
-			result.ChallengeParameters.USER_ID_FOR_SRP,
+			userId,
 			password,
 			result.ChallengeParameters.SRP_B,
 			result.ChallengeParameters.SALT,
@@ -107,7 +111,7 @@ const userSrpAuth = async (client, { device, username, password, attributes }) =
 		);
 
 		const responses = {
-			USERNAME: result.ChallengeParameters.USER_ID_FOR_SRP,
+			USERNAME: userId,
 			TIMESTAMP: timestamp,
 			PASSWORD_CLAIM_SIGNATURE: signature,
 			PASSWORD_CLAIM_SECRET_BLOCK: result.ChallengeParameters.SECRET_BLOCK,
@@ -117,19 +121,21 @@ const userSrpAuth = async (client, { device, username, password, attributes }) =
 			responses.DEVICE_KEY = device.key;
 		}
 
-		return client.call('RespondToAuthChallenge', {
+		const challengeResult = await client.call('RespondToAuthChallenge', {
 			ChallengeName: 'PASSWORD_VERIFIER',
 			ChallengeResponses: responses,
 			ClientId: client.getClientId(),
 			ClientMetadata: attributes,
 			Session: result.Session,
 		});
+
+		return { ...challengeResult, userId };
 	}
 
-	return result;
+	return { ...result, userId };
 };
 
-const deviceSrpAuth = async (client, { device, username, session }) => {
+const deviceSrpAuth = async (client, { device, userId, session }) => {
 	const [A, next] = await srp(device.group);
 
 	const result = await client.call('RespondToAuthChallenge', {
@@ -138,7 +144,7 @@ const deviceSrpAuth = async (client, { device, username, session }) => {
 		ChallengeName: 'DEVICE_SRP_AUTH',
 		ChallengeResponses: {
 			SRP_A: A,
-			USERNAME: username,
+			USERNAME: userId,
 			DEVICE_KEY: device.key,
 		}
 	});
@@ -156,7 +162,7 @@ const deviceSrpAuth = async (client, { device, username, session }) => {
 		ClientId: client.getClientId(),
 		ChallengeName: 'DEVICE_PASSWORD_VERIFIER',
 		ChallengeResponses: {
-			USERNAME: username,
+			USERNAME: userId,
 			DEVICE_KEY: device.key,
 			TIMESTAMP: timestamp,
 			PASSWORD_CLAIM_SIGNATURE: signature,
@@ -165,7 +171,7 @@ const deviceSrpAuth = async (client, { device, username, session }) => {
 	});
 }
 
-const confirmDevice = async (client, { username, accessToken, key, group }) => {
+const confirmDevice = async (client, { userId, accessToken, key, group }) => {
 	const secret = generateDeviceSecret();
 	const name = typeof (navigator) !== 'undefined' ? navigator.userAgent : 'nodejs';
 
@@ -187,5 +193,5 @@ const confirmDevice = async (client, { username, accessToken, key, group }) => {
 		secret,
 	};
 
-	setUserDevice(client, username, device);
+	setUserDevice(client, userId, device);
 };

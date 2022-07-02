@@ -1,6 +1,6 @@
 {
 	"name": "@heat/cognito",
-	"version": "0.0.38",
+	"version": "0.0.39",
 	"license": "MIT",
 	"main": "./src/index.js",
 	"type": "module",
@@ -35,6 +35,7 @@
 	},
 	"devDependencies": {
 		"cognito-srp": "^0.2.0",
-		"jest": "^28.1.0"
+		"jest": "^28.1.0",
+		"node-fetch": "^3.2.6"
 	}
 }

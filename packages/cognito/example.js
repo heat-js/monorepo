@@ -1,21 +1,23 @@
 
 import { Client, MemoryStore, signInCommand, sessionCommand } from './src/index.js'
 import { webcrypto } from 'node:crypto';
+import fetch from 'node-fetch';
 
 globalThis.crypto = webcrypto;
+globalThis.fetch = fetch;
 
 const deviceStore = new MemoryStore();
 const store = new MemoryStore();
 
 const client = new Client({
-	clientId: 'qbe17juek4ji0v5mlj3bms54o',
-	userPoolId: 'eu-west-1_nO4A8A5QS',
+	clientId: '',
+	userPoolId: '',
 	store,
 	deviceStore,
 });
 
-const username = 'jack';
-const password = 'Testtest123!';
+const username = '';
+const password = '';
 
 // -------------------------------------------------------------------
 // The first time you login a new device will be confirmed.
