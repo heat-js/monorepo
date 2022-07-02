@@ -8,7 +8,8 @@ import attr						from './variable-resolver/attr'
 import When						from './variable-resolver/when'
 
 import output					from './resource/output'
-import website					from './resource/website'
+import websiteStatic			from './resource/website/static'
+import websiteSsr				from './resource/website/ssr'
 import appsyncApi				from './resource/appsync/api'
 import snsTopic					from './resource/sns/topic'
 import sqsQueue					from './resource/sqs/queue'
@@ -41,7 +42,8 @@ export logicalResolvers = {
 
 export resources = {
 	'Awsless::Output':						output
-	'Awsless::Website':						website
+	'Awsless::Website':						websiteStatic
+	'Awsless::Website::SSR':				websiteSsr
 	'Awsless::Schedule':					schedule
 	'Awsless::Appsync::Api':				appsyncApi
 	'Awsless::SNS::Topic':					snsTopic

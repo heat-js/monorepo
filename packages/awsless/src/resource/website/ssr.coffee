@@ -2,18 +2,18 @@
 import sync				from '@heat/s3-deploy/sync'
 import path				from 'path'
 import filesize 		from 'filesize'
-import resource 		from '../feature/resource'
-import isDirectory		from '../feature/fs/is-directory'
-import clearCache		from '../feature/cloud-front/clear-cache'
-import emptyBucket		from '../feature/s3/empty-bucket'
-# import { keyval }		from '../feature/console'
-import { run }			from '../feature/terminal/task'
-import fetchExports		from '../feature/fetch/exports'
-import time				from '../feature/performance/time'
-import output			from './output'
+import resource 		from '../../feature/resource'
+import isDirectory		from '../../feature/fs/is-directory'
+import clearCache		from '../../feature/cloud-front/clear-cache'
+import emptyBucket		from '../../feature/s3/empty-bucket'
+# import { keyval }		from '../../feature/console'
+import { run }			from '../../feature/terminal/task'
+import fetchExports		from '../../feature/fetch/exports'
+import time				from '../../feature/performance/time'
+import output			from '../output'
 
 import { parseDomain, ParseResultType }	from 'parse-domain'
-import { Ref, Select, Split, GetAtt }	from '../feature/cloudformation/fn'
+import { Ref, Select, Split, GetAtt }	from '../../feature/cloudformation/fn'
 
 formatHostedZoneName = (domain) ->
 	result = parseDomain domain
@@ -23,7 +23,7 @@ formatHostedZoneName = (domain) ->
 
 	return "#{ result.domain }.#{ result.topLevelDomains.join '.' }."
 
-customerHeaders = (ctx) ->
+customHeaders = (ctx) ->
 	headers = ctx.object [ 'CustomHeaders', 'OriginCustomHeaders' ], {}
 
 	keys = Object.keys headers
@@ -98,11 +98,11 @@ lambdaFunctionAssociations = (ctx) ->
 	}
 
 export default resource (ctx) ->
-
 	region				= ctx.string '@Config.Region'
 	profile				= ctx.string '@Config.Profile'
 	Stack 				= ctx.string '@Config.Stack'
 	DomainName			= ctx.string 'DomainName'
+	SsrOrigin			= ctx.string 'SsrOrigin', 'not-found'
 	BucketName			= ctx.string [ 'BucketName', 'DomainName' ]
 	HostedZoneId		= ctx.string 'HostedZoneId', 'Z2FDTNDATAQYW2'
 	Aliases				= ctx.array 'Aliases', []
@@ -115,9 +115,9 @@ export default resource (ctx) ->
 		Type: 'AWS::S3::Bucket'
 		Properties: {
 			BucketName
-			AccessControl:			ctx.string 'AccessControl', 'Private'
+			AccessControl: ctx.string 'AccessControl', 'Private'
 			WebsiteConfiguration: {
-				ErrorDocument:		ctx.string 'ErrorDocument', 'index.html'
+				# ErrorDocument:		ctx.string 'ErrorDocument', 'index.html'
 				IndexDocument:		ctx.string 'IndexDocument', 'index.html'
 			}
 		}
@@ -163,7 +163,7 @@ export default resource (ctx) ->
 		Properties: {
 			DistributionConfig: {
 				Enabled: true
-				DefaultRootObject: ctx.string 'IndexDocument', 'index.html'
+				# DefaultRootObject: ctx.string 'IndexDocument', 'index.html'
 				Aliases: [ DomainName, ...Aliases ]
 				PriceClass: 'PriceClass_All'
 				HttpVersion: 'http2'
@@ -171,16 +171,48 @@ export default resource (ctx) ->
 					SslSupportMethod: 'sni-only'
 					AcmCertificateArn
 				}
-				Origins: [ {
-					Id: 'S3BucketOrigin'
-					DomainName: Select 1, Split '//', GetAtt "#{ ctx.name }S3Bucket", 'WebsiteURL'
-					CustomOriginConfig: {
-						OriginProtocolPolicy: 'http-only'
+				Origins: [
+					{
+						Id: 'S3BucketOrigin'
+						DomainName: Select 1, Split '//', GetAtt "#{ ctx.name }S3Bucket", 'WebsiteURL'
+						CustomOriginConfig: {
+							OriginProtocolPolicy: 'http-only'
+						}
+						...customHeaders ctx
+					},
+					{
+						Id: 'LambdaOrigin'
+						DomainName: Select 2, Split '/', SsrOrigin
+						CustomOriginConfig: {
+							OriginProtocolPolicy: 'https-only'
+						}
+						...customHeaders ctx
 					}
-					...customerHeaders ctx
-				} ]
+				]
+				OriginGroups: {
+					Items: [
+						Id: 'DefaultOriginGroup'
+						Members: {
+							Items: [
+								{ OriginId: 'S3BucketOrigin' }
+								{ OriginId: 'LambdaOrigin' }
+							]
+							Quantity: 2
+						}
+						FailoverCriteria: {
+							StatusCodes: {
+								Items: [
+									403
+									404
+								]
+								Quantity: 2
+							}
+						}
+					]
+					Quantity: 1
+				}
 				DefaultCacheBehavior: {
-					TargetOriginId: 'S3BucketOrigin'
+					TargetOriginId: 'DefaultOriginGroup'
 					ViewerProtocolPolicy: 'redirect-to-https'
 					AllowedMethods: [ 'GET', 'HEAD', 'OPTIONS' ]
 					Compress: true

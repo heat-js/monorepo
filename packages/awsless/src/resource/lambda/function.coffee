@@ -190,7 +190,7 @@ export default resource (ctx) ->
 	if Object.keys(urlConfig).length
 		url(
 			ctx
-			"#{ ctx.name }Url"
+			"#{ ctx.name }FunctionUrl"
 			{
 				...urlConfig
 				Name: Ref ctx.name
@@ -240,6 +240,7 @@ export default resource (ctx) ->
 		ctx.setAttribute ctx.name, 'Changed',		changed
 		ctx.setAttribute ctx.name, 'Version',		GetAtt "#{ ctx.name }Version#{ checksum }", 'Version'
 		ctx.setAttribute ctx.name, 'VersionedArn',	Ref "#{ ctx.name }Version#{ checksum }"
+		ctx.setAttribute ctx.name, 'FunctionUrl', 	GetAtt "#{ ctx.name }FunctionUrl", 'FunctionUrl'
 
 		ctx.addResource ctx.name, {
 			Type: 'AWS::Lambda::Function'

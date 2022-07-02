@@ -1,6 +1,6 @@
 
 import resource		from '../../feature/resource'
-# import { Ref, Sub }	from '../../feature/cloudformation/fn'
+import { GetAtt }	from '../../feature/cloudformation/fn'
 # import addPolicy 	from './policy'
 
 corsConfig = (ctx) ->
@@ -26,7 +26,7 @@ export default resource (ctx) ->
 	}
 
 	if authType is 'NONE'
-		ctx.addResource "#{ ctx.name }FunctionUrlPublicAccess", {
+		ctx.addResource "#{ ctx.name }PublicAccess", {
 			Type: 	'AWS::Lambda::Permission'
 			Region: region
 			Properties: {
