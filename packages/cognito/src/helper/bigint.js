@@ -1,4 +1,8 @@
 
+const zero = BigInt(0);
+const one = BigInt(1);
+const two = BigInt(2);
+
 /**
  * An iterative implementation of the extended euclidean algorithm or extended greatest common divisor algorithm.
  * Take positive integers a, b as input, and return a triple (g, x, y), such that ax + by = g = gcd(a, b).
@@ -15,14 +19,14 @@ export function eGcd(a, b) {
 	if (typeof a === 'number') a = BigInt(a)
 	if (typeof b === 'number') b = BigInt(b)
 
-	if (a <= 0n || b <= 0n) throw new RangeError('a and b MUST be > 0') // a and b MUST be positive
+	if (a <= zero || b <= zero) throw new RangeError('a and b MUST be > 0') // a and b MUST be positive
 
-	let x = 0n
-	let y = 1n
-	let u = 1n
-	let v = 0n
+	let x = zero
+	let y = one
+	let u = one
+	let v = zero
 
-	while (a !== 0n) {
+	while (a !== zero) {
 		const q = b / a
 		const r = b % a
 		const m = x - (u * q)
@@ -43,7 +47,7 @@ export function eGcd(a, b) {
 
 export function modInv(a, n) {
 	const egcd = eGcd(toZn(a, n), n)
-	if (egcd.g !== 1n) {
+	if (egcd.g !== one) {
 		throw new RangeError(`${a.toString()} does not have inverse modulo ${n.toString()}`) // modular inverse does not exist
 	} else {
 		return toZn(egcd.x, n)
@@ -58,12 +62,12 @@ export function toZn(a, n) {
 	if (typeof a === 'number') a = BigInt(a)
 	if (typeof n === 'number') n = BigInt(n)
 
-	if (n <= 0n) {
+	if (n <= zero) {
 		throw new RangeError('n must be > 0')
 	}
 
 	const aZn = a % n
-	return (aZn < 0n) ? aZn + n : aZn
+	return (aZn < zero) ? aZn + n : aZn
 }
 
 
@@ -72,25 +76,25 @@ export function modPow(b, e, n) {
 	if (typeof e === 'number') e = BigInt(e)
 	if (typeof n === 'number') n = BigInt(n)
 
-	if (n <= 0n) {
+	if (n <= zero) {
 		throw new RangeError('n must be > 0')
-	} else if (n === 1n) {
-		return 0n
+	} else if (n === one) {
+		return zero
 	}
 
 	b = toZn(b, n)
 
-	if (e < 0n) {
+	if (e < zero) {
 		return modInv(modPow(b, abs(e), n), n)
 	}
 
-	let r = 1n
+	let r = one
 	while (e > 0) {
-		if ((e % 2n) === 1n) {
+		if ((e % two) === one) {
 			r = r * b % n
 		}
-		e = e / 2n
-		b = b ** 2n % n
+		e = e / two
+		b = b ** two % n
 	}
 	return r
 }

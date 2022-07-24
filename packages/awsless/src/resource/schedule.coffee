@@ -5,6 +5,8 @@ import { Ref, Sub, GetAtt }	from '../feature/cloudformation/fn'
 
 parse = (ctx) ->
 	Definition	= ctx.array 'Definition'
+	Repeat		= ctx.number 'Repeat', 1
+	defs		= []
 	states		= []
 	resources	= []
 
@@ -12,9 +14,17 @@ parse = (ctx) ->
 		throw new TypeError 'Schedule Definition should alreast have 1 item'
 
 	# -------------------------------------------------------
+	# Repeat definition X times
+
+	x = Repeat
+	while x--
+		for _, index in Definition
+			defs.push index
+
+	# -------------------------------------------------------
 	# Parse definition items
 
-	for item, index in Definition
+	for index, y in defs
 		type = ctx.string "Definition.#{ index }.Type"
 		type = type.toLowerCase()
 
@@ -31,10 +41,10 @@ parse = (ctx) ->
 				states.push {
 					Type:		'Task'
 					Resource:	task
-					Next:		"State#{ index + 2 }"
+					Next:		"State#{ y + 2 }"
 					Catch: [ {
 						ErrorEquals: [ 'States.ALL' ]
-						Next: "State#{ index + 2 }"
+						Next: "State#{ y + 2 }"
 					} ]
 				}
 
@@ -48,8 +58,11 @@ parse = (ctx) ->
 				states.push {
 					Type:		'Wait'
 					Seconds:	time
-					Next:		"State#{ index + 2 }"
+					Next:		"State#{ y + 2 }"
 				}
+
+	# -------------------------------------------------------
+	# Repeat definition X times
 
 	# -------------------------------------------------------
 	# Make sure to end the machine
