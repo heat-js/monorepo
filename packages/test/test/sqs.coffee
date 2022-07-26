@@ -1,9 +1,9 @@
 
-import { createSnsMock } from '../../src/index'
+import { createSqsMock } from '../src/index'
 
-describe 'Sns Mock', ->
+describe 'Sqs Mock', ->
 
-	mock = createSnsMock [
+	mock = createSqsMock [
 		'test__test'
 		'bla__bla'
 	]
@@ -11,10 +11,10 @@ describe 'Sns Mock', ->
 	beforeEach ->
 		jest.clearAllMocks()
 
-	it 'should be able to publish a mocked sns topic', ->
-		await mock.publish {
+	it 'should be able to send to a mocked sqs queue', ->
+		await mock.send {
 			service: 'test'
-			topic: 	 'test'
+			name: 	 'test'
 		}
 
 		expect mock['test__test']
@@ -23,11 +23,11 @@ describe 'Sns Mock', ->
 		expect mock['bla__bla']
 			.not.toHaveBeenCalled()
 
-	it 'should able to publish topics without defining it first', ->
+	it 'should able to send to queues without defining them first', ->
 		for i in [ 1..3 ]
-			await mock.publish {
+			await mock.send {
 				service: 'test'
-				topic: 	 i
+				name: 	 i
 			}
 
 		expect mock['test__1']
