@@ -15,7 +15,7 @@
 		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
 		"babel-preset-jest": "^27.4.0",
 		"coffeescript": "^2.6.1",
-		"jest": "^24.8.0",
+		"jest": "24.8.0",
 		"jest-preset-coffeescript": "1.1.1"
 	}
 }
