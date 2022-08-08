@@ -1,6 +1,6 @@
 {
 	"name": "@heat/cognito",
-	"version": "0.0.40",
+	"version": "0.0.41",
 	"license": "MIT",
 	"main": "./src/index.js",
 	"type": "module",
@@ -29,7 +29,6 @@
 		]
 	},
 	"dependencies": {
-		"array-buffer-concat": "^1.0.1",
 		"js-cookie": "^3.0.1",
 		"jwt-decode": "^3.1.2"
 	},

@@ -2,7 +2,7 @@
 import { hash, hmac, generateRandomBuffer, hkdf } from './helper/crypto.js'
 import { toBigInt, fromBase64, toBase64, fromUtf8, padHex, fromHex, toHex } from './helper/encoding.js';
 import { createTimestamp } from './helper/timestamp.js';
-import concat from 'array-buffer-concat';
+import { concat } from './helper/buffer.js';
 import { modPow } from './helper/bigint.js';
 
 // const initN = '' +

@@ -4086,7 +4086,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/cognito/",
           "packageDependencies": [
             ["@heat/cognito", "workspace:packages/cognito"],
-            ["array-buffer-concat", "npm:1.0.1"],
             ["cognito-srp", "npm:0.2.0"],
             ["jest", "virtual:6a412f2983214f3c957c34cf6b69da991bf1f6b9c1756b0c9f586cd87305a990fca17bfa44cbfb911c39328d0a64feae86dfc6162e67c28f8008ca1b6555d376#npm:28.1.3"],
             ["js-cookie", "npm:3.0.1"],
@@ -6639,15 +6638,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/array-back-npm-4.0.2-f735073f8f-f306032707.zip/node_modules/array-back/",
           "packageDependencies": [
             ["array-back", "npm:4.0.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["array-buffer-concat", [
-        ["npm:1.0.1", {
-          "packageLocation": "./.yarn/cache/array-buffer-concat-npm-1.0.1-1d96e23f23-38070981dc.zip/node_modules/array-buffer-concat/",
-          "packageDependencies": [
-            ["array-buffer-concat", "npm:1.0.1"]
           ],
           "linkType": "HARD",
         }]
