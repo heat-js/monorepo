@@ -1,18 +1,17 @@
 {
 	"name": "@heat/handlebars",
-	"version": "0.0.1",
+	"version": "0.0.8",
 	"license": "MIT",
-	"main": "./src/index.js",
-	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/heat-js/monorepo/tree/master/packages/handlebars"
 	},
 	"scripts": {
 		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-		"patch": "npm version patch; npm publish --access=public",
-		"minor": "npm version minor; npm publish --access=public",
-		"major": "npm version major; npm publish --access=public"
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp",
+		"patchOLD": "npm version patch; npm publish --access=public"
 	},
 	"jest": {
 		"testEnvironment": "node",

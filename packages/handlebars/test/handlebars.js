@@ -1,30 +1,30 @@
 
-import { inject } from '../src/index';
+import { render } from '../src/index';
 
 describe('Variables', () => {
-	it('should inject variables', function() {
-		const result = inject("{{ test }}", {
+	it('should render variables', function() {
+		const result = render("{{ test }}", {
 			test: 'TEST'
 		});
 		expect(result).toBe('TEST');
 	});
 
 	it('should escape html', function() {
-		const result = inject("{{ foo }}", {
+		const result = render("{{ foo }}", {
 			foo: '<tag />'
 		});
 		expect(result).toBe('&lt;tag /&gt;');
 	});
 
 	it('should allow unsafe variables', function() {
-		const result = inject("{{! foo }}", {
+		const result = render("{{! foo }}", {
 			foo: '<tag />'
 		});
 		expect(result).toBe('<tag />');
 	});
 
 	it('should allow [-_0-9a-z] characters in variable names', function() {
-		const result = inject("{{ foo-bar }} {{ foo_bar }} {{ 123 }}", {
+		const result = render("{{ foo-bar }} {{ foo_bar }} {{ 123 }}", {
 			'foo-bar': 1,
 			'foo_bar': 2,
 			'123': 3
@@ -33,7 +33,7 @@ describe('Variables', () => {
 	});
 
 	it('should allow multiple variables', function() {
-		const result = inject("{{ foo }} {{ foo }} {{ bar }}", {
+		const result = render("{{ foo }} {{ foo }} {{ bar }}", {
 			foo: 'FOO',
 			bar: 'BAR'
 		});
@@ -41,7 +41,7 @@ describe('Variables', () => {
 	});
 
 	it('should have multi line support', function() {
-		const result = inject("{{ foo }}\n{{ foo }}\n{{ bar }}", {
+		const result = render("{{ foo }}\n{{ foo }}\n{{ bar }}", {
 			foo: 'FOO',
 			bar: 'BAR'
 		});
@@ -49,7 +49,7 @@ describe('Variables', () => {
 	});
 
 	it('should handle expressions', function() {
-		let result = inject("{{#if foo }}\n	<i>{{ foo }}</i>\n{{/if}}\n{{#if unknown }}\n	<i>{{ unknown }}</i>\n{{/if}}\n{{#each list }}\n	<i>{{ this }}</i>\n{{/each}}", {
+		let result = render("{{#if foo }}\n	<i>{{ foo }}</i>\n{{/if}}\n{{#if unknown }}\n	<i>{{ unknown }}</i>\n{{/if}}\n{{#each list }}\n	<i>{{ this }}</i>\n{{/each}}", {
 			foo: 'FOO',
 			bar: 'BAR',
 			list: [1, 2, 3]
@@ -60,17 +60,17 @@ describe('Variables', () => {
 	});
 
 	it('should handle helpers', function() {
-		let result = inject("{{upper foo}}", {
+		let result = render("{{upper foo}}", {
 			foo: 'foo'
 		});
 		expect(result).toBe("FOO");
 
-		result = inject("{{cap foo}}", {
+		result = render("{{cap foo}}", {
 			foo: 'foo'
 		});
 		expect(result).toBe("Foo");
 
-		result = inject("{{lower foo}}", {
+		result = render("{{lower foo}}", {
 			foo: 'FOO'
 		});
 		expect(result).toBe("foo");
