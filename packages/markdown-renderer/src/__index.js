@@ -2,8 +2,8 @@
 import { remark } from 'remark';
 import Html	from 'remark-html';
 import Directive from 'remark-directive';
-import  { convert } from 'html-to-text';
-import Container from './renderer/container';
+import Container from './renderer/__container';
+import Text from './renderer/__text';
 
 export const html = async (content) => {
 	let result = await remark()
@@ -23,11 +23,10 @@ export const html = async (content) => {
 }
 
 export const text = async (content) => {
-	const result = await html(content);
-	return convert(result, {
-		preserveNewlines: true,
-		uppercaseHeadings: false,
-		hideLinkHrefIfSameAsText: true,
-		wordwrap: false
-	});
+	let result = await (remark()
+		.use(Text)
+		.use(Directive)
+		.process(content));
+
+	return result.toString();
 }

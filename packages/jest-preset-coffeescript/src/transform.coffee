@@ -16,14 +16,7 @@ module.exports =
 			.digest 'hex'
 
 	process: (src, file, config, options) ->
-		{ js, v3SourceMap } = coffee.compile src, {
-			sourceMap: true
-			transpile: {
-				plugins: [
-
-				]
-			}
-		}
+		{ js, v3SourceMap } = coffee.compile src, { sourceMap: true }
 
 		v3SourceMap = JSON.parse v3SourceMap
 

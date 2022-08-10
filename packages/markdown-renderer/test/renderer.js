@@ -1,5 +1,5 @@
 
-import { html, text } from '../src/index';
+import { html, text } from '../src/__index';
 
 describe('Renderer', () => {
 
@@ -50,7 +50,7 @@ describe('Renderer', () => {
 <p>Blockquotes</p>
 </blockquote>
 <p><a href=\"https://www.markdownguide.org\">https://www.markdownguide.org</a></p>
-<div><p><a href=\"http://test.com\">A link</a></p></div>
+<div class="center"><p><a href=\"http://test.com\">A link</a></p></div>
 <p>Kind regards,
 Jack</p>`)
 	});
@@ -60,6 +60,6 @@ Jack</p>`)
 
 		console.log(JSON.stringify(result));
 		expect(result)
-			.toBe('Hi Kennedy,\n\n\nSome random text.\n\n\n * One\n * Two\n * Three\n\n\n 1. One\n 2. Two\n 3. Three\n\n\n> Blockquotes\n\n\nhttps://www.markdownguide.org\n\n\nA link [http://test.com]\n\n\nKind regards,\nJack');
+			.toBe('Hi Kennedy,\n\nSome random text.\n\n*   One\n*   Two\n*   Three\n\n1.  One\n2.  Two\n3.  Three\n\n> Blockquotes\n\nhttps://www.markdownguide.org\n\nhttp://test.com\n\nKind regards,\nJack\n');
 	});
 });

@@ -2,8 +2,8 @@
 import { remark } from 'remark'
 import Html	from 'remark-html'
 import Directive from 'remark-directive'
-import  { convert } from 'html-to-text'
 import Container from './renderer/container'
+import Text from './renderer/text';
 
 export html = (content) ->
 	result = await remark()
@@ -22,10 +22,9 @@ export html = (content) ->
 	return result
 
 export text = (content) ->
-	result = await html content
-	return convert result, {
-		preserveNewlines: true,
-		uppercaseHeadings: false,
-		hideLinkHrefIfSameAsText: true,
-		wordwrap: false
-	}
+	result = await remark()
+		.use Text
+		.use Directive
+		.process content
+
+	return result.toString()

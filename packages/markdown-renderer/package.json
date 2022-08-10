@@ -1,6 +1,6 @@
 {
 	"name": "@heat/markdown-renderer",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"license": "MIT",
 	"type": "module",
 	"main": "index.js",
@@ -21,11 +21,10 @@
 		]
 	},
 	"dependencies": {
-		"html-to-text": "8.2.1",
-		"remark": "14.0.1",
-		"remark-directive": "2.0.1",
-		"remark-html": "15.0.0",
-		"unist-util-visit": "4.1.0"
+		"remark": "^14.0.1",
+		"remark-directive": "^2.0.1",
+		"remark-html": "^15.0.0",
+		"unist-util-visit": "^4.1.0"
 	},
 	"devDependencies": {
 		"jest": "^28.1.0"
