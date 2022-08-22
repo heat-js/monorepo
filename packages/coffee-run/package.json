@@ -1,6 +1,6 @@
 {
 	"name": "@heat/coffee-run",
-	"version": "0.0.19",
+	"version": "0.0.20",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -34,6 +34,7 @@
 		"commander": "^8.1.0",
 		"rollup": "^2.56.0",
 		"rollup-plugin-coffee-script": "^2.0.0",
+		"rollup-plugin-jsx": "^1.0.3",
 		"rollup-plugin-node-resolve": "^5.2.0"
 	}
 }

@@ -3,6 +3,7 @@ import { Command } 		from 'commander'
 import { rollup }		from 'rollup'
 import coffeescript		from 'rollup-plugin-coffee-script'
 import nodeResolve		from 'rollup-plugin-node-resolve'
+import jsx 				from 'rollup-plugin-jsx'
 import commonjs			from '@rollup/plugin-commonjs'
 import json 			from '@rollup/plugin-json'
 import { spawn }		from 'child_process'
@@ -40,12 +41,13 @@ program
 				console.error error.message
 
 			plugins: [
+				jsx({ factory: 'h' })
 				coffeescript()
 				commonjs()
 				json()
 				nodeResolve({
 					preferBuiltins: true
-					extensions: ['.js', '.coffee']
+					extensions: ['.js', '.coffee', '.jsx']
 				}),
 			]
 		}
