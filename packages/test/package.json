@@ -1,6 +1,6 @@
 {
   "name": "@heat/test",
-  "version": "0.2.110",
+  "version": "0.2.112",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,9 +16,13 @@
     "major": "npm version major; yarn run -T ncp"
   },
   "jest": {
-    "preset": "jest-preset-coffeescript",
+    "preset": "@heat/jest-preset-coffeescript",
     "testEnvironment": "node",
-    "rootDir": "./test/"
+    "transform": {},
+    "rootDir": "test",
+    "testMatch": [
+      "**/test/**"
+    ]
   },
   "dependencies": {
     "@babel/core": "^7.5.0",
@@ -32,10 +36,5 @@
     "proper-lockfile": "^4.1.1",
     "redis": "^3.0.2",
     "redis-server": "^1.2.2"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.389.0",
-    "jest": "^24.8.0",
-    "jest-preset-coffeescript": "1.1.1"
   }
 }
