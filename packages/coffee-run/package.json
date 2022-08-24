@@ -1,6 +1,6 @@
 {
 	"name": "@heat/coffee-run",
-	"version": "0.0.22",
+	"version": "0.0.27",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -9,11 +9,11 @@
 	"bugs": {
 		"url": "https://github.com/heat-js/monorepo/issues"
 	},
-	"bin": "./index.js",
+	"bin": "./cli.js",
 	"main": "./index.js",
 	"scripts": {
 		"test": "yarn run -T jest",
-		"run": "yarn run -T coffee ./src/index.coffee",
+		"test2": "yarn run -T coffee -t ./src/cli.coffee",
 		"patch": "npm version patch; yarn run -T ncp",
 		"minor": "npm version minor; yarn run -T ncp",
 		"major": "npm version major; yarn run -T ncp"
@@ -29,11 +29,20 @@
 		"rootDir": "./test/"
 	},
 	"dependencies": {
+		"@babel/plugin-transform-runtime": "^7.18.10",
+		"@babel/preset-env": "^7.18.10",
+		"@babel/preset-react": "^7.18.6",
+		"@rollup/plugin-babel": "^5.3.1",
 		"@rollup/plugin-commonjs": "^21.0.1",
 		"@rollup/plugin-json": "^4.1.0",
 		"commander": "^8.1.0",
 		"rollup": "^2.56.0",
 		"rollup-plugin-coffee-script": "^2.0.0",
+		"rollup-plugin-jsx": "^1.0.3",
 		"rollup-plugin-node-resolve": "^5.2.0"
+	},
+	"devDependencies": {
+		"preact": "^10.10.6",
+		"preact-render-to-string": "^5.2.2"
 	}
 }
