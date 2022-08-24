@@ -1,9 +1,9 @@
 {
 	"name": "@heat/markdown-renderer",
-	"version": "0.0.10",
+	"version": "0.0.16",
 	"license": "MIT",
-	"type": "module",
 	"main": "index.js",
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/heat-js/monorepo/tree/master/packages/markdown-renderer"
@@ -11,8 +11,8 @@
 	"scripts": {
 		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
 		"patch": "npm version patch; yarn run -T ncp",
-		"minor": "npm version minor; yarn run -T ncp",
-		"major": "npm version major; yarn run -T ncp"
+		"__build": "yarn run rollup -c",
+		"__patch": "npm version patch; yarn build; cd .build; npm publish --access=public; cd ..; rm -rf .build"
 	},
 	"jest": {
 		"testEnvironment": "node",
@@ -27,6 +27,8 @@
 		"unist-util-visit": "^4.1.0"
 	},
 	"devDependencies": {
-		"jest": "^28.1.0"
+		"jest": "^28.1.0",
+		"rollup": "^2.77.2",
+		"rollup-plugin-copy": "^3.4.0"
 	}
 }
