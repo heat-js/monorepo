@@ -1,0 +1,40 @@
+{
+	"name": "@heat/svelte-graphql",
+	"version": "0.0.4",
+	"license": "MIT",
+	"main": "./src/index.js",
+	"type": "module",
+	"description": "Svelte Kit Graphql Client",
+	"keywords": [
+		"svelte",
+		"svelte-kit",
+		"graphql",
+		"api",
+		"client"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo/tree/master/packages/svelte-graphql"
+	},
+	"scripts": {
+		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+		"patch": "yarn version --patch; ./node_modules/.bin/ncp",
+		"minor": "yarn version --minor; ./node_modules/.bin/ncp",
+		"major": "yarn version --major; ./node_modules/.bin/ncp"
+	},
+	"jest": {
+		"testEnvironment": "node",
+		"testMatch": [
+			"**/test/**"
+		]
+	},
+	"dependencies": {
+		"dexie": "^3.2.2",
+		"parse-duration": "^1.0.2"
+	},
+	"devDependencies": {
+		"change-case": "^4.1.2",
+		"graphql": "^16.6.0",
+		"jest": "^28.1.0"
+	}
+}

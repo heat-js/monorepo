@@ -1800,7 +1800,7 @@ __metadata:
     rollup-plugin-jsx: ^1.0.3
     rollup-plugin-node-resolve: ^5.2.0
   bin:
-    coffee-run: ./index.js
+    coffee-run: ./cli.js
   languageName: unknown
   linkType: soft
 
@@ -1999,6 +1999,18 @@ __metadata:
 "@heat/step-functions-local@workspace:packages/step-functions-local":
   version: 0.0.0-use.local
   resolution: "@heat/step-functions-local@workspace:packages/step-functions-local"
+  languageName: unknown
+  linkType: soft
+
+"@heat/svelte-graphql@workspace:packages/svelte-graphql":
+  version: 0.0.0-use.local
+  resolution: "@heat/svelte-graphql@workspace:packages/svelte-graphql"
+  dependencies:
+    change-case: ^4.1.2
+    dexie: ^3.2.2
+    graphql: ^16.6.0
+    jest: ^28.1.0
+    parse-duration: ^1.0.2
   languageName: unknown
   linkType: soft
 
@@ -6059,6 +6071,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dexie@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "dexie@npm:3.2.2"
+  checksum: 7a21079f7ab139ebd724a009917f9293f2b01c341e2a3cd51d2455dda4d4e78b9ca7de0373e963108395cf1921ce7f6556cac967c1e957005a3c7c11794ceccf
+  languageName: node
+  linkType: hard
+
 "diff-sequences@npm:^27.5.1":
   version: 27.5.1
   resolution: "diff-sequences@npm:27.5.1"
@@ -7426,6 +7445,13 @@ __metadata:
   version: 15.8.0
   resolution: "graphql@npm:15.8.0"
   checksum: 423325271db8858428641b9aca01699283d1fe5b40ef6d4ac622569ecca927019fce8196208b91dd1d8eb8114f00263fe661d241d0eb40c10e5bfd650f86ec5e
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^16.6.0":
+  version: 16.6.0
+  resolution: "graphql@npm:16.6.0"
+  checksum: bf1d9e3c1938ce3c1a81e909bd3ead1ae4707c577f91cff1ca2eca474bfbc7873d5d7b942e1e9777ff5a8304421dba57a4b76d7a29eb19de8711cb70e3c2415e
   languageName: node
   linkType: hard
 
@@ -11936,6 +11962,13 @@ __metadata:
   bin:
     parse-domain-update: bin/update.js
   checksum: 5e3625586f679fa68c5505572267189540666054acea6e498fed1f7b7baa5e253af3c0efe4f5dfc39b86b9dbaa4d771366d3b2bcf602b5f18d19cc3a8f6bcde5
+  languageName: node
+  linkType: hard
+
+"parse-duration@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "parse-duration@npm:1.0.2"
+  checksum: d103ca9c3b630cc6169a89039349b735af796b94d9dc810750b16f79285ce5df20669ef0d02b23eda5832dc51aee88316857f3695584e88ba0ae5d77743134ef
   languageName: node
   linkType: hard
 
