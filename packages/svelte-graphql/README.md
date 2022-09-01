@@ -146,7 +146,7 @@ mutation CreateProduct ($title: String!, $description: String!) {
 
 # Query Store
 
-## query({ [ variables, policy, expiresIn ] } = {})
+## `query({ [ variables, policy, expiresIn ] } = {})`
 Fetch the query from the server.
 
 Possible policies can be:
@@ -158,11 +158,11 @@ Possible policies can be:
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `variables` | `object` | {} | The variables used in the query |
-| `policy` | `string` | 'cache-and-network' | The fetch policy |
-| `expiresIn` | `number\|string` | undefined | The expire time in milliseconds for the cached data. |
+| `variables` | `object` | `{}` | The variables used in the query |
+| `policy` | `string` | `'cache-and-network'` | The fetch policy |
+| `expiresIn` | `number\|string` | `undefined` | The expire time in milliseconds for the cached data. |
 
-## modify({ data, [ variables, policy, expiresIn ] } = {})
+## `modify({ data, [ variables, policy, expiresIn ] } = {})`
 Modify the data in the store and/or the cache.
 
 Possible policies can be:
@@ -172,12 +172,12 @@ Possible policies can be:
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `data` | `object\|function` | undefined | The data replacement for the store and/or cache |
-| `variables` | `object` | {} | The variables used for the cache key |
-| `policy` | `string` | 'cache-and-store' | The policy for modifing the store and/or cache. |
-| `expiresIn` | `number\|string` | undefined | The expire time in milliseconds for the cached data. |
+| `data` | `object\|function` | `undefined` | The data replacement for the store and/or cache |
+| `variables` | `object` | `{}` | The variables used for the cache key |
+| `policy` | `string` | `'cache-and-store'` | The policy for modifing the store and/or cache. |
+| `expiresIn` | `number\|string` | `undefined` | The expire time in milliseconds for the cached data. |
 
-## clear({ [ policy ] } = {})
+## `clear({ [ policy ] } = {})`
 Clear the data in the store and/or the cache.
 
 Possible policies can be:
@@ -187,16 +187,18 @@ Possible policies can be:
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `policy` | `string` | 'cache-and-store' | The policy for clearing the store and/or cache. |
+| `policy` | `string` | `'cache-and-store'` | The policy for clearing the store and/or cache. |
+
 
 # Mutation Store
-## mutate({ [ variables, suppressError ] } = {})
+
+## `mutate({ [ variables, suppressError ] } = {})`
 Clear the data in the store.
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `variables` | `object` | {} | The variables used in the mutation |
-| `suppressError` | `boolean` | false | Don't throw error's if the mutation fails |
+| `variables` | `object` | `{}` | The variables used in the mutation |
+| `suppressError` | `boolean` | `false` | Don't throw error's if the mutation fails |
 
-## clear()
+## `clear()`
 Clear the data in the store.
