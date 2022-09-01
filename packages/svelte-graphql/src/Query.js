@@ -1,5 +1,5 @@
 
-import { browser } from '$app/env';
+import { browser } from './utils.js';
 import { writable, get } from "svelte/store";
 import { getClient, getCache, register } from './global.js';
 import { CACHE_FIRST, CACHE_AND_NETWORK, NO_CACHE, STORE_FIRST } from "./policy/query.js"

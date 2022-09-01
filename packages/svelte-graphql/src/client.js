@@ -1,5 +1,5 @@
 
-import { browser } from '$app/env';
+import { browser } from './utils.js';
 import { GraphQLError } from './graphql-error.js';
 
 export default class Client {
