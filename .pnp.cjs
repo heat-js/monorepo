@@ -83,6 +83,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/step-functions-local"
       },
       {
+        "name": "@heat/svelte-graphql",
+        "reference": "workspace:packages/svelte-graphql"
+      },
+      {
         "name": "@heat/test",
         "reference": "workspace:packages/test"
       },
@@ -5214,6 +5218,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["@heat/svelte-graphql", [
+        ["workspace:packages/svelte-graphql", {
+          "packageLocation": "./packages/svelte-graphql/",
+          "packageDependencies": [
+            ["@heat/svelte-graphql", "workspace:packages/svelte-graphql"],
+            ["change-case", "npm:4.1.2"],
+            ["dexie", "npm:3.2.2"],
+            ["graphql", "npm:16.6.0"],
+            ["jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:28.1.3"],
+            ["parse-duration", "npm:1.0.2"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@heat/test", [
         ["workspace:packages/test", {
           "packageLocation": "./packages/test/",
@@ -10019,6 +10037,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["dexie", [
+        ["npm:3.2.2", {
+          "packageLocation": "./.yarn/cache/dexie-npm-3.2.2-1acd619fbb-7a21079f7a.zip/node_modules/dexie/",
+          "packageDependencies": [
+            ["dexie", "npm:3.2.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["diff", [
         ["npm:3.5.0", {
           "packageLocation": "./.yarn/cache/diff-npm-3.5.0-a321a0df19-00842950a6.zip/node_modules/diff/",
@@ -11463,6 +11490,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/graphql-npm-15.8.0-0156c66b65-423325271d.zip/node_modules/graphql/",
           "packageDependencies": [
             ["graphql", "npm:15.8.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:16.6.0", {
+          "packageLocation": "./.yarn/cache/graphql-npm-16.6.0-301c470966-bf1d9e3c19.zip/node_modules/graphql/",
+          "packageDependencies": [
+            ["graphql", "npm:16.6.0"]
           ],
           "linkType": "HARD",
         }]
@@ -16678,6 +16712,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["is-ip", "npm:3.1.0"],
             ["node-fetch", "virtual:aed57b80a8f381f86eed945d4b4a6092665f159bc04fe4f078d01071e865e8ee45e8a577405048ee18cdbcbf37e3d5ed49ad1aa8a3c6ec40f1706232f268d2b7#npm:2.6.7"],
             ["punycode", "npm:2.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["parse-duration", [
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/parse-duration-npm-1.0.2-99cf19bd71-d103ca9c3b.zip/node_modules/parse-duration/",
+          "packageDependencies": [
+            ["parse-duration", "npm:1.0.2"]
           ],
           "linkType": "HARD",
         }]
