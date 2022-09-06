@@ -5226,7 +5226,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["change-case", "npm:4.1.2"],
             ["dexie", "npm:3.2.2"],
             ["graphql", "npm:16.6.0"],
-            ["jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:28.1.3"],
+            ["jest", "virtual:6a412f2983214f3c957c34cf6b69da991bf1f6b9c1756b0c9f586cd87305a990fca17bfa44cbfb911c39328d0a64feae86dfc6162e67c28f8008ca1b6555d376#npm:28.1.3"],
             ["parse-duration", "npm:1.0.2"]
           ],
           "linkType": "SOFT",
