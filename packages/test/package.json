@@ -17,15 +17,9 @@
   },
   "jest": {
     "preset": "@heat/jest-preset-coffeescript",
-    "testEnvironment": "node",
-    "transform": {},
-    "rootDir": "test",
-    "testMatch": [
-      "**/test/**"
-    ]
+    "testEnvironment": "node"
   },
   "dependencies": {
-    "@babel/core": "^7.5.0",
     "@heat/awsless": "^0.1.109",
     "@heat/step-functions-local": "^0.0.6",
     "asl-validator": "^1.3.0",

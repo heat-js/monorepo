@@ -1,7 +1,7 @@
-{ createHash } = require 'crypto';
-{ readFileSync } = require 'fs'
-coffee = require 'coffeescript'
-babelJest = require 'babel-jest'
+import { createHash } from 'crypto'
+import { readFileSync } from 'fs'
+import coffee from 'coffeescript'
+import babelJest from 'babel-jest'
 
 module.exports =
 	getCacheKey: (sourceText, sourcePath, configString) ->
@@ -16,7 +16,18 @@ module.exports =
 			.digest 'hex'
 
 	process: (src, file, config, options) ->
-		{ js, v3SourceMap } = coffee.compile src, { sourceMap: true }
+		{ js, v3SourceMap } = coffee.compile(
+			src
+			{ sourceMap: true }
+		)
+
+		{ code } = coffee.transpile(
+			js
+			{
+				sourceMap: false,
+				presets: ['@babel/env']
+			}
+		)
 
 		v3SourceMap = JSON.parse v3SourceMap
 
@@ -30,4 +41,4 @@ module.exports =
 		babelTransformer = babelJest.createTransformer
 			inputSourceMap: map
 
-		babelTransformer.process js, file, config, options
+		babelTransformer.process code, file, config, options

@@ -20,7 +20,7 @@
 		"major": "npm version major; yarn run -T ncp"
 	},
 	"jest": {
-		"preset": "jest-preset-coffeescript",
+		"preset": "@heat/jest-preset-coffeescript",
 		"testEnvironment": "node",
 		"rootDir": "./test/",
 		"testPathIgnorePatterns": [
