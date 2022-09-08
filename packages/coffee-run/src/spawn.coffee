@@ -38,7 +38,7 @@ export default (input, options) ->
 					}]
 				]
 				babelrc: false
-				extensions: ['js', '.jsx']
+				extensions: ['.js', '.jsx']
 				babelHelpers: 'runtime'
 			})
 			commonjs()
