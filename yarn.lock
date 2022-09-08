@@ -2125,6 +2125,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/jest-raw-loader@workspace:packages/jest-raw-loader":
+  version: 0.0.0-use.local
+  resolution: "@heat/jest-raw-loader@workspace:packages/jest-raw-loader"
+  languageName: unknown
+  linkType: soft
+
 "@heat/lambda@workspace:packages/lambda":
   version: 0.0.0-use.local
   resolution: "@heat/lambda@workspace:packages/lambda"

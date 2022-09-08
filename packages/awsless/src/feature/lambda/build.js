@@ -43,6 +43,7 @@ const webpackOptions = {
 				test: /\.jsx$/,
 				options: {
 					babelrc: false,
+    				configFile: false,
 					plugins: ['@babel/plugin-transform-runtime'],
 					presets: [
 						[

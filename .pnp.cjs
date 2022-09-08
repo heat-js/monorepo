@@ -59,6 +59,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/jest-preset-coffeescript"
       },
       {
+        "name": "@heat/jest-raw-loader",
+        "reference": "workspace:packages/jest-raw-loader"
+      },
+      {
         "name": "@heat/lambda",
         "reference": "workspace:packages/lambda"
       },
@@ -5071,6 +5075,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.19.0"],
             ["babel-jest", "virtual:3c57947877f459af905b774251d95aa4eccd495d83a93e4bbd91263c7f91ce1c5b731898bf3842cea16c3e8ea5804a501c86d82f61c6d8b794ada070fc890bea#npm:29.0.2"],
             ["jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:29.0.2"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@heat/jest-raw-loader", [
+        ["workspace:packages/jest-raw-loader", {
+          "packageLocation": "./packages/jest-raw-loader/",
+          "packageDependencies": [
+            ["@heat/jest-raw-loader", "workspace:packages/jest-raw-loader"]
           ],
           "linkType": "SOFT",
         }]
