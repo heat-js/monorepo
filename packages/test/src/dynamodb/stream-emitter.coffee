@@ -23,8 +23,6 @@ export default class StreamEmitter
 	hasListeners: (table) ->
 		listeners = @listeners[ table ]
 
-		console.log @listeners
-
 		return (
 			( Array.isArray listeners ) or
 			( typeof listeners is 'function' )
