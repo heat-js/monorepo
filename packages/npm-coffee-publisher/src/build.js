@@ -34,7 +34,7 @@ function compile(dir) {
 		const plain = file.toString('utf8');
 		const js	= coffee.compile(plain, {
 			transpile: {
-				plugins: ['transform-es2015-modules-commonjs']
+				presets: ['@babel/env']
 			}
 		});
 

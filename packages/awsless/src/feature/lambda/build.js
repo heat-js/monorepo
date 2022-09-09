@@ -38,6 +38,29 @@ const webpackOptions = {
 				loader: require.resolve('raw-loader'),
 				test: /\.md$/,
 			},
+			{
+				loader: require.resolve('babel-loader'),
+				test: /\.jsx$/,
+				options: {
+					babelrc: false,
+    				configFile: false,
+					plugins: ['@babel/plugin-transform-runtime'],
+					presets: [
+						[
+							'@babel/preset-env', {
+								targets: { esmodules: false }
+							}
+						],
+						[
+							'@babel/preset-react', {
+								pragma: 'h',
+								pragmaFrag: 'Fragment',
+								throwIfNamespace: false,
+							}
+						]
+					],
+				}
+			},
 		],
 	},
 	resolve: {
@@ -50,6 +73,7 @@ expose({
 		var options = {
 			minimize: true,
 			externals: [],
+			webpackConfig: {},
 			...options,
 		};
 

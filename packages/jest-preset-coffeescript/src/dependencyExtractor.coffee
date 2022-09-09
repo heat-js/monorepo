@@ -1,6 +1,6 @@
-{ createHash } = require 'crypto'
-{ readFileSync } = require 'fs'
-coffee = require 'coffeescript'
+import { createHash } from 'crypto'
+import { readFileSync } from 'fs'
+import coffee from 'coffeescript'
 
 module.exports =
 	extract: (code, filePath, defaultExtract) ->

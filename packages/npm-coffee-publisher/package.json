@@ -1,7 +1,7 @@
 {
   "name": "@heat/npm-coffee-publisher",
   "license": "MIT",
-  "version": "0.2.8",
+  "version": "0.2.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/heat-js/monorepo.git"
@@ -21,9 +21,11 @@
     "major": "npm version major; npm publish --access=public"
   },
   "dependencies": {
-    "@babel/core": "^7.4.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "coffeescript": "^2.3.2",
+    "@babel/core": "^7.19.0",
+    "@babel/preset-env": "^7.19.0",
     "rimraf": "^2.6.3"
+  },
+  "peerDependencies": {
+    "coffeescript": ">= 2.5.1"
   }
 }
