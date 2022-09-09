@@ -1,7 +1,8 @@
 {
   "name": "@heat/test",
-  "version": "0.2.112",
+  "version": "0.2.119",
   "license": "MIT",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/heat-js/test.git"

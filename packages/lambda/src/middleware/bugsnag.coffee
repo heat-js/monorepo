@@ -1,6 +1,6 @@
 
-import Middleware 	 from './abstract'
 import bugsnag 		 from '@bugsnag/js'
+import Middleware 	 from './abstract'
 import ViewableError from '../error/viewable-error'
 
 export default class Bugsnag extends Middleware
@@ -25,12 +25,11 @@ export default class Bugsnag extends Middleware
 			process.env.TESTING
 		)
 
-	handle: (app, next) ->
+	createBugsnag: (app) ->
+		if @testingEnv()
+			return null
 
 		apiKey = @getApiKey app
-
-		if not apiKey and @testingEnv()
-			apiKey = 'dummy-api-key'
 
 		if not apiKey
 			throw new Error 'Bugsnag API key not found'
@@ -49,7 +48,11 @@ export default class Bugsnag extends Middleware
 				logger: null
 			}
 
-		app.value 'bugsnag', @bugsnag
+		return @bugsnag
+
+	handle: (app, next) ->
+
+		app.value 'bugsnag', @createBugsnag app
 
 		app.value 'log', (error, metaData = {}) =>
 			return @log(
@@ -70,7 +73,8 @@ export default class Bugsnag extends Middleware
 
 					throw error
 
-		await app.errorWrapper(next)()
+		next = app.errorWrapper next
+		await next()
 
 
 	log: (error, context = {}, input = {}, metaData = {}) ->

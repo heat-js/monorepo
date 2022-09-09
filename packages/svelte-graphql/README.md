@@ -17,7 +17,7 @@ Use the vite plugin to automaticly transform graphql files.
 
 ```js
 import { sveltekit } from '@sveltejs/kit/vite';
-import { graphql } from '@heat/svelte-graphql/plugin/vite';
+import { graphql } from '@heat/svelte-graphql/vite';
 
 export default {
   plugins: [
