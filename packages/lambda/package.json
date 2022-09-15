@@ -1,7 +1,7 @@
 {
   "name": "@heat/lambda",
   "main": "index",
-  "version": "0.8.83",
+  "version": "0.8.84",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
     "rootDir": "./test/"
   },
   "dependencies": {
-    "@bugsnag/js": "^6.3.0",
+    "@bugsnag/in-flight": "^7.17.4",
+    "@bugsnag/js": "^7.17.4",
     "@heat/container": "npm:latest",
     "extendable-error": "^0.1.5",
     "jsonwebtoken": "^8.5.1",

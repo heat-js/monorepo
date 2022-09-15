@@ -1,15 +1,16 @@
 
-import bugsnag 		 from '@bugsnag/js'
+import Bugsnag 		 from '@bugsnag/js'
+import inFlight 	 from '@bugsnag/in-flight'
 import Middleware 	 from './abstract'
 import ViewableError from '../error/viewable-error'
 
-export default class Bugsnag extends Middleware
+export default class BugsnagMiddleware extends Middleware
 
 	constructor: (@apiKey) ->
 		super()
 
 	getApiKey: (app) ->
-		return (
+		key = (
 			@apiKey or
 			(
 				app.has('config') and
@@ -19,40 +20,52 @@ export default class Bugsnag extends Middleware
 			process.env.BUGSNAG_API_KEY
 		)
 
+		if @testingEnv()
+			return @apiKey or 'test'
+
+		if not key
+			throw new Error 'Bugsnag API key not found'
+
+		if typeof key isnt 'string'
+			throw new Error 'Bugsnag API key should be a string'
+
+		if -1 < key.indexOf 'ssm:/'
+			throw new Error 'SSM Bugsnag API key is invalid'
+
+		return key
+
 	testingEnv: ->
 		return !!(
 			process.env.JEST_WORKER_ID or
 			process.env.TESTING
 		)
 
-	createBugsnag: (app) ->
+	setupTimeoutError: (app) ->
 		if @testingEnv()
-			return null
+			return
 
-		apiKey = @getApiKey app
+		delay = app.context.getRemainingTimeInMillis() - 1000
 
-		if not apiKey
-			throw new Error 'Bugsnag API key not found'
+		return setTimeout ->
+			remaining = app.context.getRemainingTimeInMillis()
+			app.log new Error "Lambda will timeout in #{remaining}ms"
+		, delay
 
-		if typeof apiKey isnt 'string'
-			throw new Error 'Bugsnag API key should be a string'
-
-		if -1 < apiKey.indexOf 'ssm:/'
-			throw new Error 'SSM Bugsnag API key is invalid'
-
+	initBugsnag: (app) ->
 		if not @bugsnag
-			@bugsnag = bugsnag {
-				apiKey
-				projectRoot: process.cwd()
-				packageJSON: process.cwd() + '/package.json'
+			@bugsnag = Bugsnag.createClient {
+				apiKey: @getApiKey app
+				autoTrackSessions: false
 				logger: null
 			}
+
+			inFlight.trackInFlight @bugsnag
 
 		return @bugsnag
 
 	handle: (app, next) ->
 
-		app.value 'bugsnag', @createBugsnag app
+		app.value 'bugsnag', @initBugsnag app
 
 		app.value 'log', (error, metaData = {}) =>
 			return @log(
@@ -73,9 +86,16 @@ export default class Bugsnag extends Middleware
 
 					throw error
 
-		next = app.errorWrapper next
-		await next()
+		timeout = @setupTimeoutError app
 
+		try
+			await app.errorWrapper(next)()
+
+		catch error
+			throw error
+
+		finally
+			clearTimeout timeout
 
 	log: (error, context = {}, input = {}, metaData = {}) ->
 
@@ -84,26 +104,15 @@ export default class Bugsnag extends Middleware
 
 		console.error error
 
-		params = {
-			metaData: Object.assign(
-				{}
-				metaData
-				{
-					input
-					lambda:
-						requestId: 			context.awsRequestId
-						functionName: 		context.functionName
-						functionVersion:	context.functionVersion
-						memoryLimitInMB:	context.memoryLimitInMB
-				}
-				errorData:
-					error.metadata
-			)
-		}
+		@bugsnag.notify error, (event) ->
+			event.addMetadata 'errorData', error.metadata
+			event.addMetadata 'metaData', metaData
+			event.addMetadata 'input', input
+			event.addMetadata 'lambda', {
+				requestId: 			context.awsRequestId
+				functionName: 		context.functionName
+				functionVersion:	context.functionVersion
+				memoryLimitInMB:	context.memoryLimitInMB
+			}
 
-		return new Promise (resolve, reject) =>
-			@bugsnag.notify error, params, (err) ->
-				if err
-					reject err
-				else
-					resolve()
+		await inFlight.flush 3000

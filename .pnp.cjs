@@ -4563,35 +4563,92 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@bugsnag/browser", [
-        ["npm:6.5.2", {
-          "packageLocation": "./.yarn/cache/@bugsnag-browser-npm-6.5.2-bef8fd8528-86ed8708c4.zip/node_modules/@bugsnag/browser/",
+        ["npm:7.17.4", {
+          "packageLocation": "./.yarn/cache/@bugsnag-browser-npm-7.17.4-ef794ca404-81853d85ac.zip/node_modules/@bugsnag/browser/",
           "packageDependencies": [
-            ["@bugsnag/browser", "npm:6.5.2"]
+            ["@bugsnag/browser", "npm:7.17.4"],
+            ["@bugsnag/core", "npm:7.17.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@bugsnag/core", [
+        ["npm:7.17.4", {
+          "packageLocation": "./.yarn/cache/@bugsnag-core-npm-7.17.4-4ddd16b1c1-aa54aadbb6.zip/node_modules/@bugsnag/core/",
+          "packageDependencies": [
+            ["@bugsnag/core", "npm:7.17.4"],
+            ["@bugsnag/cuid", "npm:3.0.0"],
+            ["@bugsnag/safe-json-stringify", "npm:6.0.0"],
+            ["error-stack-parser", "npm:2.1.4"],
+            ["iserror", "npm:0.0.2"],
+            ["stack-generator", "npm:2.0.10"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@bugsnag/cuid", [
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/@bugsnag-cuid-npm-3.0.0-4de8635480-bf9ea46c63.zip/node_modules/@bugsnag/cuid/",
+          "packageDependencies": [
+            ["@bugsnag/cuid", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@bugsnag/in-flight", [
+        ["npm:7.17.4", {
+          "packageLocation": "./.yarn/cache/@bugsnag-in-flight-npm-7.17.4-a810be2bfe-4b9b951a15.zip/node_modules/@bugsnag/in-flight/",
+          "packageDependencies": [
+            ["@bugsnag/in-flight", "npm:7.17.4"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:f17b51d89a74ee558031a12f553ebde260f9837059d185ea3823cbd165a79666cc6f9d8ee4d6b4f2645a3e8165ca426644c459caccee3a1104fc6a453349dc55#npm:7.17.4", {
+          "packageLocation": "./.yarn/__virtual__/@bugsnag-in-flight-virtual-476832992e/0/cache/@bugsnag-in-flight-npm-7.17.4-a810be2bfe-4b9b951a15.zip/node_modules/@bugsnag/in-flight/",
+          "packageDependencies": [
+            ["@bugsnag/in-flight", "virtual:f17b51d89a74ee558031a12f553ebde260f9837059d185ea3823cbd165a79666cc6f9d8ee4d6b4f2645a3e8165ca426644c459caccee3a1104fc6a453349dc55#npm:7.17.4"],
+            ["@bugsnag/core", null],
+            ["@bugsnag/cuid", "npm:3.0.0"],
+            ["@types/bugsnag__core", null]
+          ],
+          "packagePeers": [
+            "@bugsnag/core",
+            "@types/bugsnag__core"
           ],
           "linkType": "HARD",
         }]
       ]],
       ["@bugsnag/js", [
-        ["npm:6.5.2", {
-          "packageLocation": "./.yarn/cache/@bugsnag-js-npm-6.5.2-b960b19742-0d23076877.zip/node_modules/@bugsnag/js/",
+        ["npm:7.17.4", {
+          "packageLocation": "./.yarn/cache/@bugsnag-js-npm-7.17.4-484e2b4513-d3d8ab6f79.zip/node_modules/@bugsnag/js/",
           "packageDependencies": [
-            ["@bugsnag/js", "npm:6.5.2"],
-            ["@bugsnag/browser", "npm:6.5.2"],
-            ["@bugsnag/node", "npm:6.5.2"]
+            ["@bugsnag/js", "npm:7.17.4"],
+            ["@bugsnag/browser", "npm:7.17.4"],
+            ["@bugsnag/node", "npm:7.17.4"]
           ],
           "linkType": "HARD",
         }]
       ]],
       ["@bugsnag/node", [
-        ["npm:6.5.2", {
-          "packageLocation": "./.yarn/cache/@bugsnag-node-npm-6.5.2-35c20ce055-fd61d469d0.zip/node_modules/@bugsnag/node/",
+        ["npm:7.17.4", {
+          "packageLocation": "./.yarn/cache/@bugsnag-node-npm-7.17.4-2534e1d23a-1a2df5ec18.zip/node_modules/@bugsnag/node/",
           "packageDependencies": [
-            ["@bugsnag/node", "npm:6.5.2"],
+            ["@bugsnag/node", "npm:7.17.4"],
+            ["@bugsnag/core", "npm:7.17.4"],
             ["byline", "npm:5.0.0"],
             ["error-stack-parser", "npm:2.1.4"],
             ["iserror", "npm:0.0.2"],
             ["pump", "npm:3.0.0"],
             ["stack-generator", "npm:2.0.10"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@bugsnag/safe-json-stringify", [
+        ["npm:6.0.0", {
+          "packageLocation": "./.yarn/cache/@bugsnag-safe-json-stringify-npm-6.0.0-b36fe8405c-74f5d96af5.zip/node_modules/@bugsnag/safe-json-stringify/",
+          "packageDependencies": [
+            ["@bugsnag/safe-json-stringify", "npm:6.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -5093,7 +5150,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/lambda/",
           "packageDependencies": [
             ["@heat/lambda", "workspace:packages/lambda"],
-            ["@bugsnag/js", "npm:6.5.2"],
+            ["@bugsnag/in-flight", "virtual:f17b51d89a74ee558031a12f553ebde260f9837059d185ea3823cbd165a79666cc6f9d8ee4d6b4f2645a3e8165ca426644c459caccee3a1104fc6a453349dc55#npm:7.17.4"],
+            ["@bugsnag/js", "npm:7.17.4"],
             ["@hapi/joi", "npm:15.1.1"],
             ["@heat/container", "npm:0.0.1"],
             ["extendable-error", "npm:0.1.7"],

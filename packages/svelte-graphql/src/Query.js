@@ -1,10 +1,10 @@
 
-import { browser } from './utils.js';
+import { browser } from '$app/env';
 import { writable, get } from "svelte/store";
 import { getClient, getCache, register } from './global.js';
 import { CACHE_FIRST, CACHE_AND_NETWORK, NO_CACHE, STORE_FIRST } from "./policy/query.js"
 import { CACHE_AND_STORE, CACHE_ONLY, STORE_ONLY } from './policy/modify.js';
-import { GraphQLError } from './graphql-error.js';
+import ApiError from './graphql-error.js';
 import parseDuration from 'parse-duration';
 
 export const Query = (key, query, options = {}) => {
@@ -34,7 +34,7 @@ export const Query = (key, query, options = {}) => {
 		try {
 			const data = await getClient().call({ svFetch: fetch, query, variables });
 
-			if (browser && policy !== NO_CACHE) {
+			if (browser && [CACHE_FIRST, CACHE_AND_NETWORK].includes(policy)) {
 				const expires = typeof expiresIn === 'string' ? parseDuration(expiresIn) : expiresIn;
 				await getCache().set(key, variables, data, expires);
 			}
@@ -44,7 +44,7 @@ export const Query = (key, query, options = {}) => {
 			return data;
 
 		} catch (error) {
-			const errors = error instanceof GraphQLError ? error.errors : [error];
+			const errors = error instanceof ApiError ? error.errors : [error];
 			change({ loading: false, errors });
 
 			throw error;
@@ -63,8 +63,16 @@ export const Query = (key, query, options = {}) => {
 		modify: async ({ data, variables = defaults.variables, policy = CACHE_AND_STORE, expiresIn = defaults.expiresIn }) => {
 			let newData = data;
 			if (typeof data === 'function') {
-				const cachedData = await getCache().get(key, variables);
-				const storedData = get(store).data;
+				let cachedData;
+				let storedData;
+
+				if ([CACHE_ONLY, CACHE_AND_STORE].includes(policy)) {
+					cachedData = await getCache().get(key, variables);
+				}
+
+				if ([STORE_ONLY, CACHE_AND_STORE].includes(policy)) {
+					storedData = get(store).data;
+				}
 
 				newData = await data(cachedData || storedData);
 			}
@@ -116,7 +124,7 @@ export const Query = (key, query, options = {}) => {
 			try {
 				return await load(params);
 			} catch (error) {
-				if (!(error instanceof GraphQLError) || params.fetch) {
+				if (!(error instanceof ApiError) || params.fetch) {
 					throw error;
 				}
 			}
