@@ -92,3 +92,17 @@ describe 'Lambda Build', ->
 
 		expect html.default
 			.toBe result
+
+	# it 'should build valid top level await support', ->
+	# 	inputFile	= path.join testDir, 'top-level-await.coffee'
+	# 	outputFile	= path.join tempDir, 'top-level-await.js'
+
+	# 	await build inputFile, outputFile
+
+	# 	require outputFile
+
+	# 	# result = await fs.promises.readFile inputFile
+	# 	# result = result.toString 'utf-8'
+
+	# 	# expect html.default
+	# 	# 	.toBe result

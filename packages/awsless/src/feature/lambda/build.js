@@ -100,6 +100,9 @@ expose({
 					/^(aws\-sdk\/.*)$/i,
 					...options.externals,
 				],
+				experiments: {
+					topLevelAwait: true,
+				},
 				output: {
 					path:							path.dirname(outputFile),
 					filename:						path.basename(outputFile),
