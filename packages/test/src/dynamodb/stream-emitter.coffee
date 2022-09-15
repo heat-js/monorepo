@@ -28,10 +28,21 @@ export default class StreamEmitter
 			( typeof listeners is 'function' )
 		)
 
-	emit: (table, eventName, Key, OldImage, NewImage) ->
+	getEventName: (OldImage, NewImage) ->
+		if NewImage
+			if OldImage
+				return 'MODIFY'
+
+			return 'INSERT'
+
+		return 'REMOVE'
+
+	emit: (table, Key, OldImage, NewImage) ->
+
 		if not @hasListeners table
 			return
 
+		eventName	= @getEventName OldImage, NewImage
 		Key			= Key and AWS.DynamoDB.Converter.marshall Key
 		OldImage	= OldImage and AWS.DynamoDB.Converter.marshall OldImage
 		NewImage	= NewImage and AWS.DynamoDB.Converter.marshall NewImage
@@ -83,7 +94,7 @@ export default class StreamEmitter
 				result		= await request.promise()
 				NewImage	= await @getItem client, TableName, Key
 
-				await @emit TableName, 'MODIFY', Key, OldImage, NewImage
+				await @emit TableName, Key, OldImage, NewImage
 
 				return result
 		}
@@ -104,7 +115,7 @@ export default class StreamEmitter
 				result		= await request.promise()
 				NewImage	= await @getItem client, TableName, Key
 
-				await @emit TableName, 'INSERT', Key, OldImage, NewImage
+				await @emit TableName, Key, OldImage, NewImage
 
 				return result
 		}
@@ -123,7 +134,7 @@ export default class StreamEmitter
 				result		= await request.promise()
 				NewImage	= await @getItem client, TableName, Key
 
-				await @emit TableName, 'REMOVE', Key, OldImage, NewImage
+				await @emit TableName, Key, OldImage, NewImage
 
 				return result
 		}
@@ -133,26 +144,24 @@ export default class StreamEmitter
 			.map (item) =>
 				if item.Put
 					return {
-						eventName: 'INSERT'
 						table:		item.Put.TableName
 						key:		@getPrimaryKey item.Put.TableName, item.Put.Item
 					}
 
 				if item.Delete
 					return {
-						eventName: 'REMOVE'
 						table:		item.Delete.TableName
 						key:		item.Delete.Key
 					}
 
 				if item.ConditionCheck
 					return {
+						skip: 	true
 						table:	item.ConditionCheck.TableName
 						key:	item.ConditionCheck.Key
 					}
 
 				return {
-					eventName: 'MODIFY'
 					table:		item.Update.TableName
 					key:		item.Update.Key
 				}
@@ -176,14 +185,15 @@ export default class StreamEmitter
 					return @getItem client, table, key
 
 				await Promise.all [ 0...items.length ].map (index) =>
-					eventName	= items[index].eventName
+					skip		= items[index].skip
 					table		= items[index].table
 					key			= items[index].key
 					oldImage	= oldData[index]
 					newImage	= newData[index]
 
-					if eventName
-						return @emit table, eventName, key, oldImage, newImage
+					if not skip
+						# return @emit table, eventName, key, oldImage, newImage
+						await @emit table, key, oldImage, newImage
 
 				return result
 		}
@@ -196,15 +206,13 @@ export default class StreamEmitter
 					if entry.PutRequest
 						return {
 							table
-							eventName: 'INSERT'
-							key:		@getPrimaryKey table, entry.PutRequest.Item
+							key:	@getPrimaryKey table, entry.PutRequest.Item
 						}
 
 					if entry.DeleteRequest
 						return {
 							table
-							eventName: 'REMOVE'
-							key:		entry.DeleteRequest.Key
+							key:	entry.DeleteRequest.Key
 						}
 			.flat()
 			.filter (item) =>
@@ -225,14 +233,15 @@ export default class StreamEmitter
 					return @getItem client, table, key
 
 				await Promise.all [ 0...items.length ].map (index) =>
-					eventName	= items[index].eventName
 					table		= items[index].table
 					key			= items[index].key
 					oldImage	= oldData[index]
 					newImage	= newData[index]
 
-					if eventName
-						return @emit table, eventName, key, oldImage, newImage
+					# if eventName
+					# 	return @emit table, eventName, key, oldImage, newImage
+
+					await @emit table, key, oldImage, newImage
 
 				return result
 		}

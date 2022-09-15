@@ -1691,33 +1691,74 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bugsnag/browser@npm:^6.5.2":
-  version: 6.5.2
-  resolution: "@bugsnag/browser@npm:6.5.2"
-  checksum: 86ed8708c4575b21aa06622b575c335cfebf9d7c44147e7ea0350d33fea3baf4c85ecb08ced8b8c1413447fa6374af112312be2d338bccd2ed3b2c7d8d86645c
+"@bugsnag/browser@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@bugsnag/browser@npm:7.17.4"
+  dependencies:
+    "@bugsnag/core": ^7.17.4
+  checksum: 81853d85acb45dfdbc2fc3ed07da704001994a781a98962d63b368b7dfe1fd7520fbf3ef0a0067526ff7f622cd01b3ae6c1e044f6c47e723f66d4ba21bf50324
   languageName: node
   linkType: hard
 
-"@bugsnag/js@npm:^6.3.0":
-  version: 6.5.2
-  resolution: "@bugsnag/js@npm:6.5.2"
+"@bugsnag/core@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@bugsnag/core@npm:7.17.4"
   dependencies:
-    "@bugsnag/browser": ^6.5.2
-    "@bugsnag/node": ^6.5.2
-  checksum: 0d23076877512b0b3d116ccd19af082ef2ab1ad7e58849a1e5a0637e37652468caf8d70da088e10474b0d939384b3f8a1e426249b6ffe65f324c3ac955a728b6
+    "@bugsnag/cuid": ^3.0.0
+    "@bugsnag/safe-json-stringify": ^6.0.0
+    error-stack-parser: ^2.0.3
+    iserror: 0.0.2
+    stack-generator: ^2.0.3
+  checksum: aa54aadbb67d951ee6bd69b253e5f4844d82ba6b7a2a0c308d8b9295ef9c8cf6fde8e2061e4ad040d7440be62b12cca235cb7cda827348a42fd979375483d05e
   languageName: node
   linkType: hard
 
-"@bugsnag/node@npm:^6.5.2":
-  version: 6.5.2
-  resolution: "@bugsnag/node@npm:6.5.2"
+"@bugsnag/cuid@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@bugsnag/cuid@npm:3.0.0"
+  checksum: bf9ea46c63f921ca7ba6da2f577871db50145f0270094e55ae3e19237de2a8a2b92fd148e1a53446c3adb258158bb4f874ca0d3ca392c3f86f8a38c3a4285677
+  languageName: node
+  linkType: hard
+
+"@bugsnag/in-flight@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@bugsnag/in-flight@npm:7.17.4"
   dependencies:
+    "@bugsnag/cuid": ^3.0.0
+  peerDependencies:
+    "@bugsnag/core": ^7.0.0
+  checksum: 4b9b951a155c04c4624752688e064876324ba8dcae63c8e418a7106ad6c6b4c36a4170bbced482a3f1f6ae8a3bc6a75f995bb1893d34cfa88a448fd6ee51fbbd
+  languageName: node
+  linkType: hard
+
+"@bugsnag/js@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@bugsnag/js@npm:7.17.4"
+  dependencies:
+    "@bugsnag/browser": ^7.17.4
+    "@bugsnag/node": ^7.17.4
+  checksum: d3d8ab6f7932daf0825f5b0c52a6bff38915647da9d62a87caacb306440a6d92b875b122926760838719e1e37bf6e6ae554d817ab37447ff1330d40aac4442c3
+  languageName: node
+  linkType: hard
+
+"@bugsnag/node@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@bugsnag/node@npm:7.17.4"
+  dependencies:
+    "@bugsnag/core": ^7.17.4
     byline: ^5.0.0
     error-stack-parser: ^2.0.2
     iserror: ^0.0.2
     pump: ^3.0.0
     stack-generator: ^2.0.3
-  checksum: fd61d469d030ca64230830c8d5a677442d14952fe444eac27fc2ed97c40b1657b3048c7b4703bf6251e3245e756b25a33c8eddc3e03a2183ae5ccea6b2b6f294
+  checksum: 1a2df5ec1831d146542d2ea26ee21ed5630788b30064b7b1e30ef5a3b088746029f541700b3e0b68aa4977718a39294384052e49d127347eec1e5f3e83d96ffc
+  languageName: node
+  linkType: hard
+
+"@bugsnag/safe-json-stringify@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@bugsnag/safe-json-stringify@npm:6.0.0"
+  checksum: 74f5d96af5f2f14be038ff939093329cdc6b3cc94eca6ce5ecd9e66a6d30819bcfd22f99c0ff229de56c0ef601cbca292f86ef5c9940ed2692bc9e005ac1f261
   languageName: node
   linkType: hard
 
@@ -2135,7 +2176,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/lambda@workspace:packages/lambda"
   dependencies:
-    "@bugsnag/js": ^6.3.0
+    "@bugsnag/in-flight": ^7.17.4
+    "@bugsnag/js": ^7.17.4
     "@hapi/joi": ^15.1.1
     "@heat/container": "npm:latest"
     extendable-error: ^0.1.5
@@ -6517,7 +6559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"error-stack-parser@npm:^2.0.2":
+"error-stack-parser@npm:^2.0.2, error-stack-parser@npm:^2.0.3":
   version: 2.1.4
   resolution: "error-stack-parser@npm:2.1.4"
   dependencies:
@@ -8605,7 +8647,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iserror@npm:^0.0.2":
+"iserror@npm:0.0.2, iserror@npm:^0.0.2":
   version: 0.0.2
   resolution: "iserror@npm:0.0.2"
   checksum: e22080b3a650289303039ad804875bdd8a41af467c5cc8f844529d8bc2b2613f449214aa04cc9c541c219f501e3c6943528dc5ed18ca9fc73e00ee45723f7106

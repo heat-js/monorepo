@@ -8,7 +8,7 @@ import Server			from './server'
 import StreamEmitter	from './stream-emitter'
 
 export start = (config = {}) ->
-	# console.log config
+
 	parser		= new DefinitionParser
 	fs 			= new FileSystem
 	portFinder	= new PortFinder fs
@@ -23,7 +23,7 @@ export start = (config = {}) ->
 		port = config.port or await portFinder.find()
 
 		definitions = await parser.parse config.path
-		# definitions = []
+
 		stream.setDefinitions definitions
 
 		await server.listen port
