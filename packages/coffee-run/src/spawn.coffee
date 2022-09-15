@@ -30,7 +30,7 @@ export default (input, options) ->
 			babel({
 				plugins: ['@babel/plugin-transform-runtime']
 				presets:[
-					['@babel/preset-env', { targets: { esmodules: false }} ]
+					'@babel/preset-env',
 					['@babel/preset-react', {
 						pragma: 'h'
 						pragmaFrag: 'Fragment'
