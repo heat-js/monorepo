@@ -1,6 +1,6 @@
 {
 	"name": "@heat/cognito",
-	"version": "0.0.41",
+	"version": "0.0.42",
 	"license": "MIT",
 	"main": "./src/index.js",
 	"type": "module",

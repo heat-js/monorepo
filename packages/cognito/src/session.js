@@ -1,5 +1,6 @@
 
 export class Session {
+
 	constructor({ idToken, accessToken, clockDrift }) {
 		this.idToken = idToken;
 		this.accessToken = accessToken;
@@ -29,8 +30,9 @@ export class Session {
 	}
 
 	isValid() {
+		const expireWindow = 60;
 		const now = Math.floor(Date.now() / 1000);
-		const adjusted = now - this.clockDrift;
+		const adjusted = now - this.clockDrift + expireWindow;
 
 		return (
 			adjusted < this.accessToken.getExpiration() &&
