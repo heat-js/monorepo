@@ -2,10 +2,14 @@
 export default class LambdaMock
 
 	constructor: (lambdas = {}) ->
-		Object.assign @, lambdas
+		for name, callback of lambdas
+			@on name, callback
 
 	on: (name, callback) ->
-		@[ name ] = callback
+		if typeof callback is 'function'
+			@[ name ] = jest.fn callback
+		else
+			@[ name ] = jest.fn -> callback
 
 	invoke: jest.fn ({ service, name, payload }) ->
 		if name and service
