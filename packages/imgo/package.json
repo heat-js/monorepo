@@ -1,0 +1,45 @@
+{
+	"name": "@heat/imgo",
+	"version": "0.0.39",
+	"license": "MIT",
+	"type": "module",
+	"main": "./src/index.js",
+	"bin": "./src/bin.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"scripts": {
+		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
+	},
+	"jest": {
+		"rootDir": "./test/",
+		"testEnvironment": "node",
+		"testMatch": [
+			"**/*.js"
+		],
+		"testPathIgnorePatterns": [
+			"/data/"
+		]
+	},
+	"dependencies": {
+		"chalk": "^5.0.1",
+		"cli-spinners": "^2.7.0",
+		"commander": "^9.4.0",
+		"draftlog": "^1.0.13",
+		"json-format": "^1.0.1",
+		"log-symbols": "^5.1.0",
+		"md5-file": "^5.0.0",
+		"recursive-readdir-async": "^1.2.1",
+		"sharp": "^0.31.0"
+	},
+	"devDependencies": {
+		"jest": "^28.1.0"
+	}
+}
