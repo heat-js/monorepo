@@ -73,6 +73,7 @@ export default class DefinitionParser
 
 					properties.BillingMode = 'PAY_PER_REQUEST'
 
+					delete properties.TableClass
 					delete properties.TimeToLiveSpecification
 					delete properties.PointInTimeRecoverySpecification
 					delete properties.Tags
