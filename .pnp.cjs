@@ -59,6 +59,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/imgo"
       },
       {
+        "name": "@heat/jest-preset",
+        "reference": "workspace:packages/jest-preset"
+      },
+      {
         "name": "@heat/jest-preset-coffeescript",
         "reference": "workspace:packages/jest-preset-coffeescript"
       },
@@ -5122,6 +5126,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["@heat/jest-preset", [
+        ["workspace:packages/jest-preset", {
+          "packageLocation": "./packages/jest-preset/",
+          "packageDependencies": [
+            ["@heat/jest-preset", "workspace:packages/jest-preset"],
+            ["@babel/core", "npm:7.19.0"],
+            ["@babel/plugin-syntax-jsx", "virtual:63791e57e6be24f85a730f3b5e49ec1737a0a5cc0d9e1fbedb98ae3cecc54fbb65ac2351a7a3fd21be2b5b758b9c8dcd775699e15ba8ea1b560f898ae9460d62#npm:7.18.6"],
+            ["@babel/preset-env", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.19.0"],
+            ["@babel/preset-react", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:7.18.6"],
+            ["@heat/jest-raw-loader", "npm:0.0.1"],
+            ["babel-jest", "virtual:3c57947877f459af905b774251d95aa4eccd495d83a93e4bbd91263c7f91ce1c5b731898bf3842cea16c3e8ea5804a501c86d82f61c6d8b794ada070fc890bea#npm:29.0.2"],
+            ["jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:29.0.2"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@heat/jest-preset-coffeescript", [
         ["npm:0.0.40", {
           "packageLocation": "./.yarn/cache/@heat-jest-preset-coffeescript-npm-0.0.40-c69e7514e1-cdce713285.zip/node_modules/@heat/jest-preset-coffeescript/",
@@ -5160,6 +5180,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@heat/jest-raw-loader", [
+        ["npm:0.0.1", {
+          "packageLocation": "./.yarn/cache/@heat-jest-raw-loader-npm-0.0.1-8c18e1e65b-77670d026b.zip/node_modules/@heat/jest-raw-loader/",
+          "packageDependencies": [
+            ["@heat/jest-raw-loader", "npm:0.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
         ["workspace:packages/jest-raw-loader", {
           "packageLocation": "./packages/jest-raw-loader/",
           "packageDependencies": [
@@ -7628,13 +7655,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ansi-styles", "npm:5.2.0"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:6.1.0", {
-          "packageLocation": "./.yarn/cache/ansi-styles-npm-6.1.0-4f6a594d04-7a7f8528c0.zip/node_modules/ansi-styles/",
-          "packageDependencies": [
-            ["ansi-styles", "npm:6.1.0"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["ansi-underline", [
@@ -8984,15 +9004,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["npm:5.0.1", {
           "packageLocation": "./.yarn/cache/chalk-npm-5.0.1-6afcb94227-7b45300372.zip/node_modules/chalk/",
           "packageDependencies": [
-            ["chalk", "npm:5.0.1"],
-            ["#ansi-styles", [
-              "ansi-styles",
-              "npm:6.1.0"
-            ]],
-            ["#supports-color", [
-              "supports-color",
-              "npm:9.2.2"
-            ]]
+            ["chalk", "npm:5.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -19427,13 +19439,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["supports-color", "npm:8.1.1"],
             ["has-flag", "npm:4.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:9.2.2", {
-          "packageLocation": "./.yarn/cache/supports-color-npm-9.2.2-d003069e84-976d848774.zip/node_modules/supports-color/",
-          "packageDependencies": [
-            ["supports-color", "npm:9.2.2"]
           ],
           "linkType": "HARD",
         }]
