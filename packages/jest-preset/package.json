@@ -1,6 +1,6 @@
 {
 	"name": "@heat/jest-preset",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -20,8 +20,8 @@
 		"@heat/jest-raw-loader": "^0.0.1"
 	},
 	"peerDependencies": {
-		"coffeescript": ">= 2.5.1",
 		"babel-jest": ">= 29.0.2",
+		"coffeescript": ">= 2.5.1",
 		"jest": ">= 29.0.2"
 	}
 }

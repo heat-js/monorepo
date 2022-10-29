@@ -5135,9 +5135,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/plugin-syntax-jsx", "virtual:63791e57e6be24f85a730f3b5e49ec1737a0a5cc0d9e1fbedb98ae3cecc54fbb65ac2351a7a3fd21be2b5b758b9c8dcd775699e15ba8ea1b560f898ae9460d62#npm:7.18.6"],
             ["@babel/preset-env", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:7.19.0"],
             ["@babel/preset-react", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:7.18.6"],
-            ["@heat/jest-raw-loader", "npm:0.0.1"],
-            ["babel-jest", "virtual:3c57947877f459af905b774251d95aa4eccd495d83a93e4bbd91263c7f91ce1c5b731898bf3842cea16c3e8ea5804a501c86d82f61c6d8b794ada070fc890bea#npm:29.0.2"],
-            ["jest", "virtual:78665b1a64b13fb1e4813e06fe2b0952145b13e511fb2302b4ae3b48ff0a5c0089fc9d299e3f0d5fd811fe1fee7312bff60ac7db8e36e57ee2acc522b2ec78ec#npm:29.0.2"]
+            ["@heat/jest-raw-loader", "npm:0.0.1"]
           ],
           "linkType": "SOFT",
         }]
