@@ -1,7 +1,7 @@
 
 import path from 'path'
 import { FILE_EXTENSIONS } from 'coffeescript'
-import { defaults } from 'jest-config'
+# import { defaults } from 'jest-config'
 
 javascriptExtensions = [ 'js', 'mjs', 'cjs', 'jsx' ]
 coffeescriptExtensions = FILE_EXTENSIONS.map (ext) => ext[1..]
@@ -29,11 +29,7 @@ export default {
 
 	dependencyExtractor: path.join __dirname, 'dependencyExtractor.js'
 
-	transformIgnorePatterns: [
-		# "../../node_modules/(?!(node-fetch)/)"
-		"../../node_modules/",
-		...defaults.transformIgnorePatterns
-	]
+	# transformIgnorePatterns: []
 
 	transform: {
 		'^.+\\.(md|html)$': '@heat/jest-raw-loader'
