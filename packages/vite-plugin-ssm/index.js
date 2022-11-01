@@ -10,7 +10,7 @@ const getCode = (params) => {
 
 export default function VitePluginSsm({ profile, region = 'eu-west-1' } = {}) {
 	return {
-		name: 'vite-plugin-ssm',
+		name: '@heat/vite-plugin-ssm',
 		transform: async (src, id) => {
 			if (/\.ssm$/.test(id)) {
 				const parameters = JSON.parse(src);

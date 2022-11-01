@@ -1,9 +1,9 @@
 {
-	"name": "@heat/vite-plugin-ssm",
+	"name": "@heat/vite-plugin-coffee",
 	"main": "index",
-	"version": "0.0.2",
-	"type": "module",
+	"version": "0.0.1",
 	"license": "MIT",
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/heat-js/monorepo.git"
@@ -15,5 +15,8 @@
 		"patch": "npm version patch; npm publish --access=public",
 		"minor": "npm version minor; npm publish --access=public",
 		"major": "npm version major; npm publish --access=public"
+	},
+	"peerDependencies": {
+		"coffeescript": ">= 2.5.1"
 	}
 }

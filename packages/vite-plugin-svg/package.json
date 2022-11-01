@@ -1,5 +1,5 @@
 {
-	"name": "@heat/vite-plugin-ssm",
+	"name": "@heat/vite-plugin-svg",
 	"main": "index",
 	"version": "0.0.2",
 	"type": "module",
