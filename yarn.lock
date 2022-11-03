@@ -2361,6 +2361,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/sveltekit-adapter-lambda@workspace:packages/sveltekit-adapter-lambda":
+  version: 0.0.0-use.local
+  resolution: "@heat/sveltekit-adapter-lambda@workspace:packages/sveltekit-adapter-lambda"
+  languageName: unknown
+  linkType: soft
+
 "@heat/test@workspace:packages/test":
   version: 0.0.0-use.local
   resolution: "@heat/test@workspace:packages/test"
@@ -2378,12 +2384,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/vite-plugin-coffee@workspace:packages/vite-plugin-coffee":
+  version: 0.0.0-use.local
+  resolution: "@heat/vite-plugin-coffee@workspace:packages/vite-plugin-coffee"
+  peerDependencies:
+    coffeescript: ">= 2.5.1"
+  languageName: unknown
+  linkType: soft
+
 "@heat/vite-plugin-ssm@workspace:packages/vite-plugin-ssm":
   version: 0.0.0-use.local
   resolution: "@heat/vite-plugin-ssm@workspace:packages/vite-plugin-ssm"
   dependencies:
     aws-param-store: ^3.2.0
-    aws-sdk: ^2.1052.0
+  languageName: unknown
+  linkType: soft
+
+"@heat/vite-plugin-svg@workspace:packages/vite-plugin-svg":
+  version: 0.0.0-use.local
+  resolution: "@heat/vite-plugin-svg@workspace:packages/vite-plugin-svg"
   languageName: unknown
   linkType: soft
 
@@ -4585,7 +4604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1052.0, aws-sdk@npm:^2.1053.0, aws-sdk@npm:^2.639.0, aws-sdk@npm:^2.795.0":
+"aws-sdk@npm:^2.1053.0, aws-sdk@npm:^2.639.0, aws-sdk@npm:^2.795.0":
   version: 2.1201.0
   resolution: "aws-sdk@npm:2.1201.0"
   dependencies:

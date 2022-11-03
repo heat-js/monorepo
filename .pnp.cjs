@@ -99,12 +99,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/svelte-graphql"
       },
       {
+        "name": "@heat/sveltekit-adapter-lambda",
+        "reference": "workspace:packages/sveltekit-adapter-lambda"
+      },
+      {
         "name": "@heat/test",
         "reference": "workspace:packages/test"
       },
       {
+        "name": "@heat/vite-plugin-coffee",
+        "reference": "workspace:packages/vite-plugin-coffee"
+      },
+      {
         "name": "@heat/vite-plugin-ssm",
         "reference": "workspace:packages/vite-plugin-ssm"
+      },
+      {
+        "name": "@heat/vite-plugin-svg",
+        "reference": "workspace:packages/vite-plugin-svg"
       }
     ],
     "enableTopLevelFallback": true,
@@ -5356,6 +5368,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["@heat/sveltekit-adapter-lambda", [
+        ["workspace:packages/sveltekit-adapter-lambda", {
+          "packageLocation": "./packages/sveltekit-adapter-lambda/",
+          "packageDependencies": [
+            ["@heat/sveltekit-adapter-lambda", "workspace:packages/sveltekit-adapter-lambda"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@heat/test", [
         ["workspace:packages/test", {
           "packageLocation": "./packages/test/",
@@ -5375,13 +5396,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["@heat/vite-plugin-coffee", [
+        ["workspace:packages/vite-plugin-coffee", {
+          "packageLocation": "./packages/vite-plugin-coffee/",
+          "packageDependencies": [
+            ["@heat/vite-plugin-coffee", "workspace:packages/vite-plugin-coffee"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@heat/vite-plugin-ssm", [
         ["workspace:packages/vite-plugin-ssm", {
           "packageLocation": "./packages/vite-plugin-ssm/",
           "packageDependencies": [
             ["@heat/vite-plugin-ssm", "workspace:packages/vite-plugin-ssm"],
-            ["aws-param-store", "virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:3.2.0"],
-            ["aws-sdk", "npm:2.1201.0"]
+            ["aws-param-store", "virtual:975c85a3a78f6ea7f312881704bb29bba121629ab4b5580c1005ac49c7779b7a6f25d45cb182159d078bea8eed04dd31907546074a69a9785498615493c3a9d5#npm:3.2.0"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@heat/vite-plugin-svg", [
+        ["workspace:packages/vite-plugin-svg", {
+          "packageLocation": "./packages/vite-plugin-svg/",
+          "packageDependencies": [
+            ["@heat/vite-plugin-svg", "workspace:packages/vite-plugin-svg"]
           ],
           "linkType": "SOFT",
         }]
@@ -7915,6 +7953,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["aws-param-store", "npm:3.2.0"]
           ],
           "linkType": "SOFT",
+        }],
+        ["virtual:975c85a3a78f6ea7f312881704bb29bba121629ab4b5580c1005ac49c7779b7a6f25d45cb182159d078bea8eed04dd31907546074a69a9785498615493c3a9d5#npm:3.2.0", {
+          "packageLocation": "./.yarn/__virtual__/aws-param-store-virtual-5fd4e9eba4/0/cache/aws-param-store-npm-3.2.0-0e60f08937-5526620c21.zip/node_modules/aws-param-store/",
+          "packageDependencies": [
+            ["aws-param-store", "virtual:975c85a3a78f6ea7f312881704bb29bba121629ab4b5580c1005ac49c7779b7a6f25d45cb182159d078bea8eed04dd31907546074a69a9785498615493c3a9d5#npm:3.2.0"],
+            ["@types/aws-sdk", null],
+            ["aws-sdk", null]
+          ],
+          "packagePeers": [
+            "@types/aws-sdk",
+            "aws-sdk"
+          ],
+          "linkType": "HARD",
         }],
         ["virtual:9a556645bd41c61d18ac43735c4da55d3f7d184b65c066b91b37460b31409bdd0e5551ea26703ae2d353200d35ecb0398e9ec8eb4de78410a1b160d573eecd57#npm:3.2.0", {
           "packageLocation": "./.yarn/__virtual__/aws-param-store-virtual-5a8108d3f7/0/cache/aws-param-store-npm-3.2.0-0e60f08937-5526620c21.zip/node_modules/aws-param-store/",
