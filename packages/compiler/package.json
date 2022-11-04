@@ -1,0 +1,27 @@
+{
+	"name": "@heat/compiler",
+	"version": "0.0.1",
+	"license": "MIT",
+	"main": "./src/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo/tree/master/packages/compiler"
+	},
+	"scripts": {
+		"test": "yarn run -T jest",
+		"patch": "npm version patch; npm publish --access=public",
+		"minor": "npm version minor; npm publish --access=public",
+		"major": "npm version major; npm publish --access=public"
+	},
+	"jest": {
+		"preset": "@heat/jest-preset",
+		"testEnvironment": "node",
+		"rootDir": "./test/",
+		"testPathIgnorePatterns": [
+			"/data/"
+		]
+	},
+	"dependencies": {
+		"@heat/jest-preset": "0.0.12"
+	}
+}

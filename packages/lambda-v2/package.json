@@ -1,0 +1,31 @@
+{
+	"name": "@heat/lambda-v2",
+	"main": "index",
+	"version": "0.0.0",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"scripts": {
+		"test": "yarn run -T jest",
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
+	},
+	"jest": {
+		"preset": "@heat/jest-preset-coffeescript",
+		"testEnvironment": "node",
+		"rootDir": "./test/"
+	},
+	"dependencies": {
+		"@aws-sdk/client-lambda": "^3.202.0",
+		"superstruct": "^0.16.7"
+	},
+	"devDependencies": {
+		"@types/node": "^18.11.9"
+	}
+}
