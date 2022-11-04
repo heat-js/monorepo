@@ -11,9 +11,12 @@
 		"@babel/plugin-transform-modules-commonjs": "^7.18.6",
 		"@babel/preset-env": "^7.19.0",
 		"@heat/coffee-run": "0.0.20",
+		"@heat/jest-preset": "0.0.12",
 		"@heat/jest-preset-coffeescript": "0.0.40",
+		"@heat/jest-raw-loader": "0.0.1",
 		"@heat/npm-coffee-publisher": "0.2.11",
 		"aws-sdk": "^2.1053.0",
+		"babel-jest": "^29.2.2",
 		"coffeescript": "^2.7.0",
 		"jest": "^29.0.2"
 	}
