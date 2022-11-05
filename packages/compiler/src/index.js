@@ -1,5 +1,5 @@
 
-export { RuntimeError } from './error/runtime-error';
+export { RuntimeError } from './error/runtime';
 
 export { bundle } from './bundle.js'
 export { compile } from './compile.js'
