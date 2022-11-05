@@ -12,13 +12,13 @@ describe('Bundle', () => {
 		const result = await bundle(testPath('every-file-type'));
 		const types = ['JS', 'JSX', 'COFFEE', 'TS', 'JSON', 'HTML', 'MD', 'LUA', 'hash'];
 		types.forEach((type) => {
-			expect(result.includes(`${type} =`)).toBe(true);
+			expect(result.code.includes(`${type} =`)).toBe(true);
 		});
 	});
 
 	it('should remove un-used code (treeshaking)', async () => {
-		const result = await bundle(testPath('treeshaking'));
-		expect(result).toBe("'use strict';\n\n");
+		const result = await bundle(testPath('treeshaking'), { sourceMap: false });
+		expect(result.code).toBe("'use strict';\n\n");
 	});
 
 	it('should exec', async () => {
@@ -27,8 +27,8 @@ describe('Bundle', () => {
 	});
 
 	it('should compile a single file', async () => {
-		const result = await compile(testPath('compile-single-file'));
-		expect(result).toBe(`'use strict';\n\nvar other = require('./other');\n\nother.log('First');\n`);
+		const result = await compile(testPath('compile-single-file'), { sourceMap: false });
+		expect(result.code).toBe(`'use strict';\n\nvar other = require('./other');\n\nother.log('First');\n`);
 	});
 
 	it('should fail for syntax errors', async () => {

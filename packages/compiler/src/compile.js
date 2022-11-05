@@ -1,23 +1,11 @@
 
-import { rollup } from 'rollup'
-import { plugins } from './rollup';
+import { rollup } from './rollup';
 
 export const compile = async (input, options = {}) => {
-	const bundle = await rollup({
-		input,
-		plugins: [...plugins(options)],
-
-		onwarn(error) {
-			if (/external dependency/.test(error.message)) return;
-		},
+	return rollup(input, {
 		external(importee) {
 			return importee !== input;
-		}
+		},
+		...options
 	});
-
-	const { output } = await bundle.generate({
-		format: 'cjs',
-	});
-
-	return output[0].code;
 }

@@ -4,7 +4,7 @@ import { RuntimeError } from './error/runtime-error';
 import { bundle } from './bundle';
 
 export const spawn = async (input, options = {}) => {
-	const code = await bundle(input, options);
+	const { code } = await bundle(input, { ...options, sourceMap: false });
 
 	let node;
 

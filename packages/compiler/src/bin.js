@@ -1,7 +1,6 @@
 
 import { Command } from 'commander'
-// import { bundle } from './bundle';
-import { spawn } from './run';
+import { spawn } from './index';
 
 const program = new Command();
 
