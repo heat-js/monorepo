@@ -1,7 +1,7 @@
 
 import { createFilter } from 'rollup-pluginutils'
 import objectAssign from 'object-assign'
-import crypto from 'crypto'
+import { extname } from 'path'
 
 export default (options) => {
 	options = objectAssign({

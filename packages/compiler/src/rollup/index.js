@@ -1,12 +1,12 @@
 
 import coffeescript from 'rollup-plugin-coffee-script'
-import nodeResolve from 'rollup-plugin-node-resolve'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import lua from './lua.js'
-import raw from './lua.js'
+import raw from './raw.js'
 
 export const plugins = ({ sourceMap = true }) => [
 	babel({
@@ -23,7 +23,8 @@ export const plugins = ({ sourceMap = true }) => [
 		extensions: ['.js', '.jsx'],
 		babelHelpers: 'runtime'
 	}),
-	coffeescript({ sourceMap }),
+	coffeescript({ sourceMap, extensions: ['.coffee'], }),
+	// typescript({ include: ['**/*.ts'] }),
 	typescript(),
 	commonjs(),
 	json(),

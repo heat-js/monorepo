@@ -2,10 +2,11 @@
 import { createFilter } from 'rollup-pluginutils'
 import objectAssign from 'object-assign'
 import crypto from 'crypto'
+import { extname } from 'path'
 
 export default (options) => {
 	options = objectAssign({
-		extensions: ['.coffee', '.litcoffee'],
+		extensions: ['.lua'],
 	}, options || {});
 
 	const filter = createFilter(options.include, options.exclude);
@@ -15,13 +16,15 @@ export default (options) => {
 			if (!filter(id)) return;
 			if (options.extensions.indexOf(extname(id)) === -1) return;
 
+			const minified = code.trim()
+
 			const hash = crypto
 				.createHash('sha1')
-				.update(code, 'utf8')
+				.update(minified, 'utf8')
 				.digest('hex');
 
 			return {
-				code: `export default ${JSON.stringify(code)};\nexport const hash = '${hash}'`,
+				code: `export default ${JSON.stringify(minified)};\nexport const hash = '${hash}'`,
 				map: { mappings: "" }
 			};
 		}

@@ -1,7 +1,7 @@
 {
 	"name": "@heat/vite-plugin-ssm",
 	"main": "index",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"license": "MIT",
 	"repository": {
@@ -15,5 +15,8 @@
 		"patch": "npm version patch; npm publish --access=public",
 		"minor": "npm version minor; npm publish --access=public",
 		"major": "npm version major; npm publish --access=public"
+	},
+	"dependencies": {
+		"aws-param-store": "^3.2.0"
 	}
 }

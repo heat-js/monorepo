@@ -1,7 +1,6 @@
 
-// export { rollupPlugin } from './rollup/index.js'
-// export { exec } from './spawn.js'
-// export { JestPlugin } from './rollup/index.js'
-// export { exec } from './spawn.js'
+export { RuntimeError } from './error/runtime-error';
 
-export { default as bundle } from './bundle.js'
+export { bundle } from './bundle.js'
+export { compile } from './compile.js'
+export { exec, spawn } from './run.js'
