@@ -18,8 +18,7 @@
   },
   "jest": {
     "preset": "@heat/jest-preset",
-    "testEnvironment": "node",
-    "rootDir": "./test/"
+    "testEnvironment": "node"
   },
   "dependencies": {
     "@heat/awsless": "^0.1.109",

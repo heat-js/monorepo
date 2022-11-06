@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 5
+  version: 6
   cacheKey: 8
 
 "@ampproject/remapping@npm:^2.1.0":
@@ -2763,6 +2763,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/compiler@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@heat/compiler@npm:0.0.2"
+  dependencies:
+    "@babel/plugin-transform-runtime": ^7.19.6
+    "@babel/preset-env": ^7.20.2
+    "@babel/preset-react": ^7.18.6
+    "@rollup/plugin-babel": ^6.0.2
+    "@rollup/plugin-commonjs": ^23.0.2
+    "@rollup/plugin-json": ^5.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-typescript": ^9.0.2
+    object-assign: ^4.1.1
+    rollup: ^3.2.5
+    rollup-plugin-coffee-script: ^2.0.0
+    rollup-pluginutils: ^2.8.2
+    tslib: ^2.4.1
+  bin:
+    compiler: src/bin.js
+  checksum: 2ec55cfa45baabbbc666d1e38f64051120ea0432b651f84de365d46ef68c8f023bee86a8d934b69456eb18d5be57b63329889c51939b2efc7a123d5b15e347c1
+  languageName: node
+  linkType: hard
+
 "@heat/compiler@workspace:packages/compiler":
   version: 0.0.0-use.local
   resolution: "@heat/compiler@workspace:packages/compiler"
@@ -2779,9 +2802,10 @@ __metadata:
     object-assign: ^4.1.1
     rollup: ^3.2.5
     rollup-plugin-coffee-script: ^2.0.0
-    rollup-plugin-node-resolve: ^5.2.0
     rollup-pluginutils: ^2.8.2
     tslib: ^2.4.1
+  bin:
+    compiler: ./src/bin.js
   languageName: unknown
   linkType: soft
 
@@ -2886,7 +2910,11 @@ __metadata:
     "@babel/plugin-syntax-jsx": ^7.18.6
     "@babel/preset-env": ^7.19.0
     "@babel/preset-react": ^7.18.6
+    "@heat/compiler": ^0.0.2
     "@heat/jest-raw-loader": ^0.0.1
+    babel-jest: ^29.2.2
+    coffeescript: ^2.7.0
+    preact: ^10.11.2
   peerDependencies:
     babel-jest: ">= 29.0.2"
     coffeescript: ">= 2.5.1"
@@ -13607,7 +13635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:^10.10.6":
+"preact@npm:^10.10.6, preact@npm:^10.11.2":
   version: 10.11.2
   resolution: "preact@npm:10.11.2"
   checksum: 92b4087a4048595e43fc5c005e9a1f3c890ec83657689de9b40b1894e26f8c2b6b071c63e08941a44044d1612532f8313483b62e3d6e1aa3c39bde27614ed790
@@ -16128,11 +16156,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.6.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.8.4#~builtin<compat/typescript>":
   version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=493e53"
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 563a0ef47abae6df27a9a3ab38f75fc681f633ccf1a3502b1108e252e187787893de689220f4544aaf95a371a4eb3141e4a337deb9895de5ac3c1ca76430e5f0
+  checksum: 301459fc3eb3b1a38fe91bf96d98eb55da88a9cb17b4ef80b4d105d620f4d547ba776cc27b44cc2ef58b66eda23fe0a74142feb5e79a6fb99f54fc018a696afa
   languageName: node
   linkType: hard
 

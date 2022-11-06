@@ -33,7 +33,7 @@ export default {
 
 	transform: {
 		'^.+\\.(md|html)$': '@heat/jest-raw-loader'
-		"^.+\\.(#{coffeescriptExtensions.join '|'})$": path.join __dirname, 'coffee-transform.js'
+		"^.+\\.(#{coffeescriptExtensions.join '|'})$": path.join __dirname, 'transform.js'
 		"^.+\\.(#{javascriptExtensions.join '|'})$": [
 			"babel-jest"
 			{
