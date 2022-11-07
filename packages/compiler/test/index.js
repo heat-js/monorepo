@@ -2,7 +2,7 @@
 import { bundle, compile, exec, RuntimeError } from "../src";
 import { join } from 'path';
 
-describe('Bundle', () => {
+describe('Compiler', () => {
 
 	const testPath = (test) => {
 		return join(process.cwd(), 'test/data', test, 'index.js');

@@ -1,16 +1,15 @@
 
-import { App } from '../../app'
+import { IApp } from '../../app'
 import { Next } from '../../compose'
 
 interface IConfiguration {
-	(env: EnvParser): object
+	(): object
 }
 
 export const config = (configuration: IConfiguration) => {
-	return async (app: App, next: Next) => {
+	return async (app: IApp, next: Next) => {
 		app.$.config = () => {
-			const helper = new EnvParser(process.env);
-			return configuration(helper);
+			return configuration();
 		}
 
 		await next();

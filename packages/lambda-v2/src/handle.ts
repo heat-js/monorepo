@@ -1,5 +1,6 @@
 
-import { App } from "./app"
+import { Context } from "aws-lambda";
+import { IApp, createApp } from "./app";
 import { compose, Handler } from "./compose";
 
 // interface LambdaApp extends App {
@@ -8,14 +9,14 @@ import { compose, Handler } from "./compose";
 // 	context?: object
 // }
 
-interface ICallback {
-	(app: App, ...args): void
+export interface ICallback {
+	(app: IApp, ...args): void
 }
 
 export interface IHandle {
 	(input?:any, context?:object, callback?:(error:Error|null|undefined, response:any) => void): void;
 
-	app?: App;
+	app?: IApp;
 	emit: (event:string, args: any) => void;
 	on: (event:string, callback:ICallback) => void;
 	// off: (event:string, callback:(...args) => void) => void;
@@ -26,7 +27,8 @@ export const handle = (...handlers:Handler[]) => {
 	const listeners:{ event:string, callback:ICallback }[] = [];
 
 	const handle:IHandle = async (input, context = {}, callback) => {
-		const app = new App(input, context, handle);
+		const app = createApp(input, context as Context, handle);
+		handle.app = app;
 
 		try {
 			await fn(app);
@@ -41,7 +43,7 @@ export const handle = (...handlers:Handler[]) => {
 			throw error;
 		}
 
-		const output = app.output;
+		const output = app.has('output') ? app.output : undefined;
 
 		if(callback) {
 			callback(null, output);
