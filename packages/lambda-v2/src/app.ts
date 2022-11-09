@@ -1,99 +1,90 @@
 
+
+import { Context } from 'aws-lambda'
 import { IHandle } from "./handle";
+
+interface IInstances {
+	[key: string | symbol]: any;
+}
 
 interface IFactories {
 	[key: string | symbol]: () => any;
 }
 
-// interface IApp {
-
-// }
-
-export class App {
+export interface IApp {
 	[key: string | symbol]: any;
 
 	input: any;
-	output?: any;
-	context: object;
+	context: Context;
 	handle: IHandle;
 
-	readonly $:IFactories;
-	private instances = new Map;
+	output?: any;
 
-    constructor (input, context, handle) {
-		this.input = input;
-		this.context = context;
-		this.handle = handle;
-
-		handle.app = this
-
-		this.$ = new Proxy({}, {
-			set(target, key, value) {
-				if(typeof value !== 'function') {
-					throw new TypeError(`App.$.${ key.toString() } only allows factory functions to be assigned.`);
-				}
-
-				target[key] = value;
-				return true;
-			}
-		});
-
-        return new Proxy(this, {
-			set(app, key, value) {
-				app.instances.set(key, value);
-				return true;
-			},
-			get(app, key) {
-				const singleton	= app.instances.get(key);
-
-				if(typeof singleton !== 'undefined') {
-					return singleton;
-				}
-
-				const factory = app.$[ key ];
-
-				if(typeof factory !== 'function') {
-					throw new TypeError(`No App.${ key.toString() } factory function found.`);
-				}
-
-				const value = factory();
-				app.instances.set(key, value);
-
-				return value;
-			}
-		});
-    }
-
-	has (key: string | symbol) {
-		return this.instances.has(key);
-	}
-
-	invalidate(key: string | symbol) {
-		return this.instances.delete(key);
-	}
+	$: IFactories;
+	has:(key: string | symbol) => boolean;
+	// invalidate:(key: string | symbol) => void;
 }
 
-// interface App {
-// 	[key: string | symbol]: any;
-// 	lambda?: any;
-// }
+export const createApp = (input:any, context:Context, handle:IHandle): IApp => {
+	const instances:IInstances = new Map();
+	const factories = new Map();
+	const $:IFactories = new Proxy({}, {
+		set(_, key, value) {
+			if(typeof value !== 'function') {
+				throw new TypeError(`App.$."${ key.toString() }" only allows factory functions to be assigned.`);
+			}
 
-// class Lambda {
-// 	public invoke({ payload }): any {
-// 		return payload
-// 	}
-// }
+			factories.set(key, value);
+			return true;
+		}
+	});
 
-// interface IApp {
-// 	lambda: Lambda;
-// }
+	const app = {
+		input,
+		context,
+		handle,
+		$,
 
-// const app = new App(input, context);
-// const lambda = new Lambda();
+		has (key: string | symbol) {
+			return typeof app[key] !== 'undefined' || instances.has(key);
+		}
+	};
 
-// app.$.lambda = () => lambda;
-// app.$.heat = () => lambda;
+	return new Proxy(app, {
+		set(_, key, value) {
+			if(typeof value !== 'undefined') {
+				instances.set(key, value);
+			} else {
+				instances.delete(key);
+			}
 
-// app.lambda = lambda
+			return true;
+		},
+		deleteProperty(_, key) {
+			instances.delete(key);
+			return true;
+		},
+		get(_, key) {
+			const singleton	= instances.get(key);
 
-// app.lambda.invoke
+			if(typeof singleton !== 'undefined') {
+				return singleton;
+			}
+
+			if(key in app) {
+				return app[key];
+			}
+
+			const factory = factories.get(key);
+
+			if(typeof factory !== 'function') {
+				throw new TypeError(`App."${ key.toString() }" factory function not found.`);
+			}
+
+			const value = factory();
+			instances.set(key, value);
+
+			return value;
+		}
+	});
+}

@@ -3,6 +3,7 @@
 	"main": "index",
 	"version": "0.0.0",
 	"license": "MIT",
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/heat-js/monorepo.git"
@@ -10,22 +11,44 @@
 	"bugs": {
 		"url": "https://github.com/heat-js/monorepo/issues"
 	},
+	"exports": {
+		".": {
+			"import": "./src/index.js"
+		},
+		"./config": {
+			"import": "./src/handlers/config/env.js"
+		},
+		"./types": {
+			"import": "./src/handlers/validate/types/index.js"
+		}
+	},
 	"scripts": {
-		"test": "yarn run -T jest",
+		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
 		"patch": "npm version patch; yarn run -T ncp",
 		"minor": "npm version minor; yarn run -T ncp",
 		"major": "npm version major; yarn run -T ncp"
 	},
 	"jest": {
-		"preset": "@heat/jest-preset-coffeescript",
+		"preset": "ts-jest",
 		"testEnvironment": "node",
-		"rootDir": "./test/"
+		"testMatch": [
+			"**/test/**/*.js"
+		]
 	},
 	"dependencies": {
+		"@aws-sdk/client-iot": "^3.204.0",
+		"@aws-sdk/client-iot-data-plane": "^3.204.0",
 		"@aws-sdk/client-lambda": "^3.202.0",
+		"@aws-sdk/client-ssm": "^3.204.0",
+		"@types/aws-lambda": "^8.10.108",
+		"big.js": "^6.2.1",
+		"chunk": "^0.0.3",
 		"superstruct": "^0.16.7"
 	},
 	"devDependencies": {
-		"@types/node": "^18.11.9"
+		"@types/jest": "^29.2.2",
+		"@types/node": "^18.11.9",
+		"jest": "^29.2.2",
+		"ts-jest": "^29.0.3"
 	}
 }

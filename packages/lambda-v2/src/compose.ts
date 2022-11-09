@@ -1,9 +1,9 @@
 
 
-import { App } from './app'
+import { IApp } from './app'
 
 export type Next = () => void;
-export type Handler = (app:App, next:Next) => void;
+export type Handler = (app:IApp, next:Next) => void;
 
 export const compose = (handlers:Handler[] = []) => {
 	const stack = handlers.flat() as Handler[];
@@ -14,31 +14,24 @@ export const compose = (handlers:Handler[] = []) => {
 		}
 	}
 
-	return (app: App) => {
+	return (app: IApp) => {
 		let index = -1;
 		const dispatch = (pos) => {
 			const next = () => {
 				if(pos <= index) {
-					return Promise.reject(new Error('next() called multiple times'));
+					throw new Error('next() called multiple times');
 				}
 
-				dispatch(pos + 1);
+				return dispatch(pos + 1);
 			}
-
-			const handler = stack[pos];
 
 			if(pos === stack.length) {
-				return Promise.resolve();
+				return
 			}
 
-			try {
-				return Promise.resolve(handler(app, next));
-			}
-			catch(error) {
-				return Promise.reject(error);
-			}
+			return stack[pos](app, next);
 		}
 
-		return dispatch(0)
+		return Promise.resolve(dispatch(0))
 	}
 }

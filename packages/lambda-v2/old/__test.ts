@@ -1,9 +1,9 @@
 
-import { App } from "./app";
+// import { App } from "./app";
 import { handle } from "./handle";
 import { event } from "./handlers/event";
 // import { lambda, LambdaApp } from "./handlers/lambda";
-import { Invoker } from "./handlers/lambda/invoker";
+// import { Invoker } from "./handlers/lambda/lambda";
 
 
 const fn = handle(
@@ -13,13 +13,15 @@ const fn = handle(
 	async (app) => {
 		const { test } = app.input;
 
-		const response = await (app.lambda as Invoker).invoke({
-			service: 'lol',
-			name: 'lol',
-			payload: {
-				test
-			}
-		});
+		// app.
+
+		// const response = await (app.lambda as Invoker).invoke({
+		// 	service: 'lol',
+		// 	name: 'lol',
+		// 	payload: {
+		// 		test
+		// 	}
+		// });
 	}
 )
 
