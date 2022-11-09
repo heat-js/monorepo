@@ -6,7 +6,7 @@ import { create, Struct } from 'superstruct'
 export const validate = (struct?: Struct) => {
 	return (app: IApp, next: Next) => {
 		app.$.validate = () => {
-			return (input, struct) => {
+			return (input, struct: Struct) => {
 				return create(input, struct);
 			}
 		}

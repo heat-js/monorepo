@@ -10,7 +10,11 @@ import json from '@rollup/plugin-json'
 import lua from './lua.js'
 import raw from './raw.js'
 
-export const plugins = ({ sourceMap = true }) => [
+export const extensions = [
+	'json', 'js', 'jsx', 'coffee', 'ts', 'lua', 'md', 'html'
+];
+
+export const plugins = ({ sourceMap = true } = {}) => [
 	babel({
 		plugins: ['@babel/plugin-transform-runtime'],
 		presets: [

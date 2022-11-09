@@ -4,10 +4,18 @@ import { jest } from '@jest/globals';
 
 describe('Event', () => {
 
+	const value = (v) => [
+		(app, next) => {
+			app.value = v;
+			return next();
+		},
+		event(String(v)),
+	]
+
 	const fn = handle(
-		(app) => app.value = 1, event('1'),
-		(app) => app.value = 2, event('2'),
-		(app) => app.value = 3, event('3'),
+		value(1),
+		value(2),
+		value(3),
 	);
 
 	it('should publish events in order', async () => {
@@ -21,9 +29,9 @@ describe('Event', () => {
 
 		await fn();
 
-		// expect(c1).toBeCalled();
-		// expect(c2).toBeCalled();
-		// expect(c3).toBeCalled();
+		expect(c1).toBeCalled();
+		expect(c2).toBeCalled();
+		expect(c3).toBeCalled();
 	});
 
 });

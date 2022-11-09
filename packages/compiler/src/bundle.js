@@ -1,5 +1,5 @@
 
-import { rollup } from './rollup';
+import { rollup } from './rollup/index.js';
 
 export const bundle = async (input, options = {}) => {
 	return rollup(input, {

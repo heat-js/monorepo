@@ -8,9 +8,9 @@ describe('Lambda', () => {
 		(app) => app.output = app.lambda
 	);
 
-	it('should expose the lambda API', async () => {
-		const lambda = await fn();
-		expect(lambda.invoke).toBeDefined()
+	it('should expose the API', async () => {
+		const api = await fn();
+		expect(api.invoke).toBeDefined()
 		// expect(lambda.invokeAsync).toBeDefined()
 	});
 

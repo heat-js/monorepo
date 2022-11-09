@@ -1,6 +1,7 @@
 
 import { Command } from 'commander'
-import { spawn } from './index';
+import { spawn } from './index.js';
+import { test } from './test.js';
 
 const program = new Command();
 
@@ -16,6 +17,15 @@ program
 		const node = await spawn(input, options);
 		node.stdout.pipe(process.stdout);
 		node.stderr.pipe(process.stderr);
+	});
+
+program
+	.command('test')
+	.description('test project')
+	.action(async () => {
+		const node = await test();
+		// node.stdout.pipe(process.stdout);
+		// node.stderr.pipe(process.stderr);
 	});
 
 // program
