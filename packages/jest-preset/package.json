@@ -27,7 +27,7 @@
 		"@babel/plugin-syntax-jsx": "^7.18.6",
 		"@babel/preset-env": "^7.19.0",
 		"@babel/preset-react": "^7.18.6",
-		"@heat/compiler": "^0.0.2",
+		"@heat/compiler": "^0.0.5",
 		"@heat/jest-raw-loader": "^0.0.1"
 	},
 	"peerDependencies": {

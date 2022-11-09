@@ -2763,9 +2763,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/compiler@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@heat/compiler@npm:0.0.2"
+"@heat/compiler@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@heat/compiler@npm:0.0.5"
   dependencies:
     "@babel/plugin-transform-runtime": ^7.19.6
     "@babel/preset-env": ^7.20.2
@@ -2775,6 +2775,7 @@ __metadata:
     "@rollup/plugin-json": ^5.0.1
     "@rollup/plugin-node-resolve": ^15.0.1
     "@rollup/plugin-typescript": ^9.0.2
+    commander: ^9.4.1
     object-assign: ^4.1.1
     rollup: ^3.2.5
     rollup-plugin-coffee-script: ^2.0.0
@@ -2782,7 +2783,7 @@ __metadata:
     tslib: ^2.4.1
   bin:
     compiler: src/bin.js
-  checksum: 2ec55cfa45baabbbc666d1e38f64051120ea0432b651f84de365d46ef68c8f023bee86a8d934b69456eb18d5be57b63329889c51939b2efc7a123d5b15e347c1
+  checksum: 055f03f4f05b2a0b15b8b728f0cefd281563553f1c72f4e2e990706dfe7511d554b61e9a49ce70fc40753f069650e3fe59f2f563ae872e3050bbdf246c5a58a5
   languageName: node
   linkType: hard
 
@@ -2910,7 +2911,7 @@ __metadata:
     "@babel/plugin-syntax-jsx": ^7.18.6
     "@babel/preset-env": ^7.19.0
     "@babel/preset-react": ^7.18.6
-    "@heat/compiler": ^0.0.2
+    "@heat/compiler": ^0.0.5
     "@heat/jest-raw-loader": ^0.0.1
     babel-jest: ^29.2.2
     coffeescript: ^2.7.0
@@ -6678,7 +6679,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.4.0":
+"commander@npm:^9.4.0, commander@npm:^9.4.1":
   version: 9.4.1
   resolution: "commander@npm:9.4.1"
   checksum: bfb18e325a5bdf772763c2213d5c7d9e77144d944124e988bcd8e5e65fb6d45d5d4e86b09155d0f2556c9a59c31e428720e57968bcd050b2306e910a0bf3cf13
