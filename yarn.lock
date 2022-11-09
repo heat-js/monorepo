@@ -3004,79 +3004,11 @@ __metadata:
     jest: ^29.2.2
     superstruct: ^0.16.7
     ts-jest: ^29.0.3
+    typescript: ^4.8.4
   languageName: unknown
   linkType: soft
 
-"@heat/awsless@npm:^0.1.109":
-  version: 0.1.162
-  resolution: "@heat/awsless@npm:0.1.162"
-  dependencies:
-    "@babel/core": ^7.19.0
-    "@babel/plugin-transform-runtime": ^7.18.10
-    "@babel/preset-env": ^7.19.0
-    "@babel/preset-react": ^7.18.6
-    "@bugsnag/source-maps": ^2.0.0
-    "@graphql-tools/merge": ^6.2.7
-    "@heat/s3-deploy": ^0.0.13
-    "@rollup/plugin-babel": ^5.3.0
-    "@rollup/plugin-commonjs": ^20.0.0
-    "@rollup/plugin-node-resolve": ^13.0.4
-    aws-param-store: ^3.2.0
-    aws-sdk: ^2.795.0
-    babel-loader: ^8.2.5
-    boxen: ^4.2.0
-    builtin-modules: ^3.2.0
-    capitalize: ^2.0.3
-    chalk: ^4.1.2
-    change-case: ^4.1.2
-    cli-spinners: ^2.6.0
-    coffee-loader: ^1.0.1
-    commander: ^6.2.1
-    draftlog: ^1.0.12
-    filesize: ^6.1.0
-    function-cache: ^1.0.5
-    get-all-files: ^3.0.0
-    graphql: ^15.4.0
-    hash-then: ^1.1.1
-    jest-worker: ^26.6.2
-    js-yaml: ^4.1.0
-    js-yaml-cloudformation-schema: ^1.0.0
-    json-format: ^1.0.1
-    jszip: ^3.5.0
-    length-stream: ^0.1.1
-    log-symbols: ^4.1.0
-    mime-types: ^2.1.34
-    minimist: ^1.2.5
-    node-loader: ^1.0.2
-    object-path: ^0.11.5
-    ora: ^5.1.0
-    parse-domain: ^3.0.3
-    play-sound: ^1.1.3
-    pretty-hrtime: ^1.0.3
-    promise-queue: ^2.2.5
-    prompt-confirm: ^2.0.4
-    raw-loader: ^4.0.2
-    rimraf: ^3.0.2
-    rollup: ^2.47.0
-    rollup-plugin-coffee-script: ^2.0.0
-    rollup-plugin-node-builtins: ^2.1.2
-    rollup-plugin-node-globals: ^1.4.0
-    rollup-plugin-terser: ^7.0.2
-    say: ^0.16.0
-    stream-to-buffer: ^0.1.0
-    terser-webpack-plugin: ^5.0.3
-    threads: ^1.6.3
-    tty-table: ^4.1.3
-    type-of: ^2.0.1
-    webpack: ^5.6.0
-    webpack-merge: ^5.8.0
-  bin:
-    awsless: awsless.js
-  checksum: bccdb96a3665f09659c1a77102ee635a845630d153225cd14cc70e738d07e3ecb06dc9c4ef0fe83a3ca8fa78918a513e6285d6190a2a02a09811f84c6539645f
-  languageName: node
-  linkType: hard
-
-"@heat/awsless@workspace:packages/awsless":
+"@heat/awsless@^0.1.109, @heat/awsless@workspace:packages/awsless":
   version: 0.0.0-use.local
   resolution: "@heat/awsless@workspace:packages/awsless"
   dependencies:
@@ -3160,16 +3092,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/cloud-front-function@npm:^0.0.17":
-  version: 0.0.17
-  resolution: "@heat/cloud-front-function@npm:0.0.17"
-  dependencies:
-    js-base64: 2.6.4
-  checksum: aca386f1b0de70e0f6b89a6d8aee2dd07b98dd56323c03da6b1498bce635472c18a5e0b2469d3c21d337ffbf6114f0031837f2818b9455ce6fc9dbe79b6a2fa7
-  languageName: node
-  linkType: hard
-
-"@heat/cloud-front-function@workspace:packages/cloud-front-function":
+"@heat/cloud-front-function@^0.0.17, @heat/cloud-front-function@workspace:packages/cloud-front-function":
   version: 0.0.0-use.local
   resolution: "@heat/cloud-front-function@workspace:packages/cloud-front-function"
   dependencies:
@@ -3328,21 +3251,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/jest-preset-coffeescript@npm:0.0.40":
-  version: 0.0.40
-  resolution: "@heat/jest-preset-coffeescript@npm:0.0.40"
-  dependencies:
-    "@babel/core": ^7.19.0
-    "@babel/preset-env": ^7.19.0
-    babel-jest: ^29.0.2
-    jest: ^29.0.2
-  peerDependencies:
-    coffeescript: ">= 2.5.1"
-  checksum: cdce7132854c77c6b33da73fe29d8054f4eed2388648d241ab588d4e485bdc23e42f64786b0f9a30dd5ce419af28a416f5df28606f8cc8e062e8eb1666a4884c
-  languageName: node
-  linkType: hard
-
-"@heat/jest-preset-coffeescript@workspace:packages/jest-preset-coffeescript":
+"@heat/jest-preset-coffeescript@0.0.40, @heat/jest-preset-coffeescript@workspace:packages/jest-preset-coffeescript":
   version: 0.0.0-use.local
   resolution: "@heat/jest-preset-coffeescript@workspace:packages/jest-preset-coffeescript"
   dependencies:
@@ -3355,24 +3264,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/jest-preset@npm:0.0.12":
-  version: 0.0.12
-  resolution: "@heat/jest-preset@npm:0.0.12"
-  dependencies:
-    "@babel/core": ^7.19.0
-    "@babel/plugin-syntax-jsx": ^7.18.6
-    "@babel/preset-env": ^7.19.0
-    "@babel/preset-react": ^7.18.6
-    "@heat/jest-raw-loader": ^0.0.1
-  peerDependencies:
-    babel-jest: ">= 29.0.2"
-    coffeescript: ">= 2.5.1"
-    jest: ">= 29.0.2"
-  checksum: 93511d5b5e5d36c9101a11e409bd8fe6b50484ef5591f98311a80b81716188aa8a22b6a426932d3c4846fc9059983b3c174c19c9110c59738645d0dde1010366
-  languageName: node
-  linkType: hard
-
-"@heat/jest-preset@workspace:packages/jest-preset":
+"@heat/jest-preset@0.0.12, @heat/jest-preset@workspace:packages/jest-preset":
   version: 0.0.0-use.local
   resolution: "@heat/jest-preset@workspace:packages/jest-preset"
   dependencies:
@@ -3392,14 +3284,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/jest-raw-loader@npm:0.0.1, @heat/jest-raw-loader@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@heat/jest-raw-loader@npm:0.0.1"
-  checksum: 77670d026b7506294a15a7dc0d5f0287a0e20c8c4955d869a34b3caaee3f6402b4939a601e4f4e641be471d5774103838ed07c446e90c49159ee4ce92c16b132
-  languageName: node
-  linkType: hard
-
-"@heat/jest-raw-loader@workspace:packages/jest-raw-loader":
+"@heat/jest-raw-loader@0.0.1, @heat/jest-raw-loader@^0.0.1, @heat/jest-raw-loader@workspace:packages/jest-raw-loader":
   version: 0.0.0-use.local
   resolution: "@heat/jest-raw-loader@workspace:packages/jest-raw-loader"
   languageName: unknown
@@ -3459,25 +3344,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/npm-coffee-publisher@npm:0.2.11":
-  version: 0.2.11
-  resolution: "@heat/npm-coffee-publisher@npm:0.2.11"
-  dependencies:
-    "@babel/core": ^7.19.0
-    "@babel/preset-env": ^7.19.0
-    rimraf: ^2.6.3
-  peerDependencies:
-    coffeescript: ">= 2.5.1"
-  bin:
-    ncp: src/index.js
-    ncp-build: src/build.js
-    ncp-clean: src/clean.js
-    ncp-publish: src/publish.js
-  checksum: 8361099468ea99500fefcbaa485de33483887f8e39900efcbf3f1476ab8f3165a3abd513d224db0f11efa4a698e374b1270044778aee912176753b94670bdcac
-  languageName: node
-  linkType: hard
-
-"@heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher":
+"@heat/npm-coffee-publisher@0.2.11, @heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher":
   version: 0.0.0-use.local
   resolution: "@heat/npm-coffee-publisher@workspace:packages/npm-coffee-publisher"
   dependencies:
@@ -3536,14 +3403,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/step-functions-local@npm:^0.0.6":
-  version: 0.0.6
-  resolution: "@heat/step-functions-local@npm:0.0.6"
-  checksum: 703e24084404b3a60cb272498301c2639f7ca102a4bdbc7797314e826b026f14ab62b6a7f39c183653c1092e7d057e2c503646ed7bf60dfa2e54c053f5c14218
-  languageName: node
-  linkType: hard
-
-"@heat/step-functions-local@workspace:packages/step-functions-local":
+"@heat/step-functions-local@^0.0.6, @heat/step-functions-local@workspace:packages/step-functions-local":
   version: 0.0.0-use.local
   resolution: "@heat/step-functions-local@workspace:packages/step-functions-local"
   languageName: unknown
