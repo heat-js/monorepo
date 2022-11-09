@@ -1,7 +1,7 @@
 
 import { spawn as spawnChild } from 'child_process'
-import { RuntimeError } from './error/runtime';
-import { bundle } from './bundle';
+import { RuntimeError } from './error/runtime.js';
+import { bundle } from './bundle.js';
 
 export const spawn = async (input, options = {}) => {
 	const { code } = await bundle(input, { ...options, sourceMap: false });

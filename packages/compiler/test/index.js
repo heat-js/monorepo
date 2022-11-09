@@ -1,8 +1,9 @@
 
 import { bundle, compile, exec, RuntimeError } from "../src";
 import { join } from 'path';
+import { describe, it, expect } from 'vitest'
 
-describe('Compiler', () => {
+describe.concurrent('Compiler', () => {
 
 	const testPath = (test) => {
 		return join(process.cwd(), 'test/data', test, 'index.js');

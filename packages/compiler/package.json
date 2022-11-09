@@ -1,6 +1,6 @@
 {
 	"name": "@heat/compiler",
-	"version": "0.0.2",
+	"version": "0.0.7",
 	"license": "MIT",
 	"main": "./src/index.js",
 	"bin": "./src/bin.js",
@@ -14,6 +14,9 @@
 		"patch": "npm version patch; npm publish --access=public",
 		"minor": "npm version minor; npm publish --access=public",
 		"major": "npm version major; npm publish --access=public"
+	},
+	"vitest": {
+		"exclude": "./test/data/**"
 	},
 	"jest": {
 		"testEnvironment": "node",
@@ -41,6 +44,7 @@
 		"rollup": "^3.2.5",
 		"rollup-plugin-coffee-script": "^2.0.0",
 		"rollup-pluginutils": "^2.8.2",
-		"tslib": "^2.4.1"
+		"tslib": "^2.4.1",
+		"vitest": "^0.25.1"
 	}
 }
