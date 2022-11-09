@@ -237,6 +237,100 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-sdk/client-sns@npm:^3.204.0":
+  version: 3.204.0
+  resolution: "@aws-sdk/client-sns@npm:3.204.0"
+  dependencies:
+    "@aws-crypto/sha256-browser": 2.0.0
+    "@aws-crypto/sha256-js": 2.0.0
+    "@aws-sdk/client-sts": 3.204.0
+    "@aws-sdk/config-resolver": 3.201.0
+    "@aws-sdk/credential-provider-node": 3.204.0
+    "@aws-sdk/fetch-http-handler": 3.204.0
+    "@aws-sdk/hash-node": 3.201.0
+    "@aws-sdk/invalid-dependency": 3.201.0
+    "@aws-sdk/middleware-content-length": 3.201.0
+    "@aws-sdk/middleware-endpoint": 3.201.0
+    "@aws-sdk/middleware-host-header": 3.201.0
+    "@aws-sdk/middleware-logger": 3.201.0
+    "@aws-sdk/middleware-recursion-detection": 3.201.0
+    "@aws-sdk/middleware-retry": 3.201.0
+    "@aws-sdk/middleware-serde": 3.201.0
+    "@aws-sdk/middleware-signing": 3.201.0
+    "@aws-sdk/middleware-stack": 3.201.0
+    "@aws-sdk/middleware-user-agent": 3.201.0
+    "@aws-sdk/node-config-provider": 3.201.0
+    "@aws-sdk/node-http-handler": 3.201.0
+    "@aws-sdk/protocol-http": 3.201.0
+    "@aws-sdk/smithy-client": 3.201.0
+    "@aws-sdk/types": 3.201.0
+    "@aws-sdk/url-parser": 3.201.0
+    "@aws-sdk/util-base64": 3.202.0
+    "@aws-sdk/util-base64-browser": 3.188.0
+    "@aws-sdk/util-base64-node": 3.201.0
+    "@aws-sdk/util-body-length-browser": 3.188.0
+    "@aws-sdk/util-body-length-node": 3.201.0
+    "@aws-sdk/util-defaults-mode-browser": 3.201.0
+    "@aws-sdk/util-defaults-mode-node": 3.201.0
+    "@aws-sdk/util-endpoints": 3.202.0
+    "@aws-sdk/util-user-agent-browser": 3.201.0
+    "@aws-sdk/util-user-agent-node": 3.201.0
+    "@aws-sdk/util-utf8-browser": 3.188.0
+    "@aws-sdk/util-utf8-node": 3.201.0
+    fast-xml-parser: 4.0.11
+    tslib: ^2.3.1
+  checksum: e3c78a0eb9522508ee21b3a554cb447e58539a7ab5ab73807c36bd414113fc41c7e0cdc80daa998d340008b95e0b6464d8124622bb6061a5c0dfaba85ddc8874
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/client-sqs@npm:^3.204.0":
+  version: 3.204.0
+  resolution: "@aws-sdk/client-sqs@npm:3.204.0"
+  dependencies:
+    "@aws-crypto/sha256-browser": 2.0.0
+    "@aws-crypto/sha256-js": 2.0.0
+    "@aws-sdk/client-sts": 3.204.0
+    "@aws-sdk/config-resolver": 3.201.0
+    "@aws-sdk/credential-provider-node": 3.204.0
+    "@aws-sdk/fetch-http-handler": 3.204.0
+    "@aws-sdk/hash-node": 3.201.0
+    "@aws-sdk/invalid-dependency": 3.201.0
+    "@aws-sdk/md5-js": 3.204.0
+    "@aws-sdk/middleware-content-length": 3.201.0
+    "@aws-sdk/middleware-endpoint": 3.201.0
+    "@aws-sdk/middleware-host-header": 3.201.0
+    "@aws-sdk/middleware-logger": 3.201.0
+    "@aws-sdk/middleware-recursion-detection": 3.201.0
+    "@aws-sdk/middleware-retry": 3.201.0
+    "@aws-sdk/middleware-sdk-sqs": 3.201.0
+    "@aws-sdk/middleware-serde": 3.201.0
+    "@aws-sdk/middleware-signing": 3.201.0
+    "@aws-sdk/middleware-stack": 3.201.0
+    "@aws-sdk/middleware-user-agent": 3.201.0
+    "@aws-sdk/node-config-provider": 3.201.0
+    "@aws-sdk/node-http-handler": 3.201.0
+    "@aws-sdk/protocol-http": 3.201.0
+    "@aws-sdk/smithy-client": 3.201.0
+    "@aws-sdk/types": 3.201.0
+    "@aws-sdk/url-parser": 3.201.0
+    "@aws-sdk/util-base64": 3.202.0
+    "@aws-sdk/util-base64-browser": 3.188.0
+    "@aws-sdk/util-base64-node": 3.201.0
+    "@aws-sdk/util-body-length-browser": 3.188.0
+    "@aws-sdk/util-body-length-node": 3.201.0
+    "@aws-sdk/util-defaults-mode-browser": 3.201.0
+    "@aws-sdk/util-defaults-mode-node": 3.201.0
+    "@aws-sdk/util-endpoints": 3.202.0
+    "@aws-sdk/util-user-agent-browser": 3.201.0
+    "@aws-sdk/util-user-agent-node": 3.201.0
+    "@aws-sdk/util-utf8-browser": 3.188.0
+    "@aws-sdk/util-utf8-node": 3.201.0
+    fast-xml-parser: 4.0.11
+    tslib: ^2.3.1
+  checksum: 7206ce6799075676ff3fd0a56eba465b3b57515f4e001ec926ee7c78c3298bd56804ececf8798269b943824feff464e56c552cd1a693ae89a37a757ed369bdad
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/client-ssm@npm:^3.204.0":
   version: 3.204.0
   resolution: "@aws-sdk/client-ssm@npm:3.204.0"
@@ -668,6 +762,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-sdk/md5-js@npm:3.204.0":
+  version: 3.204.0
+  resolution: "@aws-sdk/md5-js@npm:3.204.0"
+  dependencies:
+    "@aws-sdk/types": 3.201.0
+    "@aws-sdk/util-utf8-browser": 3.188.0
+    "@aws-sdk/util-utf8-node": 3.201.0
+    tslib: ^2.3.1
+  checksum: 1fe400f9605e060435939b71c5d10736aeca5171ac2f493c9c1cf73bf18103dda5e0a14b5f466c42bc8b325f9a5253a23878ef9141b6c64c85d82ebbc294389c
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/middleware-content-length@npm:3.201.0":
   version: 3.201.0
   resolution: "@aws-sdk/middleware-content-length@npm:3.201.0"
@@ -738,6 +844,17 @@ __metadata:
     tslib: ^2.3.1
     uuid: ^8.3.2
   checksum: 377f767bf63316e900c2a3ca62fd7961fef509267693a60623c5d0c0ec706342d47330a9b8bf4bc88fe7ccb7dd84762557d25ab39ae385ac34caecc23a455ffc
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-sdk-sqs@npm:3.201.0":
+  version: 3.201.0
+  resolution: "@aws-sdk/middleware-sdk-sqs@npm:3.201.0"
+  dependencies:
+    "@aws-sdk/types": 3.201.0
+    "@aws-sdk/util-hex-encoding": 3.201.0
+    tslib: ^2.3.1
+  checksum: 9edc5c285b98f2866d6786c24da708e9bf5f7fc9d6070d6cc3f8e324a42c0e2e3e1ea34aff1406e261a1de68131c6f78af08630d73e8f415aca75a20f1618e1c
   languageName: node
   linkType: hard
 
@@ -1014,6 +1131,15 @@ __metadata:
     "@aws-sdk/types": 3.201.0
     tslib: ^2.3.1
   checksum: 731a067ab4b0a6c945423f4ad91a56b2da3c258d7e34860dcc1c118d6db83e85ca17aa9e63d7a8ee649c1e26ad8f5a12c6759cfc2b6471eac77e58c04e4cf8f8
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-dynamodb@npm:^3.204.0":
+  version: 3.204.0
+  resolution: "@aws-sdk/util-dynamodb@npm:3.204.0"
+  dependencies:
+    tslib: ^2.3.1
+  checksum: 2eda615f4fe98b8589cefa31300b73537e607d40a1a0dd4222e911bbedc2e217c1711953ce91817dbc62eb484d3f0e698e205c3beb727d67264db46f53b4f772
   languageName: node
   linkType: hard
 
@@ -3221,7 +3347,10 @@ __metadata:
     "@aws-sdk/client-iot": ^3.204.0
     "@aws-sdk/client-iot-data-plane": ^3.204.0
     "@aws-sdk/client-lambda": ^3.202.0
+    "@aws-sdk/client-sns": ^3.204.0
+    "@aws-sdk/client-sqs": ^3.204.0
     "@aws-sdk/client-ssm": ^3.204.0
+    "@aws-sdk/util-dynamodb": ^3.204.0
     "@types/aws-lambda": ^8.10.108
     "@types/jest": ^29.2.2
     "@types/node": ^18.11.9

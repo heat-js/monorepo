@@ -1,6 +1,7 @@
 
 import { LambdaClient, InvokeCommand, InvokeAsyncCommand } from '@aws-sdk/client-lambda'
 import { ViewableError } from '../../errors/viewable'
+import { serviceName } from '../../helper'
 
 interface IInvoke {
 	service?: string
@@ -28,14 +29,10 @@ export class Lambda {
 		return (response.errorType === 'ViewableError' || 0 === response.errorMessage.indexOf('[viewable] '));
 	}
 
-	private getFunctionName(service:string|undefined, name:string) {
-		return service ? `${service}__${name}` : name;
-	}
-
 	async invoke({ service, name, type = 'RequestResponse', payload, reflectViewableErrors = true }: IInvokeWithErrors) {
 
 		const command = new InvokeCommand({
-			FunctionName: this.getFunctionName(service, name),
+			FunctionName: serviceName(service, name),
 			InvocationType: type,
 			Payload: Buffer.from(JSON.stringify(payload))
 		});

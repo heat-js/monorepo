@@ -1,5 +1,5 @@
 {
-	"name": "@heat/lambda-v2",
+	"name": "@heat/aws-lambda",
 	"main": "index",
 	"version": "0.0.0",
 	"license": "MIT",
@@ -15,10 +15,10 @@
 		".": {
 			"import": "./src/index.js"
 		},
-		"./config": {
+		"./env": {
 			"import": "./src/handlers/config/env.js"
 		},
-		"./types": {
+		"./validate": {
 			"import": "./src/handlers/validate/types/index.js"
 		}
 	},
@@ -39,7 +39,10 @@
 		"@aws-sdk/client-iot": "^3.204.0",
 		"@aws-sdk/client-iot-data-plane": "^3.204.0",
 		"@aws-sdk/client-lambda": "^3.202.0",
+		"@aws-sdk/client-sns": "^3.204.0",
+		"@aws-sdk/client-sqs": "^3.204.0",
 		"@aws-sdk/client-ssm": "^3.204.0",
+		"@aws-sdk/util-dynamodb": "^3.204.0",
 		"@types/aws-lambda": "^8.10.108",
 		"big.js": "^6.2.1",
 		"chunk": "^0.0.3",

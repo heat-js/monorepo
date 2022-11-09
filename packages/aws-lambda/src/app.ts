@@ -22,7 +22,6 @@ export interface IApp {
 
 	$: IFactories;
 	has:(key: string | symbol) => boolean;
-	// invalidate:(key: string | symbol) => void;
 }
 
 export const createApp = (input:any, context:Context, handle:IHandle): IApp => {
