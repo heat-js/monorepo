@@ -2,6 +2,7 @@
 const prefix = '[viewable] ';
 
 export class ViewableError extends Error {
+	// constructor(type:string, message:string, data) {
 	constructor(message:string) {
 		let m = message;
 

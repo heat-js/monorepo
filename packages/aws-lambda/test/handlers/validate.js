@@ -1,4 +1,5 @@
 
+import { describe, it, expect } from 'vitest'
 import { handle, validate } from "../../src";
 import { number, string, object, date } from 'superstruct';
 

@@ -2996,15 +2996,15 @@ __metadata:
     "@aws-sdk/client-sqs": ^3.204.0
     "@aws-sdk/client-ssm": ^3.204.0
     "@aws-sdk/util-dynamodb": ^3.204.0
+    "@heat/code": "workspace:^"
     "@types/aws-lambda": ^8.10.108
     "@types/jest": ^29.2.2
     "@types/node": ^18.11.9
     big.js: ^6.2.1
     chunk: ^0.0.3
-    jest: ^29.2.2
     superstruct: ^0.16.7
-    ts-jest: ^29.0.3
     typescript: ^4.8.4
+    vite: ^3.2.3
   languageName: unknown
   linkType: soft
 
@@ -3100,6 +3100,32 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/code@workspace:^, @heat/code@workspace:packages/code":
+  version: 0.0.0-use.local
+  resolution: "@heat/code@workspace:packages/code"
+  dependencies:
+    "@babel/plugin-transform-runtime": ^7.19.6
+    "@babel/preset-env": ^7.20.2
+    "@babel/preset-react": ^7.18.6
+    "@rollup/plugin-babel": ^6.0.2
+    "@rollup/plugin-commonjs": ^23.0.2
+    "@rollup/plugin-json": ^5.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-typescript": ^9.0.2
+    commander: ^9.4.1
+    jest: ^28.1.1
+    object-assign: ^4.1.1
+    rollup: ^3.2.5
+    rollup-plugin-coffee-script: ^2.0.0
+    rollup-pluginutils: ^2.8.2
+    tslib: ^2.4.1
+    vite: ^3.2.3
+    vitest: ^0.25.1
+  bin:
+    code: ./src/bin.js
+  languageName: unknown
+  linkType: soft
+
 "@heat/coffee-run@npm:0.0.20":
   version: 0.0.20
   resolution: "@heat/coffee-run@npm:0.0.20"
@@ -3176,31 +3202,6 @@ __metadata:
   checksum: 055f03f4f05b2a0b15b8b728f0cefd281563553f1c72f4e2e990706dfe7511d554b61e9a49ce70fc40753f069650e3fe59f2f563ae872e3050bbdf246c5a58a5
   languageName: node
   linkType: hard
-
-"@heat/compiler@workspace:packages/compiler":
-  version: 0.0.0-use.local
-  resolution: "@heat/compiler@workspace:packages/compiler"
-  dependencies:
-    "@babel/plugin-transform-runtime": ^7.19.6
-    "@babel/preset-env": ^7.20.2
-    "@babel/preset-react": ^7.18.6
-    "@rollup/plugin-babel": ^6.0.2
-    "@rollup/plugin-commonjs": ^23.0.2
-    "@rollup/plugin-json": ^5.0.1
-    "@rollup/plugin-node-resolve": ^15.0.1
-    "@rollup/plugin-typescript": ^9.0.2
-    commander: ^9.4.1
-    jest: ^28.1.1
-    object-assign: ^4.1.1
-    rollup: ^3.2.5
-    rollup-plugin-coffee-script: ^2.0.0
-    rollup-pluginutils: ^2.8.2
-    tslib: ^2.4.1
-    vitest: ^0.25.1
-  bin:
-    compiler: ./src/bin.js
-  languageName: unknown
-  linkType: soft
 
 "@heat/container@npm:latest":
   version: 0.0.1
@@ -11828,7 +11829,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-util@npm:^29.0.0, jest-util@npm:^29.2.1":
+"jest-util@npm:^29.2.1":
   version: 29.2.1
   resolution: "jest-util@npm:29.2.1"
   dependencies:
@@ -12013,7 +12014,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.0.2, jest@npm:^29.2.2":
+"jest@npm:^29.0.2":
   version: 29.2.2
   resolution: "jest@npm:29.2.2"
   dependencies:
@@ -17116,39 +17117,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.0.3":
-  version: 29.0.3
-  resolution: "ts-jest@npm:29.0.3"
-  dependencies:
-    bs-logger: 0.x
-    fast-json-stable-stringify: 2.x
-    jest-util: ^29.0.0
-    json5: ^2.2.1
-    lodash.memoize: 4.x
-    make-error: 1.x
-    semver: 7.x
-    yargs-parser: ^21.0.1
-  peerDependencies:
-    "@babel/core": ">=7.0.0-beta.0 <8"
-    "@jest/types": ^29.0.0
-    babel-jest: ^29.0.0
-    jest: ^29.0.0
-    typescript: ">=4.3"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@jest/types":
-      optional: true
-    babel-jest:
-      optional: true
-    esbuild:
-      optional: true
-  bin:
-    ts-jest: cli.js
-  checksum: 541e51776d367fa2279af47f75af94b03e0538f1839ea9983de0f4ad7f188002f6eb1fc72440651d96daa62d25a7bc679a129c14e6ef291277eea9346751d56b
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^1.11.1, tslib@npm:^1.9.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
@@ -17675,7 +17643,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.0.0":
+"vite@npm:^3.0.0, vite@npm:^3.2.3":
   version: 3.2.3
   resolution: "vite@npm:3.2.3"
   dependencies:
@@ -18289,7 +18257,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:^21.0.1, yargs-parser@npm:^21.1.1":
+"yargs-parser@npm:^21.1.1":
   version: 21.1.1
   resolution: "yargs-parser@npm:21.1.1"
   checksum: ed2d96a616a9e3e1cc7d204c62ecc61f7aaab633dcbfab2c6df50f7f87b393993fe6640d017759fe112d0cb1e0119f2b4150a87305cc873fd90831c6a58ccf1c

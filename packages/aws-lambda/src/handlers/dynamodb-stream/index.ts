@@ -16,7 +16,6 @@ export const dynamodbStream = () => {
 			return next();
 		}
 
-
 		const records = input.Records;
 
 		if(!Array.isArray(records)) {

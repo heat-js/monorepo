@@ -1,8 +1,12 @@
 
 export const test = () => {
+	// console.log(process.env.VITEST_WORDER_ID);
+
 	return !!(
+		process.env.TEST ||
 		process.env.JEST_WORKER_ID ||
-		process.env.TESTING
+		process.env.VITEST_WORDER_ID
+		// process.env.TESTING
 	)
 }
 

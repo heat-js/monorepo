@@ -1,6 +1,6 @@
 
-import { IApp } from '../../app'
-import { Next } from '../../compose'
+import { IApp } from '../../../app'
+import { Next } from '../../../compose'
 import { Request } from '../request'
 import { Response } from '../response'
 
@@ -22,7 +22,7 @@ export const elb = () => {
 
 		await next();
 
-		const response:Response = app.response.format();
+		const response:Response = app.output.format(app.request);
 
 		app.output = {
 			isBase64Encoded: 	false,

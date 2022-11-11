@@ -1,4 +1,5 @@
 
+import { describe, it, expect } from 'vitest';
 import { handle, config } from "../../src";
 import { string, integer, float, boolean, array, json, enumeration } from "../../src/handlers/config/env";
 
@@ -20,7 +21,7 @@ describe('Config', () => {
 		array: array('ARRAY'),
 		json: json('JSON'),
 		enumeration: enumeration('ENUM', ['prod', 'dev']),
-	})
+	});
 
 	it('should access config data', async () => {
 		const fn = handle(

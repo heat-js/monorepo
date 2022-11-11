@@ -7,9 +7,10 @@ import { Lambda, lambda } from "../lambda"
 interface Config {
 	flag?: string
 	log?: boolean
+	concurrency?: number
 }
 
-export const warmer = ({ flag = 'warmer', log = true }:Config = {}) => {
+export const warmer = ({ flag = 'warmer', log = true, concurrency = 1 }:Config = {}) => {
 
 	return [
 		lambda(),
@@ -34,7 +35,7 @@ export const warmer = ({ flag = 'warmer', log = true }:Config = {}) => {
 					}
 				} else {
 					const correlationId = app.context.awsRequestId || randomUUID();
-					const concurrency	= input.concurrency || 1;
+					const times	= input.concurrency || concurrency || 1;
 
 					if(log) {
 						console.log({
@@ -44,10 +45,10 @@ export const warmer = ({ flag = 'warmer', log = true }:Config = {}) => {
 						})
 					}
 
-					await Promise.all(Array.from({ length: concurrency - 1 }).map((_, index) => {
+					await Promise.all(Array.from({ length: times - 1 }).map((_, index) => {
 						return ( app.lambda as Lambda ).invoke({
 							name: process.env.AWS_LAMBDA_FUNCTION_NAME,
-							type: 'Event',
+							// type: 'Event',
 							payload: {
 								[flag]: true,
 								__WARMER_INVOCATION__: index + 2,

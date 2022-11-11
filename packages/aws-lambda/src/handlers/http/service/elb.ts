@@ -1,6 +1,6 @@
 
-import { IApp } from '../../app'
-import { Next } from '../../compose'
+import { IApp } from '../../../app'
+import { Next } from '../../../compose'
 import { Request } from '../request'
 
 export const elb = () => {

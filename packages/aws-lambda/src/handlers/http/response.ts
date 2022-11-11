@@ -1,7 +1,12 @@
 import { Request } from "./request";
 
 interface Headers {
-	[key:string]: string|[string]
+	[key:string]: string|number|[string|number]
+}
+
+interface ResponseOptions {
+	status?: number;
+	headers?: Headers;
 }
 
 export class Response {
@@ -9,7 +14,7 @@ export class Response {
 	status: number
 	body: any
 
-	constructor(body, { status = 200, headers = {} } = {}) {
+	constructor(body, { status = 200, headers = {} }:ResponseOptions = {}) {
 		this.body = body;
 		this.status = status;
 		this.headers = headers;
@@ -32,9 +37,14 @@ export class ClientErrorResponse extends Response {
 
 }
 
+interface JsonResponseOptions extends ResponseOptions {
+	charset?: string
+	stringify?: (body: any) => string
+}
+
 export class JsonResponse extends Response {
-	constructor(body, { status = 200, headers = {}, charset = 'utf-8' } = {}) {
-		const json = JSON.stringify(body);
+	constructor(body, { status = 200, headers = {}, charset = 'utf-8', stringify = JSON.stringify.bind(JSON) }:JsonResponseOptions = {}) {
+		const json = stringify(body);
 		super(json, {
 			status,
 			headers: {

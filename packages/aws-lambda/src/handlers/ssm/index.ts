@@ -38,7 +38,7 @@ const resolve = async (input) => {
 			}']`);
 		}
 
-		result.Parameters.forEach(({Type, Name, Value}) => {
+		result.Parameters.forEach(({ Type, Name, Value }) => {
 			const value = Type === 'StringList' ? Value.split(',') : Value;
 			const { key } = paths.find((item) => Name === item.path);
 			values[key] = String(value);

@@ -1,4 +1,5 @@
 
+import { describe, it } from 'vitest';
 import { handle, ssm } from "../../src";
 
 describe('SSM', () => {
@@ -6,7 +7,7 @@ describe('SSM', () => {
 	const fn = handle(ssm());
 
 	it('should resolve ssm values inside process.env', async () => {
-		const lambda = await fn();
+		await fn();
 	});
 
 });

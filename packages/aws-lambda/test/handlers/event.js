@@ -1,6 +1,6 @@
 
+import { describe, it, expect, vi } from 'vitest';
 import { event, handle } from "../../src";
-import { jest } from '@jest/globals';
 
 describe('Event', () => {
 
@@ -19,9 +19,9 @@ describe('Event', () => {
 	);
 
 	it('should publish events in order', async () => {
-		const c1 = jest.fn((app) => expect(app.value).toBe(1));
-		const c2 = jest.fn((app) => expect(app.value).toBe(2));
-		const c3 = jest.fn((app) => expect(app.value).toBe(3));
+		const c1 = vi.fn((app) => expect(app.value).toBe(1));
+		const c2 = vi.fn((app) => expect(app.value).toBe(2));
+		const c3 = vi.fn((app) => expect(app.value).toBe(3));
 
 		fn.on('1', c1);
 		fn.on('2', c2);

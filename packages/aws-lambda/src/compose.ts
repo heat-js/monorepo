@@ -17,16 +17,16 @@ export const compose = (handlers:Handler[] = []) => {
 	return (app: IApp) => {
 		let index = -1;
 		const dispatch = (pos) => {
+			if(pos === stack.length) {
+				return
+			}
+
 			const next = () => {
 				if(pos <= index) {
 					throw new Error('next() called multiple times');
 				}
 
 				return dispatch(pos + 1);
-			}
-
-			if(pos === stack.length) {
-				return
 			}
 
 			return stack[pos](app, next);

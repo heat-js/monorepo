@@ -1,6 +1,6 @@
 
+import { describe, it, expect, vi } from 'vitest'
 import { handle, warmer } from "../../src";
-import { jest } from '@jest/globals';
 
 describe('Warmer', () => {
 	const fn = handle(
@@ -10,7 +10,7 @@ describe('Warmer', () => {
 	);
 
 	fn.on('before-warmer', (app) => {
-		app.lambda = { invoke: jest.fn() }
+		app.lambda = { invoke: vi.fn() }
 	})
 
 	it('should skip the warmer for normal calls', async () => {

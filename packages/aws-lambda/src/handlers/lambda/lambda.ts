@@ -8,9 +8,6 @@ interface IInvoke {
 	type?: 'RequestResponse' | 'Event' | 'DryRun'
 	name: string
 	payload?: object
-}
-
-interface IInvokeWithErrors extends IInvoke {
 	reflectViewableErrors?: boolean
 }
 
@@ -29,7 +26,7 @@ export class Lambda {
 		return (response.errorType === 'ViewableError' || 0 === response.errorMessage.indexOf('[viewable] '));
 	}
 
-	async invoke({ service, name, type = 'RequestResponse', payload, reflectViewableErrors = true }: IInvokeWithErrors) {
+	async invoke({ service, name, type = 'RequestResponse', payload, reflectViewableErrors = true }: IInvoke) {
 
 		const command = new InvokeCommand({
 			FunctionName: serviceName(service, name),

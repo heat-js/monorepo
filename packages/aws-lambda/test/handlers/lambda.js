@@ -1,4 +1,5 @@
 
+import { describe, it, expect } from 'vitest';
 import { handle, lambda } from "../../src";
 
 describe('Lambda', () => {

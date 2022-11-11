@@ -6,13 +6,13 @@ import { defineConfig, configDefaults } from 'vitest/config'
 import { mergeConfig } from 'vite'
 import { plugins } from './rollup/index.js'
 
-export const test = async () => {
+export const test = async (filters) => {
 
 	const json = await readFile(join(process.cwd(), 'package.json'))
 	const data = JSON.parse(json);
 	const config = data?.vitest || {};
 
-	startVitest('test', [], {
+	await startVitest('test', filters, {
 		watch: false,
 		ui: false
 	}, {

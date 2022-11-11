@@ -18,7 +18,7 @@ interface Payload {
 
 export class Iot {
 	private client: IoTDataPlaneClient;
-	private endpoint: string;
+	private endpoint?: string;
 
 	constructor(endpoint) {
 		this.endpoint = endpoint;

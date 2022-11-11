@@ -5,7 +5,7 @@ import { test } from './test.js';
 
 const program = new Command();
 
-program.name('compiler');
+program.name('code');
 
 program
 	.command('run')
@@ -21,11 +21,10 @@ program
 
 program
 	.command('test')
+	.argument('[filters...]', 'filters of the test files to run')
 	.description('test project')
-	.action(async () => {
-		const node = await test();
-		// node.stdout.pipe(process.stdout);
-		// node.stderr.pipe(process.stderr);
+	.action(async (filters) => {
+		await test(filters);
 	});
 
 // program

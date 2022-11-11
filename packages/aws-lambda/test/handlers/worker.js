@@ -1,4 +1,5 @@
 
+import { describe, it, expect } from 'vitest'
 import { handle, worker } from "../../src";
 
 describe('Worker', () => {

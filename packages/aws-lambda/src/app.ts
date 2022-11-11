@@ -11,6 +11,10 @@ interface IFactories {
 	[key: string | symbol]: () => any;
 }
 
+interface IFactory<T> {
+	(): T;
+}
+
 export interface IApp {
 	[key: string | symbol]: any;
 
@@ -74,7 +78,7 @@ export const createApp = (input:any, context:Context, handle:IHandle): IApp => {
 				return app[key];
 			}
 
-			const factory = factories.get(key);
+			const factory:IFactory<any> = factories.get(key);
 
 			if(typeof factory !== 'function') {
 				throw new TypeError(`App."${ key.toString() }" factory function not found.`);
