@@ -1,8 +1,8 @@
-import { randomUUID } from "crypto"
-import { IApp } from "../../app"
-import { Next } from "../../compose"
-import { event } from "../event"
-import { Lambda, lambda } from "../lambda"
+import { randomUUID } from 'crypto'
+import { IApp } from '../../app'
+import { Next } from '../../compose'
+import { event } from '../event'
+import { Lambda, lambda } from '../lambda'
 
 interface Config {
 	flag?: string
@@ -16,26 +16,26 @@ export const warmer = ({ flag = 'warmer', log = true, concurrency = 1 }:Config =
 		lambda(),
 		event('before-warmer'),
 		async (app:IApp, next:Next) => {
-			const input = app.input;
+			const input = app.input
 
 			if (typeof input === 'object' && input[flag]) {
 				const event = {
-					action:				'warmer',
-					functionName:		process.env.AWS_LAMBDA_FUNCTION_NAME,
-					functionVersion:	process.env.AWS_LAMBDA_FUNCTION_VERSION,
-				};
+					action: 'warmer',
+					functionName: process.env.AWS_LAMBDA_FUNCTION_NAME,
+					functionVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
+				}
 
 				if(input.__WARMER_CORRELATIONID__) {
 					if(log) {
 						console.log({
 							...event,
-							invocationId:	input.__WARMER_INVOCATION__,
-							correlationId:	input.__WARMER_CORRELATIONID__,
+							invocationId: input.__WARMER_INVOCATION__,
+							correlationId: input.__WARMER_CORRELATIONID__,
 						})
 					}
 				} else {
-					const correlationId = app.context.awsRequestId || randomUUID();
-					const times	= input.concurrency || concurrency || 1;
+					const correlationId = app.context.awsRequestId || randomUUID()
+					const times = input.concurrency || concurrency || 1
 
 					if(log) {
 						console.log({
@@ -55,14 +55,14 @@ export const warmer = ({ flag = 'warmer', log = true, concurrency = 1 }:Config =
 								__WARMER_CORRELATIONID__: correlationId
 							}
 						})
-					}));
+					}))
 				}
 
-				app.output = 'warmed';
-				return;
+				app.output = 'warmed'
+				return
 			}
 
-			return next();
+			return next()
 		}
 	]
 }

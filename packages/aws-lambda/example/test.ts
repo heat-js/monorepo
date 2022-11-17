@@ -1,13 +1,13 @@
 
-import { handle, event, validate, config, lambda, Lambda, bugsnag, warmer, ssm } from "@heat/lambda";
-import { string } from "@heat/aws-lambda/env";
-import { object } from "superstruct";
+import { handle, event, validate, config, lambda, Lambda, bugsnag, warmer, ssm } from '@heat/lambda'
+import { string } from '@heat/aws-lambda/env'
+import { object } from 'superstruct'
 import { id } from './rules.ts'
-import { JsonResponse } from "../src/handlers/http/response";
+import { JsonResponse } from '../src/handlers/http/response'
 
 const configuration = (app) => ({
 	key: string('API_KEY')
-});
+})
 
 export default handle(
 	bugsnag({ apiKey: process.env.BUGSNAG_API_KEY }),
@@ -17,9 +17,11 @@ export default handle(
 	})),
 
 	config(configuration),
-	// ssm({
-	// 	sdas: '/path/secret/key'
-	// }),
+	// ssm()
+	ssm({
+		user: '/path/secret/key',
+		pass: '/path/secret/key'
+	}),
 	lambda(),
 	event('before'),
 
@@ -34,12 +36,12 @@ export default handle(
 			service: 'console',
 			name: 'alert',
 			payload: {}
-		});
+		})
 
-		app.output = response;
+		app.output = response
 
 		app.response = new JsonResponse({
 			object: 'lol'
-		});
+		})
 	}
 )

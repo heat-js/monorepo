@@ -1,6 +1,6 @@
 
-import { IoTClient, DescribeEndpointCommand } from "@aws-sdk/client-iot";
-import { IoTDataPlaneClient, PublishCommand } from "@aws-sdk/client-iot-data-plane";
+import IotClient from 'aws-sdk/clients/iot'
+import IotDataClient from 'aws-sdk/clients/iotdata'
 
 interface Publish {
 	topic: string
@@ -17,57 +17,56 @@ interface Payload {
 }
 
 export class Iot {
-	private client: IoTDataPlaneClient;
-	private endpoint?: string;
+	private client: IotDataClient
+	private endpoint?: string
 
 	constructor(endpoint) {
-		this.endpoint = endpoint;
+		this.endpoint = endpoint
 	}
 
 	private async getEndpoint(): Promise<string> {
-		if(this.endpoint) {
-			return this.endpoint;
+		if (this.endpoint) {
+			return this.endpoint
 		}
 
-		const command = new DescribeEndpointCommand({ endpointType: 'iot:Data' });
-		const client = new IoTClient({ apiVersion: '2015-05-28' });
-		const response = await client.send(command);
+		const client = new IotClient({ apiVersion: '2015-05-28' })
+		const response = await client.describeEndpoint({ endpointType: 'iot:Data' }).promise()
 
-		if(!response.endpointAddress) {
-			throw new Error();
+		if (!response.endpointAddress) {
+			throw new Error('No iot endpoint found')
 		}
 
-		return response.endpointAddress;
+		return response.endpointAddress
 	}
 
-	private async getClient(): Promise<IoTDataPlaneClient>  {
-		if(!this.client) {
-			this.client = new IoTDataPlaneClient({
+	private async getClient(): Promise<IotDataClient> {
+		if (!this.client) {
+			this.client = new IotDataClient({
 				endpoint: await this.getEndpoint(),
 				apiVersion: '2015-05-28'
-			});
+			})
 		}
 
-		return this.client;
+		return this.client
 	}
 
 	async publish({ topic, id, event, value, qos = 0 }: Publish) {
 		const payload: Payload = {
 			e: event,
 			v: value
-		};
-
-		if(id) {
-			payload.i = id;
 		}
 
-		const client = await this.getClient();
-		const command = new PublishCommand({
+		if (id) {
+			payload.i = id
+		}
+
+		const client = await this.getClient()
+		await client.publish({
 			qos,
 			topic,
-			payload: Buffer.from(JSON.stringify(payload)),
-		});
+			payload: JSON.stringify(payload)
+		}).promise()
 
-		return client.send(command);
+		return this
 	}
 }

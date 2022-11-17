@@ -1,24 +1,40 @@
 {
 	"name": "@heat/code",
-	"version": "0.0.1",
+	"version": "0.0.20",
 	"license": "MIT",
-	"main": "./src/index.js",
-	"bin": "./src/bin.js",
 	"type": "module",
+	"files": [
+		"dist"
+	],
+	"bin": "./dist/bin.js",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js"
+		}
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/heat-js/monorepo/tree/master/packages/code"
 	},
 	"scripts": {
 		"test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-		"patch": "npm version patch; npm publish --access=public",
-		"minor": "npm version minor; npm publish --access=public",
-		"major": "npm version major; npm publish --access=public"
+		"build": "yarn tsup src/index.ts src/bin.ts --format cjs,esm --dts --clean",
+		"patch": "yarn build; npm version patch; npm publish --access=public",
+		"minor": "yarn build; npm version minor; npm publish --access=public",
+		"major": "yarn build; npm version major; npm publish --access=public"
 	},
 	"vitest": {
 		"exclude": "./test/data/**"
 	},
 	"jest": {
+		"transform": {
+			"^.+\\.tsx?$": "ts-jest"
+		},
 		"testEnvironment": "node",
 		"testMatch": [
 			"**/test/**/*.[tj]s?(x)"
@@ -28,7 +44,10 @@
 		]
 	},
 	"devDependencies": {
-		"jest": "^28.1.1"
+		"@heat/aws-lambda": "^0.0.7",
+		"jest": "^28.1.1",
+		"ts-jest": "^29.0.3",
+		"tsup": "^6.5.0"
 	},
 	"dependencies": {
 		"@babel/plugin-transform-runtime": "^7.19.6",
@@ -43,8 +62,10 @@
 		"object-assign": "^4.1.1",
 		"rollup": "^3.2.5",
 		"rollup-plugin-coffee-script": "^2.0.0",
+		"rollup-plugin-uglify": "^6.0.4",
 		"rollup-pluginutils": "^2.8.2",
 		"tslib": "^2.4.1",
+		"typescript": "^4.8.4",
 		"vite": "^3.2.3",
 		"vitest": "^0.25.1"
 	}

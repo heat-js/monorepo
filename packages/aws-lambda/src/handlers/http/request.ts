@@ -1,18 +1,14 @@
 
 export type Request = {
-	readonly headers: Map<string, [ string ]>;
+	readonly headers: Map<string, [ string ]>
 	// private url: URL;
-	readonly path: string;
-	readonly method: string;
-	readonly ip: string;
-	readonly query: { [key: string]: string };
-	readonly params: { [key: string]: string };
-	readonly body: any;
+	readonly path: string
+	readonly method: string
+	readonly ip: string
+	readonly query: { [key: string]: string }
+	readonly params: { [key: string]: string }
+	readonly body: any
 }
-
-
-
-
 
 
 // import ViewableError from '../error/viewable-error'

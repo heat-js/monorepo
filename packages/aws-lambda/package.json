@@ -1,7 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"main": "index",
-	"version": "0.0.0",
+	"version": "0.0.12",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -11,22 +10,40 @@
 	"bugs": {
 		"url": "https://github.com/heat-js/monorepo/issues"
 	},
+	"files": [
+		"dist"
+	],
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./src/index.js"
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
 		},
 		"./env": {
-			"import": "./src/handlers/config/env.js"
+			"require": "./dist/handlers/config/env.cjs",
+			"import": "./dist/handlers/config/env.js",
+			"types": "./dist/handlers/config/env.d.ts"
 		},
 		"./validate": {
-			"import": "./src/handlers/validate/types/index.js"
+			"require": "./dist/handlers/validate/types/index.cjs",
+			"import": "./dist/handlers/validate/types/index.js",
+			"types": "./dist/handlers/validate/types/index.d.ts"
 		}
 	},
 	"scripts": {
 		"test": "yarn run code test",
-		"patch": "npm version patch; yarn run -T ncp",
-		"minor": "npm version minor; yarn run -T ncp",
-		"major": "npm version major; yarn run -T ncp"
+		"build": "yarn tsup src/index.ts src/handlers/config/env.ts src/handlers/validate/types/index.ts --format cjs,esm --dts --clean",
+		"patch": "yarn build; npm version patch; npm publish --access=public",
+		"minor": "yarn build; npm version minor; npm publish --access=public",
+		"major": "yarn build; npm version major; npm publish --access=public"
+	},
+	"vitest": {
+		"exclude": [
+			"test/bundle/**/*"
+		]
 	},
 	"dependencies": {
 		"@aws-sdk/client-iot": "^3.204.0",
@@ -36,15 +53,18 @@
 		"@aws-sdk/client-sqs": "^3.204.0",
 		"@aws-sdk/client-ssm": "^3.204.0",
 		"@aws-sdk/util-dynamodb": "^3.204.0",
+		"@aws-sdk/util-utf8-node": "^3.208.0",
 		"@types/aws-lambda": "^8.10.108",
+		"aws-sdk": "^2.1256.0",
 		"big.js": "^6.2.1",
 		"chunk": "^0.0.3",
 		"superstruct": "^0.16.7"
 	},
 	"devDependencies": {
-		"@heat/code": "workspace:^",
+		"@heat/code": "^0.0.18",
 		"@types/jest": "^29.2.2",
 		"@types/node": "^18.11.9",
+		"tsup": "^6.5.0",
 		"typescript": "^4.8.4",
 		"vite": "^3.2.3"
 	}

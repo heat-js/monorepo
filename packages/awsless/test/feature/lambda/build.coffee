@@ -1,9 +1,9 @@
 
 import path		from 'path'
 import fs		from 'fs'
-import { spawn, Thread, Worker } from 'threads'
 import renderJsx from 'preact-render-to-string'
 import removeDir from '../../../src/feature/fs/remove-directory'
+import { spawn, Thread, Worker } from 'threads'
 
 describe 'Lambda Build', ->
 

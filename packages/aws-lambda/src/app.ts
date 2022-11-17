@@ -1,46 +1,45 @@
 
-
 import { Context } from 'aws-lambda'
-import { IHandle } from "./handle";
+import { IHandle } from './handle'
 
 interface IInstances {
-	[key: string | symbol]: any;
+	[key: string | symbol]: any
 }
 
 interface IFactories {
-	[key: string | symbol]: () => any;
+	[key: string | symbol]: () => any
 }
 
 interface IFactory<T> {
-	(): T;
+	(): T
 }
 
 export interface IApp {
-	[key: string | symbol]: any;
+	[key: string | symbol]: any
 
-	input: any;
-	context: Context;
-	handle: IHandle;
+	input: any
+	context: Context
+	handle: IHandle
 
-	output?: any;
+	output?: any
 
-	$: IFactories;
-	has:(key: string | symbol) => boolean;
+	$: IFactories
+	has:(key: string | symbol) => boolean
 }
 
 export const createApp = (input:any, context:Context, handle:IHandle): IApp => {
-	const instances:IInstances = new Map();
-	const factories = new Map();
+	const instances:IInstances = new Map()
+	const factories = new Map()
 	const $:IFactories = new Proxy({}, {
 		set(_, key, value) {
 			if(typeof value !== 'function') {
-				throw new TypeError(`App.$."${ key.toString() }" only allows factory functions to be assigned.`);
+				throw new TypeError(`App.$."${ key.toString() }" only allows factory functions to be assigned.`)
 			}
 
-			factories.set(key, value);
-			return true;
+			factories.set(key, value)
+			return true
 		}
-	});
+	})
 
 	const app = {
 		input,
@@ -49,45 +48,45 @@ export const createApp = (input:any, context:Context, handle:IHandle): IApp => {
 		$,
 
 		has (key: string | symbol) {
-			return typeof app[key] !== 'undefined' || instances.has(key);
+			return typeof app[key] !== 'undefined' || instances.has(key)
 		}
-	};
+	}
 
 	return new Proxy(app, {
 		set(_, key, value) {
 			if(typeof value !== 'undefined') {
-				instances.set(key, value);
+				instances.set(key, value)
 			} else {
-				instances.delete(key);
+				instances.delete(key)
 			}
 
-			return true;
+			return true
 		},
 		deleteProperty(_, key) {
-			instances.delete(key);
-			return true;
+			instances.delete(key)
+			return true
 		},
 		get(_, key) {
-			const singleton	= instances.get(key);
+			const singleton = instances.get(key)
 
 			if(typeof singleton !== 'undefined') {
-				return singleton;
+				return singleton
 			}
 
 			if(key in app) {
-				return app[key];
+				return app[key]
 			}
 
-			const factory:IFactory<any> = factories.get(key);
+			const factory:IFactory<any> = factories.get(key)
 
 			if(typeof factory !== 'function') {
-				throw new TypeError(`App."${ key.toString() }" factory function not found.`);
+				throw new TypeError(`App."${ key.toString() }" factory function not found.`)
 			}
 
-			const value = factory();
-			instances.set(key, value);
+			const value = factory()
+			instances.set(key, value)
 
-			return value;
+			return value
 		}
-	});
+	})
 }

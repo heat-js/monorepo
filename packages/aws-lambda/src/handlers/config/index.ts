@@ -9,9 +9,9 @@ interface IConfiguration {
 export const config = (configuration: IConfiguration) => {
 	return async (app: IApp, next: Next) => {
 		app.$.config = () => {
-			return configuration();
+			return configuration()
 		}
 
-		await next();
+		await next()
 	}
 }
