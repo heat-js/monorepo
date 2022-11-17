@@ -2,7 +2,7 @@
 
 import Client				from '../client/s3'
 import path					from 'path'
-# import build				from './build'
+import build				from './build'
 import createHash 			from '../crypto/hash-file'
 import createChecksum 		from '../crypto/checksum'
 import zip 					from '../fs/zip-files'
@@ -16,22 +16,22 @@ import filesize 			from 'filesize'
 import chalk				from 'chalk'
 import createFileChecksum	from 'hash-then'
 # import Worker				from 'jest-worker'
-import { spawn, Thread, Worker } from "threads"
+# import { spawn, Thread, Worker } from "threads"
 
 
-build = (input, output, options) ->
-	worker = await spawn new Worker './build'
+# build = (input, output, options) ->
+# 	worker = await spawn new Worker './build'
 
-	try
-		result = await worker.build input, output, options
+# 	try
+# 		result = await worker.build input, output, options
 
-	catch error
-		throw error
+# 	catch error
+# 		throw error
 
-	finally
-		await Thread.terminate worker
+# 	finally
+# 		await Thread.terminate worker
 
-	return result
+# 	return result
 
 # worker = new Worker require.resolve './build.js'
 
@@ -71,12 +71,12 @@ getObject = ({ region, profile, bucket, key }) ->
 		version:	result.VersionId
 	}
 
-export default ({ profile, region, bucket, name, stack, handle, externals = [], files = {}, policyChecksum = '', bugsnagApiKey, webpackConfig = {} }) ->
+export default ({ profile, region, bucket, name, stack, file, externals = [], files = {}, policyChecksum = '', bugsnagApiKey, webpackConfig = {} }) ->
 
 	root = process.cwd()
 
-	file = handle
-	file = file.substr 0, file.lastIndexOf '.'
+	# file = handle
+	# file = file.substr 0, file.lastIndexOf '.'
 	file = path.join root, file
 
 	outputPath		= path.join root, '.awsless', 'lambda', name
@@ -85,7 +85,6 @@ export default ({ profile, region, bucket, name, stack, handle, externals = [], 
 
 	uncompFile		= path.join uncompPath, "#{ name }.js"
 	compFile		= path.join compPath,	"#{ name }.js"
-	uncompZipFile	= path.join uncompPath, 'index.zip'
 	zipFile 		= path.join compPath,	'index.zip'
 	key				= "#{ stack }/#{ name }.zip"
 	elapsed 		= time()

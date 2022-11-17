@@ -3,7 +3,7 @@ export { handle, IHandle, ICallback } from './handle'
 export { compose } from './compose'
 export { createApp } from './app'
 
-export { ViewableError, isViewableError, getViewableErrorMessage } from './errors/viewable'
+export { ViewableError, isViewableError, isViewableErrorString, parseViewableErrorString, getViewableErrorData } from './errors/viewable'
 
 export { bugsnag } from './handlers/bugsnag'
 export { cache, Cache } from './handlers/cache'

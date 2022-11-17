@@ -6,32 +6,32 @@ import { ViewableError } from '../../errors/viewable'
 export const worker = () => {
 	return async (app:IApp, next:Next) => {
 
-		const input = app.input;
+		const input = app.input
 
 		// ----------------------------------------------------
 		// Single work processed
 
 		if(!(typeof input === 'object' && input !== null)) {
-			app.records = [{ payload: input }];
-			return next();
+			app.records = [{ payload: input }]
+			return next()
 		}
 
 		if(Array.isArray(input)) {
-			app.records = input.map(payload => { payload });
-			return next();
+			app.records = input.map(payload => { payload })
+			return next()
 		}
 
-		const records = input.Records;
+		const records = input.Records
 
 		if(!Array.isArray(records)) {
-			app.records = [{ payload: input }];
-			return next();
+			app.records = [{ payload: input }]
+			return next()
 		}
 
 		// ----------------------------------------------------
 		// Batch of work processed
 
-		app.records = records.map(parseRecord);
+		app.records = records.map(parseRecord)
 
 		try {
 			await next()
@@ -40,42 +40,42 @@ export const worker = () => {
 				await app.log(error)
 			}
 
-			throw error;
+			throw error
 		}
 	}
 }
 
 const parseRecord = (record) => {
-	if(record.Sns) return parseSnsRecord(record); // SNS
-	if(record.body) return parseSqsRecord(record); // SQS
+	if(record.Sns) return parseSnsRecord(record) // SNS
+	if(record.body) return parseSqsRecord(record) // SQS
 
-	throw new Error(`Unrecognized record source: ${JSON.stringify(record)}`);
+	throw new Error(`Unrecognized record source: ${JSON.stringify(record)}`)
 }
 
 interface Record {
-	id:	string;
-	payload: any;
-	date: Date;
-	attributes: object;
-	raw: object;
+	id:	string
+	payload: any
+	date: Date
+	attributes: object
+	raw: object
 }
 
 interface SnsRecord extends Record {
-	topicArn: string;
+	topicArn: string
 }
 
 interface SqsMessageAttribute {
-	dataType: string;
-	stringValue: string;
+	dataType: string
+	stringValue: string
 }
 
 const parseSqsRecord = (record): Record => {
-	const attributes = {};
+	const attributes = {}
 	Object.entries(record.messageAttributes as SqsMessageAttribute[]).forEach(([key, attribute]) => {
 		if(attribute.dataType === 'String') {
-			attributes[key] = attribute.stringValue;
+			attributes[key] = attribute.stringValue
 		}
-	});
+	})
 
 	return {
 		id: 		record.messageId,
@@ -87,14 +87,14 @@ const parseSqsRecord = (record): Record => {
 }
 
 interface SnsMessageAttribute {
-	Value: string;
+	Value: string
 }
 
 const parseSnsRecord = (record): SnsRecord => {
-	const attributes = {};
+	const attributes = {}
 	Object.entries(record.Sns.MessageAttributes as SnsMessageAttribute[]).forEach(([key, attribute]) => {
-		attributes[key] = attribute.Value;
-	});
+		attributes[key] = attribute.Value
+	})
 
 	return {
 		id:			record.Sns.MessageId,

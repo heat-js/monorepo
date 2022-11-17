@@ -1,69 +1,62 @@
-
-import { Context } from "aws-lambda";
-import { IApp, createApp } from "./app";
-import { compose, Handler } from "./compose";
-
-// interface LambdaApp extends App {
-// 	input?: any;
-// 	output?: any;
-// 	context?: object
-// }
+import { Context } from 'aws-lambda'
+import { IApp, createApp } from './app'
+import { compose, Handlers } from './compose'
 
 export interface ICallback {
 	(app: IApp, ...args): void
 }
 
 export interface IHandle {
-	(input?:any, context?:object, callback?:(error:Error|null|undefined, response:any) => void): void;
+	(input?:any, context?:object, callback?:(error:Error|null|undefined, response:any) => void): Promise<any>
 
-	app?: IApp;
-	emit: (event:string, args: any) => void;
-	on: (event:string, callback:ICallback) => void;
+	app?: IApp
+	emit: (event:string, args: any) => void
+	on: (event:string, callback:ICallback) => void
 	// off: (event:string, callback:(...args) => void) => void;
 }
 
-export const handle = (...handlers:Handler[]) => {
-	const fn = compose(handlers);
-	const listeners:{ event:string, callback:ICallback }[] = [];
+export const handle = (...handlers:Handlers) => {
+	const fn = compose(handlers)
+	const listeners:{ event:string, callback:ICallback }[] = []
 
 	const handle:IHandle = async (input, context = {}, callback) => {
-		const app = createApp(input, context as Context, handle);
-		handle.app = app;
+		const app = createApp(input, context as Context, handle)
+		handle.app = app
 
 		try {
-			await fn(app);
+			await fn(app)
 		}
 		catch (error) {
 			if(callback) {
 				// Lambda supports errors with extra data.
-				callback(error, error.getData && error.getData());
-				return;
+				callback(error, error.getData && error.getData())
+				return
 			}
 
-			throw error;
+			throw error
 		}
 
-		const output = app.has('output') ? app.output : undefined;
+		const output = app.has('output') ? app.output : undefined
 
 		if(callback) {
-			callback(null, output);
-			return;
+			callback(null, output)
+			return
 		}
 
-		return output;
+		return output
 	}
 
 	handle.emit = (event, app, ...args) => {
 		listeners.forEach((listener) => {
 			if(listener.event === event) {
-				listener.callback(app, ...args);
+				listener.callback(app, ...args)
 			}
 		})
-	};
+	}
 
 	handle.on = (event, callback) => {
-		listeners.push({ event, callback });
-	};
+		listeners.push({ event, callback })
+	}
 
-	return handle;
+	return handle
 }

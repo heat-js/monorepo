@@ -1,96 +1,77 @@
 
-import Bugsnag from '@bugsnag/js'
-import inFlight from '@bugsnag/in-flight'
+import { Bugsnag } from './bugsnag'
 
 import { IApp } from '../../app'
 import { Next } from '../../compose'
 import { test } from '../../helper'
 import { ViewableError } from '../../errors/viewable'
 
-export const bugsnag = () => {
-	let client;
+interface BugsnagOptions {
+	apiKey?:string
+}
+
+export const bugsnag = ({ apiKey = process.env.BUGSNAG_API_KEY }:BugsnagOptions = {}) => {
+	const client = new Bugsnag(apiKey)
 
 	return async (app:IApp, next:Next) => {
 		app.$.log = () => {
-			return async (error, extraData:object = {}) => {
+			return (error, extraData:object = {}) => {
 				if(test()) {
-					return next();
+					return next()
 				}
 
-				if(!client) {
-					const apiKey = process.env.BUGSNAG_API_KEY;
+				console.error(error)
 
-					if(!apiKey) {
-						throw new Error('Bugsnag API key not found');
+				return client.notify(error, {
+					metaData: {
+						input: app.input,
+						errorData: error.metadata || error.metaData,
+						extraData,
 					}
-
-					client = Bugsnag.createClient({
-						apiKey,
-						autoTrackSessions: false,
-						logger: null,
-					})
-
-					inFlight.trackInFlight(client);
-				}
-
-				console.error(error);
-
-				client.notify(error, (event) => {
-					event.addMetadata('errorData', error.metadata);
-					event.addMetadata('extraData', extraData);
-					event.addMetadata('input', app.input);
-					event.addMetadata('lambda', {
-						requestId: 			app.context.awsRequestId,
-						functionName: 		app.context.functionName,
-						functionVersion:	app.context.functionVersion,
-						memoryLimitInMB:	app.context.memoryLimitInMB,
-					});
-				});
-
-				await inFlight.flush(3000);
+				})
 			}
 		}
 
-		return timeout(app, wrapper(app, next))();
+		return timeout(app, wrapper(app, next))()
 	}
 }
 
 const wrapper = (app, next) => {
 	return async () => {
 		try {
-			await next();
+			await next()
 		} catch (error) {
 			if(!(error instanceof ViewableError)) {
-				await app.log(error);
+				await app.log(error)
 			}
 
-			throw error;
+			throw error
 		}
 	}
 }
 
 class TimeoutError extends Error {
 	constructor(remainingTime:number) {
-		super(`Lambda will timeout in ${remainingTime}ms`);
+		super(`Lambda will timeout in ${remainingTime}ms`)
 	}
 }
 
 const timeout = (app, next) => {
 	return async () => {
 		if(test()) {
-			return next();
+			return next()
 		}
 
-		const delay = app.context.getRemainingTimeInMillis() - 1000;
+		const delay = app.context.getRemainingTimeInMillis() - 1000
 		const id = setTimeout(() => {
-			const remaining = app.context.getRemainingTimeInMillis();
-			app.log(new TimeoutError(remaining));
-		}, delay);
+			const remaining = app.context.getRemainingTimeInMillis()
+			app.log(new TimeoutError(remaining))
+		}, delay)
 
 		try {
-			await next();
+			await next()
 		} finally {
-			clearTimeout(id);
+			clearTimeout(id)
 		}
 	}
 }

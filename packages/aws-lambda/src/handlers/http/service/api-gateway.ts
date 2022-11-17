@@ -7,7 +7,7 @@ import { Response } from '../response'
 export const elb = () => {
 	return async (app: IApp, next: Next) => {
 		app.$.request = (): Request => {
-			const input = app.input;
+			const input = app.input
 
 			return Object.freeze({
 				headers:	input.headers,
@@ -17,12 +17,12 @@ export const elb = () => {
 				path:		input.path,
 				body:		input.body,
 				ip:			input.requestContext.identity.sourceIp,
-			});
+			})
 		}
 
-		await next();
+		await next()
 
-		const response:Response = app.output.format(app.request);
+		const response:Response = app.output.format(app.request)
 
 		app.output = {
 			isBase64Encoded: 	false,

@@ -107,7 +107,8 @@ export default resource (ctx) ->
 	prefixName		= ctx.string '@Config.PrefixResourceName', ''
 	name			= ctx.string [ 'Name', 'FunctionName' ]
 	name			= "#{ prefixName }#{ name }"
-	handle			= ctx.string 'Handle'
+	file			= ctx.string 'File'
+	handle			= ctx.string [ 'Handle', '@Config.Lambda.Handle' ], 'default'
 	role			= ctx.string [ 'Role', '@Config.Lambda.Role' ], ''
 	layers			= ctx.array [ 'Layers', '@Config.Lambda.Layers' ], []
 	logging			= ctx.boolean [ 'Logging', '@Config.Lambda.Logging' ], false
@@ -216,7 +217,7 @@ export default resource (ctx) ->
 			profile
 			region
 			bucket
-			handle
+			file
 			name
 			externals
 			files
@@ -252,7 +253,7 @@ export default resource (ctx) ->
 					S3ObjectVersion:	version
 				}
 				FunctionName:	name
-				Handler:		"#{ name }#{ path.extname handle }"
+				Handler:		"#{ name }.#{ handle }"
 				Role:			role or GetAtt 'LambdaPolicyIamRole', 'Arn'
 				MemorySize:		ctx.number [ 'MemorySize', '@Config.Lambda.MemorySize' ], 128
 				Runtime:		ctx.string [ 'Runtime', '@Config.Lambda.Runtime' ], 'nodejs12.x'
