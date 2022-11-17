@@ -7,6 +7,8 @@
 	// "typescript.tsdk": ".yarn/sdks/typescript/lib",
 	// "typescript.enablePromptUseWorkspaceTsdk": true,
 
-	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode"
+	"[json][jsonc][javascript][typescript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
 }
