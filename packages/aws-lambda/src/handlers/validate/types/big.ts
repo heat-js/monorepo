@@ -1,9 +1,9 @@
 
-import { coerce, define, number, string, union, assert, refine } from 'superstruct'
+import { coerce, define, number, string, union, assert, refine, Struct } from 'superstruct'
 import { Big } from 'big.js'
 
-export const big = () => {
-	const base = define<Big>('big', (value) => {
+export const big = ():Struct<Big, null> => {
+	const base = define('big', (value) => {
 		try {
 			Big(value)
 			return true
@@ -18,33 +18,18 @@ export const big = () => {
 	})
 }
 
-export const positive = (struct) => {
+export const positive = <T extends Big, S extends any>(struct:Struct<T, S>) => {
 	const expected = `Expected a positive ${struct.type}`
 
 	return refine(struct, 'positive', (value:Big) => {
-		if (!(value instanceof Big)) {
-			return `${expected} but received "${value}"`
-		}
-
-		return value.gt(0) || `${expected} but received \`${value}\``
+		return value.gt(0) || `${expected} but received '${value}'`
 	})
 }
 
-// export const percision = (struct, decimals:number) => {
-// 	const expected = `Expected a ${struct.type}`;
+export const percision = <T extends Big, S extends any>(struct:Struct<T, S>, decimals:number) => {
+	const expected = `Expected a ${struct.type}`
 
-// 	return refine(struct, 'percision', (value:Big) => {
-// 		if (!(value instanceof Big)) {
-// 			return `${expected} but received "${value}"`;
-// 		}
-
-// 		return value.gt(0) || `${expected} but received \`${value}\``
-// 	})
-// }
-
-
-// function size<X extends string>(): {[key:string]:X} {
-// 	return {
-// 		lol: '1'
-// 	}
-// }
+	return refine(struct, 'percision', (value:Big) => {
+		return value.toFixed() === value.round(decimals, Big.roundDown).toFixed() || `${expected} with ${decimals} decimals`
+	})
+}
