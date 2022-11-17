@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { create, StructError } from 'superstruct'
-import { big, date, uuid, positive, percision } from '../../src/handlers/validate/types'
+import { big, date, uuid, positive, percision, lowercase, uppercase } from '../../src/handlers/validate/types'
 import Big from 'big.js'
 
 describe('Validate Types', () => {
@@ -77,4 +77,21 @@ describe('Validate Types', () => {
 		}
 	})
 
+	testRule('lowercase', {
+		valid: [ 'heLLo', 'WORld', '123' ],
+		invalid: [null, undefined, true, false, NaN, [], {}, new Set(), new Map()],
+		validate: (value) => {
+			const result = create(value, lowercase())
+			expect(result).toBe(value.toLowerCase())
+		}
+	})
+
+	testRule('uppercase', {
+		valid: [ 'heLLo', 'WORld', '123' ],
+		invalid: [null, undefined, true, false, NaN, [], {}, new Set(), new Map()],
+		validate: (value) => {
+			const result = create(value, uppercase())
+			expect(result).toBe(value.toUpperCase())
+		}
+	})
 })

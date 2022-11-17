@@ -1,6 +1,7 @@
 
 export { big, positive, percision } from './big'
 export { date } from './date'
+export { lowercase, uppercase } from './string'
 export { uuid } from './uuid'
 
 export {
