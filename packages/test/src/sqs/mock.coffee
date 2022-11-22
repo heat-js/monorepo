@@ -1,16 +1,18 @@
 
+import { vi } from 'vitest'
+
 export default class SqsMock
 
 	constructor: (queues = []) ->
 		for queue in queues
-			@[ queue ] = jest.fn()
+			@[ queue ] = vi.fn()
 
-	send: jest.fn ({ service, name, payload }) ->
+	send: vi.fn ({ service, name, payload }) ->
 		if service and name
 			name = "#{ service }__#{ name }"
 
 		if not @[ name ]
-			@[ name ] = jest.fn()
+			@[ name ] = vi.fn()
 
 		return @[ name ].call()
 

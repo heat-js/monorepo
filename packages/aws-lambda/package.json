@@ -55,7 +55,7 @@
 		"@aws-sdk/util-dynamodb": "^3.204.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
 		"@types/aws-lambda": "^8.10.108",
-		"aws-sdk": "^2.1256.0",
+		"aws-sdk": "2.1083.0",
 		"big.js": "^6.2.1",
 		"chunk": "^0.0.3",
 		"superstruct": "^0.16.7"
