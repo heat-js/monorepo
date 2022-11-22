@@ -10,13 +10,13 @@ export const elb = () => {
 			const input = app.input
 
 			return Object.freeze({
-				headers:	input.headers,
-				method:		input.httpMethod.toUpperCase(),
-				params:		input.pathParameters,
-				query:		input.queryStringParameters,
-				path:		input.path,
-				body:		input.body,
-				ip:			input.requestContext.identity.sourceIp,
+				headers: input.headers,
+				method: input.httpMethod.toUpperCase(),
+				params: input.pathParameters,
+				query: input.queryStringParameters,
+				path: input.path,
+				body: input.body,
+				ip: input.requestContext.identity.sourceIp,
 			})
 		}
 
@@ -25,10 +25,10 @@ export const elb = () => {
 		const response:Response = app.output.format(app.request)
 
 		app.output = {
-			isBase64Encoded: 	false,
-			statusCode:			response.status,
-			headers:			response.headers,
-			body:				response.body,
+			isBase64Encoded: false,
+			statusCode: response.status,
+			headers: response.headers,
+			body: response.body,
 		}
 	}
 }

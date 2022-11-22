@@ -1,23 +1,25 @@
+
 import { Request } from './request'
 
-interface Headers {
-	[key:string]: string|number|[string|number]
-}
+type Charset = 'utf-8' | 'ascii' | 'hex'
 
-interface ResponseOptions {
-	status?: number
-	headers?: Headers
+interface Headers {
+	[ key:string ]: string | number | [ string | number ]
 }
 
 export class Response {
-	readonly headers: Headers
-	status: number
-	body: any
+	private headers: Headers
+	private status: number = 200
+	private body: string
 
-	constructor(body, { status = 200, headers = {} }:ResponseOptions = {}) {
+	set(header:string, value:string) {
+		this.headers[header.toLowerCase()] = value
+	}
+
+	json (body:string, charset:Charset = 'utf-8') {
+		this.set('content-type', `application/json; charset=${ charset }`)
+		this.set('content-length', String(Buffer.from(body, charset).length))
 		this.body = body
-		this.status = status
-		this.headers = headers
 	}
 
 	format(request:Request) {
@@ -30,40 +32,5 @@ export class Response {
 		}
 
 		return { body, status, headers }
-	}
-}
-
-export class ClientErrorResponse extends Response {
-
-}
-
-interface JsonResponseOptions extends ResponseOptions {
-	charset?: string
-	stringify?: (body: any) => string
-}
-
-export class JsonResponse extends Response {
-	constructor(body, { status = 200, headers = {}, charset = 'utf-8', stringify = JSON.stringify.bind(JSON) }:JsonResponseOptions = {}) {
-		const json = stringify(body)
-		super(json, {
-			status,
-			headers: {
-				'content-type': `application/json; charset=${ charset }`,
-				'content-length': Buffer.from(json).length,
-				...headers
-			}
-		})
-	}
-}
-
-export class RedirectResponse extends Response {
-	constructor(location, { status = 302, headers = {} } = {}) {
-		super(undefined, {
-			status,
-			headers: {
-				location,
-				...headers
-			}
-		})
 	}
 }

@@ -10,9 +10,9 @@ export default ({ apiKey, name }) ->
 
 	await browser.uploadOne {
 		apiKey
-		bundleUrl:		"#{ name }.js"
-		bundle: 		path.join projectRoot, "#{ name }.js"
-		sourceMap:		path.join projectRoot, "#{ name }.js.map"
+		bundleUrl:		"#{ name }.mjs"
+		bundle: 		path.join projectRoot, "#{ name }.mjs"
+		sourceMap:		path.join projectRoot, "#{ name }.mjs.map"
 		# projectRoot:	'/'
 		projectRoot
 		overwrite:		true

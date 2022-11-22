@@ -1,5 +1,6 @@
 
-import LambdaClient from 'aws-sdk/clients/lambda'
+import { fromUtf8 } from '@aws-sdk/util-utf8-node'
+import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda'
 import { isViewableErrorString, parseViewableErrorString, ViewableError } from '../../errors/viewable'
 import { serviceName } from '../../helper'
 
@@ -30,12 +31,14 @@ export class Lambda {
 	}
 
 	async invoke({ service, name, type = 'RequestResponse', payload, reflectViewableErrors = true }: IInvoke) {
-		const result = await this.client.invoke({
+
+		const command = new InvokeCommand({
 			FunctionName: serviceName(service, name),
 			InvocationType: type,
-			Payload: JSON.stringify(payload)
-		}).promise()
+			Payload: fromUtf8(JSON.stringify(payload))
+		})
 
+		const result = await this.client.send(command)
 		const response = JSON.parse(result.Payload)
 
 		if (this.isErrorResponse(response)) {

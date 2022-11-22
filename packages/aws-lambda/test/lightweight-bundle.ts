@@ -15,7 +15,10 @@ describe('Lightwight Bundle', () => {
 				return (path === id)
 			},
 			external:(importee) => {
-				return importee.indexOf('aws-sdk') === 0
+				return (
+					importee.indexOf('aws-sdk') === 0 ||
+					importee.indexOf('@aws-sdk') === 0
+				)
 			}
 		})
 

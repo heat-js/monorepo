@@ -3,7 +3,7 @@ import { coerce, define, number, string, union, assert, refine, Struct } from 's
 import { Big } from 'big.js'
 
 export const big = ():Struct<Big, null> => {
-	const base = define('big', (value) => {
+	const base = define<Big>('big', (value) => {
 		try {
 			Big(value)
 			return true

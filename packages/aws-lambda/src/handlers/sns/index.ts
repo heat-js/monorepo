@@ -1,15 +1,14 @@
-
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns'
 import { IApp } from '../../app'
 import { Next } from '../../compose'
 import { serviceName } from '../../helper'
-import SnsClient from 'aws-sdk/clients/sns'
 
 export const sns = () => {
 	return (app: IApp, next: Next) => {
 		app.$.sns = () => {
 			const region = process.env.AWS_REGION
 			const account = process.env.AWS_ACCOUNT_ID
-			const client = new SnsClient({ region, apiVersion: '2016-11-23' })
+			const client = new SNSClient({ region, apiVersion: '2016-11-23' })
 
 			return new SNS(client, region, account)
 		}
@@ -27,7 +26,7 @@ interface Publish {
 }
 
 export class SNS {
-	private client: SnsClient
+	private client: SNSClient
 	private region: string
 	private accountId: string
 
@@ -51,8 +50,7 @@ export class SNS {
 
 	publish({ service, topic, subject, payload, attributes = {} }: Publish) {
 		const snsTopic = serviceName(service, topic)
-
-		return this.client.publish({
+		const command = new PublishCommand({
 			TopicArn: `arn:aws:sns:${this.region}:${this.accountId}:${snsTopic}`,
 			Subject: subject,
 			Message: JSON.stringify(payload),
@@ -60,6 +58,8 @@ export class SNS {
 				topic: snsTopic,
 				...attributes
 			})
-		}).promise()
+		})
+
+		return this.client.send(command)
 	}
 }

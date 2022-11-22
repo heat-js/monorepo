@@ -1,6 +1,8 @@
 
-import { bundle, compile, exec, RuntimeError } from '../src'
+import { build, bundle, compile, exec, RuntimeError } from '../src'
+import { clean } from '../src/clean'
 import { join } from 'path'
+import { readFile } from 'fs/promises'
 // import { describe, it, expect } from 'jest'
 
 describe('Code', () => {
@@ -35,6 +37,27 @@ describe('Code', () => {
 		const path = testPath('compile-single-file')
 		const result = await compile(path, { sourceMap: false })
 		expect(result.code).toBe(`'use strict';\n\nvar other = require('./other');\n\nother.log('First');\n`)
+	})
+
+	it('should build for package', async () => {
+		const in1 = join(process.cwd(), 'test/data/build-for-package/input-1.js')
+		const in2 = join(process.cwd(), 'test/data/build-for-package/input-2.js')
+
+		await build([in1, in2], 'test/dist')
+
+		const c1 = await readFile(join(process.cwd(), 'test/dist/input-1.cjs'))
+		expect(c1.toString()).toContain(`require('uuid')`)
+
+		const e1 = await readFile(join(process.cwd(), 'test/dist/input-1.js'))
+		expect(e1.toString()).toContain(`from 'uuid'`)
+
+		const c2 = await readFile(join(process.cwd(), 'test/dist/input-2.cjs'))
+		expect(c2.toString()).toContain(`console.log('Hello')`)
+
+		const e2 = await readFile(join(process.cwd(), 'test/dist/input-2.js'))
+		expect(e2.toString()).toContain(`console.log('Hello')`)
+
+		await clean('test/dist')
 	})
 
 	it('should bundle all files', async () => {
@@ -109,5 +132,20 @@ describe('Code', () => {
 		})
 
 		expect(result.code).toContain('exports.default = ')
+	})
+
+	it('should bundle for aws lambda', async () => {
+		const path = testPath('treeshaking-package')
+		const result = await bundle(path, {
+			sourceMap: false,
+			// minimize: true,
+			format: 'esm',
+			// moduleSideEffects: false,
+		})
+
+		// console.log(result.code)
+		// console.log(result.code.length)
+
+		// expect(result.code).toContain('exports.default = ')
 	})
 })

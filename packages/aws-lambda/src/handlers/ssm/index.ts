@@ -1,6 +1,6 @@
 import { Next } from '../../compose'
 import { chunk } from 'chunk'
-import SsmClient from 'aws-sdk/clients/ssm'
+import { SSMClient, GetParametersCommand } from '@aws-sdk/client-ssm'
 
 export const ssm = () => {
 	let resolved = false
@@ -22,15 +22,17 @@ const resolve = async input => {
 
 	if (!names.length) return {}
 
-	const client = new SsmClient({ region })
+	const client = new SSMClient({ region })
 	const values: { [key: string]: string } = {}
 
 	await Promise.all(
 		chunk(names, 10).map(async batch => {
-			const result = await client.getParameters({
-				Names: batch,
-				WithDecryption: true
-			}).promise()
+			const result = await client.send(
+				new GetParametersCommand({
+					Names: batch,
+					WithDecryption: true
+				})
+			)
 
 			if (result.InvalidParameters && result.InvalidParameters.length) {
 				throw new Error(

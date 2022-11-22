@@ -51,9 +51,7 @@ export default resource (ctx) ->
 							{
 								Action: 'lambda:InvokeFunction'
 								Effect: 'Allow'
-								Resource: {
-									GetAtt ctx.name, 'Arn'
-								}
+								Resource: GetAtt ctx.name, 'Arn'
 							}
 						]
 					}

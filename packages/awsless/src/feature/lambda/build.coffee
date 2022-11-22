@@ -5,11 +5,14 @@ import writeFile	from '../fs/write-file'
 export default (input, output, options) ->
 	{ code, map } = await bundle input, {
 		...options
-		format: 'cjs'
+		format: 'esm'
 		sourceMap: true
-		exports: 'named'
+		# exports: 'named'
 		external: (importee) ->
 			if importee.indexOf('aws-sdk') is 0
+				return true
+
+			if importee.indexOf('@aws-sdk') is 0
 				return true
 
 			return (options.externals or []).includes importee
