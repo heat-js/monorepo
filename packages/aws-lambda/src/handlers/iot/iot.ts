@@ -1,6 +1,5 @@
-
-import IotClient from 'aws-sdk/clients/iot'
-import IotDataClient from 'aws-sdk/clients/iotdata'
+import { IoTClient, DescribeEndpointCommand } from '@aws-sdk/client-iot'
+import { IoTDataPlaneClient, PublishCommand } from '@aws-sdk/client-iot-data-plane'
 
 interface Publish {
 	topic: string
@@ -17,7 +16,7 @@ interface Payload {
 }
 
 export class Iot {
-	private client: IotDataClient
+	private client: IoTDataPlaneClient
 	private endpoint?: string
 
 	constructor(endpoint) {
@@ -29,8 +28,11 @@ export class Iot {
 			return this.endpoint
 		}
 
-		const client = new IotClient({ apiVersion: '2015-05-28' })
-		const response = await client.describeEndpoint({ endpointType: 'iot:Data' }).promise()
+		const command = new DescribeEndpointCommand({
+			endpointType: 'iot:Data'
+		})
+		const client = new IoTClient({ apiVersion: '2015-05-28' })
+		const response = await client.send(command)
 
 		if (!response.endpointAddress) {
 			throw new Error('No iot endpoint found')
@@ -39,9 +41,9 @@ export class Iot {
 		return response.endpointAddress
 	}
 
-	private async getClient(): Promise<IotDataClient> {
+	private async getClient(): Promise<IoTDataPlaneClient> {
 		if (!this.client) {
-			this.client = new IotDataClient({
+			this.client = new IoTDataPlaneClient({
 				endpoint: await this.getEndpoint(),
 				apiVersion: '2015-05-28'
 			})
@@ -61,12 +63,12 @@ export class Iot {
 		}
 
 		const client = await this.getClient()
-		await client.publish({
+		const command = new PublishCommand({
 			qos,
 			topic,
-			payload: JSON.stringify(payload)
-		}).promise()
+			payload: Buffer.from(JSON.stringify(payload))
+		})
 
-		return this
+		return client.send(command)
 	}
 }

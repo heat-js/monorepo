@@ -8,6 +8,7 @@ export { ViewableError, isViewableError, isViewableErrorString, parseViewableErr
 export { bugsnag } from './handlers/bugsnag'
 export { cache, Cache } from './handlers/cache'
 export { config } from './handlers/config'
+export { dynamodb } from './handlers/dynamodb'
 export { dynamodbStream } from './handlers/dynamodb-stream'
 export { event } from './handlers/event'
 export { iot, Iot } from './handlers/iot'

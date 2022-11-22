@@ -1,7 +1,7 @@
 
 import { IApp } from '../../app'
 import { Next } from '../../compose'
-import DynamoDB from 'aws-sdk/clients/dynamodb'
+import { unmarshall } from '@aws-sdk/util-dynamodb'
 
 export const dynamodbStream = () => {
 	return (app: IApp, next: Next) => {
@@ -32,8 +32,8 @@ export const dynamodbStream = () => {
 
 			return {
 				eventName: record.eventName,
-				newImage: newImage && DynamoDB.Converter.unmarshall(newImage),
-				oldImage: oldImage && DynamoDB.Converter.unmarshall(oldImage),
+				newImage: newImage && unmarshall(newImage),
+				oldImage: oldImage && unmarshall(oldImage),
 			}
 		})
 

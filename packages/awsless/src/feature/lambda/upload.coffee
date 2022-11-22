@@ -83,8 +83,8 @@ export default ({ profile, region, bucket, name, stack, file, externals = [], fi
 	uncompPath		= path.join outputPath, 'uncompressed'
 	compPath		= path.join outputPath, 'compressed'
 
-	uncompFile		= path.join uncompPath, "#{ name }.js"
-	compFile		= path.join compPath,	"#{ name }.js"
+	uncompFile		= path.join uncompPath, "#{ name }.mjs"
+	compFile		= path.join compPath,	"#{ name }.mjs"
 	zipFile 		= path.join compPath,	'index.zip'
 	key				= "#{ stack }/#{ name }.zip"
 	elapsed 		= time()

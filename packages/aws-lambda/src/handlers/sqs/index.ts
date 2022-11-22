@@ -1,14 +1,13 @@
 import { IApp } from '../../app'
 import { Next } from '../../compose'
 import { serviceName } from '../../helper'
-import SqsClient from 'aws-sdk/clients/sqs'
+import { SQSClient, SendMessageCommand, GetQueueUrlCommand } from '@aws-sdk/client-sqs'
 
 export const sqs = () => {
 	const cache = new Map()
 	return (app: IApp, next: Next) => {
 		app.$.sqs = () => {
-			const client = new SqsClient({
-				apiVersion: '2012-11-05',
+			const client = new SQSClient({
 				region: process.env.AWS_REGION
 			})
 
@@ -27,7 +26,7 @@ interface Send {
 }
 
 export class SQS {
-	private client: SqsClient
+	private client: SQSClient
 	private cache: Map<string, Promise<string>>
 
 	constructor(client, cache) {
@@ -36,7 +35,9 @@ export class SQS {
 	}
 
 	private async getQueueUrl(query: string): Promise<string> {
-		const response = await this.client.getQueueUrl({ QueueName: query }).promise()
+		const command = new GetQueueUrlCommand({ QueueName: query })
+		const response = await this.client.send(command)
+
 		return response.QueueUrl
 	}
 
@@ -51,7 +52,7 @@ export class SQS {
 
 	async send({ service, name, payload, delay = 0 }: Send) {
 		const query = serviceName(service, name)
-		return this.client.sendMessage({
+		const command = new SendMessageCommand({
 			QueueUrl: await this.getCachedQueueUrl(query),
 			MessageBody: JSON.stringify(payload),
 			DelaySeconds: delay,
@@ -61,7 +62,9 @@ export class SQS {
 					StringValue: query
 				}
 			}
-		}).promise()
+		})
+
+		return this.client.send(command)
 	}
 }
 

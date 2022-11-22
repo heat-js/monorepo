@@ -1,8 +1,8 @@
 
-export { big, positive, percision } from './big'
-export { date } from './date'
-export { lowercase, uppercase } from './string'
-export { uuid } from './uuid'
+export { bigfloat, positive, percision } from './types/bigfloat'
+export { date } from './types/date'
+export { uuid } from './types/uuid'
+export { lowercase, uppercase } from './types/string'
 
 export {
 	// coercions
@@ -21,8 +21,10 @@ export {
 
 	// struct
 	assert, create, mask, is, validate,
-	Struct, Context, Infer, Describe, Result, Coercer, Validator, Refiner,
+	Struct,
+	// Struct, Context, Infer, Describe, Result, Coercer, Validator, Refiner,
 
 	// error
-	Failure, StructError
+	StructError
+	// Failure, StructError
 } from 'superstruct'

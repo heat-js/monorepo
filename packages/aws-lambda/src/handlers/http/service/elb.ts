@@ -9,13 +9,13 @@ export const elb = () => {
 			const input = app.input
 
 			return Object.freeze({
-				headers:	input.headers,
-				method:		input.httpMethod.toUpperCase(),
-				params:		input.pathParameters,
-				query:		input.queryStringParameters,
-				path:		input.path,
-				body:		input.body,
-				ip:			input.requestContext.identity.sourceIp,
+				headers: input.headers,
+				method: input.httpMethod.toUpperCase(),
+				params: input.pathParameters,
+				query: input.queryStringParameters,
+				path: input.path,
+				body: input.body,
+				ip: input.requestContext.identity.sourceIp,
 			})
 		}
 
@@ -27,24 +27,6 @@ export const elb = () => {
 // import ViewableError from '../error/viewable-error'
 
 // export default class ELB
-
-// 	isViewableError: (error) ->
-// 		return (
-// 			error instanceof ViewableError or
-// 			(
-// 				typeof error.message is 'string' and
-// 				0 is error.message.indexOf '[viewable]'
-// 			)
-// 		)
-
-// 	viewableErrorResponse: (error) ->
-// 		search = '[viewable] '
-// 		if typeof error.message is 'string' and 0 is error.message.indexOf search
-// 			return { message: error.message.slice search.length }
-
-// 		return { message: error.message }
-
-// 	handle: (app, next) ->
 
 // 		app.request = Object.freeze Object.assign {}, app.input
 // 		app.statusCode = 200

@@ -53,7 +53,7 @@ const parseRecord = (record) => {
 }
 
 interface Record {
-	id:	string
+	id: string
 	payload: any
 	date: Date
 	attributes: object
@@ -78,10 +78,10 @@ const parseSqsRecord = (record): Record => {
 	})
 
 	return {
-		id: 		record.messageId,
-		payload: 	JSON.parse(record.body),
-		date:		new Date(Number(record.attributes.SentTimestamp)),
-		raw:		record,
+		id: record.messageId,
+		payload: JSON.parse(record.body),
+		date: new Date(Number(record.attributes.SentTimestamp)),
+		raw: record,
 		attributes,
 	}
 }
@@ -97,11 +97,11 @@ const parseSnsRecord = (record): SnsRecord => {
 	})
 
 	return {
-		id:			record.Sns.MessageId,
-		payload:	JSON.parse(record.Sns.Message),
-		date:		new Date(Number(record.Sns.Timestamp)),
-		topicArn:	record.Sns.TopicArn,
-		raw:		record,
+		id: record.Sns.MessageId,
+		payload: JSON.parse(record.Sns.Message),
+		date: new Date(Number(record.Sns.Timestamp)),
+		topicArn: record.Sns.TopicArn,
+		raw: record,
 		attributes,
 	}
 }

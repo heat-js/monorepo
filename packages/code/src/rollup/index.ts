@@ -17,7 +17,18 @@ export const extensions = [
 
 export const plugins = ({ minimize = false, sourceMap = true } = {}) => [
 	coffeescript({ sourceMap, extensions: ['.coffee'] }),
-	typescript({ sourceMap }),
+	typescript({
+		sourceMap,
+		include: [ '**/*.ts' ],
+		// compilerOptions: {
+		// 	// esModuleInterop: false,
+		// 	// moduleResolution: 'nodenext',
+		// 	// module: 'nodenext',
+		// checkJs: false,
+		// noEmit: false,
+		// skipLibCheck: true
+		// }
+	}) as unknown,
 	commonjs({ sourceMap }),
 	babel({
 		sourceMaps: sourceMap,
@@ -46,6 +57,19 @@ export const plugins = ({ minimize = false, sourceMap = true } = {}) => [
 		preferBuiltins: true,
 		extensions: ['.js', '.coffee', '.jsx']
 	}),
+
+
+	// commonjs({ sourceMap }),
+	// nodeResolve({
+	// 	preferBuiltins: true,
+	// 	extensions: ['.js', '.coffee', '.jsx']
+	// }),
+	// typescript({
+	// 	sourceMap,
+	// 	compilerOptions: {
+	// 		allowJs: true
+	// 	}
+	// }),
 	minimize && uglify({
 		sourcemap: sourceMap,
 		toplevel: true,
@@ -76,9 +100,9 @@ export const rollup = async (input, options:RollupOptions = {}) => {
 		input,
 		external,
 		plugins: plugins({ minimize, sourceMap }) as InputPluginOption[],
-		onwarn(error) {
-			if (/external dependency/.test(error.message)) return
-		},
+		// onwarn(error) {
+		// 	if (/external dependency/.test(error.message)) return
+		// },
 		treeshake: {
 			moduleSideEffects
 		}

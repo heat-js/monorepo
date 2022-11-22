@@ -24,7 +24,7 @@
   "dependencies": {
     "@bugsnag/in-flight": "^7.17.4",
     "@bugsnag/js": "^7.17.4",
-    "@heat/container": "npm:latest",
+    "@heat/container": "^0.0.1",
     "extendable-error": "^0.1.5",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.12.0",
