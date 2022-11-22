@@ -2,6 +2,7 @@
 export { bigfloat, positive, percision } from './types/bigfloat'
 export { date } from './types/date'
 export { uuid } from './types/uuid'
+export { lowercase, uppercase } from './types/string'
 
 export {
 	// coercions

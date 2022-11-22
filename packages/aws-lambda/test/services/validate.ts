@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { create, object, optional, StructError } from 'superstruct'
-import { bigfloat, date, uuid, positive, percision } from '../../src/services/validate'
+import { bigfloat, date, uuid, positive, percision, lowercase, uppercase, string } from '../../src/services/validate'
 import { BigFloat } from '../../src/services/bigfloat'
 // import { is_big_float, make, string } from 'bigfloat-esnext'
 
@@ -99,4 +99,21 @@ describe('Validate Types', () => {
 		})
 	})
 
+	testRule('lowercase', {
+		valid: [ 'heLLo', 'WORld', '123' ],
+		invalid: [],
+		validate: (value) => {
+			const result = create(value, lowercase(string()))
+			expect(result).toBe(value.toLowerCase())
+		}
+	})
+
+	testRule('uppercase', {
+		valid: [ 'heLLo', 'WORld', '123' ],
+		invalid: [],
+		validate: (value) => {
+			const result = create(value, uppercase(string()))
+			expect(result).toBe(value.toUpperCase())
+		}
+	})
 })
