@@ -1,6 +1,4 @@
 
-import { vi } from 'vitest'
-
 export default class LambdaMock
 
 	constructor: (lambdas = {}) ->
