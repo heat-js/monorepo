@@ -21,8 +21,8 @@ export interface PluginOptions {
 	sourceMap?: boolean
 	minimize?: boolean
 	transpilers?: {
-		ts?: boolean
-		coffee?: boolean
+		typescript?: boolean
+		coffeescript?: boolean
 	}
 }
 
@@ -33,10 +33,10 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 	}, transpilers)
 
 	return [
-		transpilersOptions.coffee && coffee({
+		transpilersOptions.coffeescript && coffee({
 			sourceMap
 		}),
-		transpilersOptions.ts && typescript({
+		transpilersOptions.typescript && typescript({
 			sourceMap,
 		}) as unknown,
 		commonjs({ sourceMap }),
@@ -56,7 +56,7 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 			// babelHelpers: 'runtime',
 			babelHelpers: 'bundled',
 			// generatorOpts: {
-			// 	compact: false
+			// compact: false
 			// }
 		}),
 		json(),
@@ -83,20 +83,20 @@ export interface RollupOptions {
 	moduleSideEffects?: boolean | string[] | 'no-external' | ((id: string, external: boolean) => boolean)
 	exports?: 'auto' | 'default' | 'named' | 'none'
 	transpilers?: {
-		ts?: boolean
-		coffee?: boolean
+		typescript?: boolean
+		coffeescript?: boolean
 	}
 }
 
 const shouldIncludeTypescript = async (transpilers) => {
-	if(transpilers.ts) {
+	if(transpilers.typescript) {
 		const path = join(process.cwd(), 'tsconfig.json')
 
 		try {
 			await access(path)
-			return { ...transpilers, ts: true }
+			return { ...transpilers, typescript: true }
 		} catch(error) {
-			return { ...transpilers, ts: false }
+			return { ...transpilers, typescript: false }
 		}
 	}
 
@@ -110,7 +110,10 @@ export const rollup = async (input, options:RollupOptions = {}) => {
 		sourceMap = true,
 		moduleSideEffects = true,
 		format = 'cjs',
-		transpilers = [ 'ts', 'coffee' ],
+		transpilers = {
+			typescript: true,
+			coffeescript: true,
+		},
 		// exports = 'default',
 		external
 	} = options

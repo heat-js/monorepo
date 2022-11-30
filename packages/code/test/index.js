@@ -29,11 +29,21 @@ describe('Code', () => {
 	it('should remove un-used package export code (treeshaking)', async () => {
 		const path = testPath('treeshaking-package')
 
-		const result1 = await bundle(path, { sourceMap: false, transpilers: { ts: false } })
+		const result1 = await bundle(path, {
+			sourceMap: false,
+			transpilers: { typescript: false }
+		})
+
 		expect(result1.code.length).toBeGreaterThan(6000)
 		expect(result1.code.length).toBeLessThan(7000)
 
-		const result2 = await bundle(path, { sourceMap: false, transpilers: { ts: true } })
+		const result2 = await bundle(path, {
+			sourceMap: false,
+			transpilers: { typescript: true }
+		})
+
+		// USING TYPESCRIPT SHOULD NOT BREAK TREESHAKING...
+
 		// expect(result2).toBeGreaterThan(6000)
 		// expect(result2).toBeLessThan(7000)
 
@@ -76,6 +86,7 @@ describe('Code', () => {
 	it('should bundle all files', async () => {
 		const path = testPath('bundle')
 		const result = await bundle(path, { sourceMap: false })
+
 		expect(result.code.length).toBeGreaterThan(100)
 		expect(result.code).not.toContain('import')
 		expect(result.code).not.toContain('require')
@@ -111,7 +122,6 @@ describe('Code', () => {
 		const path = testPath('format')
 
 		const result1 = await compile(path, { sourceMap: false, format:'cjs' })
-		// console.log(result1.code)
 		expect(result1.code).toBe(`'use strict';\n\nvar index = ((event, context, callback) => {\n  callback(null, event);\n});\n\nmodule.exports = index;\n`)
 
 		const result2 = await compile(path, { sourceMap: false, format: 'esm' })

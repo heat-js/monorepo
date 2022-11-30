@@ -12,6 +12,7 @@ describe('SQS', () => {
 	it('should expose the API', async () => {
 		const api = await fn()
 		expect(api.send).toBeDefined()
+		expect(api.batch).toBeDefined()
 	})
 
 })
