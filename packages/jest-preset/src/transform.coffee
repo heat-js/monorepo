@@ -1,9 +1,7 @@
-
 import { createHash } from 'crypto'
 import { readFileSync } from 'fs'
 import coffee from 'coffeescript'
 import babelJest from 'babel-jest'
-import { compile } from '@heat/compiler'
 
 module.exports =
 	getCacheKey: (sourceText, sourcePath, configString) ->
@@ -18,22 +16,20 @@ module.exports =
 			.digest 'hex'
 
 	process: (src, file, config, options) ->
-		{ code, map } = await compile file, { sourceMap: false }
-		console.log code, map
-		# { js, v3SourceMap } = coffee.compile(
-		# 	src
-		# 	{ sourceMap: true }
-		# )
+		{ js, v3SourceMap } = coffee.compile(
+			src
+			{ sourceMap: true }
+		)
 
-		# { code } = coffee.transpile(
-		# 	js
-		# 	{
-		# 		sourceMap: false,
-		# 		presets: ['@babel/env']
-		# 	}
-		# )
+		{ code } = coffee.transpile(
+			js
+			{
+				sourceMap: false,
+				presets: ['@babel/env']
+			}
+		)
 
-		v3SourceMap = JSON.parse map
+		v3SourceMap = JSON.parse v3SourceMap
 
 		map =
 			version: v3SourceMap.version

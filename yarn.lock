@@ -1992,13 +1992,13 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-block-scoping@npm:^7.20.2":
-  version: 7.20.2
-  resolution: "@babel/plugin-transform-block-scoping@npm:7.20.2"
+  version: 7.20.5
+  resolution: "@babel/plugin-transform-block-scoping@npm:7.20.5"
   dependencies:
     "@babel/helper-plugin-utils": ^7.20.2
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 550b983277557ecfa3ef1e7a2367eaa9e0616a56f0d4106812cbc8aeca057b0f0b8bbc5c548b9b3b57399868f916e89e17303c802c8c46d18fba5bc174d4e794
+  checksum: 03606bc6710c15cd4e4d1163e1cbab08799f852a5dd55a1f7e115032e9406ac9430ddc0cb6d09a51a4095446985640411f60683c6fcea9bc1a7b202462022e1c
   languageName: node
   linkType: hard
 
@@ -2553,18 +2553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.19.0, @babel/types@npm:^7.20.0, @babel/types@npm:^7.20.2, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
-  version: 7.20.2
-  resolution: "@babel/types@npm:7.20.2"
-  dependencies:
-    "@babel/helper-string-parser": ^7.19.4
-    "@babel/helper-validator-identifier": ^7.19.1
-    to-fast-properties: ^2.0.0
-  checksum: 57e76e5f21876135f481bfd4010c87f2d38196bb0a2bc60a28d6e55e3afa90cdd9accf164e4cb71bdfb620517fa0a0cb5600cdce36c21d59fdaccfbb899c024c
-  languageName: node
-  linkType: hard
-
-"@babel/types@npm:^7.20.5, @babel/types@npm:^7.8.3":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.19.0, @babel/types@npm:^7.20.0, @babel/types@npm:^7.20.2, @babel/types@npm:^7.20.5, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
   version: 7.20.5
   resolution: "@babel/types@npm:7.20.5"
   dependencies:
@@ -3024,6 +3013,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/code@npm:0.0.20":
+  version: 0.0.20
+  resolution: "@heat/code@npm:0.0.20"
+  dependencies:
+    "@babel/plugin-transform-runtime": ^7.19.6
+    "@babel/preset-env": ^7.20.2
+    "@babel/preset-react": ^7.18.6
+    "@rollup/plugin-babel": ^6.0.2
+    "@rollup/plugin-commonjs": ^23.0.2
+    "@rollup/plugin-json": ^5.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-typescript": ^9.0.2
+    commander: ^9.4.1
+    object-assign: ^4.1.1
+    rollup: ^3.2.5
+    rollup-plugin-coffee-script: ^2.0.0
+    rollup-plugin-uglify: ^6.0.4
+    rollup-pluginutils: ^2.8.2
+    tslib: ^2.4.1
+    typescript: ^4.8.4
+    vite: ^3.2.3
+    vitest: ^0.25.1
+  bin:
+    code: dist/bin.js
+  checksum: c4f43928e946ff046b9048bc55adcadadffcdcdb5d2c0e3ea7caf8851f5cb4e9cb95bd2c3961fb68892200e248a036b0045f08c90659f756b968faa1ff3119cf
+  languageName: node
+  linkType: hard
+
 "@heat/code@npm:^0.0.27":
   version: 0.0.27
   resolution: "@heat/code@npm:0.0.27"
@@ -3258,7 +3275,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.42.1
     "@yarnpkg/pnpify": ^4.0.0-rc.27
     add: ^2.0.6
-    aws-sdk: ^2.1053.0
+    aws-sdk: 2.1083.0
     babel-jest: ^29.2.2
     coffeescript: ^2.7.0
     eslint: ^8.27.0
@@ -3356,6 +3373,8 @@ __metadata:
   resolution: "@heat/test@workspace:packages/test"
   dependencies:
     "@heat/awsless": ^0.1.109
+    "@heat/code": 0.0.20
+    "@heat/jest-preset": 0.0.12
     "@heat/step-functions-local": ^0.0.6
     asl-validator: ^1.3.0
     dynamo-db-local: ^3.2.1
@@ -3365,6 +3384,9 @@ __metadata:
     proper-lockfile: ^4.1.1
     redis: ^3.0.2
     redis-server: ^1.2.2
+    vitest: ^0.25.2
+  peerDependencies:
+    vitest: ">= 0.25.0"
   languageName: unknown
   linkType: soft
 
@@ -4277,8 +4299,8 @@ __metadata:
   linkType: hard
 
 "@rollup/plugin-commonjs@npm:^23.0.2":
-  version: 23.0.2
-  resolution: "@rollup/plugin-commonjs@npm:23.0.2"
+  version: 23.0.3
+  resolution: "@rollup/plugin-commonjs@npm:23.0.3"
   dependencies:
     "@rollup/pluginutils": ^5.0.1
     commondir: ^1.0.1
@@ -4291,7 +4313,7 @@ __metadata:
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: bd203a6e6fbcdc523f5d47a8a9e6b719f853270fbfa608c636124c213ec4b2a15026121e1e4faa820f52546425050f4c833bbf6bc58959909025cbc99c6d5df3
+  checksum: 925289c1694e871065d741ce210621df894febc267b9ca574dfe24e00a48b436f3eaa6a6f6d00312a78c9b51cc0cad7abf13b97fc455395576007c681d7ec58d
   languageName: node
   linkType: hard
 
@@ -4307,8 +4329,8 @@ __metadata:
   linkType: hard
 
 "@rollup/plugin-json@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "@rollup/plugin-json@npm:5.0.1"
+  version: 5.0.2
+  resolution: "@rollup/plugin-json@npm:5.0.2"
   dependencies:
     "@rollup/pluginutils": ^5.0.1
   peerDependencies:
@@ -4316,7 +4338,7 @@ __metadata:
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: 1b2f45f49cd3f3dcf2bd1b5987f330cc23bb1abfe049d8ca3d441eacbb8f9a052692b3f062023e175359de7db6dd55ef804393beab15d90aeb3fbf540494a036
+  checksum: 9b5f90ea311dfcfacf0f38af39bbb1954ea56d6faecdee3d528f73d0e02da96a0706ab21fae0c8eef9bb5d756f6f50b40b5a252ffd9800397012b5bac6764b6f
   languageName: node
   linkType: hard
 
@@ -6116,7 +6138,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-sdk@npm:^2.1053.0, aws-sdk@npm:^2.639.0, aws-sdk@npm:^2.795.0":
+"aws-sdk@npm:^2.639.0, aws-sdk@npm:^2.795.0":
   version: 2.1264.0
   resolution: "aws-sdk@npm:2.1264.0"
   dependencies:
@@ -13894,11 +13916,11 @@ __metadata:
   linkType: hard
 
 "minimatch@npm:^5.0.1":
-  version: 5.1.0
-  resolution: "minimatch@npm:5.1.0"
+  version: 5.1.1
+  resolution: "minimatch@npm:5.1.1"
   dependencies:
     brace-expansion: ^2.0.1
-  checksum: 15ce53d31a06361e8b7a629501b5c75491bc2b59712d53e802b1987121d91b433d73fcc5be92974fde66b2b51d8fb28d75a9ae900d249feb792bb1ba2a4f0a90
+  checksum: 215edd0978320a3354188f84a537d45841f2449af4df4379f79b9b777e71aa4f5722cc9d1717eabd2a70d38ef76ab7b708d24d83ea6a6c909dfd8833de98b437
   languageName: node
   linkType: hard
 
@@ -18413,7 +18435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^0.25.1":
+"vitest@npm:^0.25.1, vitest@npm:^0.25.2":
   version: 0.25.3
   resolution: "vitest@npm:0.25.3"
   dependencies:
