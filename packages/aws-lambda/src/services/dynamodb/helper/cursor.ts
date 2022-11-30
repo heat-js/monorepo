@@ -1,3 +1,4 @@
+
 export const fromCursor = (cursor) => {
 	if(cursor) {
 		return JSON.parse(Buffer.from(cursor, 'base64').toString('utf-8'))

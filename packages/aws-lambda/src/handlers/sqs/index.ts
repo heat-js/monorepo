@@ -21,7 +21,7 @@ export const sqs = () => {
 interface Send {
 	service?: string
 	name: string
-	payload: object
+	payload?: any
 	delay?: number
 }
 

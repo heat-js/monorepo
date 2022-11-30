@@ -21,8 +21,8 @@ interface Publish {
 	service?: string
 	topic: string
 	subject?: string
-	payload: object
-	attributes: { [key: string]: string }
+	payload?: any
+	attributes?: { [key: string]: string }
 }
 
 export class SNS {

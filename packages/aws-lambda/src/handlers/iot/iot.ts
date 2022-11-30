@@ -6,7 +6,7 @@ interface Publish {
 	id?: string | number
 	event: string
 	value?: any
-	qos: 0 | 1 | 2
+	qos?: 0 | 1 | 2
 }
 
 interface Payload {

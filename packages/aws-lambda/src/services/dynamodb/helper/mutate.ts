@@ -1,3 +1,4 @@
+
 import { DeleteCommand, PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb'
 import { Expression } from '../types'
 import { addExpression } from './expression'
@@ -14,6 +15,6 @@ export const extendMutateCommand = (command: PutCommand | DeleteCommand | Update
 
 	if(options.condition) {
 		command.input.ConditionExpression = options.condition.expression
-		addExpression(command, options.condition)
+		addExpression(command.input, options.condition)
 	}
 }

@@ -1,5 +1,5 @@
 
-import { coerce, define, number, string, union, assert, refine, Struct, StructError } from 'superstruct'
+import { coerce, define, number, string, union, refine, Struct } from 'superstruct'
 import { BigFloat, gt } from '../../bigfloat'
 
 export const bigfloat = ():Struct<BigFloat, null> => {
@@ -7,19 +7,14 @@ export const bigfloat = ():Struct<BigFloat, null> => {
 		return (value instanceof BigFloat) || 'Invalid number'
 	})
 
-	return coerce(base, union([ string(), number(), base]), (value): BigFloat => {
-
-		if(value instanceof BigFloat) {
-			return value
-		}
-
-		if(typeof value === 'string' || typeof value === 'number') {
+	return coerce(base, union([ string(), number() ]), (value): BigFloat => {
+		if((typeof value === 'string' && value !== '') || typeof value === 'number') {
 			if(!isNaN(Number(value))) {
 				return new BigFloat(value)
 			}
 		}
 
-		throw new Error('Invalid number')
+		return null
 	})
 }
 

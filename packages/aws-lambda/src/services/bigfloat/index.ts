@@ -5,7 +5,7 @@ export { neg, abs, add, sub, mul, div, sqrt, exponentiation, ceil, floor } from 
 export { eq, lt, lte, gt, gte } from './relational'
 
 export {
-	IBigFloat, set_precision, evaluate,
+	set_precision, evaluate,
 
 	// arithmetic
 	// neg, abs, add, sub, mul, div, sqrt, exponentiation, ceil, floor,

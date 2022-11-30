@@ -1,10 +1,11 @@
 
-import fs				from 'fs'
-import path				from 'path'
-import JSZip			from 'jszip'
-import { pipeline }		from 'stream'
-import LengthStream		from 'length-stream'
-import getAllFiles		from 'get-all-files'
+import fs					from 'fs'
+import path					from 'path'
+import JSZip				from 'jszip'
+import { pipeline }			from 'stream'
+import LengthStream			from 'length-stream'
+import listFilesRecursive	from './list-files-recursive'
+# import { getAllFiles }	from 'get-all-files'
 
 export default (folder, output, options = {}) ->
 
@@ -13,7 +14,8 @@ export default (folder, output, options = {}) ->
 		...options
 	}
 
-	files = await getAllFiles.async.array folder
+	# files = await getAllFiles(folder).toArray()
+	files = await listFilesRecursive folder
 	files = files.filter (file) ->
 		return switch path.extname file
 			when '.txt' then false

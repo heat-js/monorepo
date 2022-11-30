@@ -22,6 +22,7 @@ export class Server {
 		this.process = await dynamoDbLocal.spawn({ port })
 	}
 
+	/** Kill the DynamoDB server. */
 	async kill() {
 		if(this.process) {
 			await this.process.kill()
@@ -38,9 +39,7 @@ export class Server {
 	}
 
 	/** Ping the DynamoDB server untill its ready. */
-	async wait() {
-		let times = 10
-
+	async wait(times:number = 10) {
 		while(times--) {
 			try {
 				if(await this.ping()) {
@@ -55,6 +54,7 @@ export class Server {
 		throw new Error('DynamoDB server is unavailable')
 	}
 
+	/** Get DynamoDBClient connected to dynamodb local. */
 	getClient() {
 		if(!this.client) {
 			this.client = new DynamoDBClient({
@@ -72,6 +72,7 @@ export class Server {
 		return this.client
 	}
 
+	/** Get DynamoDBDocumentClient connected to dynamodb local. */
 	getDocumentClient() {
 		if(!this.documentClient) {
 			this.documentClient = DynamoDBDocumentClient.from(this.getClient())

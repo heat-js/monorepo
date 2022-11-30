@@ -1,2 +1,2 @@
 
-export const TS:boolean = 1 + 2 === 3
+export const TS: boolean = 1 + 2 === 3
