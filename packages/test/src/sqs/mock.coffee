@@ -3,14 +3,14 @@ export default class SqsMock
 
 	constructor: (queues = []) ->
 		for queue in queues
-			@[ queue ] = vi.fn()
+			@[ queue ] = jest.fn()
 
 	send: vi.fn ({ service, name, payload }) ->
 		if service and name
 			name = "#{ service }__#{ name }"
 
 		if not @[ name ]
-			@[ name ] = vi.fn()
+			@[ name ] = jest.fn()
 
 		return @[ name ].call()
 
