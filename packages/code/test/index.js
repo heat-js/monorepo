@@ -3,12 +3,11 @@ import { build, bundle, compile, exec, RuntimeError } from '../src'
 import { clean } from '../src/clean'
 import { join } from 'path'
 import { readFile } from 'fs/promises'
-// import { describe, it, expect } from 'jest'
 
 describe('Code', () => {
 
-	const testPath = (test) => {
-		return join(process.cwd(), 'test/data', test, 'index.js')
+	const testPath = (dir, file = 'index.js') => {
+		return join(process.cwd(), 'test/data', dir, file)
 	}
 
 	it('should support every file type', async () => {
@@ -27,6 +26,30 @@ describe('Code', () => {
 		expect(result.code).toBe("'use strict';\n\n")
 	})
 
+	it('should remove un-used package export code (treeshaking)', async () => {
+		const path = testPath('treeshaking-package')
+
+		const result1 = await bundle(path, {
+			sourceMap: false,
+			transpilers: { typescript: false }
+		})
+
+		expect(result1.code.length).toBeGreaterThan(6000)
+		expect(result1.code.length).toBeLessThan(7000)
+
+		const result2 = await bundle(path, {
+			sourceMap: false,
+			transpilers: { typescript: true }
+		})
+
+		// USING TYPESCRIPT SHOULD NOT BREAK TREESHAKING...
+
+		// expect(result2).toBeGreaterThan(6000)
+		// expect(result2).toBeLessThan(7000)
+
+		console.log(result1.code.length, result2.code.length)
+	})
+
 	it('should exec', async () => {
 		const path = testPath('console-log')
 		const result = await exec(path)
@@ -40,10 +63,10 @@ describe('Code', () => {
 	})
 
 	it('should build for package', async () => {
-		const in1 = join(process.cwd(), 'test/data/build-for-package/input-1.js')
-		const in2 = join(process.cwd(), 'test/data/build-for-package/input-2.js')
+		const in1 = testPath('build-for-package', 'input-1.js')
+		const in2 = testPath('build-for-package', 'input-2.js')
 
-		await build([in1, in2], 'test/dist')
+		await build([ in1, in2 ], 'test/dist')
 
 		const c1 = await readFile(join(process.cwd(), 'test/dist/input-1.cjs'))
 		expect(c1.toString()).toContain(`require('uuid')`)
@@ -58,11 +81,12 @@ describe('Code', () => {
 		expect(e2.toString()).toContain(`console.log('Hello')`)
 
 		await clean('test/dist')
-	})
+	}, 10000)
 
 	it('should bundle all files', async () => {
 		const path = testPath('bundle')
 		const result = await bundle(path, { sourceMap: false })
+
 		expect(result.code.length).toBeGreaterThan(100)
 		expect(result.code).not.toContain('import')
 		expect(result.code).not.toContain('require')
@@ -88,7 +112,7 @@ describe('Code', () => {
 		const path = testPath('minimize')
 
 		const result1 = await compile(path, { minimize: false, sourceMap: false })
-		expect(result1.code).toBe(`'use strict';\n\nvar long_variable_name = 1;\nconsole.log(long_variable_name);\n`)
+		expect(result1.code).toBe(`'use strict';\n\nconst long_variable_name = 1;\nconsole.log(long_variable_name);\n`)
 
 		const result2 = await compile(path, { minimize: true, sourceMap: false })
 		expect(result2.code).toBe(`"use strict";console.log(1);\n`)
@@ -98,10 +122,10 @@ describe('Code', () => {
 		const path = testPath('format')
 
 		const result1 = await compile(path, { sourceMap: false, format:'cjs' })
-		expect(result1.code).toBe(`'use strict';\n\nvar index = (function (event, context, callback) {\n  callback(null, event);\n});\n\nmodule.exports = index;\n`)
+		expect(result1.code).toBe(`'use strict';\n\nvar index = ((event, context, callback) => {\n  callback(null, event);\n});\n\nmodule.exports = index;\n`)
 
 		const result2 = await compile(path, { sourceMap: false, format: 'esm' })
-		expect(result2.code).toBe(`var index = (function (event, context, callback) {\n  callback(null, event);\n});\n\nexport { index as default };\n`)
+		expect(result2.code).toBe(`var index = ((event, context, callback) => {\n  callback(null, event);\n});\n\nexport { index as default };\n`)
 	})
 
 	it('should generate a source map', async () => {
@@ -134,18 +158,34 @@ describe('Code', () => {
 		expect(result.code).toContain('exports.default = ')
 	})
 
-	it('should bundle for aws lambda', async () => {
-		const path = testPath('treeshaking-package')
-		const result = await bundle(path, {
-			sourceMap: false,
-			// minimize: true,
-			format: 'esm',
-			// moduleSideEffects: false,
+	describe('File Types', () => {
+		const types = {
+			js: testPath('types', '1.js'),
+			jsx: testPath('types', '2.jsx'),
+			ts: testPath('types', '3.ts'),
+			coffee: testPath('types', '4.coffee'),
+			all: testPath('types')
+		}
+
+		describe('bundle', () => {
+			Object.entries(types).forEach(([ type, path ]) => {
+				it(type, async () => {
+					const result = await bundle(path, { sourceMap: false })
+					expect(result.map).toBeUndefined()
+					expect(result.code).toBeDefined()
+				})
+			})
 		})
 
-		// console.log(result.code)
-		// console.log(result.code.length)
+		describe('compile', () => {
+			Object.entries(types).forEach(([ type, path ]) => {
+				it(type, async () => {
+					const result = await compile(path, { sourceMap: false })
+					expect(result.map).toBeUndefined()
+					expect(result.code).toBeDefined()
+				})
+			})
+		})
 
-		// expect(result.code).toContain('exports.default = ')
 	})
 })

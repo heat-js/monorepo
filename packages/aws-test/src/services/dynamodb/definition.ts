@@ -16,11 +16,10 @@ export const loadDefinitions = async (paths: string | string[]) => {
 
 		for(let stack of stacks) {
 			const template = JSON.parse(stack.templateBody)
-			const resources = template.Resources
 
-			for(let resource of resources) {
+			Object.values(template.Resources).map((resource:any) => {
 				if(resource.Type !== 'AWS::DynamoDB::Table') {
-					continue
+					return
 				}
 
 				const properties = Object.assign({}, resource.Properties, {
@@ -37,7 +36,7 @@ export const loadDefinitions = async (paths: string | string[]) => {
 				}
 
 				definitions.push(properties)
-			}
+			})
 		}
 	}))
 

@@ -1,10 +1,10 @@
 
-UserTable:
-  Type: Awsless::DynamoDB::Table
-  Properties:
-    Name: users
-    Schema:
-      Hash: { N: id }
+# UserTable:
+#   Type: Awsless::DynamoDB::Table
+#   Properties:
+#     Name: users
+#     Schema:
+#       Hash: { N: id }
 
 PostTable:
   Type: Awsless::DynamoDB::Table

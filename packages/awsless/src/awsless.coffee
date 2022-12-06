@@ -6,7 +6,7 @@ import chalk		from 'chalk'
 import Deploy		from './command/deploy'
 import Delete		from './command/delete'
 import Sync			from './command/sync'
-import packageData	from './package.json'
+import packageData	from '../package.json'
 
 program = new Command
 program.version packageData.version

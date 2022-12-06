@@ -8,7 +8,7 @@ interface IInvoke {
 	service?: string
 	type?: 'RequestResponse' | 'Event' | 'DryRun'
 	name: string
-	payload?: object
+	payload?: any
 	reflectViewableErrors?: boolean
 }
 

@@ -22,6 +22,7 @@ export const test = async (filters:string[] = []) => {
 		test: mergeConfig(config, ({
 			include: ['./test/**/*.{js,jsx,coffee,ts}'],
 			exclude: configDefaults.exclude,
+			globals: true,
 		}))
 	})
 }

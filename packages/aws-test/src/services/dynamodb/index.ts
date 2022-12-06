@@ -1,7 +1,6 @@
 
 import { requestPort } from '../../helpers/port'
 import { Server } from './server'
-import { beforeAll, afterAll } from 'vitest'
 import { migrate, seed as runSeed, SeedData } from './database'
 import { loadDefinitions } from './definition'
 
@@ -17,21 +16,20 @@ export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:Options) 
 	const server = new Server()
 	let releasePort
 
-	beforeAll(async () => {
+	globalThis.beforeAll(async () => {
 		const [ port, release ] = await requestPort()
 		releasePort = release
 
 		await server.listen(port)
 		await server.wait()
 
-		const client = server.getClient()
 		const definitions = await loadDefinitions(path)
 
-		await migrate(client, definitions)
-		await runSeed(client, seed)
+		await migrate(server.getClient(), definitions)
+		await runSeed(server.getDocumentClient(), seed)
 	}, timeout)
 
-	afterAll(async () => {
+	globalThis.afterAll(async () => {
 		await server.kill()
 		await releasePort()
 	}, timeout)

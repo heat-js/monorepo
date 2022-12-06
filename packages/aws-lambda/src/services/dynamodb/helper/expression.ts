@@ -2,13 +2,14 @@
 import { Expression } from '../types'
 
 export const addExpression = (command, expression:Expression) => {
-	command.input.ExpressionAttributeNames = {
-		...command.input.ExpressionAttributeNames,
-		...expression.names
+	const names = { ...(command.ExpressionAttributeNames || {}), ...expression.names }
+	const values = { ...(command.ExpressionAttributeValues || {}), ...expression.values }
+
+	if(Object.keys(names).length) {
+		command.ExpressionAttributeNames = names
 	}
 
-	command.input.ExpressionAttributeValues = {
-		...command.input.ExpressionAttributeValues,
-		...expression.values
+	if(Object.keys(values).length) {
+		command.ExpressionAttributeValues = values
 	}
 }

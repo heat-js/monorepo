@@ -1,2 +1,2 @@
 
-export const value = true;
+export const value = true
