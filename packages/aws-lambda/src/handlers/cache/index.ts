@@ -12,10 +12,10 @@ export const cache = ({ maxMemoryUsageRatio = 2 / 3, useClones = true }: CacheOp
 	const instances = new Map()
 
 	return (app:IApp, next:Next) => {
-		app.cache = (namespace:string = 'default') => {
+		app.cache = <T>(namespace:string = 'default') : Cache<T> => {
 			if(!instances.has(namespace)) {
 				const memoryLimit = getMemoryLimit(app.context) * maxMemoryUsageRatio
-				const cache = new Cache({ memoryLimit, useClones })
+				const cache = new Cache<T>({ memoryLimit, useClones })
 				instances.set(namespace, cache)
 
 				return cache
@@ -28,7 +28,7 @@ export const cache = ({ maxMemoryUsageRatio = 2 / 3, useClones = true }: CacheOp
 	}
 }
 
-const getMemoryLimit = (context) => {
+const getMemoryLimit = (context) : number => {
 	return (
 		context.memoryLimitInMB ||
 		process.env.CACHE_MEMORY_LIMIT ||
@@ -37,19 +37,19 @@ const getMemoryLimit = (context) => {
 	)
 }
 
-const getMemoryUsage = () => {
+const getMemoryUsage = () : number => {
 	return process.memoryUsage.rss ?
 		process.memoryUsage.rss() :
 		process.memoryUsage().rss
 }
 
-export class Cache {
+export class Cache<T> {
 	private index = []
 	private store = new Map
 	private memoryLimit?: number
 	private useClones: boolean
 
-	constructor({ memoryLimit, useClones }) {
+	constructor({ memoryLimit, useClones } : { memoryLimit: number, useClones: boolean }) {
 		this.memoryLimit = memoryLimit
 		this.useClones = useClones
 	}
@@ -62,7 +62,7 @@ export class Cache {
 		return this.useClones ? JSON.parse(value) : value
 	}
 
-	isOutOfMemory() {
+	isOutOfMemory() : boolean {
 		if(this.memoryLimit === 0) {
 			return false
 		}
@@ -75,7 +75,7 @@ export class Cache {
 		return this.store.has(key)
 	}
 
-	get(key:string, initialValue?) {
+	get(key:string, initialValue?:T) : T {
 		if(!this.has(key)) {
 			return initialValue
 		}
@@ -89,7 +89,7 @@ export class Cache {
 		return this.parse(value)
 	}
 
-	set(key:string, value:any) {
+	set(key:string, value:T) {
 		if(this.isOutOfMemory()) {
 			this.delete(this.index[ 0 ])
 		}
@@ -104,7 +104,7 @@ export class Cache {
 		return this
 	}
 
-	delete(key:string) {
+	delete(key:string) : this {
 		const index = this.index.indexOf(key)
 
 		if(index > -1) {
@@ -116,7 +116,7 @@ export class Cache {
 		return this
 	}
 
-	size() {
+	size() : number {
 		return this.store.size
 	}
 }

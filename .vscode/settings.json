@@ -4,15 +4,16 @@
 		"**/.yarn": true,
 		"**/.pnp.*": true
 	},
-	// "typescript.tsdk": ".yarn/sdks/typescript/lib",
-	// "typescript.enablePromptUseWorkspaceTsdk": true,
 
-	// "editor.formatOnSave": true,
-	// "editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[javascript][typescript]": {
+		"editor.formatOnSave": false,
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
 
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
 	"eslint.validate": ["javascript", "typescript"],
+	"eslint.packageManager": "yarn",
 	"git.ignoreLimitWarning": true
 }

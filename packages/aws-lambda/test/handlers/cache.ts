@@ -4,7 +4,7 @@ import { handle, cache, Cache } from '../../src'
 
 describe('Cache', () => {
 
-	const store = new Cache({
+	const store = new Cache<boolean>({
 		memoryLimit: 1000,
 		useClones: true
 	})
@@ -30,21 +30,23 @@ describe('Cache', () => {
 	})
 
 	it('should get copy of the data', () => {
+		const store = new Cache<object>({ memoryLimit: 1000, useClones: true })
 		const value = {}
+
 		store.set('key', value)
 		expect(store.get('key')).not.toBe(value)
 	})
 
 	it('should not copy of the data with cloning off', () => {
+		const store = new Cache<object>({ memoryLimit: 1000, useClones: false })
 		const value = {}
-		const store = new Cache({ memoryLimit: 1000, useClones: false })
 
 		store.set('key', value)
 		expect(store.get('key')).toBe(value)
 	})
 
 	it('should remove values after memory limit is reached', () => {
-		const store = new Cache({ memoryLimit: 0.01, useClones: true })
+		const store = new Cache<boolean>({ memoryLimit: 0.01, useClones: true })
 
 		store.set('1', true)
 		expect(store.size()).toBe(1)
@@ -55,7 +57,7 @@ describe('Cache', () => {
 	})
 
 	it('should be able to disable memory limit', () => {
-		const store = new Cache({ memoryLimit: 0, useClones: true })
+		const store = new Cache<boolean>({ memoryLimit: 0, useClones: true })
 		let count = 100
 
 		while (count--) {
