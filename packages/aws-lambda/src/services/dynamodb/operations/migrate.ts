@@ -27,7 +27,8 @@ export const migrate = async <OldItem extends Item, NewItem extends Item>(table:
 		const result = await scan<OldItem>(table, {
 			consistentRead: options.consistentRead,
 			limit: options.batch || 1000,
-			cursor,
+			// @ts-ignore
+			cursor
 		})
 
 		await Promise.all(result.items.map(async item => {

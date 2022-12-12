@@ -9,9 +9,9 @@ const id = () => {
 }
 
 export const ql = (literals:TemplateStringsArray, ...raw:Value[]): Expression => {
-	const names = {}
-	const values = {}
-	const string = []
+	const names:{[key:string]: string} = {}
+	const values:{[key:string]: unknown} = {}
+	const string:string[] = []
 
 	literals.forEach((literal, i) => {
 		string.push(literal)

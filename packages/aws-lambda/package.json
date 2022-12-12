@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.32",
+	"version": "0.0.37",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -37,6 +37,21 @@
 			"import": "./dist/services/dynamodb/index.js",
 			"types": "./dist/services/dynamodb/index.d.ts"
 		},
+		"./lambda": {
+			"require": "./dist/services/lambda/index.cjs",
+			"import": "./dist/services/lambda/index.js",
+			"types": "./dist/services/lambda/index.d.ts"
+		},
+		"./sns": {
+			"require": "./dist/services/sns/index.cjs",
+			"import": "./dist/services/sns/index.js",
+			"types": "./dist/services/sns/index.d.ts"
+		},
+		"./sqs": {
+			"require": "./dist/services/sqs/index.cjs",
+			"import": "./dist/services/sqs/index.js",
+			"types": "./dist/services/sqs/index.d.ts"
+		},
 		"./bigfloat": {
 			"require": "./dist/services/bigfloat/index.cjs",
 			"import": "./dist/services/bigfloat/index.js",
@@ -45,7 +60,7 @@
 	},
 	"scripts": {
 		"test": "yarn run code test",
-		"build": "yarn tsup src/index.ts src/services/environment/index.ts src/services/validate/index.ts src/services/dynamodb/index.ts src/services/bigfloat/index.ts --format cjs,esm --dts --clean",
+		"build": "yarn tsup src/index.ts src/services/environment/index.ts src/services/validate/index.ts src/services/dynamodb/index.ts src/services/lambda/index.ts src/services/sns/index.ts src/services/sqs/index.ts src/services/bigfloat/index.ts --format cjs,esm --dts --clean",
 		"patch": "yarn build; npm version patch; npm publish --access=public",
 		"minor": "yarn build; npm version minor; npm publish --access=public",
 		"major": "yarn build; npm version major; npm publish --access=public"
@@ -57,15 +72,15 @@
 		]
 	},
 	"dependencies": {
-		"@aws-sdk/client-dynamodb": "^3.214.0",
+		"@aws-sdk/client-dynamodb": "^3.226.0",
 		"@aws-sdk/client-iot": "^3.204.0",
 		"@aws-sdk/client-iot-data-plane": "^3.204.0",
 		"@aws-sdk/client-lambda": "^3.202.0",
 		"@aws-sdk/client-sns": "^3.204.0",
 		"@aws-sdk/client-sqs": "^3.204.0",
 		"@aws-sdk/client-ssm": "^3.204.0",
-		"@aws-sdk/lib-dynamodb": "^3.214.0",
-		"@aws-sdk/util-dynamodb": "^3.204.0",
+		"@aws-sdk/lib-dynamodb": "^3.226.0",
+		"@aws-sdk/util-dynamodb": "^3.226.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
 		"@types/aws-lambda": "^8.10.108",
 		"aws-sdk": "2.1083.0",
@@ -75,8 +90,9 @@
 		"superstruct": "^0.16.7"
 	},
 	"devDependencies": {
-		"@heat/aws-test": "^0.0.5",
+		"@heat/aws-test": "^0.0.8",
 		"@heat/code": "^0.0.27",
+		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",
 		"tsup": "^6.5.0",
 		"typescript": "^4.8.4"

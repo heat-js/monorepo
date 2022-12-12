@@ -1,5 +1,5 @@
 
-import { IApp } from '../../../app'
+import { IApp } from '../../../request'
 import { Next } from '../../../compose'
 import { Request } from '../request'
 import { Response } from '../response'

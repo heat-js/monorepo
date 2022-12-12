@@ -1,47 +1,48 @@
 
 import { Bugsnag } from './bugsnag'
-
-import { IApp } from '../../app'
-import { Next } from '../../compose'
 import { test } from '../../helper'
 import { ViewableError } from '../../errors/viewable'
+import { Next, Request } from '../../types'
 
 interface BugsnagOptions {
-	apiKey?:string
+	apiKey?: string
+	logViewableErrors?: boolean
 }
+/**
+ * Middleware for logging errors into Bugsnag
+ * @param apiKey - The bugsnag api key. Default is `process.env.BUGSNAG_API_KEY`
+ * @param logViewableErrors - Log viewable errors. Default is `true`
+ */
+export const bugsnag = ({ apiKey = process.env.BUGSNAG_API_KEY, logViewableErrors = false }:BugsnagOptions = {}) => {
+	const client = new Bugsnag(apiKey || '')
 
-export const bugsnag = ({ apiKey = process.env.BUGSNAG_API_KEY }:BugsnagOptions = {}) => {
-	const client = new Bugsnag(apiKey)
-
-	return async (app:IApp, next:Next) => {
-		app.$.log = () => {
-			return (error, extraData:object = {}) => {
-				if(test()) {
-					return next()
-				}
-
-				console.error(error)
-
-				return client.notify(error, {
-					metaData: {
-						input: app.input,
-						errorData: error.metadata || error.metaData,
-						extraData,
-					}
-				})
+	return async (app:Request, next:Next) => {
+		app.log = (error:any, extraData:object = {}) => {
+			if(test()) {
+				return next()
 			}
+
+			console.error(error)
+
+			return client.notify(error, {
+				metaData: {
+					input: app.input as any,
+					errorData: error.metadata || error.metaData,
+					extraData,
+				}
+			})
 		}
 
-		return timeout(app, wrapper(app, next))()
+		return timeout(app, wrapper(app, next, logViewableErrors))()
 	}
 }
 
-const wrapper = (app, next) => {
+const wrapper = (app:Request, next:Next, logViewableErrors:boolean) => {
 	return async () => {
 		try {
-			await next()
+			return await next()
 		} catch (error) {
-			if(!(error instanceof ViewableError)) {
+			if(logViewableErrors || !(error instanceof ViewableError)) {
 				await app.log(error)
 			}
 
@@ -56,20 +57,21 @@ class TimeoutError extends Error {
 	}
 }
 
-const timeout = (app, next) => {
+const timeout = (app:Request, next:Next) => {
 	return async () => {
-		if(test()) {
+		if(test() || !app.context) {
 			return next()
 		}
 
-		const delay = app.context.getRemainingTimeInMillis() - 1000
+		const content = app.context
+		const delay = content.getRemainingTimeInMillis() - 1000
 		const id = setTimeout(() => {
-			const remaining = app.context.getRemainingTimeInMillis()
+			const remaining = content.getRemainingTimeInMillis()
 			app.log(new TimeoutError(remaining))
 		}, delay)
 
 		try {
-			await next()
+			return await next()
 		} finally {
 			clearTimeout(id)
 		}

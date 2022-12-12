@@ -23,9 +23,9 @@
     "major": "yarn build; npm version major; npm publish --access=public"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.214.0",
-    "@aws-sdk/lib-dynamodb": "^3.214.0",
-    "@aws-sdk/types": "^3.212.0",
+    "@aws-sdk/client-dynamodb": "^3.226.0",
+    "@aws-sdk/lib-dynamodb": "^3.226.0",
+    "@aws-sdk/types": "^3.226.0",
     "@aws-sdk/url-parser": "^3.212.0",
     "@aws-sdk/util-endpoints": "^3.212.0",
     "@heat/awsless": "^0.1.192",

@@ -1,10 +1,12 @@
 {
 	"compilerOptions": {
+		"strict": true,
 		"target": "es2022",
 		"types": ["node"],
 		"lib": ["es2022", "dom"],
 		"esModuleInterop": true,
 		"moduleResolution": "Node",
+		"experimentalDecorators": true,
 		"skipLibCheck": true,
 		"declaration": true,
 		"outDir": "dist",

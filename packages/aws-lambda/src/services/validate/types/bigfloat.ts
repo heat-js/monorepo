@@ -7,7 +7,7 @@ export const bigfloat = ():Struct<BigFloat, null> => {
 		return (value instanceof BigFloat) || 'Invalid number'
 	})
 
-	return coerce(base, union([ string(), number() ]), (value): BigFloat => {
+	return coerce(base, union([ string(), number() ]), (value): BigFloat | null => {
 		if((typeof value === 'string' && value !== '') || typeof value === 'number') {
 			if(!isNaN(Number(value))) {
 				return new BigFloat(value)
@@ -27,10 +27,10 @@ export const positive = <T extends BigFloat, S extends any>(struct:Struct<T, S>)
 	})
 }
 
-export const percision = <T extends BigFloat, S extends any>(struct:Struct<T, S>, decimals:number) => {
+export const precision = <T extends BigFloat, S extends any>(struct:Struct<T, S>, decimals:number) => {
 	const expected = `Expected a ${struct.type}`
 
-	return refine(struct, 'percision', (value:BigFloat) => {
+	return refine(struct, 'precision', (value:BigFloat) => {
 		return -value.exponent <= decimals || `${expected} with ${decimals} decimals`
 	})
 }

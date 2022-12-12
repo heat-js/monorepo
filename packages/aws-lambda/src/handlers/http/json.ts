@@ -1,6 +1,6 @@
 
 import { Struct } from 'superstruct'
-import { IApp } from '../../app'
+import { IApp } from '../../request'
 import { Next } from '../../compose'
 import { ViewableError } from '../../errors/viewable'
 import { Request } from './request'

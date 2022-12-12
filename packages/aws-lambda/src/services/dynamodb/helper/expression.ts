@@ -1,7 +1,12 @@
 
 import { Expression } from '../types'
 
-export const addExpression = (command, expression:Expression) => {
+interface Command {
+	ExpressionAttributeNames?: {}
+	ExpressionAttributeValues?: {}
+}
+
+export const addExpression = (command: Command, expression:Expression) => {
 	const names = { ...(command.ExpressionAttributeNames || {}), ...expression.names }
 	const values = { ...(command.ExpressionAttributeValues || {}), ...expression.values }
 

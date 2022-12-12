@@ -1,10 +1,10 @@
-import { Next } from '../../compose'
-import { chunk } from 'chunk'
+import chunk from 'chunk'
 import { SSMClient, GetParametersCommand } from '@aws-sdk/client-ssm'
+import { Next, Request } from '../../types'
 
 export const ssm = () => {
 	let resolved = false
-	return async (_, next: Next) => {
+	return async (_:Request, next: Next) => {
 		if (!resolved) {
 			const env = await resolve(process.env)
 			Object.assign(process.env, env)
@@ -15,7 +15,11 @@ export const ssm = () => {
 	}
 }
 
-const resolve = async input => {
+interface Paths {
+	[key:string]: string | undefined
+}
+
+const resolve = async (input: Paths) => {
 	const region = process.env.AWS_REGION || 'eu-west-1'
 	const paths = ssmPaths(input)
 	const names = paths.map(({ path }) => path)
@@ -42,18 +46,22 @@ const resolve = async input => {
 				)
 			}
 
-			result.Parameters.forEach(({ Type, Name, Value }) => {
-				const value = Type === 'StringList' ? Value.split(',') : Value
-				const { key } = paths.find(item => Name === item.path)
-				values[key] = String(value)
+			result.Parameters?.forEach(({ Type, Name, Value }) => {
+				if(Value) {
+					const value = Type === 'StringList' ? Value.split(',') : Value
+					const item = paths.find(item => Name === item.path)
+					if(item) {
+						values[item.key] = String(value)
+					}
+				}
 			})
 		})
 	)
 }
 
-const ssmPaths = input => {
+const ssmPaths = (input:Paths) => {
 	return Object.entries(input)
-		.filter(([_, value]) => 0 === String(value).indexOf('ssm:'))
+		.filter(([_, value]) => typeof value === 'string' && 0 === value.indexOf('ssm:'))
 		.map(([key, value]) => {
 			const path = String(value).substr(4)
 			return { key, path: path[0] !== '/' ? `/${path}` : path }

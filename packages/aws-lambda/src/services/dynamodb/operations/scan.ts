@@ -12,7 +12,7 @@ export interface ScanOptions {
 	cursor?: Key
 }
 
-export interface ScanResponse<T> {
+export interface ScanResponse<T extends Item> {
 	count: number
 	items: T[]
 	cursor?: Key
@@ -35,7 +35,7 @@ export const scan = async <T extends Item>(table:Table, options:ScanOptions = {}
 	const result = await table.db.send(command)
 
 	return {
-		count: result.Count,
+		count: result.Count || 0,
 		items: result.Items as T[],
 		cursor: result.LastEvaluatedKey
 	}

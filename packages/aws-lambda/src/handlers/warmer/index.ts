@@ -1,68 +1,83 @@
 import { randomUUID } from 'crypto'
-import { IApp } from '../../app'
-import { Next } from '../../compose'
+import { invoke } from '../../services/lambda'
+import { Next, Request } from '../../types'
 import { event } from '../event'
-import { Lambda, lambda } from '../lambda'
+import { lambda } from '../lambda'
+
+const warmerKey = 'warmer'
+const invocationKey = '__WARMER_INVOCATION_ID__'
+const correlationKey = '__WARMER_CORRELATION_ID__'
 
 interface Config {
-	flag?: string
 	log?: boolean
 	concurrency?: number
 }
 
-export const warmer = ({ flag = 'warmer', log = true, concurrency = 1 }:Config = {}) => {
+type Input = {
+	invocation: number
+	correlation: string
+}
+
+const getWarmerInput = (request: Request): Input | undefined => {
+	const input = request.input as any
+	if (typeof input === 'object' && input[warmerKey] === true) {
+		return {
+			invocation: input[invocationKey] || 0,
+			correlation: input[correlationKey]
+		}
+	}
+}
+
+export const warmer = ({ log = true, concurrency = 1 }:Config = {}) => {
+	const notify = (message: object) => {
+		if(log) {
+			console.log(message)
+		}
+	}
 
 	return [
 		lambda(),
 		event('before-warmer'),
-		async (app:IApp, next:Next) => {
-			const input = app.input
+		async (request: Request, next:Next) => {
+			const input = getWarmerInput(request)
 
-			if (typeof input === 'object' && input[flag]) {
-				const event = {
-					action: 'warmer',
-					functionName: process.env.AWS_LAMBDA_FUNCTION_NAME,
-					functionVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
-				}
-
-				if(input.__WARMER_CORRELATIONID__) {
-					if(log) {
-						console.log({
-							...event,
-							invocationId: input.__WARMER_INVOCATION__,
-							correlationId: input.__WARMER_CORRELATIONID__,
-						})
-					}
-				} else {
-					const correlationId = app.context.awsRequestId || randomUUID()
-					const times = input.concurrency || concurrency || 1
-
-					if(log) {
-						console.log({
-							...event,
-							invocationId: 1,
-							correlationId,
-						})
-					}
-
-					await Promise.all(Array.from({ length: times - 1 }).map((_, index) => {
-						return ( app.lambda as Lambda ).invoke({
-							name: process.env.AWS_LAMBDA_FUNCTION_NAME,
-							// type: 'Event',
-							payload: {
-								[flag]: true,
-								__WARMER_INVOCATION__: index + 2,
-								__WARMER_CORRELATIONID__: correlationId
-							}
-						})
-					}))
-				}
-
-				app.output = 'warmed'
-				return
+			if(!input) {
+				return next()
 			}
 
-			return next()
+			const event = {
+				action: warmerKey,
+				functionName: process.env.AWS_LAMBDA_FUNCTION_NAME,
+				functionVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
+			}
+
+			if(input.correlation) {
+				notify({
+					...event,
+					...input
+				})
+			} else {
+				const correlation = request.context?.awsRequestId || randomUUID()
+
+				notify({
+					...event,
+					correlation,
+					invocation: 1
+				})
+
+				await Promise.all(Array.from({ length: concurrency - 1 }).map((_, index) => {
+					return invoke(request.lambda, {
+						name: process.env.AWS_LAMBDA_FUNCTION_NAME || '',
+						payload: {
+							[warmerKey]: true,
+							[invocationKey]: index + 2,
+							[correlationKey]: correlation
+						}
+					})
+				}))
+			}
+
+			return
 		}
 	]
 }

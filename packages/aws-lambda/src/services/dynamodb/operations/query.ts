@@ -42,7 +42,7 @@ export const query = async <T extends Item>(table:Table, options:QueryOptions): 
 	const result = await table.db.send(command)
 
 	return {
-		count: result.Count,
+		count: result.Count || 0,
 		items: result.Items as T[],
 		cursor: result.LastEvaluatedKey
 	}

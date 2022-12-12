@@ -15,7 +15,7 @@ export class Bugsnag {
 		this.apiKey = apiKey
 	}
 
-	notify(error, options:NotifyOptions = {}) {
+	notify(error:any, options:NotifyOptions = {}) {
 		return new Promise((resolve, reject) => {
 			const req = request({
 				hostname: 'notify.bugsnag.com',
@@ -27,7 +27,7 @@ export class Bugsnag {
 					'Bugsnag-Sent-At': (new Date()).toISOString()
 				}
 			}, (response) => {
-				const buffers = []
+				const buffers:Buffer[] = []
 				response.on('data', (chunk) => {
 					buffers.push(chunk)
 				})
@@ -43,7 +43,7 @@ export class Bugsnag {
 		})
 	}
 
-	private requestBody(error, { metaData = {}, unhandled = false } = {}) {
+	private requestBody(error:any, { metaData = {}, unhandled = false } = {}) {
 		return JSON.stringify({
 			apiKey: this.apiKey,
 			payloadVersion: '5',

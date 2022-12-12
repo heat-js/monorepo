@@ -1,52 +1,86 @@
 
+import { string } from 'superstruct'
 import { describe, it, expect } from 'vitest'
 import { handle } from '../src'
 
 describe('Handle', () => {
 
-	it('should echo', async () => {
-		const lambda = handle((app) => app.output = app.input)
-		expect(lambda.app).toBeUndefined()
+	it('should have the API', async () => {
+		const lambda = handle({
+			handlers: []
+		})
 
-		const result = await lambda('echo')
+		expect(lambda.request).toBeUndefined()
 
-		expect(result).toBe('echo')
-		expect(lambda.app).toBeDefined()
+		await lambda()
+
+		expect(lambda.request).toBeDefined()
 		expect(lambda.on).toBeDefined()
-		expect(lambda.emit).toBeDefined()
+	})
+
+	it('should echo', async () => {
+		const lambda = handle({ handlers: [ (request) => request.input ] })
+		const result = await lambda('echo')
+		expect(result).toBe('echo')
 	})
 
 	it('should noop', async () => {
-		const lambda = handle()
+		const lambda = handle({ handlers: [] })
 		const result = await lambda('echo')
-
 		expect(result).toBeUndefined()
 	})
 
 	it('should throw #1', async () => {
 		const error = new Error()
-		const lambda = handle(() => { throw error })
+		const lambda = handle({ handlers: [ () => { throw error } ] })
 
 		await expect(lambda()).rejects.toThrow(error)
 	})
 
 	it('should throw #2', async () => {
 		const error = new Error()
-		const lambda = handle(
-			async (app, next) => {
-				app.$.test = () => { throw error }
-				await next()
-			},
-			(app) => app.test,
-		)
+		const lambda = handle({
+			handlers: [
+				({ $ }, next) => {
+					$.test = () => { throw error }
+					return next()
+				},
+				(request) => request.test,
+			]
+		})
 
 		await expect(lambda()).rejects.toThrow(error)
 	})
 
 	it('should allow deep handlers', async () => {
-		handle([
-			[ (app) => {}, (app) => {} ],
-			(app) => {}
-		])
+		handle({
+			handlers: [
+				() => {},
+				[ () => {} ]
+			]
+		})
+	})
+
+	it('should validate input', async () => {
+		const lambda = handle({
+			input: string(),
+			handlers: []
+		})
+
+		await lambda('hi')
+
+		// @ts-ignore
+		await expect(lambda()).rejects.toThrow(Error)
+	})
+
+	it('should validate output', async () => {
+		const lambda = handle({
+			output: string(),
+			handlers: [ ({ input }) => input as string ]
+		})
+
+		await lambda('hi')
+
+		await expect(lambda()).rejects.toThrow(Error)
 	})
 })

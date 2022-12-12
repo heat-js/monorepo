@@ -4,9 +4,12 @@ import { handle, lambda } from '../../src'
 
 describe('Lambda', () => {
 
-	const fn = handle(
-		lambda(),
-		(app) => app.output = app.lambda
+	const fn = handle({
+		handlers: [
+			lambda(),
+			(app) => app.lambda
+		]
+	}
 	)
 
 	it('should expose the API', async () => {

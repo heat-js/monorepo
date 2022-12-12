@@ -1,17 +1,13 @@
 
-import { IApp } from '../../app'
-import { Next } from '../../compose'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
+import { Next, Request } from '../../types'
 
 export const dynamodb = () => {
-	return (app: IApp, next: Next) => {
+	return ({ $ }: Request, next: Next) => {
 
-		app.$.dynamodb = () => {
-			const client = new DynamoDBClient({
-				apiVersion: '2012-08-10'
-			})
-
+		$.dynamodb = () => {
+			const client = new DynamoDBClient({ apiVersion: '2012-08-10' })
 			return DynamoDBDocumentClient.from(client)
 		}
 

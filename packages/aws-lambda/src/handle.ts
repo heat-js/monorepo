@@ -1,62 +1,53 @@
+
 import { Context } from 'aws-lambda'
-import { IApp, createApp } from './app'
-import { compose, Handlers } from './compose'
+import { Infer, create, mask } from 'superstruct'
+import { compose } from './compose'
+import { Container, container } from './di'
+import { EventCallback, EventListener, Handlers, Input, OptStruct, Output, Request } from './types'
 
-export interface ICallback {
-	(app: IApp, ...args): void
+interface Options<I extends OptStruct = undefined, O extends OptStruct = undefined> {
+	input?: I
+	output?: O
+	handlers: Handlers<I, O>
 }
 
-export interface IHandle {
-	(input?:any, context?:object, callback?:(error:Error|null|undefined, response:any) => void): Promise<any>
-
-	app?: IApp
-	emit: (event:string, args: any) => void
-	on: (event:string, callback:ICallback) => void
-	// off: (event:string, callback:(...args) => void) => void;
+type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (I extends undefined ? {
+	(event?:unknown, context?:Context): Promise<Output<O>>
+}: {
+	(event:Input<I>, context?:Context): Promise<Output<O>>
+}) & {
+	on: (event:string, callback: EventCallback<I>) => void
+	request?: Container & Request<I>
 }
 
-export const handle = (...handlers:Handlers) => {
-	const fn = compose(handlers)
-	const listeners:{ event:string, callback:ICallback }[] = []
+export const handle = <I extends OptStruct = undefined, O extends OptStruct = undefined>({ input, output, handlers }:Options<I, O>): LambdaFunction<I, O> => {
+	const handle = compose<I, O>(handlers)
+	const listeners:EventListener<I>[] = []
 
-	const handle:IHandle = async (input, context = {}, callback) => {
-		const app = createApp(input, context as Context, handle)
-		handle.app = app
-
-		try {
-			await fn(app)
-		}
-		catch (error) {
-			if(callback) {
-				// Lambda supports errors with extra data.
-				callback(error, error.getData && error.getData())
-				return
-			}
-
-			throw error
-		}
-
-		const output = app.has('output') ? app.output : undefined
-
-		if(callback) {
-			callback(null, output)
-			return
-		}
-
-		return output
-	}
-
-	handle.emit = (event, app, ...args) => {
-		listeners.forEach((listener) => {
-			if(listener.event === event) {
-				listener.callback(app, ...args)
+	const lambda = async (event: Input<I>, context?:Context):Promise<Output<O>> => {
+		const request:Request<I> = container({
+			input: input ? mask(event, input) : event,
+			event,
+			context,
+			emit: (event: string, ...args) => {
+				listeners.forEach((listener) => {
+					if(listener.event === event) {
+						listener.callback(request, ...args)
+					}
+				})
 			}
 		})
+
+		Object.assign(lambda, { request })
+
+		const response:Output<O> = await handle(request)
+		return output ? create(response, output) : response
 	}
 
-	handle.on = (event, callback) => {
+	lambda.on = (event:string, callback:EventCallback<I>) => {
 		listeners.push({ event, callback })
 	}
 
-	return handle
+	// @ts-ignore
+	return lambda as LambdaFunction<I, O>
 }

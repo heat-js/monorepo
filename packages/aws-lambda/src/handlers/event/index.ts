@@ -1,11 +1,10 @@
 
-import { IApp } from '../../app'
-import { Next } from '../../compose'
+import { Next, Request } from '../../types'
 
-export const event = (eventName) => {
-	return async (app: IApp, next: Next) => {
-		app.handle.emit(eventName, app)
+export const event = (eventName:string) => {
+	return (request: Request, next: Next) => {
+		request.emit(eventName, request)
 
-		await next()
+		return next()
 	}
 }

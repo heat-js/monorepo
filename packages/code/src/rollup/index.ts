@@ -1,5 +1,5 @@
 
-import { InputPluginOption, rollup as bundler } from 'rollup'
+import { InputPluginOption, rollup as bundler, RollupLog } from 'rollup'
 
 import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
@@ -42,9 +42,7 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 		commonjs({ sourceMap }),
 		babel({
 			sourceMaps: sourceMap,
-			// plugins: ['@babel/plugin-transform-runtime'],
 			presets: [
-				// '@babel/preset-env',
 				[ '@babel/preset-react', {
 					pragma: 'h',
 					pragmaFrag: 'Fragment',
@@ -53,11 +51,7 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 			],
 			babelrc: false,
 			extensions: ['.js', '.jsx'],
-			// babelHelpers: 'runtime',
 			babelHelpers: 'bundled',
-			// generatorOpts: {
-			// compact: false
-			// }
 		}),
 		json(),
 		lua(),
@@ -82,6 +76,7 @@ export interface RollupOptions {
 	minimize?: boolean
 	moduleSideEffects?: boolean | string[] | 'no-external' | ((id: string, external: boolean) => boolean)
 	exports?: 'auto' | 'default' | 'named' | 'none'
+	onwarn?: (warning:RollupLog) => void
 	transpilers?: {
 		typescript?: boolean
 		coffeescript?: boolean
@@ -115,12 +110,14 @@ export const rollup = async (input, options:RollupOptions = {}) => {
 			coffeescript: true,
 		},
 		// exports = 'default',
-		external
+		external,
+		onwarn,
 	} = options
 
 	const bundle = await bundler({
 		input,
 		external,
+		onwarn,
 
 		plugins: plugins({
 			minimize,
@@ -132,12 +129,12 @@ export const rollup = async (input, options:RollupOptions = {}) => {
 			moduleSideEffects
 		},
 
-		onwarn(warning) {
-			const ignore = [ 'CIRCULAR_DEPENDENCY' ]
-			if (!ignore.includes(warning.code)) {
-				console.error(`(!) ${warning.message}`)
-			}
-		},
+		// onwarn(warning) {
+		// 	const ignore = [ 'CIRCULAR_DEPENDENCY' ]
+		// 	if (!ignore.includes(warning.code)) {
+		// 		console.error(`(!) ${warning.message}`)
+		// 	}
+		// },
 	})
 
 	const { output: [output] } = await bundle.generate({

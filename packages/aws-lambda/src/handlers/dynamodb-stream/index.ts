@@ -1,12 +1,24 @@
 
-import { IApp } from '../../app'
-import { Next } from '../../compose'
+import { AttributeValue } from '@aws-sdk/client-dynamodb'
 import { unmarshall } from '@aws-sdk/util-dynamodb'
+import { Handler, Next, Request } from '../../types'
 
-export const dynamodbStream = () => {
-	return (app: IApp, next: Next) => {
+type DynamoDBStreamRecord = {
+	eventName: string
+	dynamodb: {
+		OldImage?: Record<string, AttributeValue>
+		NewImage?: Record<string, AttributeValue>
+	}
+}
 
-		const input = app.input
+type DynamoDBStreamInput = {
+	Records?: DynamoDBStreamRecord[]
+}
+
+export const dynamodbStream = <I>({ input:I, handle: Handler) => {
+	return (app: Request, next: Next) => {
+
+		const input = app.input as DynamoDBStreamInput
 
 		// ----------------------------------------------------
 		// Single work processed

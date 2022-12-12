@@ -1,11 +1,8 @@
-import { IApp } from './app'
+import { Container } from './di'
+import { Handler, Handlers, Next, OptStruct, Output, Request, Response } from './types'
 
-export type Next = () => void
-export type Handler = (app: IApp, next: Next) => void
-export type Handlers = Array<Handlers | Handler>
-
-export const compose = (handlers: Handlers = []) => {
-	const stack = handlers.flat(10) as Handler[]
+export const compose = <I extends OptStruct, O extends OptStruct>(handlers: Handlers<I, O> = []) => {
+	const stack = handlers.flat(10) as Handler<I, O>[]
 
 	for (const handler of stack) {
 		if ((typeof handler as any) !== 'function') {
@@ -13,14 +10,15 @@ export const compose = (handlers: Handlers = []) => {
 		}
 	}
 
-	return (app: IApp) => {
+	return (request: Container & Request<I>): Promise<Output<O>> => {
 		let index = -1
-		const dispatch = (pos) => {
+		const dispatch = (pos:number): Response<O> => {
 			if (pos === stack.length) {
+				// @ts-ignore
 				return
 			}
 
-			const next = () => {
+			const next:Next<O> = (): Response<O> => {
 				if (pos <= index) {
 					throw new Error('next() called multiple times')
 				}
@@ -28,7 +26,7 @@ export const compose = (handlers: Handlers = []) => {
 				return dispatch(pos + 1)
 			}
 
-			return stack[pos](app, next)
+			return stack[pos](request, next)
 		}
 
 		return Promise.resolve(dispatch(0))

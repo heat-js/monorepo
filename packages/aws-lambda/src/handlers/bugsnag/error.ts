@@ -71,12 +71,11 @@ export function toException(maybeError: unknown)
 {
 	const error = normalizeError(maybeError)
 	const stack = getStackString(error)
-	const trace = parseStack(stack)
 
 	return {
 		errorClass: error.name,
 		message: error.message,
-		stacktrace: trace,
+		stacktrace: stack && parseStack(stack),
 		type: 'nodejs'
 	}
 }

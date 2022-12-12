@@ -1,8 +1,11 @@
 
-export { bigfloat, positive, percision } from './types/bigfloat'
+export { bigfloat, positive, precision } from './types/bigfloat'
 export { date } from './types/date'
 export { uuid } from './types/uuid'
+// export { json } from './types/json'
 export { lowercase, uppercase } from './types/string'
+export { validate } from './validate'
+export { ValidationError } from './error'
 
 export {
 	// coercions
@@ -20,7 +23,7 @@ export {
 	assign, define, deprecated, dynamic, lazy, omit, partial, pick, struct,
 
 	// struct
-	assert, create, mask, is, validate,
+	assert, create, mask, is,
 	Struct,
 	// Struct, Context, Infer, Describe, Result, Coercer, Validator, Refiner,
 

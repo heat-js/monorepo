@@ -7,6 +7,7 @@ export default (input, output, options) ->
 		...options
 		format: 'esm'
 		sourceMap: true
+		onwarn: -> # remove all warnings
 		# exports: 'named'
 		external: (importee) ->
 			if importee.indexOf('aws-sdk') is 0

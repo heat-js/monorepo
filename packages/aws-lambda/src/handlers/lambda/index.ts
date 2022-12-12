@@ -1,20 +1,13 @@
-import { IApp } from '../../app'
-import { Next } from '../../compose'
-import { Lambda } from './lambda'
-export { Lambda } from './lambda'
-import { LambdaClient } from '@aws-sdk/client-lambda'
 
-export const lambda = () => {
-	return async (app: IApp, next: Next) => {
-		app.$.lambda = () => {
-			const client = new LambdaClient({
-				apiVersion: '2015-03-31',
-				region: process.env.AWS_REGION || 'eu-west-1'
-			})
+import { LambdaClient, LambdaClientConfig } from '@aws-sdk/client-lambda'
+import { Next, Request } from '../../types'
 
-			return new Lambda(client)
+export const lambda = (config:LambdaClientConfig = {}) => {
+	return ({ $ }:Request, next: Next) => {
+		$.lambda = () => {
+			return new LambdaClient(config)
 		}
 
-		await next()
+		return next()
 	}
 }

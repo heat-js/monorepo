@@ -23,11 +23,11 @@ interface PaginationResponse<T> {
 export const pagination = async <T extends Item>(table:Table, options:PaginationOptions): Promise<PaginationResponse<T>> => {
 	const result = await query<T>(table, {
 		...options,
-		cursor: fromCursor(options.cursor)
+		cursor: options.cursor && fromCursor(options.cursor)
 	})
 
 	return {
 		...result,
-		cursor: toCursor(result.cursor)
+		cursor: result.cursor && toCursor(result.cursor)
 	}
 }
