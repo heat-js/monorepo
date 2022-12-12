@@ -3,14 +3,14 @@ export default class SnsMock
 
 	constructor: (topics = []) ->
 		for topic in topics
-			@[ topic ] = vi.fn()
+			@[ topic ] = jest.fn()
 
-	publish: vi.fn ({ service, topic, payload }) ->
+	publish: jest.fn ({ service, topic, payload }) ->
 		if topic and service
 			topic = "#{ service }__#{ topic }"
 
 		if not @[ topic ]
-			@[ topic ] = vi.fn()
+			@[ topic ] = jest.fn()
 
 		return @[ topic ].call()
 

@@ -7,11 +7,11 @@ export default class LambdaMock
 
 	on: (name, callback) ->
 		if typeof callback is 'function'
-			@[ name ] = vi.fn callback
+			@[ name ] = jest.fn callback
 		else
-			@[ name ] = vi.fn -> callback
+			@[ name ] = jest.fn -> callback
 
-	invoke: vi.fn ({ service, name, payload }) ->
+	invoke: jest.fn ({ service, name, payload }) ->
 		if name and service
 			name = "#{ service }__#{ name }"
 
@@ -21,7 +21,7 @@ export default class LambdaMock
 
 		return await callback payload
 
-	invokeAsync: vi.fn (params) ->
+	invokeAsync: jest.fn (params) ->
 		await @invoke params
 		return @
 

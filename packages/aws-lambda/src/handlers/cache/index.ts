@@ -12,10 +12,10 @@ export const cache = ({ maxMemoryUsageRatio = 2 / 3, useClones = true }: CacheOp
 	const instances = new Map()
 
 	return (app:Request, next:Next) => {
-		app.cache = (namespace:string = 'default') => {
+		app.cache = <T>(namespace:string = 'default') => {
 			if(!instances.has(namespace)) {
 				const memoryLimit = getMemoryLimit(app.context) * maxMemoryUsageRatio
-				const cache = new Cache({ memoryLimit, useClones })
+				const cache = new Cache<T>({ memoryLimit, useClones })
 				instances.set(namespace, cache)
 
 				return cache
@@ -43,7 +43,7 @@ const getMemoryUsage = (): number => {
 		process.memoryUsage().rss
 }
 
-export class Cache {
+export class Cache<T> {
 	private index:string[] = []
 	private store = new Map
 	private memoryLimit: number
@@ -75,7 +75,7 @@ export class Cache {
 		return this.store.has(key)
 	}
 
-	get(key:string, defaultValue?:unknown) {
+	get(key:string, defaultValue?:T):T | undefined {
 		if(!this.has(key)) {
 			return defaultValue
 		}
@@ -89,7 +89,7 @@ export class Cache {
 		return this.parse(value)
 	}
 
-	set(key:string, value:any) {
+	set(key:string, value:T) {
 		if(this.isOutOfMemory()) {
 			this.delete(this.index[ 0 ])
 		}
@@ -104,7 +104,7 @@ export class Cache {
 		return this
 	}
 
-	delete(key:string) {
+	delete(key:string) : this {
 		const index = this.index.indexOf(key)
 
 		if(index > -1) {
@@ -116,7 +116,7 @@ export class Cache {
 		return this
 	}
 
-	size() {
+	size() : number {
 		return this.store.size
 	}
 }

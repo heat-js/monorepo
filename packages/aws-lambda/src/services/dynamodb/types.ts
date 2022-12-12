@@ -2,7 +2,7 @@
 export type Expression = {
 	expression: string
 	names:{ [key:string]: string }
-	values:{ [key:string]: string }
+	values:{ [key:string]: unknown }
 }
 
 export type Key = { [ key: string ]: string | number }
