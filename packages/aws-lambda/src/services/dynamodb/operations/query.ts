@@ -1,8 +1,8 @@
 
 import { QueryCommand } from '@aws-sdk/lib-dynamodb'
-import { addExpression } from '../helper/expression'
-import { Table } from '../table'
-import { Expression, Item, Key } from '../types'
+import { addExpression } from '../helper/expression.js'
+import { Table } from '../table.js'
+import { Expression, Item, Key } from '../types.js'
 
 export interface QueryOptions {
 	keyCondition: Expression

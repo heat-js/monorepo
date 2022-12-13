@@ -1,5 +1,5 @@
 
-import { Expression } from '../types'
+import { Expression } from '../types.js'
 
 interface Command {
 	ExpressionAttributeNames?: {}

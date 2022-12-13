@@ -1,9 +1,9 @@
 
 import { Context } from 'aws-lambda'
 import { create, mask } from 'superstruct'
-import { compose } from './compose'
-import { Container, container } from './di'
-import { EventCallback, EventListener, Handlers, Input, OptStruct, Output, Request } from './types'
+import { compose } from './compose.js'
+import { Container, container } from './di.js'
+import { EventCallback, EventListener, Handlers, Input, OptStruct, Output, Request } from './types.js'
 
 interface Options<I extends OptStruct = undefined, O extends OptStruct = undefined> {
 	input?: I

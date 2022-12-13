@@ -1,6 +1,6 @@
 
 import { request } from 'node:https'
-import { toException } from './error'
+import { toException } from './error.js'
 
 interface NotifyOptions {
 	metaData?: { [key:string]: { [key:string]: any } }

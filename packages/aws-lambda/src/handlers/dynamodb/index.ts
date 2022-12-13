@@ -1,7 +1,7 @@
 
 import { DynamoDBClient, DynamoDBClientConfig } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
-import { Next, Request } from '../../types'
+import { Next, Request } from '../../types.js'
 
 export const dynamodb = (config:DynamoDBClientConfig = {}) => {
 	return ({ $ }: Request, next: Next) => {

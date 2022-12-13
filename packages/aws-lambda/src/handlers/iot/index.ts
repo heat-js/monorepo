@@ -1,13 +1,14 @@
 
 import { IoTClient, DescribeEndpointCommand } from '@aws-sdk/client-iot'
 import { IoTDataPlaneClient, IoTDataPlaneClientConfig } from '@aws-sdk/client-iot-data-plane'
-import { Next, Request } from '../../types'
+import { test } from '../../helper.js'
+import { Next, Request } from '../../types.js'
 
 export const iot = (config: IoTDataPlaneClientConfig = {}) => {
 	let cachedEndpoint = config.endpoint || process.env.IOT_ENDPOINT
 
 	return async ({ $ }:Request, next:Next) => {
-		if(!cachedEndpoint) {
+		if(!cachedEndpoint && !test()) {
 			cachedEndpoint = await getIotEndpoint()
 		}
 

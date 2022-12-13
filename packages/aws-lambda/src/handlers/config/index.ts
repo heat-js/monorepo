@@ -1,5 +1,5 @@
 
-import { Next, Request } from '../../types'
+import { Next, Request } from '../../types.js'
 
 interface IConfiguration {
 	(): object

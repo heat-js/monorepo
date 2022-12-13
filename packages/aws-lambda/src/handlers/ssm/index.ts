@@ -1,6 +1,6 @@
 import chunk from 'chunk'
 import { SSMClient, GetParametersCommand } from '@aws-sdk/client-ssm'
-import { Next, Request } from '../../types'
+import { Next, Request } from '../../types.js'
 
 export const ssm = () => {
 	let resolved = false

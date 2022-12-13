@@ -1,8 +1,8 @@
 
-import { Bugsnag } from './bugsnag'
-import { test } from '../../helper'
-import { ViewableError } from '../../errors/viewable'
-import { Next, Request } from '../../types'
+import { Bugsnag } from './bugsnag.js'
+import { test } from '../../helper.js'
+import { ViewableError } from '../../errors/viewable.js'
+import { Next, Request } from '../../types.js'
 
 interface BugsnagOptions {
 	apiKey?: string

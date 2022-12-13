@@ -1,5 +1,5 @@
 import { Failure } from 'superstruct'
-import { ViewableError } from '../../errors/viewable'
+import { ViewableError } from '../../errors/viewable.js'
 
 export class ValidationError extends ViewableError {
 	constructor(failures:Failure[]) {

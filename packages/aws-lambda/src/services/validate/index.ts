@@ -1,11 +1,11 @@
 
-export { bigfloat, positive, precision } from './types/bigfloat'
-export { date } from './types/date'
-export { uuid } from './types/uuid'
-// export { json } from './types/json'
-export { lowercase, uppercase } from './types/string'
-export { validate } from './validate'
-export { ValidationError } from './error'
+export { bigfloat, positive, precision } from './types/bigfloat.js'
+export { date } from './types/date.js'
+export { uuid } from './types/uuid.js'
+// export { json } from './types/json.js'
+export { lowercase, uppercase } from './types/string.js'
+export { validate } from './validate.js'
+export { ValidationError } from './error.js'
 
 export {
 	// coercions
