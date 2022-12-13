@@ -22,13 +22,15 @@ describe('Bugsnag', () => {
 	it('should log errors', async () => {
 		const mock = vi.fn()
 		const error = new Error()
-		const fn = handle(
-			bugsnag(),
-			(app) => {
-				app.log = mock
-				throw error
-			}
-		)
+		const fn = handle({
+			handlers: [
+				bugsnag(),
+				(app) => {
+					app.log = mock
+					throw error
+				}
+			]
+		})
 
 		await expect(fn).rejects.toThrow(error)
 		expect(mock).toBeCalled()
@@ -37,13 +39,15 @@ describe('Bugsnag', () => {
 	it('should ignore viewable errors', async () => {
 		const mock = vi.fn()
 		const error = new ViewableError('type', 'message')
-		const fn = handle(
-			bugsnag(),
-			(app) => {
-				app.log = mock
-				throw error
-			}
-		)
+		const fn = handle({
+			handlers: [
+				bugsnag(),
+				(app) => {
+					app.log = mock
+					throw error
+				}
+			]
+		})
 
 		await expect(fn).rejects.toThrow(error)
 		expect(mock).not.toBeCalled()
@@ -52,13 +56,15 @@ describe('Bugsnag', () => {
 	it('should NOT ignore viewable errors', async () => {
 		const mock = vi.fn()
 		const error = new ViewableError('type', 'message')
-		const fn = handle(
-			bugsnag({ logViewableErrors: true }),
-			(app) => {
-				app.log = mock
-				throw error
-			}
-		)
+		const fn = handle({
+			handlers: [
+				bugsnag({ logViewableErrors: true }),
+				(app) => {
+					app.log = mock
+					throw error
+				}
+			]
+		})
 
 		await expect(fn).rejects.toThrow(error)
 		expect(mock).toBeCalled()

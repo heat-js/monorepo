@@ -29,9 +29,15 @@ export const div = (dividend:Numeric, divisor:Numeric, precision?:number) => {
 }
 
 export const sqrt = (a:Numeric) => new BigFloat(a_sqrt(make(a)))
-export const ceil = (a:Numeric) => new BigFloat(a_ceil(make(a)))
-export const floor = (a:Numeric) => new BigFloat(a_floor(make(a)))
+export const ceil = (a:Numeric, precision:number = 0) => {
+	const r = make(Math.pow(10, precision))
+	return new BigFloat(a_div(a_ceil(a_mul(make(a), r)), r))
+}
+export const floor = (a:Numeric, precision:number = 0) => {
+	const r = make(Math.pow(10, precision))
+	return new BigFloat(a_div(a_floor(a_mul(make(a), r)), r))
+}
 
-export const exponentiation = (base:Numeric, exp:Numeric) => {
+export const pow = (base:Numeric, exp:Numeric) => {
 	return new BigFloat(a_exponentiation(make(base), make(exp)))
 }

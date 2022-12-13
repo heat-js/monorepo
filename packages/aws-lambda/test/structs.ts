@@ -8,8 +8,8 @@ describe('structs', () => {
 	it('dynamodbStreamStruct', async () => {
 		const struct = dynamodbStreamStruct({ newImage: object({ id: number() }) })
 		const event = { Records: [ { eventName: 'MODIFY', dynamodb: { SequenceNumber: '1', NewImage: { id: 1 } } } ] }
-		const result = mask(event, struct)
 
+		const result = mask(event, struct)
 		expect(result.Records[0].dynamodb.NewImage).toStrictEqual({ id: 1 })
 	})
 
@@ -19,8 +19,8 @@ describe('structs', () => {
 			TopicArn: 'topic',
 			Message: { id: 1 }
 		} } ] }
-		const result = mask(event, struct)
 
+		const result = mask(event, struct)
 		expect(result.Records[0].Sns.Message).toStrictEqual({ id: 1 })
 	})
 
@@ -32,7 +32,6 @@ describe('structs', () => {
 		}]}
 
 		const result = mask(event, struct)
-
 		expect(result.Records[0].body).toStrictEqual({ id: 1 })
 	})
 })

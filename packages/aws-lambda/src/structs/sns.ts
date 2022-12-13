@@ -15,8 +15,14 @@ export const snsStruct = <T extends Struct<any>>(message: T) => {
 	})
 }
 
-type Input = Infer<ReturnType<typeof snsStruct>>
+type Input<T> = {
+	Records: {
+		Sns: {
+			Message: T
+		}
+	}[]
+}
 
-export const snsRecords = (input:Input) => {
+export const snsRecords = <T>(input:Input<T>):T[] => {
 	return input.Records.map(({ Sns: item }) => item.Message)
 }

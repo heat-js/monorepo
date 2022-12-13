@@ -1,3 +1,4 @@
+
 import { Next, Request } from '../../types'
 
 interface IConfiguration {
@@ -9,11 +10,11 @@ interface IConfiguration {
  * @param configuration - A callback to generate the config object.
  */
 export const config = (configuration: IConfiguration) => {
-	return async ({ $ }: Request, next: Next) => {
+	return ({ $ }: Request, next: Next) => {
 		$.config = () => {
 			return configuration()
 		}
 
-		await next()
+		return next()
 	}
 }

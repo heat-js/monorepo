@@ -19,6 +19,6 @@ export class BigFloat implements IBigFloat {
 			radix = make(radix)
 		}
 
-		return string(this, radix)
+		return string(this, radix) as string
 	}
 }

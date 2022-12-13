@@ -15,8 +15,12 @@ export const sqsStruct = <B extends Base>(body: B) => {
 	})
 }
 
-type Input = Infer<ReturnType<typeof sqsStruct>>
+type Input<T> = {
+	Records: {
+		body: T
+	}[]
+}
 
-export const sqsRecords = (input:Input) => {
+export const sqsRecords = <T>(input:Input<T>):T[] => {
 	return input.Records.map(item => item.body)
 }

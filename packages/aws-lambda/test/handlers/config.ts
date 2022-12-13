@@ -24,10 +24,12 @@ describe('Config', () => {
 	})
 
 	it('should access config data', async () => {
-		const fn = handle(
-			config(definition),
-			(app) => app.output = app.config
-		)
+		const fn = handle({
+			handlers: [
+				config(definition),
+				(app) => app.config
+			]
+		})
 
 		const result = await fn()
 

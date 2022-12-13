@@ -1,6 +1,6 @@
 
 import { Context } from 'aws-lambda'
-import { Infer, create, mask } from 'superstruct'
+import { create, mask } from 'superstruct'
 import { compose } from './compose'
 import { Container, container } from './di'
 import { EventCallback, EventListener, Handlers, Input, OptStruct, Output, Request } from './types'
@@ -11,7 +11,7 @@ interface Options<I extends OptStruct = undefined, O extends OptStruct = undefin
 	handlers: Handlers<I, O>
 }
 
-type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (I extends undefined ? {
+export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (I extends undefined ? {
 	(event?:unknown, context?:Context): Promise<Output<O>>
 }: {
 	(event:Input<I>, context?:Context): Promise<Output<O>>

@@ -76,7 +76,9 @@ describe('Handle', () => {
 	it('should validate output', async () => {
 		const lambda = handle({
 			output: string(),
-			handlers: [ ({ input }) => input as string ]
+			handlers: [
+				({ input }) => input as string
+			]
 		})
 
 		await lambda('hi')

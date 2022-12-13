@@ -1,20 +1,20 @@
 
 import { IoTClient, DescribeEndpointCommand } from '@aws-sdk/client-iot'
-import { IoTDataPlaneClient } from '@aws-sdk/client-iot-data-plane'
+import { IoTDataPlaneClient, IoTDataPlaneClientConfig } from '@aws-sdk/client-iot-data-plane'
 import { Next, Request } from '../../types'
 
-interface IotOptions {
-	endpoint?: string
-}
+export const iot = (config: IoTDataPlaneClientConfig = {}) => {
+	let cachedEndpoint = config.endpoint || process.env.IOT_ENDPOINT
 
-export const iot = ({ endpoint }: IotOptions = {}) => {
 	return async ({ $ }:Request, next:Next) => {
-		const url = endpoint || process.env.IOT_ENDPOINT || await getIotEndpoint()
+		if(!cachedEndpoint) {
+			cachedEndpoint = await getIotEndpoint()
+		}
 
 		$.iot = () => {
 			return new IoTDataPlaneClient({
-				endpoint: url,
-				apiVersion: '2015-05-28'
+				...config,
+				endpoint: cachedEndpoint,
 			})
 		}
 

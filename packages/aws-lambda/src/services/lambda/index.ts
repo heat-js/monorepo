@@ -3,12 +3,14 @@ import { fromUtf8, toUtf8 } from '@aws-sdk/util-utf8-node'
 import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda'
 import { isViewableErrorString, parseViewableErrorString, ViewableError } from '../../errors/viewable'
 import { serviceName } from '../../helper'
+import { LambdaFunction } from '../../handle'
+import { Struct } from 'superstruct'
 
-interface InvokeOptions {
+interface InvokeOptions<T extends LambdaFunction<Struct, Struct>> {
 	service?: string
 	type?: 'RequestResponse' | 'Event' | 'DryRun'
 	name: string
-	payload?: any
+	payload?: Parameters<T>[0]
 	reflectViewableErrors?: boolean
 }
 
@@ -23,7 +25,7 @@ const isErrorResponse = (response: any): boolean => {
 	return typeof response === 'object' && response !== null && response.errorMessage
 }
 
-export const invoke = async (client: LambdaClient, { service, name, type = 'RequestResponse', payload, reflectViewableErrors = true }: InvokeOptions) => {
+export const invoke = async <T extends LambdaFunction<Struct, Struct>>(client: LambdaClient, { service, name, type = 'RequestResponse', payload, reflectViewableErrors = true }: InvokeOptions<T>):Promise<ReturnType<T>> => {
 	const command = new InvokeCommand({
 		InvocationType: type,
 		FunctionName: serviceName(service, name),
@@ -31,8 +33,9 @@ export const invoke = async (client: LambdaClient, { service, name, type = 'Requ
 	})
 
 	const result = await client.send(command)
+
 	if(!result.Payload) {
-		return
+		return undefined as ReturnType<T>
 	}
 
 	const json = toUtf8(result.Payload)

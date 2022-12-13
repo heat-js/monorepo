@@ -1,9 +1,11 @@
 
-export { handle } from './handle'
+export { handle, LambdaFunction } from './handle'
 export { compose } from './compose'
 export { container } from './di'
 
 export { ViewableError, isViewableError, isViewableErrorString, parseViewableErrorString, getViewableErrorData } from './errors/viewable'
+
+export { Request, Response, Input, Output, Handler, Handlers, Next } from './types'
 
 // export { dynamodbStream } from './handlers/dynamodb-stream'
 // export { validate } from './handlers/__validate'

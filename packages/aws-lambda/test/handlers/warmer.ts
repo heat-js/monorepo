@@ -3,14 +3,15 @@ import { describe, it, expect, vi } from 'vitest'
 import { handle, warmer } from '../../src'
 
 describe('Warmer', () => {
-	const fn = handle(
-		warmer({ log: false }),
-		// event('before'),
-		(app) => app.output = 'normal'
-	)
+	const fn = handle({
+		handlers: [
+			warmer({ log: false }),
+			() => 'normal'
+		]
+	})
 
 	fn.on('before-warmer', (app) => {
-		app.lambda = { invoke: vi.fn() }
+		app.something = vi.fn()
 	})
 
 	it('should skip the warmer for normal calls', async () => {
@@ -20,14 +21,21 @@ describe('Warmer', () => {
 
 	it('should warm 1 lambda', async () => {
 		const result = await fn({ warmer: true })
-		expect(result).toBe('warmed')
-		expect(fn.app?.lambda.invoke).toBeCalledTimes(0)
+		expect(result).toBeUndefined()
+		expect(fn.request?.something).toBeCalledTimes(0)
 	})
 
 	it('should warm 3 lambda', async () => {
-		const result = await fn({ warmer: true, concurrency: 3 })
-		expect(result).toBe('warmed')
-		expect(fn.app?.lambda.invoke).toBeCalledTimes(2)
+		const fn = handle({
+			handlers: [
+				warmer({ log: false, concurrency: 3 }),
+				() => 'normal'
+			]
+		})
+
+		const result = await fn({ warmer: true })
+		expect(result).toBeUndefined()
+		expect(fn.request?.something).toBeCalledTimes(2)
 	})
 
 })

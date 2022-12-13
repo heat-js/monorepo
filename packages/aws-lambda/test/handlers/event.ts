@@ -12,11 +12,13 @@ describe('Event', () => {
 		event(String(v)),
 	]
 
-	const fn = handle(
-		value(1),
-		value(2),
-		value(3),
-	)
+	const fn = handle({
+		handlers: [
+			value(1),
+			value(2),
+			value(3),
+		]
+	})
 
 	it('should publish events in order', async () => {
 		const c1 = vi.fn((app) => expect(app.value).toBe(1))

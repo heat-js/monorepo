@@ -1,7 +1,7 @@
 
 export { BigFloat, Numeric } from './bigfloat'
 
-export { neg, abs, add, sub, mul, div, sqrt, exponentiation, ceil, floor } from './arithmetic'
+export { neg, abs, add, sub, mul, div, sqrt, pow, ceil, floor } from './arithmetic'
 export { eq, lt, lte, gt, gte } from './relational'
 
 export {
