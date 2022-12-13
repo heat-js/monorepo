@@ -1,7 +1,7 @@
 
 import { mask, number, object } from 'superstruct'
 import { describe, it, expect } from 'vitest'
-import { dynamodbStreamStruct, snsStruct, sqsStruct } from '../src'
+import { dynamodbStreamStruct, handle, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
 
 describe('structs', () => {
 
@@ -21,6 +21,8 @@ describe('structs', () => {
 		} } ] }
 
 		const result = mask(event, struct)
+		const records = snsRecords(result)
+
 		expect(result.Records[0].Sns.Message).toStrictEqual({ id: 1 })
 	})
 
@@ -32,6 +34,18 @@ describe('structs', () => {
 		}]}
 
 		const result = mask(event, struct)
+		const records = sqsRecords(result)
+
 		expect(result.Records[0].body).toStrictEqual({ id: 1 })
 	})
+
+	handle({
+		input: sqsStruct(object({ id: number() })),
+		handlers: [
+			(app) => {
+				app.input.Records[0].body.id
+			}
+		]
+	})
+
 })

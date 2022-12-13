@@ -1,7 +1,7 @@
-import { array, Infer, object, string, Struct } from 'superstruct'
+import { array, object, string, Struct } from 'superstruct'
 import { date } from '../services/validate'
 
-export const snsStruct = <T extends Struct<any>>(message: T) => {
+export const snsStruct = <T extends Struct<any, any>>(message: T) => {
 	return object({
 		Records: array(object({
 			Sns: object({

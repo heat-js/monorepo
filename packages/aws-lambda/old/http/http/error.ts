@@ -1,8 +1,8 @@
 
 import { Struct } from 'superstruct'
 import { IApp } from '../../request'
-import { Next } from '../../compose'
-import { ViewableError } from '../../errors/viewable'
+import { Next } from '../../src/compose'
+import { ViewableError } from '../../src/errors/viewable'
 import { Request } from './request'
 
 interface JsonOptions {

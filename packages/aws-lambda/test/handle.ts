@@ -1,7 +1,7 @@
 
-import { string } from 'superstruct'
+import { number, string, Struct } from 'superstruct'
 import { describe, it, expect } from 'vitest'
-import { handle } from '../src'
+import { handle, Next } from '../src'
 
 describe('Handle', () => {
 
@@ -74,15 +74,34 @@ describe('Handle', () => {
 	})
 
 	it('should validate output', async () => {
+
 		const lambda = handle({
 			output: string(),
 			handlers: [
-				({ input }) => input as string
+				(app) => {
+					return app.input as string
+				}
 			]
 		})
 
 		await lambda('hi')
 
 		await expect(lambda()).rejects.toThrow(Error)
+	})
+
+	it('should validate input & output', async () => {
+
+		const lambda = handle({
+			input: string(),
+			output: string(),
+			handlers: [
+				(app) => {
+					return app.input
+				}
+			]
+		})
+
+		await lambda('hi')
+
 	})
 })

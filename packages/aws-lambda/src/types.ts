@@ -18,7 +18,7 @@ export type Request<I extends OptStruct = undefined> = {
 } & Container
 
 export type Response<O extends OptStruct = undefined> = Output<O> | Promise<Output<O>>
-export type Next<O extends OptStruct = undefined> = () => Response<O>
+export type Next<O extends OptStruct = any> = () => Response<O>
 export type Handler<I extends OptStruct = undefined, O extends OptStruct = undefined> = (request:Container & Request<I>, next: Next<O>) => Response<O>
 export type Handlers<I extends OptStruct = undefined, O extends OptStruct = undefined> = Array<Handlers<I, O> | Handler<I, O>>
 export type EventCallback<I extends OptStruct = undefined> = (request: Container & Request<I>, ...args: any[]) => void

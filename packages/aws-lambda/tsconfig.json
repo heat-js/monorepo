@@ -1,13 +1,12 @@
 {
 	"compilerOptions": {
 		"strict": true,
-		"target": "es2022",
+		"target": "ESNext",
 		"types": ["node"],
 		"lib": ["es2022", "dom"],
+		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"moduleResolution": "Node",
-		"experimentalDecorators": true,
-		"skipLibCheck": true,
 		"declaration": true,
 		"outDir": "dist",
 	},
