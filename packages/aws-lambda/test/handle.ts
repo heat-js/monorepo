@@ -90,7 +90,6 @@ describe('Handle', () => {
 	})
 
 	it('should validate input & output', async () => {
-
 		const lambda = handle({
 			input: string(),
 			output: string(),
@@ -101,7 +100,7 @@ describe('Handle', () => {
 			]
 		})
 
-		await lambda('hi')
-
+		const result = await lambda('hi')
+		await expect(result).toBe('hi')
 	})
 })

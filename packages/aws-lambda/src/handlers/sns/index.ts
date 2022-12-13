@@ -1,6 +1,6 @@
 
 import { SNSClient, SNSClientConfig } from '@aws-sdk/client-sns'
-import { Next, Request } from '../../types'
+import { Next, Request } from '../../types.js'
 
 export const sns = (config:SNSClientConfig = {}) => {
 	return ({ $ }:Request, next: Next) => {

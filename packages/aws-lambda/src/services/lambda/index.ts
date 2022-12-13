@@ -1,9 +1,9 @@
 
 import { fromUtf8, toUtf8 } from '@aws-sdk/util-utf8-node'
 import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda'
-import { isViewableErrorString, parseViewableErrorString, ViewableError } from '../../errors/viewable'
-import { serviceName } from '../../helper'
-import { LambdaFunction } from '../../handle'
+import { isViewableErrorString, parseViewableErrorString, ViewableError } from '../../errors/viewable.js'
+import { serviceName } from '../../helper.js'
+import { LambdaFunction } from '../../handle.js'
 import { Struct } from 'superstruct'
 
 interface InvokeOptions<T extends LambdaFunction<Struct, Struct>> {

@@ -1,5 +1,5 @@
 
-import { serviceName } from '../../helper'
+import { serviceName } from '../../helper.js'
 import { SQSClient, SendMessageCommand, GetQueueUrlCommand, SendMessageBatchCommand } from '@aws-sdk/client-sqs'
 import chunk from 'chunk'
 

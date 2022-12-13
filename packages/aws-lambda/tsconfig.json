@@ -3,7 +3,7 @@
 		"strict": true,
 		"target": "ESNext",
 		"types": ["node"],
-		"lib": ["es2022", "dom"],
+		"lib": ["es2022"],
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"moduleResolution": "Node",

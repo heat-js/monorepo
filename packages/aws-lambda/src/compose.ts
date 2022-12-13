@@ -1,5 +1,5 @@
-import { Container } from './di'
-import { Handler, Handlers, Next, OptStruct, Output, Request, Response } from './types'
+import { Container } from './di.js'
+import { Handler, Handlers, Next, OptStruct, Output, Request, Response } from './types.js'
 
 export const compose = <I extends OptStruct, O extends OptStruct>(handlers: Handlers<I, O> = []) => {
 	const stack = handlers.flat(10) as Handler<I, O>[]

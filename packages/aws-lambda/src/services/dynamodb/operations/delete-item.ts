@@ -1,8 +1,8 @@
 
-import { Table } from '../table'
+import { Table } from '../table.js'
 import { DeleteCommand } from '@aws-sdk/lib-dynamodb'
-import { Item, Key } from '../types'
-import { extendMutateCommand, MutateOptions } from '../helper/mutate'
+import { Item, Key } from '../types.js'
+import { extendMutateCommand, MutateOptions } from '../helper/mutate.js'
 
 export interface DeleteOptions extends MutateOptions {}
 

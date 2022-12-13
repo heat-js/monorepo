@@ -1,4 +1,4 @@
-import { getStackString, parseStack } from './stacktrace'
+import { getStackString, parseStack } from './stacktrace.js'
 
 const objectToString = Object.prototype.toString
 const getPrototypeOf = Object.getPrototypeOf

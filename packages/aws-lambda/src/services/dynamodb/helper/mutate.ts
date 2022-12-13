@@ -1,7 +1,7 @@
 
 import { DeleteCommand, PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb'
-import { Expression } from '../types'
-import { addExpression } from './expression'
+import { Expression } from '../types.js'
+import { addExpression } from './expression.js'
 
 export interface MutateOptions {
 	condition?: Expression

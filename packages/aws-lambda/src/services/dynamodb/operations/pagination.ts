@@ -1,8 +1,8 @@
 
-import { fromCursor, toCursor } from '../helper/cursor'
-import { Table } from '../table'
-import { Expression, Item } from '../types'
-import { query } from './query'
+import { fromCursor, toCursor } from '../helper/cursor.js'
+import { Table } from '../table.js'
+import { Expression, Item } from '../types.js'
+import { query } from './query.js'
 
 export interface PaginationOptions {
 	keyCondition: Expression

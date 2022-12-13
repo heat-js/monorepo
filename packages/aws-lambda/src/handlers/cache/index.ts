@@ -1,7 +1,7 @@
 
 import { Context } from 'aws-lambda'
-import { test } from '../../helper'
-import { Next, Request } from '../../types'
+import { test } from '../../helper.js'
+import { Next, Request } from '../../types.js'
 
 interface CacheOptions {
 	maxMemoryUsageRatio?: number

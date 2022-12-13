@@ -1,5 +1,5 @@
 
-import { Expression, Value } from './types'
+import { Expression, Value } from './types.js'
 
 let index = 0
 

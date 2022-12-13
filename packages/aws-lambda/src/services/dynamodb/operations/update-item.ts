@@ -1,9 +1,9 @@
 
-import { Table } from '../table'
+import { Table } from '../table.js'
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb'
-import { Expression, Item, Key } from '../types'
-import { extendMutateCommand, MutateOptions } from '../helper/mutate'
-import { addExpression } from '../helper/expression'
+import { Expression, Item, Key } from '../types.js'
+import { extendMutateCommand, MutateOptions } from '../helper/mutate.js'
+import { addExpression } from '../helper/expression.js'
 
 export interface UpdateOptions extends MutateOptions {
 	update: Expression

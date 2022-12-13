@@ -1,6 +1,6 @@
 
 import { coerce, define, number, string, union, refine, Struct } from 'superstruct'
-import { BigFloat, gt } from '../../bigfloat'
+import { BigFloat, gt } from '../../bigfloat/index.js'
 
 export const bigfloat = ():Struct<BigFloat, null> => {
 	const base = define<BigFloat>('bigfloat', (value) => {

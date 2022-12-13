@@ -1,5 +1,5 @@
 
-import { test } from '../../helper'
+import { test } from '../../helper.js'
 
 export const get = (name:string, defaultValue:any, defaultTestingValue:any):any => {
 	const value = process.env[name]

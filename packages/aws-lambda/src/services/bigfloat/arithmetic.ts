@@ -4,7 +4,7 @@ import {
 	abs as a_abs, sqrt as a_sqrt, ceil as a_ceil, floor as a_floor, exponentiation as a_exponentiation
 } from 'bigfloat-esnext'
 
-import { BigFloat, Numeric } from './bigfloat'
+import { BigFloat, Numeric } from './bigfloat.js'
 
 export const neg = (a:Numeric) => new BigFloat(a_neg(make(a)))
 export const abs = (a:Numeric) => new BigFloat(a_abs(make(a)))

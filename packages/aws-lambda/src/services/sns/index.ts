@@ -1,5 +1,5 @@
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns'
-import { serviceName } from '../../helper'
+import { serviceName } from '../../helper.js'
 
 interface Publish {
 	service?: string

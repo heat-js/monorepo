@@ -1,8 +1,8 @@
 
-export { BigFloat, Numeric } from './bigfloat'
+export { BigFloat, Numeric } from './bigfloat.js'
 
-export { neg, abs, add, sub, mul, div, sqrt, pow, ceil, floor } from './arithmetic'
-export { eq, lt, lte, gt, gte } from './relational'
+export { neg, abs, add, sub, mul, div, sqrt, pow, ceil, floor } from './arithmetic.js'
+export { eq, lt, lte, gt, gte } from './relational.js'
 
 export {
 	set_precision, evaluate,

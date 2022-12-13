@@ -1,7 +1,7 @@
 
-import { Table } from '../table'
+import { Table } from '../table.js'
 import { GetCommand } from '@aws-sdk/lib-dynamodb'
-import { Item, Key } from '../types'
+import { Item, Key } from '../types.js'
 
 export interface GetOptions {
 	consistentRead?: boolean

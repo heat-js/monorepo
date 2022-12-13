@@ -1,8 +1,8 @@
 
-import { Table } from '../table'
-import { Item, Key } from '../types'
-import { putItem } from './put-item'
-import { scan } from './scan'
+import { Table } from '../table.js'
+import { Item, Key } from '../types.js'
+import { putItem } from './put-item.js'
+import { scan } from './scan.js'
 
 export interface MigrateOptions<OldItem, NewItem> {
 	consistentRead?: boolean

@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto'
-import { invoke } from '../../services/lambda'
-import { Next, Request } from '../../types'
-import { event } from '../event'
-import { lambda } from '../lambda'
+import { invoke } from '../../services/lambda/index.js'
+import { Next, Request } from '../../types.js'
+import { event } from '../event/index.js'
+import { lambda } from '../lambda/index.js'
 
 const warmerKey = 'warmer'
 const invocationKey = '__WARMER_INVOCATION_ID__'

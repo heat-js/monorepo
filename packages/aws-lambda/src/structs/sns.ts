@@ -1,5 +1,5 @@
 import { array, object, string, Struct } from 'superstruct'
-import { date } from '../services/validate'
+import { date } from '../services/validate/index.js'
 
 export const snsStruct = <T extends Struct<any, any>>(message: T) => {
 	return object({

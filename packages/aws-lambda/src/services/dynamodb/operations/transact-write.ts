@@ -1,8 +1,8 @@
 
-import { Table } from '../table'
+import { Table } from '../table.js'
 import { TransactWriteCommand } from '@aws-sdk/lib-dynamodb'
-import { Expression, Item, Key, Value } from '../types'
-import { addExpression } from '../helper/expression'
+import { Expression, Item, Key, Value } from '../types.js'
+import { addExpression } from '../helper/expression.js'
 
 interface TransactWriteOptions {
 	idempotantKey?: string

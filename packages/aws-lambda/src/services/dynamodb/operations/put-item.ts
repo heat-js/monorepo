@@ -1,8 +1,8 @@
 
-import { Table } from '../table'
+import { Table } from '../table.js'
 import { PutCommand } from '@aws-sdk/lib-dynamodb'
-import { Item } from '../types'
-import { extendMutateCommand, MutateOptions } from '../helper/mutate'
+import { Item } from '../types.js'
+import { extendMutateCommand, MutateOptions } from '../helper/mutate.js'
 
 export interface PutOptions extends MutateOptions {}
 

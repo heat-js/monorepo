@@ -8,7 +8,7 @@ import {
 	gte as a_gte,
 } from 'bigfloat-esnext'
 
-import { Numeric } from './bigfloat'
+import { Numeric } from './bigfloat.js'
 
 export const eq = (a:Numeric, b:Numeric) => a_eq(make(a), make(b))
 export const lt = (a:Numeric, b:Numeric) => a_lt(make(a), make(b))
