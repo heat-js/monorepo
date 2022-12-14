@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
 		"strict": true,
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"target": "ESNext",
+		"lib": ["ESNext"],
 		"types": ["node"],
-		"lib": ["es2022"],
 		"skipLibCheck": true,
 		"esModuleInterop": true,
-		"moduleResolution": "Node16",
 		"declaration": true,
 		"outDir": "dist"
 	},
