@@ -1,28 +1,38 @@
 
-export { handle, LambdaFunction } from './handle.js'
+export { handle } from './handle.js'
 export { compose } from './compose.js'
-export { container } from './di.js'
 
+// errors
 export { ViewableError, isViewableError, isViewableErrorString, parseViewableErrorString, getViewableErrorData } from './errors/viewable.js'
+export { ValidationError } from './errors/validation.js'
+export { TimeoutError } from './errors/timeout.js'
 
+// types
 export { Request, Response, Input, Output, Handler, Handlers, Next } from './types.js'
 
-// export { dynamodbStream } from './handlers/dynamodb-stream.js'
-// export { validate } from './handlers/__validate'
-// export { worker } from './handlers/worker.js'
+// loggers
+export { bugsnag } from './loggers/bugsnag/index.js'
 
-export { bugsnag } from './handlers/bugsnag/index.js'
-export { cache, Cache } from './handlers/cache/index.js'
-export { config } from './handlers/config/index.js'
-export { dynamodb } from './handlers/dynamodb/index.js'
-export { event } from './handlers/event/index.js'
-export { iot } from './handlers/iot/index.js'
-export { lambda } from './handlers/lambda/index.js'
-export { sns } from './handlers/sns/index.js'
-export { sqs } from './handlers/sqs/index.js'
-export { ssm } from './handlers/ssm/index.js'
-export { warmer } from './handlers/warmer/index.js'
+// clients
+export { getDynamoDBClient } from './clients/dynamodb.js'
+export { getIoTClient } from './clients/iot.js'
+export { getLambdaClient } from './clients/lambda.js'
+export { getSNSClient } from './clients/sns.js'
+export { getSQSClient } from './clients/sqs.js'
+export { getSSMClient } from './clients/ssm.js'
 
+// services
+export { ssm } from './services/ssm.js'
+export { invoke } from './services/lambda.js'
+export { publish } from './services/iot.js'
+export { sendNotification } from './services/sns.js'
+export { addQueueMessage, addQueueBatch, getCachedQueueUrl, getQueueUrl } from './services/sqs.js'
+export { WeakCache } from './services/weak-cache.js'
+
+// handlers
+export { warmer } from './handlers/warmer.js'
+
+// structs
 export { dynamodbStreamStruct } from './structs/dynamodb-stream.js'
 export { snsStruct, snsRecords } from './structs/sns.js'
 export { sqsStruct, sqsRecords } from './structs/sqs.js'

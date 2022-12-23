@@ -1,38 +1,44 @@
 
-import { mockFn, mockObjectKeys } from '../helpers/mock'
-import { serviceName } from '../helpers/service'
+import { PublishCommand, PublishCommandInput, SNSClient } from '@aws-sdk/client-sns'
+import { mockObjectKeys } from '../helpers/mock'
+import { randomUUID } from 'crypto'
+import { mockClient } from 'aws-sdk-client-mock'
 
 type Topics = {
-	[key: string]: (payload:unknown) => unknown
+	[key: string]: (payload:any) => any
 }
 
-interface Publish {
-	service?: string
-	topic: string
-	subject?: string
-	payload?: any
-	attributes?: { [key: string]: string }
-}
-
-interface SnsMock<T> {
-	$: T
-	publish: (options:Publish) => void
-}
-
-export const createSnsMock = <T extends Topics>(topics:T):SnsMock<T> => {
+export const mockSNS = <T extends Topics>(topics:T) => {
 	const list = mockObjectKeys(topics)
 
-	return {
-		$: Object.freeze(list),
-		publish: mockFn(async ({ service, topic, payload }:Publish) => {
-			const key = serviceName(service, topic)
-			const callback = list[ key ]
+	mockClient(SNSClient)
+		.on(PublishCommand)
+		.callsFake(async (input: PublishCommandInput) => {
+			const parts = input.TopicArn.split(':')
+			const topic = parts[ parts.length - 1 ]
+			const callback = list[ topic ]
 
 			if(!callback) {
-				throw new TypeError(`Sns mock function not defined for: ${ key }`)
+				throw new TypeError(`Sns mock function not defined for: ${ topic }`)
 			}
 
-			await callback(payload)
+			await callback({
+				Records: [{
+					Sns: {
+						TopicArn: input.TopicArn,
+						MessageId: randomUUID(),
+						Timestamp: Date.now(),
+						Message: input.Message
+					}
+				}]
+			})
 		})
-	}
+
+	beforeEach(() => {
+		Object.values(list).forEach(fn => {
+			fn.mockClear()
+		})
+	})
+
+	return list
 }

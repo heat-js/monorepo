@@ -1,16 +1,20 @@
+
 import { describe, it, expect } from 'vitest'
-import { createIotMock } from '../../src'
+import { mockIoT } from '../../src'
+import { PublishCommand, IoTDataPlaneClient } from '@aws-sdk/client-iot-data-plane'
 
-describe('Iot Mock', () => {
+describe('IoT Mock', () => {
 
-	const iot = createIotMock()
+	const iot = mockIoT()
 
 	it('should publish iot message', async () => {
-		await iot.publish({
-			topic: 'topic',
-			event: 'event',
-		})
+		const client = new IoTDataPlaneClient({})
+		await client.send(new PublishCommand({
+			qos: 1,
+			topic: '',
+			payload: Buffer.from(JSON.stringify({}))
+		}))
 
-		expect(iot.publish).toBeCalledTimes(1)
+		expect(iot).toBeCalledTimes(1)
 	})
 })

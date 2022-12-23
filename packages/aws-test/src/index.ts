@@ -1,6 +1,9 @@
 
 export { startDynamoDB } from './services/dynamodb'
-export { createLambdaMock } from './mocks/lambda'
-export { createIotMock } from './mocks/iot'
-export { createSqsMock } from './mocks/sqs'
-export { createSnsMock } from './mocks/sns'
+
+export { mockDynamoDB } from './mocks/dynamodb'
+export { mockLambda } from './mocks/lambda'
+export { mockIoT } from './mocks/iot'
+export { mockSNS } from './mocks/sns'
+export { mockSQS } from './mocks/sqs'
+export { mockSSM } from './mocks/ssm'

@@ -1,14 +1,14 @@
-import { array, object, string, Struct } from 'superstruct'
-import { date } from '../services/validate/index.js'
 
-export const snsStruct = <T extends Struct<any, any>>(message: T) => {
+import { json, array, object, string, date, Struct } from '@heat/validate'
+
+export const snsStruct = <A, B>(message: Struct<A, B>) => {
 	return object({
 		Records: array(object({
 			Sns: object({
 				TopicArn: string(),
 				MessageId: string(),
 				Timestamp: date(),
-				Message: message,
+				Message: json(message),
 				// MessageAttributes
 			})
 		}))

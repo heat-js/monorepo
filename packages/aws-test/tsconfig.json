@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es2022",
-		"types": ["node"],
+		"types": ["node", "vitest/globals"],
 		"lib": ["es2022", "dom"],
 		"esModuleInterop": true,
 		"moduleResolution": "Node",

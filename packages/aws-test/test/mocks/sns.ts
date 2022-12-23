@@ -1,27 +1,31 @@
 
+import { PublishCommand, SNSClient } from '@aws-sdk/client-sns'
 import { describe, it, expect } from 'vitest'
-import { createSnsMock } from '../../src'
+import { mockSNS } from '../../src'
 
-describe('Sns Mock', () => {
+describe('SNS Mock', () => {
 
-	const sns = createSnsMock({
+	const sns = mockSNS({
 		service__topic: () => {}
 	})
 
-	it('should send', async () => {
-		await sns.publish({
-			service: 'service',
-			topic: 'topic',
-		})
+	const client = new SNSClient({})
 
-		expect(sns.publish).toBeCalledTimes(1)
-		expect(sns.$.service__topic).toBeCalledTimes(1)
+	it('should publish sns message', async () => {
+		await client.send(new PublishCommand({
+			TopicArn: `arn:aws:sns:eu-west-1:xxx:service__topic`,
+			Message: '',
+		}))
+
+		expect(sns.service__topic).toBeCalledTimes(1)
 	})
 
-	it('should throw for unknown queue', async () => {
-		await expect(sns.publish({
-			service: 'service',
-			topic: 'unknown',
-		})).rejects.toThrow(TypeError)
+	it('should throw for unknown topic', async () => {
+		const promise = client.send(new PublishCommand({
+			TopicArn: `arn:aws:sns:eu-west-1:xxx:unknown`,
+			Message: '',
+		}))
+
+		await expect(promise).rejects.toThrow(TypeError)
 	})
 })

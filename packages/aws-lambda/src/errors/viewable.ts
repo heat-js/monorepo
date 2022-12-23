@@ -14,9 +14,9 @@ export class ViewableError extends Error {
 	}
 }
 
-export const isViewableError = (error: Error): boolean => {
+export const isViewableError = (error: unknown): error is ViewableError => {
 	return (
-		error instanceof ViewableError || isViewableErrorString(error.message)
+		error instanceof ViewableError || ( error instanceof Error && isViewableErrorString(error.message) )
 	)
 }
 

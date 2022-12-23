@@ -1,11 +1,17 @@
 {
 	"compilerOptions": {
 		"strict": true,
+<<<<<<< HEAD
 		"module": "ES2022",
 		"moduleResolution": "Node",
 		"target": "ES2022",
 		"lib": ["ES2022"],
 		"types": ["node"],
+=======
+		"target": "ESNext",
+		"types": ["node", "vitest/globals"],
+		"lib": ["es2022"],
+>>>>>>> 26675089a4e6c20e70115d03adba1e5ff3a37c9f
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"declaration": true,

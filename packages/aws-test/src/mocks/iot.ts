@@ -1,20 +1,26 @@
 
-import { mockFn } from '../helpers/mock'
+import { IoTClient, DescribeEndpointCommand, DescribeEndpointCommandOutput } from '@aws-sdk/client-iot'
+import { IoTDataPlaneClient, PublishCommand } from '@aws-sdk/client-iot-data-plane'
+import { mockClient } from 'aws-sdk-client-mock'
 
-interface Publish {
-	topic: string
-	id?: string | number
-	event: string
-	value?: any
-	qos?: 0 | 1 | 2
-}
+export const mockIoT = () => {
+	const fn = vi.fn()
 
-interface IotMock {
-	publish: (options: Publish) => void
-}
+	mockClient(IoTClient)
+		.on(DescribeEndpointCommand)
+		.resolves({
+			endpointAddress: 'endpoint'
+		})
 
-export const createIotMock = ():IotMock => {
-	return {
-		publish: mockFn(() => {})
-	}
+	mockClient(IoTDataPlaneClient)
+		.on(PublishCommand)
+		.callsFake(() => {
+			fn()
+		})
+
+	beforeEach(() => {
+		fn.mockClear()
+	})
+
+	return fn
 }

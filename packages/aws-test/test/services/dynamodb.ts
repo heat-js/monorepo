@@ -7,7 +7,7 @@ import { startDynamoDB } from '../../src'
 describe('DynamoDB', () => {
 
 	const dynamo = startDynamoDB({
-		path: './test/services/dynamodb.yml',
+		path: './test/dynamodb.yml',
 		seed: {
 			test: [
 				{ id: 1, name: 'test' }

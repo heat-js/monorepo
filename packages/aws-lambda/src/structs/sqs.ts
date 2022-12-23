@@ -1,13 +1,12 @@
-import { array, Infer, object, string, Struct } from 'superstruct'
+import { array, object, string, record, Struct } from 'superstruct'
+import { json } from '@heat/validate'
 
-type Base = Struct<any>
-
-export const sqsStruct = <B extends Base>(body: B) => {
+export const sqsStruct = <A, B>(body: Struct<A, B>) => {
 	return object({
 		Records: array(object({
-			body,
+			body: json(body),
 			messageId: string(),
-			messageAttributes: array(object({
+			messageAttributes: record(string(), object({
 				dataType: string(),
 				stringValue: string()
 			}))
