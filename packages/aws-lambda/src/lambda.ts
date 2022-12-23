@@ -34,7 +34,7 @@ interface Options<I extends OptStruct = undefined, O extends OptStruct = undefin
 // (event:Input<I>, context?:Context): Promise<Output<O>>
 // })
 
-export type Handle = {
+export type LambdaFactory = {
 	(options:Options<undefined, undefined>): (event?:unknown, context?:Context) => Promise<unknown>
 	<I extends OptStruct>(options:Options<I, undefined>): (event:Input<I>, context?:Context) => Promise<unknown>
 	<O extends OptStruct>(options:Options<undefined, O>): (event?:unknown, context?:Context) => Promise<Output<O>>
@@ -47,7 +47,7 @@ export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct 
 ) => Promise<Output<O>>
 
 /** Create a lambda handle function. */
-export const handle:Handle = <I extends OptStruct = undefined, O extends OptStruct = undefined>({ input, output, handle, logger, logViewableErrors = false }:Options<I, O>): LambdaFunction<I, O> => {
+export const lambda:LambdaFactory = <I extends OptStruct = undefined, O extends OptStruct = undefined>({ input, output, handle, logger, logViewableErrors = false }:Options<I, O>): LambdaFunction<I, O> => {
 	const callback = compose<I, O>(handle)
 
 	const lambda = async (event: Input<I>, context?:Context):Promise<Output<O>> => {

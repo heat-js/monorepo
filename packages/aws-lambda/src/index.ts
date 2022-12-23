@@ -1,5 +1,5 @@
 
-export { handle } from './handle.js'
+export { lambda } from './lambda.js'
 export { compose } from './compose.js'
 
 // errors
