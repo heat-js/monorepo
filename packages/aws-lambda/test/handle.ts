@@ -1,67 +1,67 @@
 
 import { string, StructError } from 'superstruct'
 import { describe, it, expect, vi } from 'vitest'
-import { handle, ValidationError, ViewableError } from '../src'
+import { lambda, ValidationError, ViewableError } from '../src'
 
 describe('Handle', () => {
 
 	it('should echo', async () => {
-		const lambda = handle({ handle: ({ input }) => input })
-		const result = await lambda('echo')
+		const echo = lambda({ handle: ({ input }) => input })
+		const result = await echo('echo')
 		expect(result).toBe('echo')
 	})
 
 	it('should noop', async () => {
-		const lambda = handle({ handle: () => {} })
-		const result = await lambda('echo')
+		const noop = lambda({ handle: () => {} })
+		const result = await noop('echo')
 		expect(result).toBeUndefined()
 	})
 
 	it('should throw correctly', async () => {
 		const error = new Error()
-		const lambda = handle({ handle: () => { throw error } })
+		const handle = lambda({ handle: () => { throw error } })
 
-		await expect(lambda()).rejects.toThrow(error)
+		await expect(handle()).rejects.toThrow(error)
 	})
 
 	it('should allow deep middleware handlers', async () => {
-		const lambda = handle({
+		const handle = lambda({
 			handle: [
 				(_, next) => next(),
 				[ () => 'works' ]
 			]
 		})
 
-		const result = await lambda()
+		const result = await handle()
 		expect(result).toBe('works')
 	})
 
 	it('should validate input', async () => {
-		const lambda = handle({
+		const handle = lambda({
 			input: string(),
 			handle() {}
 		})
 
-		await lambda('hi')
+		await handle('hi')
 
 		// @ts-ignore
 		await expect(lambda()).rejects.toThrow(ValidationError)
 	})
 
 	it('should validate output', async () => {
-		const lambda = handle({
+		const handle = lambda({
 			output: string(),
 			handle({ input }) {
 				return input as string
 			}
 		})
 
-		await lambda('hi')
-		await expect(lambda()).rejects.toThrow(StructError)
+		await handle('hi')
+		await expect(handle()).rejects.toThrow(StructError)
 	})
 
 	it('should validate input & output', async () => {
-		const lambda = handle({
+		const handle = lambda({
 			input: string(),
 			output: string(),
 			handle({ input }) {
@@ -69,14 +69,14 @@ describe('Handle', () => {
 			}
 		})
 
-		const result = await lambda('hi')
+		const result = await handle('hi')
 		expect(result).toBe('hi')
 	})
 
 	it('should log errors', async () => {
 		const logger = vi.fn()
 		const error = new Error()
-		const fn = handle({
+		const fn = lambda({
 			logger,
 			handle() {
 				throw error
@@ -90,7 +90,7 @@ describe('Handle', () => {
 	it('should ignore viewable errors', async () => {
 		const logger = vi.fn()
 		const error = new ViewableError('type', 'message')
-		const fn = handle({
+		const fn = lambda({
 			logger,
 			handle() {
 				throw error
@@ -104,7 +104,7 @@ describe('Handle', () => {
 	it('should NOT ignore viewable errors', async () => {
 		const logger = vi.fn()
 		const error = new ViewableError('type', 'message')
-		const fn = handle({
+		const fn = lambda({
 			logViewableErrors: true,
 			logger,
 			handle() {

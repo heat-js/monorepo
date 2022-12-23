@@ -1,6 +1,6 @@
 
 import { describe, it } from 'vitest'
-import { handle, invoke } from '../../src'
+import { lambda, invoke } from '../../src'
 import { mockLambda } from '@heat/aws-test'
 import { string } from 'superstruct'
 
@@ -31,14 +31,14 @@ describe('Lambda', () => {
 	})
 
 	it('should play well with payload type validation', async () => {
-		const lambda = handle({
+		const echo = lambda({
 			input: string(),
 			output: string(),
 			handle: ({ input }) => input
 		})
 
-		const result = await invoke<typeof lambda>({
-			name: 'noop',
+		const result = await invoke<typeof echo>({
+			name: 'echo',
 			payload: 'hi'
 		})
 
