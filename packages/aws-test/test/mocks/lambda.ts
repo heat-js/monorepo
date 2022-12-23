@@ -1,31 +1,46 @@
+import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda'
+import { fromUtf8, toUtf8 } from '@aws-sdk/util-utf8-node'
 import { describe, it, expect } from 'vitest'
-import { createLambdaMock } from '../../src'
+import { mockLambda } from '../../src'
 
 describe('Lambda Mock', () => {
 
-	const lambda = createLambdaMock({
+	const lambda = mockLambda({
 		service__echo: (payload) => {
 			return payload
 		}
 	})
 
-	it('should invoke lambda', async () => {
-		const result = await lambda.invoke({
-			service: 'service',
-			name: 'echo',
-			payload: 'Hello'
-		})
+	const client = new LambdaClient({})
 
-		expect(result).toBe('Hello')
-		expect(lambda.invoke).toBeCalledTimes(1)
-		expect(lambda.$.service__echo).toBeCalledTimes(1)
+	it('should invoke lambda', async () => {
+		const result = await client.send(new InvokeCommand({
+			FunctionName: 'service__echo',
+			Payload: fromUtf8(JSON.stringify('Hello'))
+		}))
+
+		// @ts-ignore
+		expect(JSON.parse(toUtf8(result.Payload))).toBe('Hello')
+		expect(lambda.service__echo).toBeCalledTimes(1)
+	})
+
+	it('should invoke without payload', async () => {
+		const result = await client.send(new InvokeCommand({
+			FunctionName: 'service__echo',
+		}))
+
+		// @ts-ignore
+		expect(result.Payload).toBe(undefined)
+		expect(lambda.service__echo).toBeCalledTimes(1)
 	})
 
 	it('should throw for unknown lambda', async () => {
-		await expect(lambda.invoke({
-			service: 'service',
-			name: 'unknown',
-			payload: 'Hello'
-		})).rejects.toThrow(TypeError)
+		const promise = client.send(new InvokeCommand({
+			FunctionName: 'unknown',
+			Payload: fromUtf8(JSON.stringify(''))
+		}))
+
+		await expect(promise).rejects.toThrow(TypeError)
+		expect(lambda.service__echo).toBeCalledTimes(0)
 	})
 })

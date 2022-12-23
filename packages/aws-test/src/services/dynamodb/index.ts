@@ -4,19 +4,19 @@ import { Server } from './server'
 import { migrate, seed as runSeed, SeedData } from './database'
 import { loadDefinitions } from './definition'
 
-interface Options {
+export interface StartDynamoDBOptions {
 	path: string
 	timeout?: number
 	port?: number
 	seed?: SeedData
 }
 
-export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:Options) => {
+export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:StartDynamoDBOptions) => {
 
 	const server = new Server()
 	let releasePort
 
-	globalThis.beforeAll(async () => {
+	beforeAll(async () => {
 		const [ port, release ] = await requestPort()
 		releasePort = release
 
@@ -29,7 +29,7 @@ export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:Options) 
 		await runSeed(server.getDocumentClient(), seed)
 	}, timeout)
 
-	globalThis.afterAll(async () => {
+	afterAll(async () => {
 		await server.kill()
 		await releasePort()
 	}, timeout)

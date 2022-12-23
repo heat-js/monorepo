@@ -1,17 +1,15 @@
 
-type ObjectParam = {
-	[key: string]: Function
-}
+import { Mock } from 'vitest'
 
-export const mockFn = (fn) => {
-	return globalThis.vi.fn(fn)
-}
+type Func = (...args: any[]) => any
+type Result<T extends string | number | symbol> = Record<T, Mock<any, Func>>
 
-export const mockObjectKeys = <T extends ObjectParam>(object: T): T => {
-	const list = {}
+export const mockObjectKeys = <T extends Record<string, Func>>(object:T): Result<keyof T> => {
+	const list:Result<string> = {}
+
 	Object.entries(object).forEach(([key, value]) => {
-		list[key] = mockFn(value)
+		list[key] = vi.fn(value)
 	})
 
-	return list as T
+	return Object.freeze(list) as Result<keyof T>
 }

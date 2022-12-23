@@ -1,53 +1,92 @@
 
 import { Context } from 'aws-lambda'
-import { create, mask } from 'superstruct'
 import { compose } from './compose.js'
-import { Container, container } from './di.js'
-import { EventCallback, EventListener, Handlers, Input, OptStruct, Output, Request } from './types.js'
+import { transformValidationErrors } from './errors/validation.js'
+import { create, mask } from '@heat/validate'
+import { Handlers, Input, Logger, Loggers, OptStruct, Output, Request } from './types.js'
+import { createTimeout } from './errors/timeout.js'
+import { isViewableError } from './errors/viewable.js'
 
 interface Options<I extends OptStruct = undefined, O extends OptStruct = undefined> {
+	/** A validation struct to validate the input. */
 	input?: I
+
+	/** A validation struct to validate the output. */
 	output?: O
-	handlers: Handlers<I, O>
+
+	/** Array of middleware functions */
+	// before: Befores<I, O>
+
+	/** Array of middleware functions */
+	handle: Handlers<I, O>
+
+	/** Array of logging functions that are called when an error is thrown */
+	logger?: Loggers
+
+	/** Boolean to specify if viewable errors should be logged */
+	logViewableErrors?: boolean
 }
 
-export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (I extends undefined ? {
-	(event?:unknown, context?:Context): Promise<Output<O>>
-}: {
-	(event:Input<I>, context?:Context): Promise<Output<O>>
-}) & {
-	on: (event:string, callback: EventCallback<I>) => void
-	request?: Container & Request<I>
+/** Invoke the lambda function */
+// export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (I extends undefined ? {
+// (event?:unknown, context?:Context): Promise<Output<O>>
+// }: {
+// (event:Input<I>, context?:Context): Promise<Output<O>>
+// })
+
+export type Handle = {
+	(options:Options<undefined, undefined>): (event?:unknown, context?:Context) => Promise<unknown>
+	<I extends OptStruct>(options:Options<I, undefined>): (event:Input<I>, context?:Context) => Promise<unknown>
+	<O extends OptStruct>(options:Options<undefined, O>): (event?:unknown, context?:Context) => Promise<Output<O>>
+	<I extends OptStruct, O extends OptStruct>(options:Options<I, O>): (event:Input<I>, context?:Context) => Promise<Output<O>>
 }
 
-export const handle = <I extends OptStruct = undefined, O extends OptStruct = undefined>({ input, output, handlers }:Options<I, O>): LambdaFunction<I, O> => {
-	const handle = compose<I, O>(handlers)
-	const listeners:EventListener<I>[] = []
+export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (
+	event: Input<I>,
+	context?:Context
+) => Promise<Output<O>>
+
+/** Create a lambda handle function. */
+export const handle:Handle = <I extends OptStruct = undefined, O extends OptStruct = undefined>({ input, output, handle, logger, logViewableErrors = false }:Options<I, O>): LambdaFunction<I, O> => {
+	const callback = compose<I, O>(handle)
 
 	const lambda = async (event: Input<I>, context?:Context):Promise<Output<O>> => {
-		const request:Request<I> = container({
-			input: input ? mask(event, input) : event,
-			event,
-			context,
-			emit: (event: string, ...args) => {
-				listeners.forEach((listener) => {
-					if(listener.event === event) {
-						listener.callback(request, ...args)
-					}
+
+		const log = async (error:unknown) => {
+			const list = [ logger ].flat(10) as Logger[]
+			await Promise.all(list.map(logger => {
+				return logger && logger(error, {
+					input: event
 				})
+			}))
+		}
+
+		try {
+			const timeout = createTimeout(context, log)
+			const request:Request<I> = {
+				// input: validate(mask, event, input),
+				input: await transformValidationErrors(() => input ? mask(event, input) : event),
+				event,
+				context,
+				log
 			}
-		})
 
-		Object.assign(lambda, { request })
+			Object.assign(lambda, { request })
 
-		const response:Output<O> = await handle(request)
-		return output ? create(response, output) : response
+			const response:Output<O> = await transformValidationErrors(() => callback(request))
+
+			clearTimeout(timeout)
+
+			return output ? create(response, output) : response
+
+		} catch(error) {
+			if(!isViewableError(error) || logViewableErrors) {
+				await log(error)
+			}
+
+			throw error
+		}
 	}
 
-	lambda.on = (event:string, callback:EventCallback<I>) => {
-		listeners.push({ event, callback })
-	}
-
-	// @ts-ignore
-	return lambda as LambdaFunction<I, O>
+	return lambda
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.47",
+	"version": "0.0.58",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -21,51 +21,11 @@
 			"require": "./dist/index.cjs",
 			"import": "./dist/index.js",
 			"types": "./dist/index.d.ts"
-		},
-		"./environment": {
-			"require": "./dist/services/environment/index.cjs",
-			"import": "./dist/services/environment/index.js",
-			"types": "./dist/services/environment/index.d.ts"
-		},
-		"./validate": {
-			"require": "./dist/services/validate/index.cjs",
-			"import": "./dist/services/validate/index.js",
-			"types": "./dist/services/validate/index.d.ts"
-		},
-		"./dynamodb": {
-			"require": "./dist/services/dynamodb/index.cjs",
-			"import": "./dist/services/dynamodb/index.js",
-			"types": "./dist/services/dynamodb/index.d.ts"
-		},
-		"./lambda": {
-			"require": "./dist/services/lambda/index.cjs",
-			"import": "./dist/services/lambda/index.js",
-			"types": "./dist/services/lambda/index.d.ts"
-		},
-		"./sns": {
-			"require": "./dist/services/sns/index.cjs",
-			"import": "./dist/services/sns/index.js",
-			"types": "./dist/services/sns/index.d.ts"
-		},
-		"./sqs": {
-			"require": "./dist/services/sqs/index.cjs",
-			"import": "./dist/services/sqs/index.js",
-			"types": "./dist/services/sqs/index.d.ts"
-		},
-		"./iot": {
-			"require": "./dist/services/iot/index.cjs",
-			"import": "./dist/services/iot/index.js",
-			"types": "./dist/services/iot/index.d.ts"
-		},
-		"./bigfloat": {
-			"require": "./dist/services/bigfloat/index.cjs",
-			"import": "./dist/services/bigfloat/index.js",
-			"types": "./dist/services/bigfloat/index.d.ts"
 		}
 	},
 	"scripts": {
 		"test": "yarn run code test",
-		"build": "yarn tsup src/index.ts src/services/environment/index.ts src/services/validate/index.ts src/services/dynamodb/index.ts src/services/lambda/index.ts src/services/sns/index.ts src/services/sqs/index.ts src/services/iot/index.ts src/services/bigfloat/index.ts --format cjs,esm --dts --clean",
+		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
 		"publish": "yarn build; yarn npm publish --access=public"
 	},
 	"vitest": {
@@ -85,15 +45,13 @@
 		"@aws-sdk/lib-dynamodb": "^3.226.0",
 		"@aws-sdk/util-dynamodb": "^3.226.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
+		"@heat/validate": "^0.0.7",
 		"@types/aws-lambda": "^8.10.108",
-		"aws-sdk": "2.1083.0",
-		"big.js": "^6.2.1",
-		"bigfloat-esnext": "^3.0.1",
 		"chunk": "^0.0.3",
 		"superstruct": "^1.0.3"
 	},
 	"devDependencies": {
-		"@heat/aws-test": "^0.0.8",
+		"@heat/aws-test": "^0.0.19",
 		"@heat/code": "^0.0.27",
 		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",
