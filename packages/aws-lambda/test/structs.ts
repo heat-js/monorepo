@@ -1,7 +1,7 @@
 
 import { mask, number, object } from 'superstruct'
 import { describe, it, expect } from 'vitest'
-import { dynamodbStreamStruct, handle, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
+import { dynamodbStreamStruct, handle, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../dist'
 
 describe('structs', () => {
 
