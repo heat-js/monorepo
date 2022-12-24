@@ -45,11 +45,3 @@ export const ssm = async <T extends Record<string, string>>({ client, paths }: C
 
 	return values as T
 }
-
-async () => {
-	const config = await ssm({ paths: {
-		secret: '/secret'
-	} })
-
-	config.secret
-}

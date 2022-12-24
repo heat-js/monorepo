@@ -1,0 +1,54 @@
+[![npm version](https://img.shields.io/npm/dw/@heat/weak-cache)](https://www.npmjs.org/package/@heat/weak-cache)
+[![npm version](https://img.shields.io/npm/v/@heat/weak-cache.svg?style=flat-square)](https://www.npmjs.org/package/@heat/weak-cache)
+[![license](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
+
+# weak-cache
+
+The @heat/weak-cache package provides a fully typed simple cache that works with the JS garbage collection (GC). It uses weak references (and finalization registry) to allow GC to remove the cached data as part of the normal GC cycles, but still continue to provide cached access to the data as long as it still resides in memory and hasn't been collected.
+
+## Setup
+
+Install with (NPM):
+
+```
+npm i @heat/weak-cache
+```
+
+## Basic Usage
+
+```ts
+import { WeakCache } from '@heat/weak-cache';
+
+// Create new WeakCache instance
+const cache = new WeakCache<string, object>();
+
+// Cache an empty object
+cache.set('key', {});
+
+// Return the object above as long as it is still cached
+console.log(cache.get('key'))
+
+// Return a boolean if the object above still exists in the cache
+console.log(cache.has('key'))
+
+// Return the amount of cached items
+console.log(cache.size)
+```
+
+## API
+
+### set(key, value)
+Sets or inserts the value into the cache, with the given key.
+
+### get(key, defaultValue?)
+Returns the value referenced by the given key. If the value is no longer cached, will return undefined or the provided default value.
+
+### has(key)
+Returns a boolean indicating whether the cache with the specified key exists or not and still resided in memory and hasn't been collected.
+
+### size
+Return the amount of cached items that still resided in memory and hasn't been collected.
+
+## License
+
+MIT

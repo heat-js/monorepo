@@ -1,5 +1,5 @@
-import { array, object, string, record, Struct } from 'superstruct'
-import { json } from '@heat/validate'
+
+import { json, array, object, string, record, Struct } from '@heat/validate'
 
 export const sqsStruct = <A, B>(body: Struct<A, B>) => {
 	return object({
@@ -20,6 +20,6 @@ type Input<T> = {
 	}[]
 }
 
-export const sqsRecords = <T>(input:Input<T>):T[] => {
+export const sqsRecords = <T>(input:Input<T>) => {
 	return input.Records.map(item => item.body)
 }

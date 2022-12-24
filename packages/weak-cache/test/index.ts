@@ -1,7 +1,14 @@
 
-import { randomBytes } from 'crypto'
 import { describe, it } from 'vitest'
-import { WeakCache } from '../../src'
+import { WeakCache } from '../src'
+import gc from 'expose-gc'
+
+const sleep = () => new Promise(resolve => setTimeout(resolve, 1))
+const runGC = async () => {
+	await sleep()
+	await gc()
+	await sleep()
+}
 
 describe('Weak Cache', () => {
 
@@ -26,25 +33,22 @@ describe('Weak Cache', () => {
 		expect(cache.get('unknown', defaulted)).toBe(defaulted)
 	})
 
-	it('should handle extreemly large inserts', async () => {
-		const limit = 100000
-		const cache = new WeakCache<number, Buffer>()
-		const random = (size:number): Promise<Buffer> => new Promise((resolve, reject) => {
-			randomBytes(size, (error, buffer) => {
-				if(error) {
-					reject(error)
-				} else {
-					resolve(buffer)
-				}
-			})
-		})
-
-		await Promise.all(Array.from({ length: limit }).map(async (_, index) => {
-			const item = await random(1000)
-			cache.set(index, item)
-		}))
-
-		expect(cache.size).toBe(limit)
+	it('should return cache size', () => {
+		expect(cache.size).toBe(1)
 	})
 
+	it('should clean up when garbage collection runs', async () => {
+		const limit = 10000
+		const cache = new WeakCache<number, number>()
+
+		Array.from({ length: limit }).forEach((_, key) => {
+			cache.set(key, Math.random())
+		})
+
+		expect(cache.size).toBe(limit)
+
+		await runGC()
+
+		expect(cache.size).toBe(0)
+	})
 })

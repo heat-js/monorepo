@@ -6,6 +6,7 @@ import { create, mask } from '@heat/validate'
 import { Handlers, Input, Logger, Loggers, OptStruct, Output, Request } from './types.js'
 import { createTimeout } from './errors/timeout.js'
 import { isViewableError } from './errors/viewable.js'
+import { getWarmUpEvent, warmUp } from './warm-up.js'
 
 interface Options<I extends OptStruct = undefined, O extends OptStruct = undefined> {
 	/** A validation struct to validate the input. */
@@ -13,9 +14,6 @@ interface Options<I extends OptStruct = undefined, O extends OptStruct = undefin
 
 	/** A validation struct to validate the output. */
 	output?: O
-
-	/** Array of middleware functions */
-	// before: Befores<I, O>
 
 	/** Array of middleware functions */
 	handle: Handlers<I, O>
@@ -26,13 +24,6 @@ interface Options<I extends OptStruct = undefined, O extends OptStruct = undefin
 	/** Boolean to specify if viewable errors should be logged */
 	logViewableErrors?: boolean
 }
-
-/** Invoke the lambda function */
-// export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (I extends undefined ? {
-// (event?:unknown, context?:Context): Promise<Output<O>>
-// }: {
-// (event:Input<I>, context?:Context): Promise<Output<O>>
-// })
 
 export type LambdaFactory = {
 	(options:Options<undefined, undefined>): (event?:unknown, context?:Context) => Promise<unknown>
@@ -62,9 +53,16 @@ export const lambda:LambdaFactory = <I extends OptStruct = undefined, O extends 
 		}
 
 		try {
+			const warmerEvent = getWarmUpEvent(event)
+
+			if(warmerEvent) {
+				await warmUp(warmerEvent, context)
+				return undefined as Output<O>
+			}
+
 			const timeout = createTimeout(context, log)
+
 			const request:Request<I> = {
-				// input: validate(mask, event, input),
 				input: await transformValidationErrors(() => input ? mask(event, input) : event),
 				event,
 				context,

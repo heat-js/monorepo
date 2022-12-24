@@ -2,7 +2,7 @@ import { fromUtf8, toUtf8 } from '@aws-sdk/util-utf8-node'
 import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda'
 import { isViewableErrorString, parseViewableErrorString, ViewableError } from '../errors/viewable.js'
 import { serviceName } from '../helper.js'
-import { LambdaFunction } from '../handle.js'
+import { LambdaFunction } from '../lambda.js'
 import { getLambdaClient } from '../clients/lambda.js'
 import { OptStruct } from '../types.js'
 
@@ -39,7 +39,8 @@ type Invoke = {
 	<Lambda extends LambdaFunction<OptStruct, OptStruct>>(options: KnownInvokeOptions<Lambda>): Promise<ReturnType<Lambda>>
 }
 
-export const invoke:Invoke = async <Lambda extends LambdaFunction<OptStruct, OptStruct>>({
+/** Invoke lambda */
+export const invoke:Invoke = async ({
 	client,
 	service,
 	name,

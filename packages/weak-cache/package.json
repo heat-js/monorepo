@@ -1,0 +1,38 @@
+{
+	"name": "@heat/weak-cache",
+	"version": "0.0.2",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"files": [
+		"dist"
+	],
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"test": "yarn run code test",
+		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
+		"publish": "yarn build; yarn npm publish --access=public"
+	},
+	"devDependencies": {
+		"@heat/code": "^0.0.27",
+		"@types/node": "^18.11.9",
+		"expose-gc": "^1.0.0",
+		"tsup": "^6.5.0",
+		"typescript": "^4.9.4"
+	}
+}

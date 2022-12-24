@@ -23,6 +23,6 @@ type Input<T> = {
 	}[]
 }
 
-export const snsRecords = <T>(input:Input<T>):T[] => {
+export const snsRecords = <T>(input:Input<T>) => {
 	return input.Records.map(({ Sns: item }) => item.Message)
 }

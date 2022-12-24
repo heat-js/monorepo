@@ -1,7 +1,7 @@
 
 import { mask, number, object } from 'superstruct'
 import { describe, it, expect } from 'vitest'
-import { dynamodbStreamStruct, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
+import { dynamodbStreamRecords, dynamodbStreamStruct, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
 
 describe('structs', () => {
 
@@ -10,7 +10,16 @@ describe('structs', () => {
 		const event = { Records: [ { eventName: 'MODIFY', dynamodb: { SequenceNumber: '1', NewImage: { id: { N: '1' } } } } ] }
 
 		const result = mask(event, struct)
+		const records = dynamodbStreamRecords(result)
+
 		expect(result.Records[0].dynamodb.NewImage).toStrictEqual({ id: 1 })
+		expect(records).toStrictEqual([{
+			event: 'MODIFY',
+			sequence: '1',
+			newImage: { id: 1 },
+			oldImage: undefined,
+			keys: undefined,
+		}])
 	})
 
 	it('snsStruct', async () => {

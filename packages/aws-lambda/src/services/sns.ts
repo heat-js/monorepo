@@ -35,7 +35,7 @@ const formatAttributes = (attributes:Attributes) => {
 	return list
 }
 
-
+/** Send SNS message */
 export const sendNotification = async ({ client, service, topic: name, subject, payload, attributes = {}, region = process.env.AWS_REGION, accountId = process.env.AWS_ACCOUNT_ID }: Publish) => {
 	const topic = serviceName(service, name)
 	const command = new PublishCommand({

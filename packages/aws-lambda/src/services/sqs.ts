@@ -16,12 +16,10 @@ type FormattedAttributes = {
 	}
 }
 
-// interface AddQueueMessage<Lambda extends LambdaFunction> {
 interface AddQueueMessage {
 	client?: SQSClient
 	service?: string
 	name: string
-	// payload?: Parameters<Lambda>[0]
 	payload?: any
 	delay?: number
 	attributes?: Attributes
@@ -69,6 +67,7 @@ export const getCachedQueueUrl = (client: SQSClient, queue:string) => {
 	return cache.get(queue)
 }
 
+/** Add message to a SQS queue */
 export const addQueueMessage = async ({ client, service, name, payload, delay = 0, attributes = {} }: AddQueueMessage) => {
 	const sqsClient = client || await getSQSClient({})
 	const queue = serviceName(service, name)
@@ -84,6 +83,7 @@ export const addQueueMessage = async ({ client, service, name, payload, delay = 
 	return sqsClient.send(command)
 }
 
+/** Add batch of messages to a SQS queue */
 export const addQueueBatch = async ({ client, service, name, items }: AddQueueBatch) => {
 	const sqsClient = client || await getSQSClient({})
 	const queue = serviceName(service, name)

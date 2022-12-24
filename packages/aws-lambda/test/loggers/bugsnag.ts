@@ -1,7 +1,7 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import { Bugsnag } from '../../src/loggers/bugsnag/bugsnag'
-import { handle, bugsnag, ViewableError } from '../../src'
+import { lambda, bugsnag, ViewableError } from '../../src'
 
 describe('Bugsnag', () => {
 
@@ -21,7 +21,7 @@ describe('Bugsnag', () => {
 
 	it('should log errors', async () => {
 		const error = new Error()
-		const fn = handle({
+		const fn = lambda({
 			logger: bugsnag(),
 			handle(app) {
 				throw error

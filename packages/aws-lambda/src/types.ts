@@ -1,6 +1,5 @@
 import { Struct, Infer } from '@heat/validate'
 import { Context } from 'aws-lambda'
-// import { Container } from './__di.js'
 
 export type OptStruct = Struct<any, unknown> | undefined
 export type Input<T extends OptStruct = undefined> = T extends undefined ? unknown : Infer<RemoveUndefined<T>>
@@ -18,17 +17,6 @@ export type Request<I extends OptStruct = undefined> = {
 
 export type Response<O extends OptStruct = undefined> = Output<O> | Promise<Output<O>>
 export type Next<O extends OptStruct = any> = () => Response<O>
-
-// export type Before<I extends OptStruct = undefined, O extends OptStruct = undefined> = (
-// 	request: Request<I>,
-// 	next: Next<O>
-// ) => Response<O>
-
-// export type Befores<O extends OptStruct = undefined> = (
-// 	request: Request<I>,
-// 	next: Next<O>
-// ) => Response<O>
-
 
 export type Handler<I extends OptStruct = undefined, O extends OptStruct = undefined> = (
 	request: Request<I>,

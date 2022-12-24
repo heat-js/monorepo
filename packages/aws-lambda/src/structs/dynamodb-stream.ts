@@ -30,3 +30,25 @@ export const dynamodbStreamStruct = <N extends Base, O extends Base, K extends B
 		}))
 	})
 }
+
+type Input<K, N, O> = {
+	Records: {
+		eventName: 'INSERT' | 'MODIFY' | 'REMOVE'
+		dynamodb: {
+			SequenceNumber: string
+			NewImage: N
+			OldImage?: O
+			Keys?: K
+		}
+	}[]
+}
+
+export const dynamodbStreamRecords = <K, N, O>(input:Input<K, N, O>) => {
+	return input.Records.map(({ eventName, dynamodb }) => ({
+		event: eventName,
+		sequence: dynamodb.SequenceNumber,
+		newImage: dynamodb.NewImage,
+		oldImage: dynamodb.OldImage,
+		keys: dynamodb.Keys,
+	}))
+}

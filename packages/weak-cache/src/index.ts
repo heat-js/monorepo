@@ -1,12 +1,12 @@
 
-type Item = {
-	value: any
+type Item<Value> = {
+	value: Value
 }
 
 export class WeakCache<Key extends string | number | symbol, Value extends unknown> {
 
 	private registry: FinalizationRegistry<Key>
-	private cache: Map<Key, WeakRef<Item>>
+	private cache: Map<Key, WeakRef<Item<Value>>>
 
 	constructor() {
 		this.cache = new Map()
@@ -16,7 +16,7 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 	}
 
 	set(key: Key, value: Value) {
-		const item: Item = { value }
+		const item: Item<Value> = { value }
 		this.cache.set(key, new WeakRef(item))
 		this.registry.register(item, key)
 

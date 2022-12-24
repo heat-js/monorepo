@@ -13,8 +13,7 @@ export const compose = <I extends OptStruct, O extends OptStruct>(handlers: Hand
 		let index = -1
 		const dispatch = (pos: number): Response<O> => {
 			if (pos === stack.length) {
-				// @ts-ignore
-				return
+				return undefined as Response<O>
 			}
 
 			const next: Next<O> = (): Response<O> => {

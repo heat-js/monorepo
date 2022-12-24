@@ -2,52 +2,43 @@
 import { mockLambda } from '@heat/aws-test'
 import { string } from 'superstruct'
 import { describe, it, expect } from 'vitest'
-import { handle, warmer } from '../../src'
+import { lambda } from '../src'
 
-describe('Warmer', () => {
+describe('Warm up support', () => {
 
 	process.env.AWS_LAMBDA_FUNCTION_NAME = 'test'
 
-	const lambda = mockLambda({
+	const mock = mockLambda({
 		test: () => {}
 	})
 
-	const fn = handle({ handle: [
-		warmer({ log: false }),
-		() => 'normal'
-	]})
+	const fn = lambda({
+		handle: () => 'normal'
+	})
 
 	it('should skip the warmer for normal calls', async () => {
 		const result = await fn()
 		expect(result).toBe('normal')
-		expect(lambda.test).toBeCalledTimes(0)
+		expect(mock.test).toBeCalledTimes(0)
 	})
 
 	it('should warm 1 lambda', async () => {
-		const result = await fn({ warmer: true })
+		const result = await fn({ warmer: true, concurrency: 1 })
 		expect(result).toBeUndefined()
-		expect(lambda.test).toBeCalledTimes(0)
+		expect(mock.test).toBeCalledTimes(0)
 	})
 
 	it('should warm 3 lambda', async () => {
-		const fn = handle({ handle: [
-			warmer({ log: false, concurrency: 3 }),
-			() => 'normal'
-		]})
-
-		const result = await fn({ warmer: true })
+		const result = await fn({ warmer: true, concurrency: 3 })
 		expect(result).toBeUndefined()
-		expect(lambda.test).toBeCalledTimes(2)
+		expect(mock.test).toBeCalledTimes(2)
 	})
 
 	it('should work with validation structs', async () => {
-		const fn = handle({
+		const fn = lambda({
 			input: string(),
 			output: string(),
-			handle: [
-				warmer({ log: false }),
-				() => 'normal'
-			]
+			handle: () => 'normal'
 		})
 
 		// @ts-ignore

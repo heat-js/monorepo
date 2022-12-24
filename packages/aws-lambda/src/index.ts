@@ -27,12 +27,8 @@ export { invoke } from './services/lambda.js'
 export { publish } from './services/iot.js'
 export { sendNotification } from './services/sns.js'
 export { addQueueMessage, addQueueBatch, getCachedQueueUrl, getQueueUrl } from './services/sqs.js'
-export { WeakCache } from './services/weak-cache.js'
-
-// handlers
-export { warmer } from './handlers/warmer.js'
 
 // structs
-export { dynamodbStreamStruct } from './structs/dynamodb-stream.js'
+export { dynamodbStreamStruct, dynamodbStreamRecords } from './structs/dynamodb-stream.js'
 export { snsStruct, snsRecords } from './structs/sns.js'
 export { sqsStruct, sqsRecords } from './structs/sqs.js'

@@ -16,6 +16,7 @@ interface Payload {
 	v: any
 }
 
+/** Publish to IOT */
 export const publish = async ({ client, topic, id, event, value, qos = 0 }: PublishOptions) => {
 	const payload: Payload = {
 		e: event,
