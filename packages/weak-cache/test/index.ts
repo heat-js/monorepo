@@ -13,19 +13,16 @@ const runGC = async () => {
 
 describe('Weak Cache', () => {
 
-	class Item {}
-
 	it('should set & has & get cache item', () => {
-		const cache = new WeakCache<string, Item>()
-		const item = new Item()
-		cache.set('test', item)
+		const cache = new WeakCache<string, string>()
+		cache.set('test', 'value')
 
 		expect(cache.has('test')).toBe(true)
-		expect(cache.get('test')).toBe(item)
+		expect(cache.get('test')).toBe('value')
 	})
 
 	it('should handle undefined entries', () => {
-		const cache = new WeakCache<string, number>()
+		const cache = new WeakCache<string, string>()
 		expect(cache.has('unknown')).toBe(false)
 		expect(cache.get('unknown')).toBe(undefined)
 	})
@@ -58,30 +55,39 @@ describe('Weak Cache', () => {
 	})
 
 	it('should be iterable', () => {
+		const limit = 10
 		const cache = new WeakCache<number, string>()
-		Array.from({ length: 10 }).forEach((_, key) => {
+		Array.from({ length: limit }).forEach((_, key) => {
 			cache.set(key, String(Math.random()))
 		})
 
-		expect(cache.size).toBe(10)
+		expect(cache.size).toBe(limit)
+
+		let count = 0
 
 		for(const [key, value] of cache) {
+			count++
 			expect(key).toStrictEqual(expect.any(Number))
 			expect(value).toStrictEqual(expect.any(String))
 		}
 
 		for(const [key, value] of cache.entries()) {
+			count++
 			expect(key).toStrictEqual(expect.any(Number))
 			expect(value).toStrictEqual(expect.any(String))
 		}
 
 		for(const key of cache.keys()) {
+			count++
 			expect(key).toStrictEqual(expect.any(Number))
 		}
 
 		for(const value of cache.values()) {
+			count++
 			expect(value).toStrictEqual(expect.any(String))
 		}
+
+		expect(count).toBe(limit * 4)
 	})
 
 	it('should clean up when garbage collection runs', async () => {
@@ -97,5 +103,27 @@ describe('Weak Cache', () => {
 		await runGC()
 
 		expect(cache.size).toBe(0)
+	})
+
+	it('should not break a loop when garbage collection runs inside the loop', async () => {
+		const limit = 100
+		const cache = new WeakCache<number, number>()
+
+		Array.from({ length: limit }).forEach((_, key) => {
+			cache.set(key, Math.random())
+		})
+
+		expect(cache.size).toBe(limit)
+
+		let count = 0
+		for(const _ of cache) {
+			count++
+
+			if(count === 10) {
+				await runGC()
+			}
+		}
+
+		expect(count).toBe(10)
 	})
 })

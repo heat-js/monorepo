@@ -31,6 +31,7 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 		const ref = this.cache.get(key)
 		if(ref) {
 			const item = ref.deref()
+
 			if (typeof item !== 'undefined') {
 				return item.value
 			}
@@ -66,17 +67,18 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 		return this.cache.size
 	}
 
-	* [Symbol.iterator](): IterableIterator<[ Key, Value ]> {
+	[ Symbol.iterator ]() {
 		return this.entries()
 	}
 
-	* keys(): IterableIterator<Key> {
-		yield * this.cache.keys()
+	keys(): IterableIterator<Key> {
+		return this.cache.keys()
 	}
 
 	* values(): IterableIterator<Value> {
 		for(const ref of this.cache.values()) {
 			const item = ref.deref()
+
 			if(item) {
 				yield item.value
 			}
@@ -86,6 +88,7 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 	* entries(): IterableIterator<[ Key, Value ]> {
 		for(const [ key, ref ] of this.cache.entries()) {
 			const item = ref.deref()
+
 			if(item) {
 				yield [ key, item.value ]
 			}

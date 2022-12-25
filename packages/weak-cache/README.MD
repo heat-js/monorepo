@@ -43,7 +43,7 @@ console.log(cache.clear());
 console.log(cache.size);
 
 // Iterate over the cached items
-for(const [key, value] of cache) {
+for(const [ key, value ] of cache) {
 	...
 }
 

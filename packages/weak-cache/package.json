@@ -1,6 +1,6 @@
 {
 	"name": "@heat/weak-cache",
-	"version": "0.0.2",
+	"version": "0.0.4",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -12,6 +12,14 @@
 	},
 	"files": [
 		"dist"
+	],
+	"keywords": [
+		"cache",
+		"weak",
+		"garbage",
+		"collector",
+		"ref",
+		"weakref"
 	],
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
