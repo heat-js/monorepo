@@ -17,6 +17,7 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 
 	set(key: Key, value: Value) {
 		const item: Item<Value> = { value }
+
 		this.cache.set(key, new WeakRef(item))
 		this.registry.register(item, key)
 
@@ -43,5 +44,14 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 
 	get size() {
 		return this.cache.size
+	}
+
+	* [Symbol.iterator](): IterableIterator<[ Key, Value ]> {
+		for (const [ key, ref ] of this.cache) {
+			const item = ref.deref()
+			if (item) {
+				yield [ key, item.value ]
+			}
+		}
 	}
 }

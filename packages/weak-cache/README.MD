@@ -26,13 +26,19 @@ const cache = new WeakCache<string, object>();
 cache.set('key', {});
 
 // Return the object above as long as it is still cached
-console.log(cache.get('key'))
+console.log(cache.get('key'));
 
 // Return a boolean if the object above still exists in the cache
-console.log(cache.has('key'))
+console.log(cache.has('key'));
 
 // Return the amount of cached items
-console.log(cache.size)
+console.log(cache.size);
+
+// Iterate over the cached items
+for(const [key, value] of cache) {
+	...
+}
+
 ```
 
 ## API

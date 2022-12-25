@@ -3,7 +3,7 @@ import { describe, it } from 'vitest'
 import { WeakCache } from '../src'
 import gc from 'expose-gc'
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 1))
+const sleep = () => new Promise(resolve => setTimeout(resolve, 10))
 const runGC = async () => {
 	await sleep()
 	await gc()
@@ -35,6 +35,20 @@ describe('Weak Cache', () => {
 
 	it('should return cache size', () => {
 		expect(cache.size).toBe(1)
+	})
+
+	it('should be iterable', () => {
+		const cache = new WeakCache<number, number>()
+		Array.from({ length: 10 }).forEach((_, key) => {
+			cache.set(key, Math.random())
+		})
+
+		expect(cache.size).toBe(10)
+
+		for(const [key, value] of cache) {
+			expect(key).toStrictEqual(expect.any(Number))
+			expect(value).toStrictEqual(expect.any(Number))
+		}
 	})
 
 	it('should clean up when garbage collection runs', async () => {
