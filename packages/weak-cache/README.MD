@@ -6,6 +6,7 @@
 
 The @heat/weak-cache package provides a fully typed simple cache that works with the JS garbage collection (GC). It uses weak references (and finalization registry) to allow GC to remove the cached data as part of the normal GC cycles, but still continue to provide cached access to the data as long as it still resides in memory and hasn't been collected.
 
+
 ## Setup
 
 Install with (NPM):
@@ -13,6 +14,7 @@ Install with (NPM):
 ```
 npm i @heat/weak-cache
 ```
+
 
 ## Basic Usage
 
@@ -31,6 +33,12 @@ console.log(cache.get('key'));
 // Return a boolean if the object above still exists in the cache
 console.log(cache.has('key'));
 
+// Delete a cached item
+console.log(cache.delete('key'));
+
+// Clear the cache
+console.log(cache.clear());
+
 // Return the amount of cached items
 console.log(cache.size);
 
@@ -40,6 +48,7 @@ for(const [key, value] of cache) {
 }
 
 ```
+
 
 ## API
 
@@ -52,8 +61,24 @@ Returns the value referenced by the given key. If the value is no longer cached,
 ### has(key)
 Returns a boolean indicating whether the cache with the specified key exists or not and still resided in memory and hasn't been collected.
 
+### delete(key)
+Delete the value referenced by the given key.
+
+### clear()
+Clear the entire cache
+
 ### size
 Return the amount of cached items that still resided in memory and hasn't been collected.
+
+### keys()
+Return a iterable with keys of the cache
+
+### values()
+Return a iterable with values of the cache
+
+### entries()
+Return a iterable with both keys and values of the cache
+
 
 ## License
 

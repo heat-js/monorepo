@@ -17,11 +17,12 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 
 	set(key: Key, value: Value) {
 		const item: Item<Value> = { value }
+		const ref = new WeakRef(item)
 
-		this.cache.set(key, new WeakRef(item))
-		this.registry.register(item, key)
+		this.cache.set(key, ref)
+		this.registry.register(item, key, ref)
 
-	  	return this
+		return this
 	}
 
 	get(key: Key): Value | undefined
@@ -42,14 +43,50 @@ export class WeakCache<Key extends string | number | symbol, Value extends unkno
 		return typeof this.get(key) !== 'undefined'
 	}
 
+	delete(key: Key) {
+		const ref = this.cache.get(key)
+
+		if(ref) {
+			this.cache.delete(key)
+			this.registry.unregister(ref)
+
+			return true
+		}
+
+		return false
+	}
+
+	clear() {
+		for(const key of this.keys()) {
+			this.delete(key)
+		}
+	}
+
 	get size() {
 		return this.cache.size
 	}
 
 	* [Symbol.iterator](): IterableIterator<[ Key, Value ]> {
-		for (const [ key, ref ] of this.cache) {
+		return this.entries()
+	}
+
+	* keys(): IterableIterator<Key> {
+		yield * this.cache.keys()
+	}
+
+	* values(): IterableIterator<Value> {
+		for(const ref of this.cache.values()) {
 			const item = ref.deref()
-			if (item) {
+			if(item) {
+				yield item.value
+			}
+		}
+	}
+
+	* entries(): IterableIterator<[ Key, Value ]> {
+		for(const [ key, ref ] of this.cache.entries()) {
+			const item = ref.deref()
+			if(item) {
 				yield [ key, item.value ]
 			}
 		}
