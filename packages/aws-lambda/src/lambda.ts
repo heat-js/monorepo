@@ -1,14 +1,13 @@
 
 import { Context } from 'aws-lambda'
-import { compose } from './compose.js'
 import { transformValidationErrors } from './errors/validation.js'
 import { create, mask } from '@heat/validate'
-import { Handlers, Input, Logger, Loggers, OptStruct, Output, Request } from './types.js'
+import { Input, Logger, Loggers, OptStruct, Output, Context as ExtendedContext, Handler } from './types.js'
 import { createTimeout } from './errors/timeout.js'
 import { isViewableError } from './errors/viewable.js'
 import { getWarmUpEvent, warmUp } from './warm-up.js'
 
-interface Options<I extends OptStruct = undefined, O extends OptStruct = undefined> {
+interface Options<H extends Handler<I, O>, I extends OptStruct = undefined, O extends OptStruct = undefined> {
 	/** A validation struct to validate the input. */
 	input?: I
 
@@ -16,7 +15,7 @@ interface Options<I extends OptStruct = undefined, O extends OptStruct = undefin
 	output?: O
 
 	/** Array of middleware functions */
-	handle: Handlers<I, O>
+	handle: H
 
 	/** Array of logging functions that are called when an error is thrown */
 	logger?: Loggers
@@ -26,10 +25,10 @@ interface Options<I extends OptStruct = undefined, O extends OptStruct = undefin
 }
 
 export type LambdaFactory = {
-	(options:Options<undefined, undefined>): (event?:unknown, context?:Context) => Promise<unknown>
-	<I extends OptStruct>(options:Options<I, undefined>): (event:Input<I>, context?:Context) => Promise<unknown>
-	<O extends OptStruct>(options:Options<undefined, O>): (event?:unknown, context?:Context) => Promise<Output<O>>
-	<I extends OptStruct, O extends OptStruct>(options:Options<I, O>): (event:Input<I>, context?:Context) => Promise<Output<O>>
+	<H extends Handler>(options:Options<H, undefined, undefined>): (event?:unknown, context?:Context) => Promise<ReturnType<H>>
+	<H extends Handler<I>, I extends OptStruct>(options:Options<H, I, undefined>): (event:Input<I>, context?:Context) => Promise<ReturnType<H>>
+	<H extends Handler<undefined, O>, O extends OptStruct>(options:Options<H, undefined, O>): (event?:unknown, context?:Context) => Promise<Output<O>>
+	<H extends Handler<I, O>, I extends OptStruct, O extends OptStruct>(options:Options<H, I, O>): (event:Input<I>, context?:Context) => Promise<Output<O>>
 }
 
 export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct = undefined> = (
@@ -38,13 +37,16 @@ export type LambdaFunction<I extends OptStruct = undefined, O extends OptStruct 
 ) => Promise<Output<O>>
 
 /** Create a lambda handle function. */
-export const lambda:LambdaFactory = <I extends OptStruct = undefined, O extends OptStruct = undefined>({ input, output, handle, logger, logViewableErrors = false }:Options<I, O>): LambdaFunction<I, O> => {
-	const callback = compose<I, O>(handle)
+export const lambda:LambdaFactory = <
+	H extends Handler<I, O>,
+	I extends OptStruct = undefined,
+	O extends OptStruct = undefined,
+>(options:Options<H, I, O>): LambdaFunction<I, O> => {
 
 	const lambda = async (event: Input<I>, context?:Context):Promise<Output<O>> => {
 
 		const log = async (error:unknown) => {
-			const list = [ logger ].flat(10) as Logger[]
+			const list = [ options.logger ].flat(10) as Logger[]
 			await Promise.all(list.map(logger => {
 				return logger && logger(error, {
 					input: event
@@ -53,32 +55,24 @@ export const lambda:LambdaFactory = <I extends OptStruct = undefined, O extends 
 		}
 
 		try {
-			const warmerEvent = getWarmUpEvent(event)
+			const warmUpEvent = getWarmUpEvent(event)
 
-			if(warmerEvent) {
-				await warmUp(warmerEvent, context)
+			if(warmUpEvent) {
+				await warmUp(warmUpEvent, context)
 				return undefined as Output<O>
 			}
 
 			const timeout = createTimeout(context, log)
-
-			const request:Request<I> = {
-				input: await transformValidationErrors(() => input ? mask(event, input) : event),
-				event,
-				context,
-				log
-			}
-
-			Object.assign(lambda, { request })
-
-			const response:Output<O> = await transformValidationErrors(() => callback(request))
+			const input = await transformValidationErrors(() => options.input ? mask(event, options.input) : event)
+			const extendedContext = { ...(context || {}), event, log } as ExtendedContext
+			const output:Output<O> = await transformValidationErrors(() => options.handle(input, extendedContext))
 
 			clearTimeout(timeout)
 
-			return output ? create(response, output) : response
+			return options.output ? create(output, options.output) : output
 
 		} catch(error) {
-			if(!isViewableError(error) || logViewableErrors) {
+			if(!isViewableError(error) || options.logViewableErrors) {
 				await log(error)
 			}
 

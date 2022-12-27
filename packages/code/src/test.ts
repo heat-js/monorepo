@@ -23,6 +23,15 @@ export const test = async (filters:string[] = []) => {
 			include: ['./test/**/*.{js,jsx,coffee,ts}'],
 			exclude: configDefaults.exclude,
 			globals: true,
+			// rollupOptions: {
+			// 	onwarn: (message) => {
+			// 		if ( /external dependency/.test(message)) {
+			// 			return
+			// 		}
+
+			// 		console.warn( message )
+			// 	}
+			// }
 		}))
 	})
 }

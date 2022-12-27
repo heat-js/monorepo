@@ -3016,7 +3016,7 @@ __metadata:
     "@aws-sdk/util-dynamodb": ^3.226.0
     "@aws-sdk/util-utf8-node": ^3.208.0
     "@heat/aws-test": ^0.0.19
-    "@heat/code": ^0.0.27
+    "@heat/code": ^0.0.35
     "@heat/validate": ^0.0.7
     "@types/aws-lambda": ^8.10.108
     "@types/chunk": ^0.0.0
@@ -3115,7 +3115,7 @@ __metadata:
     "@bugsnag/source-maps": ^2.0.0
     "@graphql-tools/merge": ^6.2.7
     "@heat/cloud-front-function": ^0.0.17
-    "@heat/code": ^0.0.32
+    "@heat/code": ^0.0.33
     "@heat/s3-deploy": ^0.0.13
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^20.0.0
@@ -3208,7 +3208,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/code@^0.0.32, @heat/code@workspace:packages/code":
+"@heat/code@^0.0.35, @heat/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@heat/code@workspace:packages/code"
   dependencies:
@@ -3216,11 +3216,14 @@ __metadata:
     "@babel/preset-env": ^7.20.2
     "@babel/preset-react": ^7.18.6
     "@heat/aws-lambda": ^0.0.7
+    "@lopatnov/rollup-plugin-uglify": ^2.1.5
     "@rollup/plugin-babel": ^6.0.2
     "@rollup/plugin-commonjs": ^23.0.2
     "@rollup/plugin-json": ^5.0.1
     "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-terser": ^0.2.1
     "@rollup/plugin-typescript": ^9.0.2
+    "@wwa/rollup-plugin-terser": ^1.0.1
     coffeescript: ^2.7.0
     commander: ^9.4.1
     jest: ^28.1.1
@@ -3295,6 +3298,38 @@ __metadata:
   bin:
     code: dist/bin.js
   checksum: c415427c6e853723a4b9d30e4f62a37d5ed898bbcb841ea870fb0985076408dea81710e49731eed11f26052d7c1c528580a84b2db07955c5afcdc59c3b110e1d
+  languageName: node
+  linkType: hard
+
+"@heat/code@npm:^0.0.33":
+  version: 0.0.33
+  resolution: "@heat/code@npm:0.0.33"
+  dependencies:
+    "@babel/plugin-transform-runtime": ^7.19.6
+    "@babel/preset-env": ^7.20.2
+    "@babel/preset-react": ^7.18.6
+    "@lopatnov/rollup-plugin-uglify": ^2.1.5
+    "@rollup/plugin-babel": ^6.0.2
+    "@rollup/plugin-commonjs": ^23.0.2
+    "@rollup/plugin-json": ^5.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-terser": ^0.2.1
+    "@rollup/plugin-typescript": ^9.0.2
+    "@wwa/rollup-plugin-terser": ^1.0.1
+    coffeescript: ^2.7.0
+    commander: ^9.4.1
+    object-assign: ^4.1.1
+    rollup: ^3.2.5
+    rollup-plugin-coffee-script: ^2.0.0
+    rollup-plugin-uglify: ^6.0.4
+    rollup-pluginutils: ^2.8.2
+    tslib: ^2.4.1
+    typescript: ^4.8.4
+    vite: ^3.2.3
+    vitest: ^0.25.1
+  bin:
+    code: ./dist/bin.js
+  checksum: bbacd14bbe802be1bca0eb968f83b5d36ce379466f6b1a6207ab6240d8739088ffb407914d6b43be2071b38b7893bc3e0e95ba0d1a36227ea2eb9e0d2842e07e
   languageName: node
   linkType: hard
 
@@ -4466,6 +4501,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lopatnov/rollup-plugin-uglify@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "@lopatnov/rollup-plugin-uglify@npm:2.1.5"
+  dependencies:
+    "@rollup/pluginutils": ^4.2.1
+    core-js: ^3.25.0
+  peerDependencies:
+    rollup: ">=1.0.0"
+    terser: ">=4.0.0"
+  checksum: 4d8d13c725bbb157afa996707b337ef6a3525c709facd3a3162f51274c2734315371ad02978b89e5c8710c2f22ff504f1dcf9cdccad831d320497d0c06ba8be7
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -4662,6 +4710,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-terser@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@rollup/plugin-terser@npm:0.2.1"
+  dependencies:
+    serialize-javascript: ^6.0.0
+    smob: ^0.0.6
+    terser: ^5.15.1
+  peerDependencies:
+    rollup: ^2.x || ^3.x
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 86a5370d111455083907529eacf810e322032f20b756745ce8b0cbb70b0cbd564b7452dc835aa7ece6a9bbc9ac36de4781f7d2c2bb4786f4161100e19826b927
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-typescript@npm:^9.0.2":
   version: 9.0.2
   resolution: "@rollup/plugin-typescript@npm:9.0.2"
@@ -4691,6 +4755,16 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
   checksum: 8be16e27863c219edbb25a4e6ec2fe0e1e451d9e917b6a43cf2ae5bc025a6b8faaa40f82a6e53b66d0de37b58ff472c6c3d57a83037ae635041f8df959d6d9aa
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@rollup/pluginutils@npm:4.2.1"
+  dependencies:
+    estree-walker: ^2.0.1
+    picomatch: ^2.2.2
+  checksum: 6bc41f22b1a0f1efec3043899e4d3b6b1497b3dea4d94292d8f83b4cf07a1073ecbaedd562a22d11913ff7659f459677b01b09e9598a98936e746780ecc93a12
   languageName: node
   linkType: hard
 
@@ -5582,6 +5656,18 @@ __metadata:
     "@webassemblyjs/ast": 1.11.1
     "@xtuc/long": 4.2.2
   checksum: f15ae4c2441b979a3b4fce78f3d83472fb22350c6dc3fd34bfe7c3da108e0b2360718734d961bba20e7716cb8578e964b870da55b035e209e50ec9db0378a3f7
+  languageName: node
+  linkType: hard
+
+"@wwa/rollup-plugin-terser@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@wwa/rollup-plugin-terser@npm:1.0.1"
+  dependencies:
+    "@babel/code-frame": ^7.18.6
+    terser: ^5.15.1
+  peerDependencies:
+    rollup: ^2.0.0 || ^3.0.0
+  checksum: b5a8799afafa8817b3ae497664e03051064e1f649aa82414edb11b03382a6b978f00df56bbedfaa17d5f3c6c80666bcb57976dbf98f45efd5ea3bf880209b3d1
   languageName: node
   linkType: hard
 
@@ -8005,6 +8091,13 @@ __metadata:
   dependencies:
     browserslist: ^4.21.4
   checksum: f222bce0002eae405327d68286e1d566037e8ac21906a47d7ecd15858adca7b12e82140db11dc43c8cc1fc066c5306120f3c27bfb2d7dbc2d20a72a2d90d38dc
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.25.0":
+  version: 3.27.0
+  resolution: "core-js@npm:3.27.0"
+  checksum: 14bf6772e1c73a1cb3848ff63cae8d8f28354195e95ff550f2c4a7ae04650987691e37d6c9fe73789ffd97055b024fc7df825c203965f9a9b9aa6fb9f26f8571
   languageName: node
   linkType: hard
 
@@ -17194,6 +17287,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"smob@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "smob@npm:0.0.6"
+  checksum: 360b8b72896974411ec6ca9a352b306bd4233aea44309dbebaeb41fc822cf770b094589e42a8a025ae291f043cbfc4199fc01dd909e45c7bd3c23d287c7e5bac
+  languageName: node
+  linkType: hard
+
 "snake-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "snake-case@npm:3.0.4"
@@ -17928,7 +18028,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.0.0, terser@npm:^5.14.1":
+"terser@npm:^5.0.0, terser@npm:^5.14.1, terser@npm:^5.15.1":
   version: 5.16.1
   resolution: "terser@npm:5.16.1"
   dependencies:

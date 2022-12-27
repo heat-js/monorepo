@@ -1,6 +1,6 @@
 
+// lambda
 export { lambda } from './lambda.js'
-export { compose } from './compose.js'
 
 // errors
 export { ViewableError, isViewableError, isViewableErrorString, parseViewableErrorString, getViewableErrorData } from './errors/viewable.js'
@@ -8,7 +8,7 @@ export { ValidationError } from './errors/validation.js'
 export { TimeoutError } from './errors/timeout.js'
 
 // types
-export { Request, Response, Input, Output, Handler, Handlers, Next } from './types.js'
+export { Response, Input, Output, Handler } from './types.js'
 
 // loggers
 export { bugsnag } from './loggers/bugsnag/index.js'

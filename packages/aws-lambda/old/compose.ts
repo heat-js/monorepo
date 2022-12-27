@@ -1,4 +1,4 @@
-import { Handler, Handlers, Next, OptStruct, Output, Request, Response } from './types.js'
+import { Context, Handler, Handlers, Input, Next, OptStruct, Output, Response } from '../src/types.js'
 
 export const compose = <I extends OptStruct, O extends OptStruct>(handlers: Handlers<I, O> = []) => {
 	const stack = [handlers].flat(10) as Handler<I, O>[]
@@ -9,7 +9,7 @@ export const compose = <I extends OptStruct, O extends OptStruct>(handlers: Hand
 		}
 	}
 
-	return (request: Request<I>): Promise<Output<O>> => {
+	return (event: Input<I>, context: Context): Promise<Output<O>> => {
 		let index = -1
 		const dispatch = (pos: number): Response<O> => {
 			if (pos === stack.length) {
@@ -24,7 +24,7 @@ export const compose = <I extends OptStruct, O extends OptStruct>(handlers: Hand
 				return dispatch(pos + 1)
 			}
 
-			return stack[pos](request, next)
+			return stack[pos](event, context, next)
 		}
 
 		return Promise.resolve(dispatch(0))

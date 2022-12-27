@@ -1,5 +1,5 @@
 import { Struct, Infer } from '@heat/validate'
-import { Context } from 'aws-lambda'
+import { Context as LambdaContext } from 'aws-lambda'
 
 export type OptStruct = Struct<any, unknown> | undefined
 export type Input<T extends OptStruct = undefined> = T extends undefined ? unknown : Infer<RemoveUndefined<T>>
@@ -8,24 +8,31 @@ export type Output<T extends OptStruct = undefined> = T extends undefined ? unkn
 // export type Output<T extends OptStruct = undefined> = T extends Struct ? Infer<T> : unknown
 export type RemoveUndefined<T> = T extends undefined ? never : T
 
-export type Request<I extends OptStruct = undefined> = {
+// export type Request<I extends OptStruct = undefined> = {
+// readonly event: unknown
+// readonly input: Input<I>
+// readonly context?: Context
+// readonly log: Logger
+// }
+
+export type Context = LambdaContext & {
 	readonly event: unknown
-	readonly input: Input<I>
-	readonly context?: Context
 	readonly log: Logger
 }
 
+// import { Context } from 'aws-lambda'
+
 export type Response<O extends OptStruct = undefined> = Output<O> | Promise<Output<O>>
-export type Next<O extends OptStruct = any> = () => Response<O>
+// export type Next<O extends OptStruct = any> = () => Response<O>
 
 export type Handler<I extends OptStruct = undefined, O extends OptStruct = undefined> = (
-	request: Request<I>,
-	next: Next<O>
+	event: Input<I>,
+	context: Context
 ) => Response<O>
 
-export type Handlers<I extends OptStruct = undefined, O extends OptStruct = undefined> =
-	| Array<Handlers<I, O> | Handler<I, O>>
-	| Handler<I, O>
+// export type Handlers<I extends OptStruct = undefined, O extends OptStruct = undefined> =
+// | Array<Handler<I, O>>
+// | Handler<I, O>
 
 // export type EventCallback<I extends OptStruct = undefined> = (request: Request<I>, ...args: any[]) => void
 // export type EventListener<I extends OptStruct = undefined> = { event: string, callback: EventCallback<I> }

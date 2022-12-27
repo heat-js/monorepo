@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.58",
+	"version": "0.0.61",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -52,7 +52,7 @@
 	},
 	"devDependencies": {
 		"@heat/aws-test": "^0.0.19",
-		"@heat/code": "^0.0.27",
+		"@heat/code": "^0.0.35",
 		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",
 		"tsup": "^6.5.0",

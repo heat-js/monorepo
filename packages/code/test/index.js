@@ -134,6 +134,12 @@ describe('Code', () => {
 		expect(result.map.toString()).toBeDefined()
 	})
 
+	it('should support top level await', async () => {
+		const path = testPath('top-level-await')
+		const result = await bundle(path, { minimize: true, format: 'esm', sourceMap: true })
+		expect(result.code).toBeDefined()
+	})
+
 	it('should ignore bundling externals', async () => {
 		const path = testPath('external')
 		const result = await bundle(path, {

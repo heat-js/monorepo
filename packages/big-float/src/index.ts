@@ -1,5 +1,6 @@
 
 export { BigFloat, Numeric } from './bigfloat.js'
+export type { IBigFloat } from 'bigfloat-esnext'
 
 export { neg, abs, add, sub, mul, div, sqrt, pow, ceil, floor } from './arithmetic.js'
 export { eq, lt, lte, gt, gte } from './relational.js'

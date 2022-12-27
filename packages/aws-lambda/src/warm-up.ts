@@ -7,6 +7,7 @@ const warmerKey = 'warmer'
 const invocationKey = '__WARMER_INVOCATION_ID__'
 const correlationKey = '__WARMER_CORRELATION_ID__'
 const concurrencyKey = 'concurrency'
+const concurrencyLimit = 10
 
 type Input = {
 	invocation: number
@@ -31,6 +32,10 @@ export const warmUp = async (input: Input, context?:Context) => {
 		functionVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
 	}
 
+	if(input.concurrency > concurrencyLimit) {
+		throw new Error(`Warm up concurrency limit can't be greater than ${concurrencyLimit}`)
+	}
+
 	if(input.correlation) {
 		console.log({
 			...event,
@@ -49,10 +54,10 @@ export const warmUp = async (input: Input, context?:Context) => {
 			return invoke({
 				name: process.env.AWS_LAMBDA_FUNCTION_NAME || '',
 				payload: {
-					[warmerKey]: true,
-					[invocationKey]: index + 2,
-					[correlationKey]: correlation,
-					[concurrencyKey]: input.concurrency
+					[ warmerKey ]: true,
+					[ invocationKey ]: index + 2,
+					[ correlationKey ]: correlation,
+					[ concurrencyKey ]: input.concurrency
 				}
 			})
 		}))
