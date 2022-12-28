@@ -1,5 +1,4 @@
 
-// export { Table } from './table.js'
 export { ql } from './ql.js'
 export { Expression, Key, Value, Item } from './types.js'
 
