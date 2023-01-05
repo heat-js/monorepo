@@ -9,3 +9,4 @@ export default ({ profile, region, templateBody, templateUrl }) ->
 		.promise()
 
 	return result.Capabilities
+	# return [ 'CAPABILITY_AUTO_EXPAND', ...result.Capabilities ]
