@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { mockDynamoDB } from '@heat/aws-test'
-import { getItem, putItem, query, ql, updateItem, pagination, deleteItem, scan } from '../src/index'
+import { getItem, putItem, query, ql, updateItem, pagination, deleteItem, scan, batchGetItem } from '../src/index'
 
 describe('DynamoDB Basic OPS', () => {
 
@@ -309,6 +309,16 @@ describe('DynamoDB Basic OPS', () => {
 				]
 			})
 		})
+
+		it('should not return cursor when no more items are available', async () => {
+			const result = await pagination<Post>(posts, {
+				keyCondition: ql`#userId = ${1}`,
+				limit: 3
+			})
+
+			expect(result.items.length).toBe(3)
+			expect(result.cursor).toBeUndefined()
+		})
 	})
 
 	describe('scan', () => {
@@ -373,6 +383,93 @@ describe('DynamoDB Basic OPS', () => {
 					}
 				]
 			})
+		})
+	})
+
+	describe('batchGetItem', () => {
+		it('should batch get items', async () => {
+			const result = await batchGetItem<Post>(posts, [
+				{ userId: 1, id: 1 },
+				{ userId: 1, id: 2 },
+				{ userId: 1, id: 3 },
+				{ userId: 1, id: 1000 },
+			])
+
+			expect(result).toStrictEqual([
+				{
+					userId: 1,
+					id: 1,
+					title: 'First',
+					content: 'updated 3'
+				},
+				{
+					userId: 1,
+					id: 2,
+					title: 'Second',
+				},
+				{
+					userId: 1,
+					id: 3,
+					title: 'Third',
+				},
+				undefined
+			])
+		})
+
+		it('should filter non existent items', async () => {
+			const result = await batchGetItem<Post>(posts, [
+				{ userId: 1, id: 1 },
+				{ userId: 1, id: 2 },
+				{ userId: 1, id: 3 },
+				{ userId: 1, id: 1000 },
+			], {
+				filterNonExistentItems: true
+			})
+
+			expect(result).toStrictEqual([
+				{
+					userId: 1,
+					id: 1,
+					title: 'First',
+					content: 'updated 3'
+				},
+				{
+					userId: 1,
+					id: 2,
+					title: 'Second',
+				},
+				{
+					userId: 1,
+					id: 3,
+					title: 'Third',
+				},
+			])
+		})
+
+		it('should batch get with big data', async () => {
+			const content = Array
+				.from({ length: 100000 })
+				.map(() => 'xxx')
+				.join(' ')
+
+			const limit = 100
+			const ids = Array.from({ length: limit }).map((_, id) => id + 1)
+
+			await Promise.all(ids.map(id => {
+				return putItem<Post>(posts, {
+					userId: 1,
+					title: 'Title',
+					id,
+					content,
+				})
+			}))
+
+			const result = await batchGetItem<Post>(posts, ids.map(id => ({
+				userId: 1,
+				id
+			})))
+
+			expect(result.length).toBe(limit)
 		})
 	})
 })

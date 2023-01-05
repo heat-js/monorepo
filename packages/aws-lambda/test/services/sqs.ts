@@ -11,7 +11,7 @@ describe('SQS', () => {
 
 	it('should add a queue message', async () => {
 		await addQueueMessage({
-			name: 'test',
+			queue: 'test',
 			payload: 1
 		})
 
@@ -20,7 +20,7 @@ describe('SQS', () => {
 
 	it('should batch multiple queue messages', async () => {
 		await addQueueBatch({
-			name: 'test',
+			queue: 'test',
 			items: [
 				{ payload: 2 },
 				{ payload: 3 }

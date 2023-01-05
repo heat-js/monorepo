@@ -1,5 +1,6 @@
+
 import { IoTDataPlaneClient, PublishCommand } from '@aws-sdk/client-iot-data-plane'
-import { getIoTClient } from '../clients/iot'
+import { iotClient } from '@heat/aws-clients'
 
 interface PublishOptions {
 	client?: IoTDataPlaneClient
@@ -16,6 +17,7 @@ interface Payload {
 	v: any
 }
 
+/** Publish to IOT */
 export const publish = async ({ client, topic, id, event, value, qos = 0 }: PublishOptions) => {
 	const payload: Payload = {
 		e: event,
@@ -32,5 +34,5 @@ export const publish = async ({ client, topic, id, event, value, qos = 0 }: Publ
 		payload: Buffer.from(JSON.stringify(payload))
 	})
 
-	await (client || await getIoTClient({})).send(command)
+	await (client || await iotClient.get()).send(command)
 }

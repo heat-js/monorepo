@@ -1,6 +1,6 @@
 {
 	"name": "@heat/dynamodb",
-	"version": "0.0.3",
+	"version": "0.0.10",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -38,13 +38,13 @@
 		"@aws-sdk/lib-dynamodb": "^3.226.0",
 		"@aws-sdk/util-dynamodb": "^3.226.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
-		"@heat/aws-lambda": "^0.0.57"
+		"@heat/aws-clients": "^0.0.2"
 	},
 	"dependencies": {
 		"chunk": "^0.0.3"
 	},
 	"devDependencies": {
-		"@heat/aws-test": "^0.0.19",
+		"@heat/aws-test": "^0.0.23",
 		"@heat/code": "^0.0.27",
 		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",

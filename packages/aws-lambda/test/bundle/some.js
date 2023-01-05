@@ -1,4 +1,4 @@
 
-import { handle } from '../../src/index'
+import { lambda } from '../../src/index'
 
-export default handle()
+export default lambda()

@@ -34,7 +34,7 @@ describe('Lambda', () => {
 		const echo = lambda({
 			input: string(),
 			output: string(),
-			handle: ({ input }) => input
+			handle: (input) => input
 		})
 
 		const result = await invoke<typeof echo>({

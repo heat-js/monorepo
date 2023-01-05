@@ -34,7 +34,7 @@ describe('Lightwight Bundle', () => {
 	it('should bundle only the handle code', async () => {
 		const result = await code('some')
 
-		expect(result.length).toBeGreaterThanOrEqual(2000)
-		expect(result.length).toBeLessThanOrEqual(3000)
+		expect(result.length).toBeGreaterThanOrEqual(4000)
+		expect(result.length).toBeLessThanOrEqual(5000)
 	}, 100000)
 })

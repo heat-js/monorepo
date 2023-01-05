@@ -75,7 +75,11 @@ export class Server {
 	/** Get DynamoDBDocumentClient connected to dynamodb local. */
 	getDocumentClient() {
 		if(!this.documentClient) {
-			this.documentClient = DynamoDBDocumentClient.from(this.getClient())
+			this.documentClient = DynamoDBDocumentClient.from(this.getClient(), {
+				marshallOptions: {
+					removeUndefinedValues: true
+				}
+			})
 		}
 
 		return this.documentClient

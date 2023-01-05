@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.58",
+	"version": "0.0.70",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -34,7 +34,7 @@
 			"test/bundle/**/*"
 		]
 	},
-	"dependencies": {
+	"peerDependencies": {
 		"@aws-sdk/client-dynamodb": "^3.226.0",
 		"@aws-sdk/client-iot": "^3.204.0",
 		"@aws-sdk/client-iot-data-plane": "^3.204.0",
@@ -45,14 +45,18 @@
 		"@aws-sdk/lib-dynamodb": "^3.226.0",
 		"@aws-sdk/util-dynamodb": "^3.226.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
-		"@heat/validate": "^0.0.7",
+		"@heat/aws-clients": "^0.0.2",
+		"@heat/validate": "^0.0.8"
+	},
+	"dependencies": {
+		"@heat/aws-clients": "^0.0.3",
 		"@types/aws-lambda": "^8.10.108",
 		"chunk": "^0.0.3",
-		"superstruct": "^1.0.3"
+		"type-fest": "^3.5.0"
 	},
 	"devDependencies": {
 		"@heat/aws-test": "^0.0.19",
-		"@heat/code": "^0.0.27",
+		"@heat/code": "^0.0.35",
 		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",
 		"tsup": "^6.5.0",

@@ -1,7 +1,7 @@
 
 import { GetParametersCommand, SSMClient } from '@aws-sdk/client-ssm'
 import chunk from 'chunk'
-import { getSSMClient } from '../clients/ssm'
+import { ssmClient } from '@heat/aws-clients'
 
 interface Config<T extends Record<string, string>> {
 	client?: SSMClient
@@ -9,8 +9,7 @@ interface Config<T extends Record<string, string>> {
 }
 
 /** Fetch the provided ssm paths */
-export const ssm = async <T extends Record<string, string>>({ client, paths }: Config<T>): Promise<T> => {
-	const ssmSlient = client || await getSSMClient({})
+export const ssm = async <T extends Record<string, string>>({ client = ssmClient.get(), paths }: Config<T>): Promise<T> => {
 	const values: Record<string, string> = {}
 	const list = Object.entries(paths).map(([key, path]) => {
 		return {
@@ -26,7 +25,7 @@ export const ssm = async <T extends Record<string, string>>({ client, paths }: C
 				WithDecryption: true
 			})
 
-			const result = await ssmSlient.send(command)
+			const result = await client.send(command)
 
 			if (result.InvalidParameters && result.InvalidParameters.length) {
 				throw new Error(`SSM parameter(s) not found - ['${result.InvalidParameters.join(`', '`)}']`)
@@ -44,12 +43,4 @@ export const ssm = async <T extends Record<string, string>>({ client, paths }: C
 	)
 
 	return values as T
-}
-
-async () => {
-	const config = await ssm({ paths: {
-		secret: '/secret'
-	} })
-
-	config.secret
 }

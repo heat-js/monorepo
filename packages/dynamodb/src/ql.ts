@@ -1,5 +1,5 @@
 
-import { Expression, Value } from './types.js'
+import { Expression, ExpressionNames, ExpressionValues, Value } from './types.js'
 
 let index = 0
 
@@ -9,8 +9,8 @@ const id = () => {
 }
 
 export const ql = (literals:TemplateStringsArray, ...raw:Value[]): Expression => {
-	const names:{[key:string]: string} = {}
-	const values:{[key:string]: unknown} = {}
+	const names:ExpressionNames = {}
+	const values:ExpressionValues = {}
 	const string:string[] = []
 
 	literals.forEach((literal, i) => {
@@ -32,9 +32,29 @@ export const ql = (literals:TemplateStringsArray, ...raw:Value[]): Expression =>
 			return key
 		})
 
-	return {
-		expression,
-		names,
-		values
-	}
+	return { expression, names, values }
+}
+
+export const setExpression = (records: Record<string, any>): Expression => {
+	const names:ExpressionNames = {}
+	const values:ExpressionValues = {}
+	const expression: string = 'SET ' + Object.entries(records).map(([ name, value ]) => {
+		names[`#${ name }`] = name
+		values[`:${ name }`] = value
+		return `#${ name } = :${ name }`
+	}).join(', ')
+
+	return { expression, names, values }
+}
+
+export const joinExpression = (...expressions:Expression[]): Expression => {
+	const names:ExpressionNames = {}
+	const values:ExpressionValues = {}
+	const expression: string = expressions.map((expression) => {
+		Object.assign(names, expression.names)
+		Object.assign(values, expression.values)
+		return expression.expression
+	}).join(' ')
+
+	return { expression, names, values }
 }

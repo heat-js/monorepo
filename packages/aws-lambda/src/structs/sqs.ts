@@ -1,12 +1,12 @@
-import { array, object, string, record, Struct } from 'superstruct'
-import { json } from '@heat/validate'
+
+import { json, array, type, string, record, Struct } from '@heat/validate'
 
 export const sqsStruct = <A, B>(body: Struct<A, B>) => {
-	return object({
-		Records: array(object({
+	return type({
+		Records: array(type({
 			body: json(body),
 			messageId: string(),
-			messageAttributes: record(string(), object({
+			messageAttributes: record(string(), type({
 				dataType: string(),
 				stringValue: string()
 			}))
@@ -20,6 +20,6 @@ type Input<T> = {
 	}[]
 }
 
-export const sqsRecords = <T>(input:Input<T>):T[] => {
+export const sqsRecords = <T>(input:Input<T>) => {
 	return input.Records.map(item => item.body)
 }

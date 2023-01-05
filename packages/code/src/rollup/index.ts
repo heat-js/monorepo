@@ -4,7 +4,10 @@ import { InputPluginOption, rollup as bundler, RollupLog } from 'rollup'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from '@wwa/rollup-plugin-terser'
+// import terser from '@rollup/plugin-terser'
+// import { uglify } from 'rollup-plugin-uglify'
+// import uglify from '@lopatnov/rollup-plugin-uglify'
 import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import coffee from './coffee'
@@ -62,10 +65,15 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 			preferBuiltins: true,
 			extensions: ['.js', '.coffee', '.jsx']
 		}),
-		minimize && uglify({
-			sourcemap: sourceMap,
-			toplevel: true,
-		}),
+		minimize && terser()
+		// minimize && uglify({
+		// 	sourcemap: sourceMap,
+		// 	toplevel: true,
+		// }),
+		// minimize && uglify({
+		// 	sourceMap,
+		// 	toplevel: true,
+		// }),
 	]
 }
 
@@ -128,13 +136,6 @@ export const rollup = async (input, options:RollupOptions = {}) => {
 		treeshake: {
 			moduleSideEffects
 		},
-
-		// onwarn(warning) {
-		// 	const ignore = [ 'CIRCULAR_DEPENDENCY' ]
-		// 	if (!ignore.includes(warning.code)) {
-		// 		console.error(`(!) ${warning.message}`)
-		// 	}
-		// },
 	})
 
 	const { output: [output] } = await bundle.generate({

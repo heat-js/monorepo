@@ -6,7 +6,7 @@ import { lambda, ValidationError, ViewableError } from '../src'
 describe('Handle', () => {
 
 	it('should echo', async () => {
-		const echo = lambda({ handle: ({ input }) => input })
+		const echo = lambda({ handle: (input) => input })
 		const result = await echo('echo')
 		expect(result).toBe('echo')
 	})
@@ -26,10 +26,7 @@ describe('Handle', () => {
 
 	it('should allow deep middleware handlers', async () => {
 		const handle = lambda({
-			handle: [
-				(_, next) => next(),
-				[ () => 'works' ]
-			]
+			handle: () => 'works'
 		})
 
 		const result = await handle()
@@ -45,13 +42,13 @@ describe('Handle', () => {
 		await handle('hi')
 
 		// @ts-ignore
-		await expect(lambda()).rejects.toThrow(ValidationError)
+		await expect(handle()).rejects.toThrow(ValidationError)
 	})
 
 	it('should validate output', async () => {
 		const handle = lambda({
 			output: string(),
-			handle({ input }) {
+			handle(input) {
 				return input as string
 			}
 		})
@@ -64,7 +61,7 @@ describe('Handle', () => {
 		const handle = lambda({
 			input: string(),
 			output: string(),
-			handle({ input }) {
+			handle(input) {
 				return input
 			}
 		})

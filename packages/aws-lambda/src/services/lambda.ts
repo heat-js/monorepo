@@ -1,16 +1,17 @@
+
 import { fromUtf8, toUtf8 } from '@aws-sdk/util-utf8-node'
 import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda'
+import { lambdaClient } from '@heat/aws-clients'
 import { isViewableErrorString, parseViewableErrorString, ViewableError } from '../errors/viewable.js'
-import { serviceName } from '../helper.js'
-import { LambdaFunction } from '../handle.js'
-import { getLambdaClient } from '../clients/lambda.js'
+import { LambdaFunction } from '../lambda.js'
 import { OptStruct } from '../types.js'
+import { Jsonify, AsyncReturnType } from 'type-fest'
 
 interface InvokeOptions {
 	client?: LambdaClient
-	service?: string
 	type?: 'RequestResponse' | 'Event' | 'DryRun'
 	name: string
+	qualifier?: string
 	payload?: unknown
 	reflectViewableErrors?: boolean
 }
@@ -36,30 +37,35 @@ const isErrorResponse = (response: any): boolean => {
 
 type Invoke = {
 	(options: UnknownInvokeOptions): Promise<unknown>
-	<Lambda extends LambdaFunction<OptStruct, OptStruct>>(options: KnownInvokeOptions<Lambda>): Promise<ReturnType<Lambda>>
+	<Lambda extends LambdaFunction<OptStruct, OptStruct>>(options: KnownInvokeOptions<Lambda>): Promise<Jsonify<AsyncReturnType<Lambda>>>
 }
 
-export const invoke:Invoke = async <Lambda extends LambdaFunction<OptStruct, OptStruct>>({
-	client,
-	service,
+/** Invoke lambda function */
+export const invoke:Invoke = async ({
+	client = lambdaClient.get(),
 	name,
+	qualifier,
 	type = 'RequestResponse',
 	payload,
 	reflectViewableErrors = true
 }: UnknownInvokeOptions): Promise<unknown> => {
 	const command = new InvokeCommand({
 		InvocationType: type,
-		FunctionName: serviceName(service, name),
+		FunctionName: name,
 		Payload: payload ? fromUtf8(JSON.stringify(payload)) : undefined,
+		Qualifier: qualifier,
 	})
 
-	const result = await (client || await getLambdaClient({})).send(command)
-
+	const result = await client.send(command)
 	if (!result.Payload) {
 		return undefined
 	}
 
 	const json = toUtf8(result.Payload)
+	if (!json) {
+		return undefined
+	}
+
 	const response = JSON.parse(json)
 
 	if (isErrorResponse(response)) {
@@ -79,7 +85,7 @@ export const invoke:Invoke = async <Lambda extends LambdaFunction<OptStruct, Opt
 		error.name = response.errorType
 		error.response = response
 		error.metadata = {
-			service: `${service}__${name}`,
+			service: name
 		}
 
 		throw error

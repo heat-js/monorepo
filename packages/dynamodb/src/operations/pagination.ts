@@ -25,6 +25,21 @@ export const pagination = async <T extends Item>(table:string, options:Paginatio
 		cursor: options.cursor && fromCursor(options.cursor)
 	})
 
+	// FIX the problem where DynamoDB will return a cursor
+	// even when no more items are available.
+
+	if(result.cursor) {
+		const more = await query<T>(table, {
+			...options,
+			limit: 1,
+			cursor: result.cursor
+		})
+
+		if(more.count === 0) {
+			delete result.cursor
+		}
+	}
+
 	return {
 		...result,
 		cursor: result.cursor && toCursor(result.cursor)

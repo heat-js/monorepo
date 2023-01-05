@@ -4,6 +4,7 @@ export { date } from './types/date.js'
 export { uuid } from './types/uuid.js'
 export { json } from './types/json.js'
 export { lowercase, uppercase } from './types/string.js'
+export { unique } from './types/array.js'
 
 export {
 	// -------------------------------------------------------------------------

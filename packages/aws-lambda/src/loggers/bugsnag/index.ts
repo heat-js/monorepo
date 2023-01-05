@@ -8,7 +8,7 @@ interface BugsnagOptions {
 }
 
 /**
- * Middleware for logging errors into Bugsnag
+ * Logging errors into Bugsnag
  * @param apiKey - The bugsnag api key. Default is `process.env.BUGSNAG_API_KEY`
  */
 export const bugsnag = ({ apiKey = process.env.BUGSNAG_API_KEY }:BugsnagOptions = {}) => {

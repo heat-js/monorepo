@@ -14,25 +14,33 @@ export class ViewableError extends Error {
 	}
 }
 
+interface ViewableErrorData {
+	type: string
+	message: string
+	data?: any
+}
+
 export const isViewableError = (error: unknown): error is ViewableError => {
 	return (
 		error instanceof ViewableError || ( error instanceof Error && isViewableErrorString(error.message) )
 	)
 }
 
-export const isViewableErrorString = (value: string) => {
+export const isViewableErrorString = (value: string): boolean => {
 	return 0 === value.indexOf(prefix)
 }
 
-export const parseViewableErrorString = (value: string) => {
+export const parseViewableErrorString = (value: string): ViewableErrorData => {
 	const json = value.substring(prefix.length)
-	return JSON.parse(json)
-}
+	const data = JSON.parse(json)
 
-export const getViewableErrorData = (error: ViewableError): string => {
-	if (0 === error.message.indexOf(prefix)) {
-		return parseViewableErrorString(error.message)
+	if(typeof data.type !== 'string' || typeof data.message !== 'string') {
+		throw new TypeError('Invalid viewable error string')
 	}
 
-	return error.message
+	return data
+}
+
+export const getViewableErrorData = (error: ViewableError): ViewableErrorData => {
+	return parseViewableErrorString(error.message)
 }

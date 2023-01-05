@@ -1,6 +1,6 @@
 {
   "name": "@heat/aws-test",
-  "version": "0.0.21",
+  "version": "0.0.23",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
