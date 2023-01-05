@@ -1,7 +1,0 @@
-export { Failure, StructError } from './error';
-export { Struct, Infer, assert, create, mask, is, validate, Context, Result, Coercer, Validator, Refiner } from './struct';
-export { coerce, defaulted, trimmed } from './structs/coercions';
-export { empty, max, min, size, nonempty, pattern, refine } from './structs/refinements';
-export { any, array, bigint, boolean, string, number, integer, date, enums, func, instance, intersection, literal, map, never, nullable, object, optional, record, regexp, set, tuple, type, union, unknown } from './structs/types';
-export { assign, define, deprecated, dynamic, lazy, omit, partial, pick, struct } from './structs/utilities';
-//# sourceMappingURL=index.d.ts.map
