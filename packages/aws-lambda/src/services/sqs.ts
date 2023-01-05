@@ -1,9 +1,7 @@
 
-import { serviceName } from '../helper.js'
 import { SQSClient, SendMessageCommand, GetQueueUrlCommand, SendMessageBatchCommand } from '@aws-sdk/client-sqs'
-// import { LambdaFunction } from '../../handle.js'
+import { sqsClient } from '@heat/aws-clients'
 import chunk from 'chunk'
-import { getSQSClient } from '../clients/sqs.js'
 
 type Attributes = {
 	[ key:string ]: string
@@ -18,8 +16,7 @@ type FormattedAttributes = {
 
 interface AddQueueMessage {
 	client?: SQSClient
-	service?: string
-	name: string
+	queue: string
 	payload?: any
 	delay?: number
 	attributes?: Attributes
@@ -27,8 +24,7 @@ interface AddQueueMessage {
 
 interface AddQueueBatch {
 	client?: SQSClient
-	service?: string
-	name: string
+	queue: string
 	items: BatchItem[]
 }
 
@@ -68,10 +64,8 @@ export const getCachedQueueUrl = (client: SQSClient, queue:string) => {
 }
 
 /** Add message to a SQS queue */
-export const addQueueMessage = async ({ client, service, name, payload, delay = 0, attributes = {} }: AddQueueMessage) => {
-	const sqsClient = client || await getSQSClient({})
-	const queue = serviceName(service, name)
-	const url = await getCachedQueueUrl(sqsClient, queue)
+export const addQueueMessage = async ({ client = sqsClient.get(), queue, payload, delay = 0, attributes = {} }: AddQueueMessage) => {
+	const url = await getCachedQueueUrl(client, queue)
 
 	const command = new SendMessageCommand({
 		QueueUrl: url,
@@ -80,14 +74,12 @@ export const addQueueMessage = async ({ client, service, name, payload, delay = 
 		MessageAttributes: formatAttributes({ queue, ...attributes })
 	})
 
-	return sqsClient.send(command)
+	return client.send(command)
 }
 
 /** Add batch of messages to a SQS queue */
-export const addQueueBatch = async ({ client, service, name, items }: AddQueueBatch) => {
-	const sqsClient = client || await getSQSClient({})
-	const queue = serviceName(service, name)
-	const url = await getCachedQueueUrl(sqsClient, queue)
+export const addQueueBatch = async ({ client = sqsClient.get(), queue, items }: AddQueueBatch) => {
+	const url = await getCachedQueueUrl(client, queue)
 
 	await Promise.all(chunk(items, 10).map(async batch => {
 		const command = new SendMessageBatchCommand({
@@ -100,6 +92,6 @@ export const addQueueBatch = async ({ client, service, name, items }: AddQueueBa
 			}))
 		})
 
-		return sqsClient.send(command)
+		return client.send(command)
 	}))
 }

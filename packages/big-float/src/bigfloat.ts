@@ -1,5 +1,5 @@
 
-import { make, IBigFloat, string } from 'bigfloat-esnext'
+import { make, IBigFloat, string, set_precision } from 'bigfloat-esnext'
 
 export type Numeric = IBigFloat | number | bigint | string
 

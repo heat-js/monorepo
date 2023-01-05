@@ -1,6 +1,6 @@
+
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns'
-import { getSNSClient } from '../clients/sns.js'
-import { serviceName } from '../helper.js'
+import { snsClient } from '@heat/aws-clients'
 
 type Attributes = { [key:string]: string }
 type FormattedAttributes = {
@@ -13,7 +13,6 @@ type FormattedAttributes = {
 interface Publish {
 	client?: SNSClient
 
-	service?: string
 	topic: string
 	subject?: string
 	payload?: any
@@ -36,8 +35,7 @@ const formatAttributes = (attributes:Attributes) => {
 }
 
 /** Send SNS message */
-export const sendNotification = async ({ client, service, topic: name, subject, payload, attributes = {}, region = process.env.AWS_REGION, accountId = process.env.AWS_ACCOUNT_ID }: Publish) => {
-	const topic = serviceName(service, name)
+export const sendNotification = ({ client = snsClient.get(), topic, subject, payload, attributes = {}, region = process.env.AWS_REGION, accountId = process.env.AWS_ACCOUNT_ID }: Publish) => {
 	const command = new PublishCommand({
 		TopicArn: `arn:aws:sns:${region}:${accountId}:${topic}`,
 		Subject: subject,
@@ -48,5 +46,5 @@ export const sendNotification = async ({ client, service, topic: name, subject, 
 		})
 	})
 
-	return (client || await getSNSClient({})).send(command)
+	return client.send(command)
 }

@@ -7,10 +7,6 @@ export const test = () => {
 	)
 }
 
-export const serviceName = (service:string|undefined, name:string) => {
-	return service ? `${service}__${name}` : name
-}
-
 export const cachedClient = <Client, Config>(factory: (config:Config) => Promise<Client>) => {
 	let client:Promise<Client>
 

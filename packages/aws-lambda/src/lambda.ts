@@ -1,7 +1,7 @@
 
 import { Context } from 'aws-lambda'
 import { transformValidationErrors } from './errors/validation.js'
-import { create, mask } from '@heat/validate'
+import { create } from '@heat/validate'
 import { Input, Logger, Loggers, OptStruct, Output, Context as ExtendedContext, Handler } from './types.js'
 import { createTimeout } from './errors/timeout.js'
 import { isViewableError } from './errors/viewable.js'
@@ -63,7 +63,7 @@ export const lambda:LambdaFactory = <
 			}
 
 			const timeout = createTimeout(context, log)
-			const input = await transformValidationErrors(() => options.input ? mask(event, options.input) : event)
+			const input = await transformValidationErrors(() => options.input ? create(event, options.input) : event)
 			const extendedContext = { ...(context || {}), event, log } as ExtendedContext
 			const output:Output<O> = await transformValidationErrors(() => options.handle(input, extendedContext))
 

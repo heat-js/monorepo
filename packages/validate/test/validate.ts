@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest'
-import { bigfloat, date, uuid, positive, precision, lowercase, uppercase, string, StructError, create, json, object } from '../src/index'
+import { bigfloat, date, uuid, positive, precision, lowercase, uppercase, string, StructError, create, json, object, array, unique, number } from '../src/index'
 import { BigFloat } from '@heat/big-float'
 
 describe('Validate Types', () => {
@@ -98,6 +98,46 @@ describe('Validate Types', () => {
 		validate: (value) => {
 			const result = create(value, uppercase(string()))
 			expect(result).toBe(value.toUpperCase())
+		}
+	})
+
+	testRule('unique', {
+		valid: [
+			[],
+			[ 1, 2, 3 ],
+			[ 'a', 'b', 'c' ],
+			[ '1', 1 ],
+			[ true, false ],
+			[ {}, {} ], // different objects.
+			[ [], [] ], // different arrays.
+		],
+		invalid: [
+			[ 1, 1 ],
+			[ '1', '1' ],
+			[ null, null ],
+			[ undefined, undefined ],
+			[ true, true ],
+			[ false, false ],
+		],
+		validate: (value) => {
+			const result = create(value, unique(array()))
+			expect(result).toStrictEqual(value)
+		}
+	})
+
+	testRule('unique', {
+		valid: [
+			[ { key: 1 }, { key: 2 } ],
+		],
+		invalid: [
+			[ { key: 1 }, { key: 1 } ],
+		],
+		validate: (value) => {
+			const result = create(value, unique(
+				array(object({ key: number() })),
+				(a, b) => a.key === b.key
+			))
+			expect(result).toStrictEqual(value)
 		}
 	})
 

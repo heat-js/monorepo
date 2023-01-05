@@ -53,6 +53,7 @@ export const warmUp = async (input: Input, context?:Context) => {
 		await Promise.all(Array.from({ length: input.concurrency - 1 }).map((_, index) => {
 			return invoke({
 				name: process.env.AWS_LAMBDA_FUNCTION_NAME || '',
+				qualifier: '$LATEST',
 				payload: {
 					[ warmerKey ]: true,
 					[ invocationKey ]: index + 2,

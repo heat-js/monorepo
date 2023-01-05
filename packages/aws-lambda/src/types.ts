@@ -1,3 +1,4 @@
+
 import { Struct, Infer } from '@heat/validate'
 import { Context as LambdaContext } from 'aws-lambda'
 

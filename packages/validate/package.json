@@ -1,6 +1,6 @@
 {
 	"name": "@heat/validate",
-	"version": "0.0.7",
+	"version": "0.0.9",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -28,8 +28,10 @@
 		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
 		"publish": "yarn build; yarn npm publish --access=public"
 	},
+	"peerDependencies": {
+		"@heat/big-float": "^0.0.2"
+	},
 	"dependencies": {
-		"@heat/big-float": "^0.0.2",
 		"superstruct": "^1.0.3"
 	},
 	"devDependencies": {

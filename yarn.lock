@@ -101,7 +101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-dynamodb@npm:^3.214.0, @aws-sdk/client-dynamodb@npm:^3.226.0":
+"@aws-sdk/client-dynamodb@npm:^3.214.0":
   version: 3.236.0
   resolution: "@aws-sdk/client-dynamodb@npm:3.236.0"
   dependencies:
@@ -709,7 +709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/lib-dynamodb@npm:^3.214.0, @aws-sdk/lib-dynamodb@npm:^3.226.0":
+"@aws-sdk/lib-dynamodb@npm:^3.214.0":
   version: 3.236.0
   resolution: "@aws-sdk/lib-dynamodb@npm:3.236.0"
   dependencies:
@@ -1105,7 +1105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/util-dynamodb@npm:3.236.0, @aws-sdk/util-dynamodb@npm:^3.204.0, @aws-sdk/util-dynamodb@npm:^3.226.0":
+"@aws-sdk/util-dynamodb@npm:3.236.0, @aws-sdk/util-dynamodb@npm:^3.204.0":
   version: 3.236.0
   resolution: "@aws-sdk/util-dynamodb@npm:3.236.0"
   dependencies:
@@ -2981,6 +2981,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heat/aws-clients@^0.0.3, @heat/aws-clients@workspace:packages/aws-clients":
+  version: 0.0.0-use.local
+  resolution: "@heat/aws-clients@workspace:packages/aws-clients"
+  dependencies:
+    "@heat/aws-test": ^0.0.19
+    "@heat/code": ^0.0.35
+    "@types/node": ^18.11.9
+    tsup: ^6.5.0
+    typescript: ^4.9.4
+  peerDependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.204.0
+    "@aws-sdk/client-iot-data-plane": ^3.204.0
+    "@aws-sdk/client-lambda": ^3.202.0
+    "@aws-sdk/client-sns": ^3.204.0
+    "@aws-sdk/client-sqs": ^3.204.0
+    "@aws-sdk/client-ssm": ^3.204.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+  languageName: unknown
+  linkType: soft
+
 "@heat/aws-lambda@npm:^0.0.7":
   version: 0.0.7
   resolution: "@heat/aws-lambda@npm:0.0.7"
@@ -3005,6 +3026,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/aws-lambda@workspace:packages/aws-lambda"
   dependencies:
+    "@heat/aws-clients": ^0.0.3
+    "@heat/aws-test": ^0.0.19
+    "@heat/code": ^0.0.35
+    "@types/aws-lambda": ^8.10.108
+    "@types/chunk": ^0.0.0
+    "@types/node": ^18.11.9
+    chunk: ^0.0.3
+    tsup: ^6.5.0
+    type-fest: ^3.5.0
+    typescript: ^4.9.4
+  peerDependencies:
     "@aws-sdk/client-dynamodb": ^3.226.0
     "@aws-sdk/client-iot": ^3.204.0
     "@aws-sdk/client-iot-data-plane": ^3.204.0
@@ -3015,16 +3047,37 @@ __metadata:
     "@aws-sdk/lib-dynamodb": ^3.226.0
     "@aws-sdk/util-dynamodb": ^3.226.0
     "@aws-sdk/util-utf8-node": ^3.208.0
-    "@heat/aws-test": ^0.0.19
-    "@heat/code": ^0.0.35
-    "@heat/validate": ^0.0.7
-    "@types/aws-lambda": ^8.10.108
-    "@types/chunk": ^0.0.0
-    "@types/node": ^18.11.9
-    chunk: ^0.0.3
-    superstruct: ^1.0.3
+    "@heat/aws-clients": ^0.0.2
+    "@heat/validate": ^0.0.8
+  languageName: unknown
+  linkType: soft
+
+"@heat/aws-test@^0.0.23, @heat/aws-test@workspace:packages/aws-test":
+  version: 0.0.0-use.local
+  resolution: "@heat/aws-test@workspace:packages/aws-test"
+  dependencies:
+    "@aws-sdk/types": ^3.226.0
+    "@heat/awsless": ^0.1.192
+    "@heat/code": ^0.0.27
+    await-sleep: ^0.0.1
+    aws-sdk-client-mock: ^2.0.1
+    dynamo-db-local: ^4.1.3
+    proper-lockfile: ^4.1.1
+    redis: ^3.0.2
+    redis-server: ^1.2.2
     tsup: ^6.5.0
-    typescript: ^4.9.4
+  peerDependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
   languageName: unknown
   linkType: soft
 
@@ -3074,35 +3127,6 @@ __metadata:
   checksum: c19993d0189d6e9b58c370d6bb9254024973c7fab8883cbea5a683405d16666eb6b7c24c6d7c251980fdd959634bf6ea424304b4c91374ddcfa9cd56a72decfe
   languageName: node
   linkType: hard
-
-"@heat/aws-test@workspace:packages/aws-test":
-  version: 0.0.0-use.local
-  resolution: "@heat/aws-test@workspace:packages/aws-test"
-  dependencies:
-    "@aws-sdk/types": ^3.226.0
-    "@heat/awsless": ^0.1.192
-    "@heat/code": ^0.0.27
-    await-sleep: ^0.0.1
-    aws-sdk-client-mock: ^2.0.1
-    dynamo-db-local: ^4.1.3
-    proper-lockfile: ^4.1.1
-    redis: ^3.0.2
-    redis-server: ^1.2.2
-    tsup: ^6.5.0
-  peerDependencies:
-    "@aws-sdk/client-dynamodb": ^3.226.0
-    "@aws-sdk/client-iot": ^3.234.0
-    "@aws-sdk/client-iot-data-plane": ^3.234.0
-    "@aws-sdk/client-lambda": ^3.234.0
-    "@aws-sdk/client-sns": ^3.234.0
-    "@aws-sdk/client-sqs": ^3.234.0
-    "@aws-sdk/client-ssm": ^3.234.0
-    "@aws-sdk/lib-dynamodb": ^3.226.0
-    "@aws-sdk/url-parser": ^3.212.0
-    "@aws-sdk/util-endpoints": ^3.212.0
-    "@aws-sdk/util-utf8-node": ^3.208.0
-  languageName: unknown
-  linkType: soft
 
 "@heat/awsless@^0.1.109, @heat/awsless@^0.1.192, @heat/awsless@workspace:packages/awsless":
   version: 0.0.0-use.local
@@ -3176,7 +3200,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/big-float@^0.0.2, @heat/big-float@workspace:packages/big-float":
+"@heat/big-float@workspace:packages/big-float":
   version: 0.0.0-use.local
   resolution: "@heat/big-float@workspace:packages/big-float"
   dependencies:
@@ -3428,7 +3452,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/dynamodb@workspace:packages/dynamodb"
   dependencies:
-    "@heat/aws-test": ^0.0.19
+    "@heat/aws-test": ^0.0.23
     "@heat/code": ^0.0.27
     "@types/chunk": ^0.0.0
     "@types/node": ^18.11.9
@@ -3440,7 +3464,7 @@ __metadata:
     "@aws-sdk/lib-dynamodb": ^3.226.0
     "@aws-sdk/util-dynamodb": ^3.226.0
     "@aws-sdk/util-utf8-node": ^3.208.0
-    "@heat/aws-lambda": ^0.0.57
+    "@heat/aws-clients": ^0.0.2
   languageName: unknown
   linkType: soft
 
@@ -3684,17 +3708,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/validate@^0.0.7, @heat/validate@workspace:packages/validate":
+"@heat/validate@workspace:packages/validate":
   version: 0.0.0-use.local
   resolution: "@heat/validate@workspace:packages/validate"
   dependencies:
     "@heat/aws-test": ^0.0.8
-    "@heat/big-float": ^0.0.2
     "@heat/code": ^0.0.27
     "@types/node": ^18.11.9
     superstruct: ^1.0.3
     tsup: ^6.5.0
     typescript: ^4.9.4
+  peerDependencies:
+    "@heat/big-float": ^0.0.2
   languageName: unknown
   linkType: soft
 
@@ -18531,6 +18556,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "type-fest@npm:3.5.0"
+  checksum: 9b82958ded0aedeb38fe6b172645a319522d11904b58e422dbab9ba40f85d48e749ff8fb7047cd72f4a2923c63927b741e2efc97ce7b0662b7e042923510132f
   languageName: node
   linkType: hard
 

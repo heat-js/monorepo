@@ -1,11 +1,14 @@
 
-export { ql } from './ql.js'
-export { Expression, Key, Value, Item } from './types.js'
+export { ql, joinExpression, setExpression } from './ql.js'
+export { Expression, ExpressionNames, ExpressionValues, Key, Value, Item } from './types.js'
+
 
 export { getItem, GetOptions } from './operations/get-item.js'
 export { putItem, PutOptions } from './operations/put-item.js'
 export { updateItem, UpdateOptions } from './operations/update-item.js'
 export { deleteItem, DeleteOptions } from './operations/delete-item.js'
+
+export { batchGetItem, BatchGetOptions } from './operations/batch-get-item.js'
 
 export { pagination, PaginationOptions } from './operations/pagination.js'
 export { query, QueryOptions } from './operations/query.js'

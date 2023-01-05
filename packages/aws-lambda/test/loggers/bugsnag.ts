@@ -23,7 +23,7 @@ describe('Bugsnag', () => {
 		const error = new Error()
 		const fn = lambda({
 			logger: bugsnag(),
-			handle(app) {
+			handle() {
 				throw error
 			}
 		})

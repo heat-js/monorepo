@@ -1,9 +1,37 @@
 
-import { mask, number, object } from 'superstruct'
+import { mask, number, object, string, create } from 'superstruct'
 import { describe, it, expect } from 'vitest'
-import { dynamodbStreamRecords, dynamodbStreamStruct, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
+import { dynamodbStreamRecords, dynamodbStreamStruct, elbRequest, elbStruct, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
 
 describe('structs', () => {
+
+	// it('elbStruct', async () => {
+	// 	const struct = elbStruct({
+	// 		query: object({
+	// 			id: string()
+	// 		})
+	// 	})
+
+	// 	const event = {
+	// 		queryStringParameters: { id: '1' },
+	// 		headers: { authorization: 'token' },
+	// 	}
+
+	// 	const result = create(event, struct)
+	// 	const request = elbRequest(result)
+
+	// 	expect(result).toStrictEqual({
+	// 		headers: { authorization: 'token' },
+	// 		queryStringParameters: { id: '1' },
+	// 		body: undefined,
+	// 	})
+
+	// 	expect(request).toStrictEqual({
+	// 		headers: { authorization: 'token' },
+	// 		query: { id: '1' },
+	// 		body: undefined,
+	// 	})
+	// })
 
 	it('dynamodbStreamStruct', async () => {
 		const struct = dynamodbStreamStruct({ newImage: object({ id: number() }) })

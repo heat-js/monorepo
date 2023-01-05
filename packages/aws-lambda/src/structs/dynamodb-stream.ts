@@ -1,5 +1,5 @@
 
-import { array, enums, object, string, Struct, unknown, coerce } from '@heat/validate'
+import { array, enums, object, type, string, Struct, unknown, coerce } from '@heat/validate'
 import { unmarshall } from '@aws-sdk/util-dynamodb'
 import { AttributeValue } from '@aws-sdk/client-dynamodb'
 
@@ -18,10 +18,10 @@ const unmarshallStruct = <A, B>(struct:Struct<A, B>): Struct<A, B> => {
 }
 
 export const dynamodbStreamStruct = <N extends Base, O extends Base, K extends Base>({ newImage, oldImage, keys }: Options<N, O, K>) => {
-	return object({
-		Records: array(object({
+	return type({
+		Records: array(type({
 			eventName: enums(['INSERT', 'MODIFY', 'REMOVE']),
-			dynamodb: object({
+			dynamodb: type({
 				SequenceNumber: string(),
 				NewImage: unmarshallStruct(newImage) as N,
 				OldImage: oldImage ? unmarshallStruct(oldImage) as O : unknown(),

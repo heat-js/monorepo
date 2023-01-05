@@ -1,9 +1,9 @@
 
 import { Options } from '../types.js'
-import { getDynamoDBClient } from '@heat/aws-lambda'
+import { dynamoDBDocumentClient } from '@heat/aws-clients'
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
 
-export const send = async (command:any, options:Options) => {
-	const client:DynamoDBDocumentClient = options.client || await getDynamoDBClient({})
+export const send = (command:any, options:Options) => {
+	const client:DynamoDBDocumentClient = options.client || dynamoDBDocumentClient.get()
 	return client.send(command)
 }
