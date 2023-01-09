@@ -1,5 +1,5 @@
 
-import sync				from '@heat/s3-deploy/sync'
+import { default as sync } from '@heat/s3-deploy/sync'
 import path				from 'path'
 import filesize 		from 'filesize'
 import { paramCase }	from 'change-case'
