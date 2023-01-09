@@ -3,11 +3,11 @@ import { coerce, define, number, string, union, refine, Struct } from 'superstru
 import { BigFloat, gt } from '../../bigfloat/index.js'
 
 export const bigfloat = ():Struct<BigFloat, null> => {
-	const base = define<BigFloat>('bigfloat', (value) => {
+	const base = define<BigFloat>('bigfloat', (value: unknown) => {
 		return (value instanceof BigFloat) || 'Invalid number'
 	})
 
-	return coerce(base, union([ string(), number() ]), (value): BigFloat | null => {
+	return coerce(base, union([ string(), number() ]), (value: string | number): BigFloat | null => {
 		if((typeof value === 'string' && value !== '') || typeof value === 'number') {
 			if(!isNaN(Number(value))) {
 				return new BigFloat(value)

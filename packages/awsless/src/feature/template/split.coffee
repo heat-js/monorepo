@@ -50,6 +50,7 @@ export default (context) ->
 			profile
 			templateBody: {
 				AWSTemplateFormatVersion: '2010-09-09'
+				# Transform: 		'AWS::LanguageExtensions'
 				Description:	description
 				Resources:		filter resources, defaultRegion, region
 				Outputs:		filter outputs, defaultRegion, region
@@ -65,6 +66,7 @@ export default (context) ->
 			profile:	entry.profile	or profile
 			templateBody: {
 				AWSTemplateFormatVersion: '2010-09-09'
+				# Transform: 		'AWS::LanguageExtensions'
 				Description:	entry.description or ''
 				Resources:		entry.resources
 				Outputs:		entry.outputs or []

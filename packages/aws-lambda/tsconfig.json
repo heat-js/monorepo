@@ -4,11 +4,11 @@
 		"target": "ESNext",
 		"types": ["node", "vitest/globals"],
 		"lib": ["es2022"],
+		"moduleResolution": "Node",
 		"skipLibCheck": true,
 		"esModuleInterop": true,
-		"moduleResolution": "Node",
 		"declaration": true,
-		"outDir": "dist",
+		"outDir": "dist"
 	},
-	"include": [ "src" ]
+	"include": ["src"]
 }

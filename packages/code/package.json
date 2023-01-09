@@ -43,7 +43,7 @@
 		]
 	},
 	"devDependencies": {
-		"@heat/aws-lambda": "^0.0.7",
+		"@heat/aws-lambda": "workspace:^",
 		"jest": "^28.1.1",
 		"ts-jest": "^29.0.3",
 		"tsup": "^6.5.0",

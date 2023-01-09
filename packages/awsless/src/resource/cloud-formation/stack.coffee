@@ -58,6 +58,7 @@ export default resource (ctx) ->
 			bucket
 			templateBody: JSON.stringify {
 				AWSTemplateFormatVersion: '2010-09-09'
+				# Transform: 		'AWS::LanguageExtensions'
 				Description:	ctx.string 'Description', ''
 				Resources:		ctx.object 'Resources'
 				# Outputs:		ctx.object 'Outputs',
