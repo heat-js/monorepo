@@ -4,8 +4,8 @@ import { InputPluginOption, rollup as bundler, RollupLog } from 'rollup'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
-import { terser } from '@wwa/rollup-plugin-terser'
-// import terser from '@rollup/plugin-terser'
+// import { terser } from '@wwa/rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 // import { uglify } from 'rollup-plugin-uglify'
 // import uglify from '@lopatnov/rollup-plugin-uglify'
 import babel from '@rollup/plugin-babel'
@@ -65,7 +65,10 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 			preferBuiltins: true,
 			extensions: ['.js', '.coffee', '.jsx']
 		}),
-		minimize && terser()
+		minimize && terser({
+			toplevel: true,
+			sourceMap,
+		})
 		// minimize && uglify({
 		// 	sourcemap: sourceMap,
 		// 	toplevel: true,

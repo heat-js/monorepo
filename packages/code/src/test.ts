@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { readFile } from 'fs/promises'
-import { mergeConfig, PluginOption } from 'vite'
+import { mergeConfig } from 'vite'
 import { startVitest } from 'vitest/node'
 import { configDefaults } from 'vitest/config'
 import { plugins } from './rollup/index'
@@ -18,7 +18,7 @@ export const test = async (filters:string[] = []) => {
 		plugins: plugins({
 			minimize: false,
 			sourceMap: true
-		}) as PluginOption[],
+		}) as any[],
 		test: mergeConfig(config, ({
 			include: ['./test/**/*.{js,jsx,coffee,ts}'],
 			exclude: configDefaults.exclude,
