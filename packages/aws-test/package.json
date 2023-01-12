@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-test",
-	"version": "0.0.24",
+	"version": "0.0.25",
 	"license": "MIT",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -31,6 +31,18 @@
 		"redis-server": "^1.2.2"
 	},
 	"devDependencies": {
+		"@aws-sdk/client-dynamodb": "^3.226.0",
+		"@aws-sdk/client-iot": "^3.234.0",
+		"@aws-sdk/client-iot-data-plane": "^3.234.0",
+		"@aws-sdk/client-lambda": "^3.234.0",
+		"@aws-sdk/client-sesv2": "^3.245.0",
+		"@aws-sdk/client-sns": "^3.234.0",
+		"@aws-sdk/client-sqs": "^3.234.0",
+		"@aws-sdk/client-ssm": "^3.234.0",
+		"@aws-sdk/lib-dynamodb": "^3.226.0",
+		"@aws-sdk/url-parser": "^3.212.0",
+		"@aws-sdk/util-endpoints": "^3.212.0",
+		"@aws-sdk/util-utf8-node": "^3.208.0",
 		"@heat/code": "^0.0.27",
 		"tsup": "^6.5.0"
 	},

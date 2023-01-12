@@ -148,7 +148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-iot-data-plane@npm:^3.204.0":
+"@aws-sdk/client-iot-data-plane@npm:^3.204.0, @aws-sdk/client-iot-data-plane@npm:^3.234.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-iot-data-plane@npm:3.245.0"
   dependencies:
@@ -192,7 +192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-iot@npm:^3.204.0":
+"@aws-sdk/client-iot@npm:^3.204.0, @aws-sdk/client-iot@npm:^3.234.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-iot@npm:3.245.0"
   dependencies:
@@ -237,7 +237,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-lambda@npm:^3.202.0":
+"@aws-sdk/client-lambda@npm:^3.202.0, @aws-sdk/client-lambda@npm:^3.234.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-lambda@npm:3.245.0"
   dependencies:
@@ -282,7 +282,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-sns@npm:^3.204.0":
+"@aws-sdk/client-sesv2@npm:^3.245.0":
+  version: 3.245.0
+  resolution: "@aws-sdk/client-sesv2@npm:3.245.0"
+  dependencies:
+    "@aws-crypto/sha256-browser": 2.0.0
+    "@aws-crypto/sha256-js": 2.0.0
+    "@aws-sdk/client-sts": 3.245.0
+    "@aws-sdk/config-resolver": 3.234.0
+    "@aws-sdk/credential-provider-node": 3.245.0
+    "@aws-sdk/fetch-http-handler": 3.226.0
+    "@aws-sdk/hash-node": 3.226.0
+    "@aws-sdk/invalid-dependency": 3.226.0
+    "@aws-sdk/middleware-content-length": 3.226.0
+    "@aws-sdk/middleware-endpoint": 3.226.0
+    "@aws-sdk/middleware-host-header": 3.226.0
+    "@aws-sdk/middleware-logger": 3.226.0
+    "@aws-sdk/middleware-recursion-detection": 3.226.0
+    "@aws-sdk/middleware-retry": 3.235.0
+    "@aws-sdk/middleware-serde": 3.226.0
+    "@aws-sdk/middleware-signing": 3.226.0
+    "@aws-sdk/middleware-stack": 3.226.0
+    "@aws-sdk/middleware-user-agent": 3.226.0
+    "@aws-sdk/node-config-provider": 3.226.0
+    "@aws-sdk/node-http-handler": 3.226.0
+    "@aws-sdk/protocol-http": 3.226.0
+    "@aws-sdk/smithy-client": 3.234.0
+    "@aws-sdk/types": 3.226.0
+    "@aws-sdk/url-parser": 3.226.0
+    "@aws-sdk/util-base64": 3.208.0
+    "@aws-sdk/util-body-length-browser": 3.188.0
+    "@aws-sdk/util-body-length-node": 3.208.0
+    "@aws-sdk/util-defaults-mode-browser": 3.234.0
+    "@aws-sdk/util-defaults-mode-node": 3.234.0
+    "@aws-sdk/util-endpoints": 3.245.0
+    "@aws-sdk/util-retry": 3.229.0
+    "@aws-sdk/util-user-agent-browser": 3.226.0
+    "@aws-sdk/util-user-agent-node": 3.226.0
+    "@aws-sdk/util-utf8-browser": 3.188.0
+    "@aws-sdk/util-utf8-node": 3.208.0
+    tslib: ^2.3.1
+  checksum: 83410d09efb62cfd291f7fe3ef5c11128897cc9d4755f14a80e6978b8c6e968aacc8f2f24479dec8c8bd8f41ef13368c765d6108c27680cc0857ab4d6a5702a5
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/client-sns@npm:^3.204.0, @aws-sdk/client-sns@npm:^3.234.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-sns@npm:3.245.0"
   dependencies:
@@ -327,7 +371,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-sqs@npm:^3.204.0":
+"@aws-sdk/client-sqs@npm:^3.204.0, @aws-sdk/client-sqs@npm:^3.234.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-sqs@npm:3.245.0"
   dependencies:
@@ -374,7 +418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-ssm@npm:^3.204.0":
+"@aws-sdk/client-ssm@npm:^3.204.0, @aws-sdk/client-ssm@npm:^3.234.0":
   version: 3.245.0
   resolution: "@aws-sdk/client-ssm@npm:3.245.0"
   dependencies:
@@ -3122,7 +3166,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@heat/aws-test@workspace:packages/aws-test"
   dependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
     "@aws-sdk/types": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
     "@heat/awsless": ^0.1.192
     "@heat/code": ^0.0.27
     await-sleep: ^0.0.1
