@@ -8,7 +8,7 @@ export { ValidationError } from './errors/validation.js'
 export { TimeoutError } from './errors/timeout.js'
 
 // types
-export { Response, Input, Output, Handler, Logger, Loggers } from './types.js'
+export { Context, Response, Input, Output, Handler, Logger, Loggers } from './types.js'
 
 // loggers
 export { bugsnag } from './loggers/bugsnag/index.js'

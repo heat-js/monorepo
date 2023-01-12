@@ -1,5 +1,5 @@
 
-import { build, bundle, compile, exec, RuntimeError } from '../src'
+import { build, bundle, compile, exec, importModule, RuntimeError } from '../src'
 import { clean } from '../src/clean'
 import { join } from 'path'
 import { readFile } from 'fs/promises'
@@ -162,6 +162,14 @@ describe('Code', () => {
 		})
 
 		expect(result.code).toContain('exports.default = ')
+	})
+
+	it('should import module', async () => {
+		const path = testPath('import-module')
+		const result = await importModule(path)
+
+		expect(result).toBeDefined()
+		expect(result(1, 2)).toBe(3)
 	})
 
 	describe('File Types', () => {

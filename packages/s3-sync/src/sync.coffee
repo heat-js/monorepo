@@ -18,7 +18,7 @@ runJobs = (concurrency, jobs, callback) ->
 		q.drain resolve
 		q.push jobs
 
-export default ({ profile, bucket, folder, csp, acl = 'public-read', cacheAge = 31536000, logging = true, ignoredExtensions = [] }) ->
+export sync = ({ profile, bucket, folder, csp, acl = 'public-read', cacheAge = 31536000, logging = true, ignoredExtensions = [] }) ->
 
 	credentials = new AWS.SharedIniFileCredentials {
 		profile
