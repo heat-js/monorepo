@@ -1,5 +1,6 @@
 
-import { default as sync } 	from '@heat/s3-deploy/sync'
+# import { sync } 			from '@heat/s3-sync' # Don't remove because the dependencies
+import sync					from '../../feature/s3/sync'
 import path					from 'path'
 import { paramCase }		from 'change-case'
 import resource 			from '../../feature/resource'
