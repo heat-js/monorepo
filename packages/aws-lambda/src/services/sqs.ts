@@ -84,7 +84,7 @@ export const addQueueBatch = async ({ client = sqsClient.get(), queue, items }: 
 	await Promise.all(chunk(items, 10).map(async batch => {
 		const command = new SendMessageBatchCommand({
 			QueueUrl: url,
-			Entries: items.map(({ payload, delay = 0, attributes = {} }, id) => ({
+			Entries: batch.map(({ payload, delay = 0, attributes = {} }, id) => ({
 				Id: String(id),
 				MessageBody: JSON.stringify(payload),
 				DelaySeconds: delay,
