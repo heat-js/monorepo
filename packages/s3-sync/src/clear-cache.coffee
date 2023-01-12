@@ -1,7 +1,7 @@
 
 import AWS from 'aws-sdk'
 
-export default ({ profile }) ->
+export clearCache = ({ profile }) ->
 
 	credentials = new AWS.SharedIniFileCredentials {
 		profile

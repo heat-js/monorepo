@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.71",
+	"version": "0.0.73",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -55,6 +55,16 @@
 		"type-fest": "^3.5.0"
 	},
 	"devDependencies": {
+		"@aws-sdk/client-dynamodb": "^3.226.0",
+		"@aws-sdk/client-iot": "^3.204.0",
+		"@aws-sdk/client-iot-data-plane": "^3.204.0",
+		"@aws-sdk/client-lambda": "^3.202.0",
+		"@aws-sdk/client-sns": "^3.204.0",
+		"@aws-sdk/client-sqs": "^3.204.0",
+		"@aws-sdk/client-ssm": "^3.204.0",
+		"@aws-sdk/lib-dynamodb": "^3.226.0",
+		"@aws-sdk/util-dynamodb": "^3.226.0",
+		"@aws-sdk/util-utf8-node": "^3.208.0",
 		"@heat/aws-test": "^0.0.19",
 		"@heat/code": "^0.0.35",
 		"@types/chunk": "^0.0.0",

@@ -36,8 +36,8 @@ const isErrorResponse = (response: any): boolean => {
 }
 
 type Invoke = {
-	(options: UnknownInvokeOptions): Promise<unknown>
-	<Lambda extends LambdaFunction<OptStruct, OptStruct>>(options: KnownInvokeOptions<Lambda>): Promise<Jsonify<AsyncReturnType<Lambda>>>
+	({ client, name, qualifier, type, payload, reflectViewableErrors }: UnknownInvokeOptions): Promise<unknown>
+	<Lambda extends LambdaFunction<OptStruct, OptStruct>>({ client, name, qualifier, type, payload, reflectViewableErrors }: KnownInvokeOptions<Lambda>): Promise<Jsonify<AsyncReturnType<Lambda>>>
 }
 
 /** Invoke lambda function */

@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest'
-import { abs, add, BigFloat, ceil, div, eq, floor, gt, gte, lt, lte, mul, neg, pow, sqrt, sub } from '../src/index'
+import { abs, add, BigFloat, ceil, div, eq, floor, gt, gte, lt, lte, mul, neg, Numeric, pow, sqrt, sub } from '../src/index'
 
 describe('BigFloat', () => {
 
@@ -33,5 +33,31 @@ describe('BigFloat', () => {
 		it('abs(-1) = 1', () => expect(eq(abs(-1), 1)).toBe(true))
 		it('neg(1) = -1', () => expect(eq(neg(1), -1)).toBe(true))
 		it('neg(-1) = -1', () => expect(eq(neg(-1), 1)).toBe(true))
+	})
+
+	describe('floor', () => {
+		const test = (value:Numeric, precision:number, expectation:Numeric) => {
+			it(`floor(${value}, ${precision}) = ${expectation}`, () => {
+				const result = floor(value, precision)
+				expect(eq(result, expectation)).toBe(true)
+			})
+		}
+
+		test('0.5555555555', 0, 0)
+		test('0.5555555555', 2, 0.55)
+		test('0.5555555555', 8, '0.55555555')
+	})
+
+	describe('ceil', () => {
+		const test = (value:Numeric, precision:number, expectation:Numeric) => {
+			it(`floor(${value}, ${precision}) = ${expectation}`, () => {
+				const result = ceil(value, precision)
+				expect(eq(result, expectation)).toBe(true)
+			})
+		}
+
+		test('0.5555555555', 0, 1)
+		test('0.5555555555', 2, 0.56)
+		test('0.5555555555', 8, '0.55555556')
 	})
 })

@@ -1,6 +1,8 @@
 
 import { make, IBigFloat, string, set_precision } from 'bigfloat-esnext'
 
+set_precision(-12)
+
 export type Numeric = IBigFloat | number | bigint | string
 
 export class BigFloat implements IBigFloat {

@@ -1,6 +1,6 @@
 {
 	"name": "@heat/code",
-	"version": "0.0.36",
+	"version": "0.0.39",
 	"license": "MIT",
 	"type": "module",
 	"files": [
@@ -63,6 +63,7 @@
 		"@wwa/rollup-plugin-terser": "^1.0.1",
 		"coffeescript": "^2.7.0",
 		"commander": "^9.4.1",
+		"node-eval": "^2.0.0",
 		"object-assign": "^4.1.1",
 		"rollup": "^3.2.5",
 		"rollup-plugin-coffee-script": "^2.0.0",
