@@ -5,7 +5,7 @@ import { mergeConfig } from 'vite'
 import { startVitest } from 'vitest/node'
 import { configDefaults } from 'vitest/config'
 import { plugins } from './rollup/index'
-import preact from '@preact/preset-vite'
+// import preact from '@preact/preset-vite'
 
 export const test = async (filters:string[] = []) => {
 	const json = await readFile(join(process.cwd(), 'package.json'))
@@ -17,10 +17,10 @@ export const test = async (filters:string[] = []) => {
 		ui: false
 	}, {
 		plugins: [
-			preact({
-				prefreshEnabled: false,
-				devToolsEnabled: false
-			}),
+			// preact({
+			// 	prefreshEnabled: false,
+			// 	devToolsEnabled: false
+			// }),
 			...plugins({
 				minimize: false,
 				sourceMap: true
