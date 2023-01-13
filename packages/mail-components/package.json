@@ -1,0 +1,40 @@
+{
+	"name": "@heat/mail",
+	"version": "0.0.1",
+	"license": "MIT",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"bin": "./dist/bin.js",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo/tree/master/packages/mail"
+	},
+	"scripts": {
+		"test": "yarn run code test",
+		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
+		"publish": "yarn build; yarn npm publish --access=public"
+	},
+	"vitest": {
+		"exclude": "./test/data/**"
+	},
+	"dependencies": {
+		"preact": "^10.11.3",
+		"preact-render-to-string": "^5.2.6"
+	},
+	"devDependencies": {
+		"@heat/code": "workspace:^",
+		"tsup": "^6.5.0"
+	}
+}
