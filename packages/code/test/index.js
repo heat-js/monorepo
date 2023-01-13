@@ -172,6 +172,26 @@ describe('Code', () => {
 		expect(result(1, 2)).toBe(3)
 	})
 
+	it('should default jsx to preact', async () => {
+		const path = testPath('jsx')
+		const result = await bundle(path, {
+			sourceMap: false
+		})
+
+		expect(result.code).toBeDefined()
+		expect(result.code.includes('h("div"')).toBe(true)
+	})
+
+	it('should default tsx to preact', async () => {
+		const path = testPath('tsx')
+		const result = await bundle(path, {
+			sourceMap: false
+		})
+
+		expect(result.code).toBeDefined()
+		expect(result.code.includes('o("div"')).toBe(true)
+	})
+
 	describe('File Types', () => {
 		const types = {
 			js: testPath('types', '1.js'),

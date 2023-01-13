@@ -1,12 +1,14 @@
 {
 	"compilerOptions": {
 		"target": "es2022",
-		"types": ["node"],
+		"types": ["node", "preact"],
 		"lib": ["es2022", "dom"],
 		"esModuleInterop": true,
 		"moduleResolution": "Node",
 		"skipLibCheck": true,
 		"declaration": true,
 		"outDir": "dist",
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact"
 	}
 }

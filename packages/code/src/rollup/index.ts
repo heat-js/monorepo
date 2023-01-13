@@ -17,7 +17,7 @@ import { access } from 'fs/promises'
 import { join } from 'path'
 
 export const extensions = [
-	'json', 'js', 'jsx', 'coffee', 'ts', 'lua', 'md', 'html'
+	'json', 'js', 'jsx', 'tsx', 'coffee', 'ts', 'lua', 'md', 'html'
 ]
 
 export interface PluginOptions {
