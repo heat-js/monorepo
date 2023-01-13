@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.73",
+	"version": "0.0.74",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -65,8 +65,9 @@
 		"@aws-sdk/lib-dynamodb": "^3.226.0",
 		"@aws-sdk/util-dynamodb": "^3.226.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
-		"@heat/aws-test": "^0.0.19",
+		"@heat/aws-test": "^0.0.25",
 		"@heat/code": "^0.0.35",
+		"@heat/validate": "^0.0.9",
 		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",
 		"tsup": "^6.5.0",

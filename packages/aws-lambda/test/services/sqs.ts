@@ -19,14 +19,15 @@ describe('SQS', () => {
 	})
 
 	it('should batch multiple queue messages', async () => {
+		const items = Array(40)
+			.fill(null)
+			.map((_, i) => ({ payload: i + 1 }))
+
 		await addQueueBatch({
 			queue: 'test',
-			items: [
-				{ payload: 2 },
-				{ payload: 3 }
-			]
+			items
 		})
 
-		expect(mock.test).toBeCalledTimes(2)
+		expect(mock.test).toBeCalledTimes(4)
 	})
 })
