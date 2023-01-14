@@ -3671,7 +3671,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/mail-components@workspace:packages/mail-components":
+"@heat/mail-components@workspace:^, @heat/mail-components@workspace:packages/mail-components":
   version: 0.0.0-use.local
   resolution: "@heat/mail-components@workspace:packages/mail-components"
   dependencies:
@@ -3679,8 +3679,19 @@ __metadata:
     preact: ^10.11.3
     preact-render-to-string: ^5.2.6
     tsup: ^6.5.0
+  languageName: unknown
+  linkType: soft
+
+"@heat/mail-dev-server@workspace:packages/mail-dev-server":
+  version: 0.0.0-use.local
+  resolution: "@heat/mail-dev-server@workspace:packages/mail-dev-server"
+  dependencies:
+    "@heat/code": "workspace:^"
+    "@heat/mail-components": "workspace:^"
+    commander: ^10.0.0
+    tsup: ^6.5.0
   bin:
-    mail-components: ./dist/bin.js
+    mail-dev-server: ./dist/bin.js
   languageName: unknown
   linkType: soft
 
@@ -8046,6 +8057,13 @@ __metadata:
     table-layout: ^1.0.2
     typical: ^5.2.0
   checksum: 8261d4e5536eb0bcddee0ec5e89c05bb2abd18e5760785c8078ede5020bc1c612cbe28eb6586f5ed4a3660689748e5aaad4a72f21566f4ef39393694e2fa1a0b
+  languageName: node
+  linkType: hard
+
+"commander@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "commander@npm:10.0.0"
+  checksum: 9f6495651f878213005ac744dd87a85fa3d9f2b8b90d1c19d0866d666bda7f735adfd7c2f10dfff345782e2f80ea258f98bb4efcef58e4e502f25f883940acfd
   languageName: node
   linkType: hard
 
