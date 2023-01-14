@@ -1,8 +1,7 @@
 
 import { requestPort } from '../../helpers/port'
-import { Server } from './server'
-import { migrate, seed as runSeed, SeedData } from './database'
-import { loadDefinitions } from './definition'
+import { DynamoDBServer } from './server'
+import { SeedData } from './database'
 
 export interface StartDynamoDBOptions {
 	path: string
@@ -13,7 +12,7 @@ export interface StartDynamoDBOptions {
 
 export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:StartDynamoDBOptions) => {
 
-	const server = new Server()
+	const server = new DynamoDBServer()
 	let releasePort
 
 	beforeAll(async () => {
@@ -22,11 +21,8 @@ export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:StartDyna
 
 		await server.listen(port)
 		await server.wait()
-
-		const definitions = await loadDefinitions(path)
-
-		await migrate(server.getClient(), definitions)
-		await runSeed(server.getDocumentClient(), seed)
+		await server.migrate(path)
+		await server.seed(seed)
 	}, timeout)
 
 	afterAll(async () => {

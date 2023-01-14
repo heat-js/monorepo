@@ -3,9 +3,10 @@ import { BatchGetItemCommand, BatchWriteItemCommand, CreateTableCommand, DeleteI
 import { BatchWriteCommand, DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, TransactGetCommand, TransactWriteCommand, UpdateCommand, QueryCommand as Query, ScanCommand as Scan, BatchGetCommand} from '@aws-sdk/lib-dynamodb'
 import { mockClient } from 'aws-sdk-client-mock'
 import { startDynamoDB, StartDynamoDBOptions } from '../services/dynamodb'
+import { DynamoDBServer } from '../services/dynamodb/server'
 
-export const mockDynamoDB = (config:StartDynamoDBOptions) => {
-	const dynamo = startDynamoDB(config)
+export const mockDynamoDB = (configOrServer:StartDynamoDBOptions | DynamoDBServer) => {
+	const dynamo = configOrServer instanceof DynamoDBServer ? configOrServer : startDynamoDB(configOrServer)
 	const client = dynamo.getClient()
 	const documentClient = dynamo.getDocumentClient()
 

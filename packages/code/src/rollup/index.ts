@@ -15,6 +15,7 @@ import lua from './lua'
 import raw from './raw'
 import { access } from 'fs/promises'
 import { join } from 'path'
+import stylus from './stylus'
 
 export const extensions = [
 	'json', 'js', 'jsx', 'tsx', 'coffee', 'ts', 'lua', 'md', 'html'
@@ -59,8 +60,9 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 		json(),
 		lua(),
 		raw({
-			extensions: ['.md', '.html'],
+			extensions: [ '.md', '.html', '.css' ],
 		}),
+		stylus(),
 		nodeResolve({
 			preferBuiltins: true,
 			extensions: ['.js', '.coffee', '.jsx']
@@ -69,14 +71,6 @@ export const plugins = ({ minimize = false, sourceMap = true, transpilers }:Plug
 			toplevel: true,
 			sourceMap,
 		})
-		// minimize && uglify({
-		// 	sourcemap: sourceMap,
-		// 	toplevel: true,
-		// }),
-		// minimize && uglify({
-		// 	sourceMap,
-		// 	toplevel: true,
-		// }),
 	]
 }
 

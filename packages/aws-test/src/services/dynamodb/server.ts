@@ -5,8 +5,10 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
 import { parseUrl } from '@aws-sdk/url-parser'
 import { Endpoint } from '@aws-sdk/types'
 import sleep from 'await-sleep'
+import { migrate, seed, SeedData } from './database'
+import { loadDefinitions } from './definition'
 
-export class Server {
+export class DynamoDBServer {
 	private client: DynamoDBClient
 	private documentClient: DynamoDBDocumentClient
 	private endpoint: Endpoint
@@ -52,6 +54,17 @@ export class Server {
 		}
 
 		throw new Error('DynamoDB server is unavailable')
+	}
+
+	/** Migrate table's from a awsless dynamodb resource file. */
+	async migrate(path: string) {
+		const definitions = await loadDefinitions(path)
+		await migrate(this.getClient(), definitions)
+	}
+
+	/** Seed data. */
+	async seed(data:SeedData) {
+		await seed(this.getDocumentClient(), data)
 	}
 
 	/** Get DynamoDBClient connected to dynamodb local. */

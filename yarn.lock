@@ -5,6 +5,13 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@adobe/css-tools@npm:^4.0.1":
+  version: 4.0.2
+  resolution: "@adobe/css-tools@npm:4.0.2"
+  checksum: f9ffd602fcf2456888fd8ca7b121e1c6169f512c56a6b98ab7ec64013ab90dd062f458bac16292150a7c6a08c1cd58ef80b5cad018c3684cf0a4192b57b5ea32
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.1.0":
   version: 2.2.0
   resolution: "@ampproject/remapping@npm:2.2.0"
@@ -1287,7 +1294,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.1.0, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.18.10, @babel/core@npm:^7.19.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.8.0, @babel/core@npm:^7.9.6":
+"@babel/core@npm:^7.1.0, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.18.10, @babel/core@npm:^7.19.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.8.0":
   version: 7.20.12
   resolution: "@babel/core@npm:7.20.12"
   dependencies:
@@ -2315,7 +2322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-jsx-development@npm:^7.16.7, @babel/plugin-transform-react-jsx-development@npm:^7.18.6":
+"@babel/plugin-transform-react-jsx-development@npm:^7.18.6":
   version: 7.18.6
   resolution: "@babel/plugin-transform-react-jsx-development@npm:7.18.6"
   dependencies:
@@ -2326,7 +2333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-jsx@npm:^7.14.9, @babel/plugin-transform-react-jsx@npm:^7.18.6":
+"@babel/plugin-transform-react-jsx@npm:^7.18.6":
   version: 7.20.7
   resolution: "@babel/plugin-transform-react-jsx@npm:7.20.7"
   dependencies:
@@ -3088,48 +3095,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/aws-test@^0.0.25, @heat/aws-test@workspace:packages/aws-test":
-  version: 0.0.0-use.local
-  resolution: "@heat/aws-test@workspace:packages/aws-test"
-  dependencies:
-    "@aws-sdk/client-dynamodb": ^3.226.0
-    "@aws-sdk/client-iot": ^3.234.0
-    "@aws-sdk/client-iot-data-plane": ^3.234.0
-    "@aws-sdk/client-lambda": ^3.234.0
-    "@aws-sdk/client-sesv2": ^3.245.0
-    "@aws-sdk/client-sns": ^3.234.0
-    "@aws-sdk/client-sqs": ^3.234.0
-    "@aws-sdk/client-ssm": ^3.234.0
-    "@aws-sdk/lib-dynamodb": ^3.226.0
-    "@aws-sdk/types": ^3.226.0
-    "@aws-sdk/url-parser": ^3.212.0
-    "@aws-sdk/util-endpoints": ^3.212.0
-    "@aws-sdk/util-utf8-node": ^3.208.0
-    "@heat/awsless": ^0.1.192
-    "@heat/code": ^0.0.27
-    await-sleep: ^0.0.1
-    aws-sdk-client-mock: ^2.0.1
-    dynamo-db-local: ^4.1.3
-    proper-lockfile: ^4.1.1
-    redis: ^3.0.2
-    redis-server: ^1.2.2
-    tsup: ^6.5.0
-  peerDependencies:
-    "@aws-sdk/client-dynamodb": ^3.226.0
-    "@aws-sdk/client-iot": ^3.234.0
-    "@aws-sdk/client-iot-data-plane": ^3.234.0
-    "@aws-sdk/client-lambda": ^3.234.0
-    "@aws-sdk/client-sesv2": ^3.245.0
-    "@aws-sdk/client-sns": ^3.234.0
-    "@aws-sdk/client-sqs": ^3.234.0
-    "@aws-sdk/client-ssm": ^3.234.0
-    "@aws-sdk/lib-dynamodb": ^3.226.0
-    "@aws-sdk/url-parser": ^3.212.0
-    "@aws-sdk/util-endpoints": ^3.212.0
-    "@aws-sdk/util-utf8-node": ^3.208.0
-  languageName: unknown
-  linkType: soft
-
 "@heat/aws-test@npm:^0.0.19":
   version: 0.0.19
   resolution: "@heat/aws-test@npm:0.0.19"
@@ -3186,6 +3151,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heat/aws-test@npm:^0.0.25":
+  version: 0.0.25
+  resolution: "@heat/aws-test@npm:0.0.25"
+  dependencies:
+    "@aws-sdk/types": ^3.226.0
+    "@heat/awsless": ^0.1.192
+    await-sleep: ^0.0.1
+    aws-sdk-client-mock: ^2.0.1
+    dynamo-db-local: ^4.1.3
+    proper-lockfile: ^4.1.1
+    redis: ^3.0.2
+    redis-server: ^1.2.2
+  peerDependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
+  checksum: 116b52b7cfa90aab0338dba8990e6f0375d3f3ec8102a5b339aabb523f6da6b589b9108e542ee2f155a479c80ced75fe2fdf91e4dda9e5fe0bbab15f16908ac4
+  languageName: node
+  linkType: hard
+
 "@heat/aws-test@npm:^0.0.8":
   version: 0.0.8
   resolution: "@heat/aws-test@npm:0.0.8"
@@ -3205,7 +3199,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heat/awsless@^0.1.109, @heat/awsless@^0.1.192, @heat/awsless@workspace:packages/awsless":
+"@heat/aws-test@workspace:packages/aws-test":
+  version: 0.0.0-use.local
+  resolution: "@heat/aws-test@workspace:packages/aws-test"
+  dependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/types": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
+    "@heat/awsless": ^0.1.217
+    "@heat/code": ^0.0.27
+    await-sleep: ^0.0.1
+    aws-sdk-client-mock: ^2.0.1
+    dynamo-db-local: ^4.1.3
+    proper-lockfile: ^4.1.1
+    redis: ^3.0.2
+    redis-server: ^1.2.2
+    tsup: ^6.5.0
+  peerDependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
+  languageName: unknown
+  linkType: soft
+
+"@heat/awsless@^0.1.109, @heat/awsless@^0.1.192, @heat/awsless@^0.1.217, @heat/awsless@workspace:packages/awsless":
   version: 0.0.0-use.local
   resolution: "@heat/awsless@workspace:packages/awsless"
   dependencies:
@@ -3439,7 +3475,6 @@ __metadata:
     "@babel/preset-react": ^7.18.6
     "@heat/aws-lambda": "workspace:^"
     "@lopatnov/rollup-plugin-uglify": ^2.1.5
-    "@preact/preset-vite": ^2.5.0
     "@rollup/plugin-babel": ^6.0.2
     "@rollup/plugin-commonjs": ^23.0.2
     "@rollup/plugin-json": ^5.0.1
@@ -3447,6 +3482,7 @@ __metadata:
     "@rollup/plugin-terser": ^0.3.0
     "@rollup/plugin-typescript": ^9.0.2
     "@wwa/rollup-plugin-terser": ^1.0.1
+    clean-css: ^5.3.1
     coffeescript: ^2.7.0
     commander: ^9.4.1
     jest: ^28.1.1
@@ -3456,6 +3492,7 @@ __metadata:
     rollup-plugin-coffee-script: ^2.0.0
     rollup-plugin-uglify: ^6.0.4
     rollup-pluginutils: ^2.8.2
+    stylus: ^0.59.0
     ts-jest: ^29.0.3
     tslib: ^2.4.1
     tsup: ^6.5.0
@@ -4695,64 +4732,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@preact/preset-vite@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "@preact/preset-vite@npm:2.5.0"
-  dependencies:
-    "@babel/plugin-transform-react-jsx": ^7.14.9
-    "@babel/plugin-transform-react-jsx-development": ^7.16.7
-    "@prefresh/vite": ^2.2.8
-    "@rollup/pluginutils": ^4.1.1
-    babel-plugin-transform-hook-names: ^1.0.2
-    debug: ^4.3.1
-    kolorist: ^1.2.10
-    resolve: ^1.20.0
-  peerDependencies:
-    "@babel/core": 7.x
-    vite: 2.x || 3.x || 4.x
-  checksum: 9ab9180b0edb3ba6ab80cb816d0d50f967576c47302201facaf8e18e651b6466035c631ba3d8a17fc99fc12e709150062b5bd759236ef83ffb8127ae21dad4f9
-  languageName: node
-  linkType: hard
-
-"@prefresh/babel-plugin@npm:0.4.4":
-  version: 0.4.4
-  resolution: "@prefresh/babel-plugin@npm:0.4.4"
-  checksum: 1cd7e9b27936fd8947ecd7e4da70abd05935f44840af3d054ad87638d38ea61f304c45ff7610a4d56bde72e260ddee869cc45806738738edebe7d5a0fe96059a
-  languageName: node
-  linkType: hard
-
-"@prefresh/core@npm:^1.3.3":
-  version: 1.4.1
-  resolution: "@prefresh/core@npm:1.4.1"
-  peerDependencies:
-    preact: ^10.0.0
-  checksum: afac93e1225d871d88c47717f8b6a328abc9760b212836986fd8bb3017bb6737bb397e016b31c4f542722d0b9c05e1e43d1b5710a61c8efb5208d717d2bb1bba
-  languageName: node
-  linkType: hard
-
-"@prefresh/utils@npm:^1.1.2":
-  version: 1.1.3
-  resolution: "@prefresh/utils@npm:1.1.3"
-  checksum: a95b816d08a68f499489f1e0098effcda99ccba06c80986cb0dfbcda4fc9c8f8e3238603ead4ee35bb9fb7985de66b1a785d12c64fbc61600e0a8bd388fc2de0
-  languageName: node
-  linkType: hard
-
-"@prefresh/vite@npm:^2.2.8":
-  version: 2.2.9
-  resolution: "@prefresh/vite@npm:2.2.9"
-  dependencies:
-    "@babel/core": ^7.9.6
-    "@prefresh/babel-plugin": 0.4.4
-    "@prefresh/core": ^1.3.3
-    "@prefresh/utils": ^1.1.2
-    "@rollup/pluginutils": ^4.1.0
-  peerDependencies:
-    preact: ^10.4.0
-    vite: ">=2.0.0-beta.3"
-  checksum: d9a20690103fae57a1979c2fd96b9415a4d43f79acd2ab42de412f31c92fdb840ff082d8d0603aa209d775868e1815093119df60a5cf77b1005c2ae7298c4985
-  languageName: node
-  linkType: hard
-
 "@rollup/plugin-babel@npm:^5.3.0, @rollup/plugin-babel@npm:^5.3.1":
   version: 5.3.1
   resolution: "@rollup/plugin-babel@npm:5.3.1"
@@ -4966,7 +4945,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^4.1.0, @rollup/pluginutils@npm:^4.1.1, @rollup/pluginutils@npm:^4.2.1":
+"@rollup/pluginutils@npm:^4.2.1":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
   dependencies:
@@ -6966,15 +6945,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-transform-hook-names@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "babel-plugin-transform-hook-names@npm:1.0.2"
-  peerDependencies:
-    "@babel/core": ^7.12.10
-  checksum: d48d513569261fd6c8b2da29ce899ac7bd59dcc32593044b1c79953aed51d4f68a7dbbf5c1dfd35c65192d82df82d13009581c7e0499799fc687d87b6211b148
-  languageName: node
-  linkType: hard
-
 "babel-preset-current-node-syntax@npm:^1.0.0":
   version: 1.0.1
   resolution: "babel-preset-current-node-syntax@npm:1.0.1"
@@ -7798,6 +7768,15 @@ __metadata:
   version: 1.2.2
   resolution: "cjs-module-lexer@npm:1.2.2"
   checksum: 977f3f042bd4f08e368c890d91eecfbc4f91da0bc009a3c557bc4dfbf32022ad1141244ac1178d44de70fc9f3dea7add7cd9a658a34b9fae98a55d8f92331ce5
+  languageName: node
+  linkType: hard
+
+"clean-css@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "clean-css@npm:5.3.1"
+  dependencies:
+    source-map: ~0.6.0
+  checksum: 860696c60503cbfec480b5f92f62729246304b55950571af7292f2687b57f86b277f2b9fefe6f64643d409008018b78383972b55c2cc859792dcc8658988fb16
   languageName: node
   linkType: hard
 
@@ -13716,13 +13695,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kolorist@npm:^1.2.10":
-  version: 1.6.0
-  resolution: "kolorist@npm:1.6.0"
-  checksum: 4d898b782ceaaac3a51d9820a13563fcd0ed516d5493374a0e04ceda93ed4d74f9e267e8da5fb4453e508099b9f6b22e38ac1bff92fdc227081f460c003401c0
-  languageName: node
-  linkType: hard
-
 "lambda-warmer@npm:^1.2.1":
   version: 1.2.2
   resolution: "lambda-warmer@npm:1.2.2"
@@ -17290,7 +17262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sax@npm:>=0.6.0, sax@npm:^1.2.4":
+"sax@npm:>=0.6.0, sax@npm:^1.2.4, sax@npm:~1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: d3df7d32b897a2c2f28e941f732c71ba90e27c24f62ee918bd4d9a8cfb3553f2f81e5493c7f0be94a11c1911b643a9108f231dd6f60df3fa9586b5d2e3e9e1fe
@@ -17744,7 +17716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.6.0, source-map@npm:^0.6.1, source-map@npm:~0.6.1":
+"source-map@npm:^0.6.0, source-map@npm:^0.6.1, source-map@npm:~0.6.0, source-map@npm:~0.6.1":
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 59ce8640cf3f3124f64ac289012c2b8bd377c238e316fb323ea22fbfe83da07d81e000071d7242cad7a23cd91c7de98e4df8830ec3f133cb6133a5f6e9f67bc2
@@ -18139,6 +18111,21 @@ __metadata:
   dependencies:
     inline-style-parser: 0.1.1
   checksum: 4d7084015207f2a606dfc10c29cb5ba569f2fe8005551df7396110dd694d6ff650f2debafa95bd5d147dfb4ca50f57868e2a7f91bf5d11ef734fe7ccbd7abf59
+  languageName: node
+  linkType: hard
+
+"stylus@npm:^0.59.0":
+  version: 0.59.0
+  resolution: "stylus@npm:0.59.0"
+  dependencies:
+    "@adobe/css-tools": ^4.0.1
+    debug: ^4.3.2
+    glob: ^7.1.6
+    sax: ~1.2.4
+    source-map: ^0.7.3
+  bin:
+    stylus: bin/stylus
+  checksum: 2faf4a5618747c17b7d10854e40efdd43b438a6cf99d197b0231578f5091bfe9313663d846b5666bb37140140420c51606bb127fd877bbf2db46730c01403b01
   languageName: node
   linkType: hard
 

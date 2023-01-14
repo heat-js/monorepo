@@ -1,4 +1,6 @@
 
+export { DynamoDBServer } from './services/dynamodb/server'
+
 export { startDynamoDB } from './services/dynamodb'
 
 export { mockDynamoDB } from './mocks/dynamodb'

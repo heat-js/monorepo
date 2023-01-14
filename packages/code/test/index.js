@@ -189,7 +189,17 @@ describe('Code', () => {
 		})
 
 		expect(result.code).toBeDefined()
-		expect(result.code.includes('o("div"')).toBe(true)
+		expect(result.code.includes('("div"')).toBe(true)
+	})
+
+	it('should support stylus', async () => {
+		const path = testPath('stylus')
+		const result = await bundle(path, {
+			sourceMap: false
+		})
+
+		expect(result.code).toBeDefined()
+		expect(result.code.includes('html{margin:0;padding:0;background:#000}')).toBe(true)
 	})
 
 	describe('File Types', () => {

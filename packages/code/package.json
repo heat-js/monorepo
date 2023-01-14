@@ -1,6 +1,6 @@
 {
 	"name": "@heat/code",
-	"version": "0.0.41",
+	"version": "0.0.42",
 	"license": "MIT",
 	"type": "module",
 	"files": [
@@ -61,6 +61,7 @@
 		"@rollup/plugin-terser": "^0.3.0",
 		"@rollup/plugin-typescript": "^9.0.2",
 		"@wwa/rollup-plugin-terser": "^1.0.1",
+		"clean-css": "^5.3.1",
 		"coffeescript": "^2.7.0",
 		"commander": "^9.4.1",
 		"node-eval": "^2.0.0",
@@ -69,6 +70,7 @@
 		"rollup-plugin-coffee-script": "^2.0.0",
 		"rollup-plugin-uglify": "^6.0.4",
 		"rollup-pluginutils": "^2.8.2",
+		"stylus": "^0.59.0",
 		"tslib": "^2.4.1",
 		"typescript": "^4.8.4",
 		"vite": "^3.2.3",
