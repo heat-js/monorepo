@@ -5,7 +5,7 @@
 		"**/.pnp.*": true
 	},
 
-	"[javascript][typescript]": {
+	"[javascript][typescript][jsx][tsx]": {
 		"editor.formatOnSave": false,
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
 	},

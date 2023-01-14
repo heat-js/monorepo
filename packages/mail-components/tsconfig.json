@@ -1,14 +1,16 @@
 {
 	"compilerOptions": {
-		"target": "es2022",
+		"strict": true,
+		"target": "ESNext",
 		"types": ["node", "vitest/globals", "preact"],
-		"lib": ["es2022", "dom"],
-		"esModuleInterop": true,
+		"lib": ["es2022"],
 		"moduleResolution": "Node",
 		"skipLibCheck": true,
+		"esModuleInterop": true,
 		"declaration": true,
 		"outDir": "dist",
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact"
-	}
+	},
+	"include": ["src", "test"]
 }

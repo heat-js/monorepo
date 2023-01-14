@@ -1,8 +1,21 @@
-
 import { formatThemeProperty } from '../helpers.js'
 
-export default ({ href, target = '_blank', color = ['#0281FF', '#50a8ff'], title, children }) => {
-	const [id, color1] = formatThemeProperty('color', color);
+type Link = {
+	children: any
+	href: string
+	title: string
+	target?: string
+	color?: [string, string] | string
+}
+
+export default ({
+	children,
+	href,
+	title,
+	target = '_blank',
+	color = ['#0281FF', '#50a8ff'],
+}: Link) => {
+	const [id, color1] = formatThemeProperty('color', color)
 
 	return (
 		<a
@@ -11,9 +24,8 @@ export default ({ href, target = '_blank', color = ['#0281FF', '#50a8ff'], title
 			target={target}
 			title={title || children}
 			style={{
-				color: color1
-			}}
-		>
+				color: color1,
+			}}>
 			{children}
 		</a>
 	)

@@ -1,6 +1,7 @@
+
 import Mso from './Mso'
 
-export default ({ children }: { children: any }) => (
+export default ({ children } : { children: any }) => (
 	<Mso if='!mso' negative>
 		<div
 			class='dark'

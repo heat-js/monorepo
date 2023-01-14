@@ -1,59 +1,40 @@
+
+import { Fragment } from 'preact'
 import { formatThemeProperty } from '../helpers.js'
 import Mso from './Mso'
 import Raw from './Raw'
 import Style from './Style'
 
-type Email = {
-	children: any
-	title: string
-	darkMode: boolean
-	bgColor?: [string, string] | string
-	lang?: string
-}
+export default ({ lang = 'en', title, darkMode, bgColor = ['#ffffff', '#0c1018'], children }) => {
 
-export default ({
-	children,
-	title,
-	darkMode,
-	bgColor = ['#ffffff', '#0c1018'],
-	lang = 'en',
-}: Email) => {
-	const [id, color] = formatThemeProperty('background-color', bgColor)
+	const [id, color] = formatThemeProperty('background-color', bgColor);
 
 	return (
-		<>
+		<Fragment>
 			<Raw html='<!DOCTYPE html>' />
-			<html
-				xml:lang={lang}
-				lang={lang}
-				xmlns='http://www.w3.org/1999/xhtml'
-				xmlns:v='urn:schemas-microsoft-com:vml'
-				xmlns:o='urn:schemas-microsoft-com:office:office'>
+			<html xml:lang={lang} lang={lang} xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 				<head>
 					<title>{title}</title>
 
-					<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-					<meta name='viewport' content='width=device-width, initial-scale=1' />
-					<meta http-equiv='X-UA-Compatible' content='IE=edge' />
-					<meta name='x-apple-disable-message-reformatting' />
-					<meta name='format-detection' content='telephone=no, address=no' />
+					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+					<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+					<meta name="x-apple-disable-message-reformatting" />
+					<meta name="format-detection" content="telephone=no, address=no" />
 
 					{darkMode && (
-						<>
+						<Fragment>
 							<meta name='color-scheme' content='dark light' />
 							<meta name='supported-color-schemes' content='dark light only' />
 
-							<Style
-								value={`
+							<Style value={`
 								:root {
 									color-scheme: dark light;
 									supported-color-schemes: dark light;
 								}
-							`}
-							/>
+							`} />
 
-							<Style
-								value='
+							<Style value='
 								@media(prefers-color-scheme: dark) {
 									.dark {
 										display: block !important;
@@ -72,11 +53,10 @@ export default ({
 										display: none !important;
 									}
 								}
-							'
-							/>
+							' />
 
 							<fragment id='color-scheme' />
-						</>
+						</Fragment>
 					)}
 
 					<Mso if='gte mso 9'>
@@ -87,8 +67,7 @@ export default ({
 						<Style value='a { text-decoration: none; }' />
 					</Mso>
 
-					<Style
-						value='
+					<Style value='
 						/* CLIENT-SPECIFIC STYLES */
 						body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; word-spacing: normal; }
 						table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
@@ -111,20 +90,16 @@ export default ({
 
 						/* ANDROID CENTER FIX */
 						div[style*="margin: 16px 0;"] { margin: 0 !important; }
-					'
-					/>
+					' />
 				</head>
-				<body
-					spellcheck={false}
-					class={id}
-					style={{
-						backgroundColor: color,
-						margin: '0 !important',
-						padding: '0 !important',
-					}}>
+				<body spellcheck='false' class={id} style={{
+					backgroundColor: color,
+					margin: '0 !important',
+					padding: '0 !important',
+				}}>
 					{children}
 				</body>
 			</html>
-		</>
+		</Fragment>
 	)
 }

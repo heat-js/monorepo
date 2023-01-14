@@ -1,10 +1,25 @@
-
-import { Fragment } from 'preact'
 import { formatAttributeNumber, formatStyleNumber } from '../helpers.js'
 import Dark from './Dark'
 import Light from './Light'
 
-const Image = ({ src, alt, width, height, borderRadius }) => (
+type Image = {
+	href: string
+	src: string[] | string
+	alt: string
+	width: string | number
+	height?: string | number
+	target?: string
+	align?: 'left' | 'right' | 'center'
+	borderRadius?: string
+}
+
+const Image = ({
+	src,
+	alt,
+	width,
+	height,
+	borderRadius,
+}: Pick<Image, 'alt' | 'width' | 'height' | 'borderRadius'> & { src: string }) => (
 	<img
 		src={src}
 		alt={alt}
@@ -22,32 +37,40 @@ const Image = ({ src, alt, width, height, borderRadius }) => (
 			minWidth: formatStyleNumber(width),
 			minHeight: formatStyleNumber(height),
 			borderRadius,
-		}} />
+		}}
+	/>
 )
 
-export default ({ href, src, alt, width, height, target = '_blank', align, borderRadius }) => {
-
-	let image;
+export default ({ href, src, alt, width, height, target = '_blank', align, borderRadius }: Image) => {
+	let image
 	if (!Array.isArray(src)) {
-		image = <Image {...{ src, alt, width, height, borderRadius }} />;
+		image = <Image {...{ src, alt, width, height, borderRadius }} />
 	} else {
 		image = (
-			<Fragment>
-				<Light><Image {...{ src: src[0], alt, width, height, borderRadius }} /></Light>
-				<Dark><Image {...{ src: src[1], alt, width, height, borderRadius }} /></Dark>
-			</Fragment>
+			<>
+				<Light>
+					<Image {...{ src: src[0], alt, width, height, borderRadius }} />
+				</Light>
+				<Dark>
+					<Image {...{ src: src[1], alt, width, height, borderRadius }} />
+				</Dark>
+			</>
 		)
 	}
 
 	return (
 		<tr>
 			<td align={align}>
-				<a href={href} target={target} title={alt} style={{
-					display: 'block',
-					width: formatStyleNumber(width),
-					height: formatStyleNumber(height),
-					borderRadius,
-				}}>
+				<a
+					href={href}
+					target={target}
+					title={alt}
+					style={{
+						display: 'block',
+						width: formatStyleNumber(width),
+						height: formatStyleNumber(height),
+						borderRadius,
+					}}>
 					{image}
 				</a>
 			</td>

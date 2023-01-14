@@ -1,6 +1,6 @@
 {
-	"name": "@heat/mail",
-	"version": "0.0.1",
+	"name": "@heat/mail-components",
+	"version": "0.0.2",
 	"license": "MIT",
 	"type": "module",
 	"files": [
@@ -12,9 +12,9 @@
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
 			"require": "./dist/index.cjs",
-			"import": "./dist/index.js"
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
 		}
 	},
 	"repository": {
@@ -23,7 +23,7 @@
 	},
 	"scripts": {
 		"test": "yarn run code test",
-		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
+		"build": "yarn tsup src/index.ts --format cjs,esm --dts-resolve --clean",
 		"publish": "yarn build; yarn npm publish --access=public"
 	},
 	"vitest": {

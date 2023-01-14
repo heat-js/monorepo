@@ -1,4 +1,3 @@
-
-export default ({ html }) => (
-	<fragment dangerouslySetInnerHTML={{ __html: html }} />
-)
+export default ({ html }: { html: string }) => {
+	return <fragment dangerouslySetInnerHTML={{ __html: html }} />
+}

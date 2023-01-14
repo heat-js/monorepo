@@ -1,6 +1,7 @@
 import renderTo from 'preact-render-to-string'
+import preact from 'preact'
 
-export const render = (jsx: any) => {
+export const render = (jsx: preact.JSX.Element) => {
 	ids = 0
 	styles = []
 	map = {}
@@ -11,19 +12,18 @@ export const render = (jsx: any) => {
 		.replaceAll('</fragment>', '')
 }
 
-export const formatStyleNumber = (value: string | number) => {
-	if (typeof value === 'undefined') return undefined
+export const formatStyleNumber = (value: string | number | undefined) => {
+	if (typeof value === 'string') {
+		const last = value[value.length - 1]
+		if (last === '%') return value
+		if (!isNaN(Number(value))) return value + 'px'
+		return value
+	}
 
-	const str = String(value)
-	const last = str[str.length - 1]
-
-	if (last === '%') return str
-	if (!isNaN(value)) return str + 'px'
-
-	return str
+	return value
 }
 
-export const formatAttributeNumber = (value: string | number) => {
+export const formatAttributeNumber = (value: string | number | undefined) => {
 	if (typeof value === 'undefined') return undefined
 
 	const str = String(value)
@@ -34,15 +34,15 @@ export const formatAttributeNumber = (value: string | number) => {
 	return parseFloat(str)
 }
 
-export const combineClasses = (...args: string[]) => {
+export const combineClasses = (...args: (string | undefined)[]) => {
 	return args.filter(c => !!c).join(' ')
 }
 
 // ---------------------
 
 let ids = 0
-let styles = []
-let map = {}
+let styles: { id: string; property: string; value: string }[] = []
+let map: Record<string, string> = {}
 
 export const addStyle = (property: string, value: string) => {
 	const key = `${property}${value}`
@@ -55,9 +55,11 @@ export const addStyle = (property: string, value: string) => {
 	return id
 }
 
-export const formatThemeProperty = (property: string, value: string | string[]) => {
+export const formatThemeProperty = (
+	property: string,
+	value: [string, string] | string | undefined
+) => {
 	if (typeof value === 'undefined') return [undefined, undefined]
-
 	if (Array.isArray(value)) {
 		return [addStyle(property, value[1]), value[0]]
 	}

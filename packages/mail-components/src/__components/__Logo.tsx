@@ -1,26 +1,7 @@
+
 import { formatAttributeNumber, formatStyleNumber } from '../helpers.js'
 
-type Logo = {
-	href: string
-	src: string
-	alt: string
-	width: string | number
-	height: string | number
-	target?: string
-	align?: 'left' | 'right' | 'center'
-	borderRadius?: string
-}
-
-export default ({
-	href,
-	src,
-	alt,
-	width,
-	height,
-	target = '_blank',
-	align = 'left',
-	borderRadius,
-}: Logo) => (
+export default ({ href, src, alt, width, height, target = '_blank', align, borderRadius }) => (
 	<tr>
 		<td align={align}>
 			<a href={href} target={target} title={alt}>
@@ -41,8 +22,7 @@ export default ({
 						minWidth: formatStyleNumber(width),
 						minHeight: formatStyleNumber(height),
 						borderRadius,
-					}}
-				/>
+					}} />
 			</a>
 		</td>
 	</tr>

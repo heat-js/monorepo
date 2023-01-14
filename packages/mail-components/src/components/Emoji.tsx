@@ -1,8 +1,3 @@
-
-import { h } from 'preact'
-
-export default ({ children, fontSize = '1.1em' }) => (
-	<span style={{ fontSize }}>
-		{children}
-	</span>
+export default ({ children, fontSize = '1.1em' }: { children: any; fontSize?: string }) => (
+	<span style={{ fontSize }}>{children}</span>
 )
