@@ -1,10 +1,16 @@
-
 import { combineClasses, formatThemeProperty } from '../helpers.js'
 
-export default ({ bgColor, bgImage, padding, borderRadius, children }) => {
+type Section = {
+	children: any
+	bgColor?: [string, string] | string
+	bgImage?: string
+	padding?: string
+	borderRadius?: string
+}
 
-	const [id1, color] = formatThemeProperty('background-color', bgColor);
-	const [id2, image] = formatThemeProperty('background-image', bgImage);
+export default ({ children, bgColor, bgImage, padding, borderRadius }: Section) => {
+	const [id1, color] = formatThemeProperty('background-color', bgColor)
+	const [id2, image] = formatThemeProperty('background-image', bgImage)
 
 	return (
 		<tr>
@@ -15,15 +21,18 @@ export default ({ bgColor, bgImage, padding, borderRadius, children }) => {
 					padding,
 					backgroundColor: color,
 					backgroundImage: image,
-					borderRadius
+					borderRadius,
 				}}>
 				<table
-					style={{ width: '100%', border: 0, borderSpacing: 0 }}
+					style={{
+						width: '100%',
+						border: 0,
+						borderSpacing: 0,
+					}}
 					width='100%'
-					border="0"
-					cellpadding="0"
-					cellspacing="0"
-				>
+					border='0'
+					cellPadding='0'
+					cellSpacing='0'>
 					{children}
 				</table>
 			</td>

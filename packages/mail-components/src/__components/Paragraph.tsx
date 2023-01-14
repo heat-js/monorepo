@@ -1,23 +1,13 @@
+
 import { formatThemeProperty } from '../helpers.js'
 
-type Paragraph = {
-	children: any
-	align?: 'left' | 'right' | 'center'
-	margin?: string
-	color?: [string, string] | string
-}
-
-export default ({
-	children,
-	align = 'left',
-	margin = '10px 0',
-	color = ['#000000', '#ffffff'],
-}: Paragraph) => {
-	const [id, color1] = formatThemeProperty('color', color)
-
+export default ({ children, align = 'left', margin = '10px 0', color = ['#000000', '#ffffff'] }) => {
+	const [id, color1] = formatThemeProperty('color', color);
 	return (
 		<tr>
-			<td style={{ padding: margin }} align={align}>
+			<td align={align} style={{
+				padding: margin,
+			}}>
 				<p
 					class={id}
 					style={{
