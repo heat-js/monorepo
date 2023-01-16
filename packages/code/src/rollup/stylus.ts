@@ -25,7 +25,7 @@ export default (options: Options = {}) => {
 
 			const css = await stylus(code)
 				.set('filename', basename(id))
-				.set('paths', [ dirname(id), __dirname ])
+				.set('paths', [ dirname(id) ])
 				.render()
 
 			const clean = new CleanCSS()
