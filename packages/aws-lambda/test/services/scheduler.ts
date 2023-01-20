@@ -5,17 +5,19 @@ import { mockScheduler } from '@heat/aws-test'
 
 describe('Scheduler', () => {
 
-	const mock = mockScheduler()
+	const mock = mockScheduler({
+		lambda__name: () => {}
+	})
 
 	it('should schedule a lambda', async () => {
 		await schedule({
-			name: 'test',
+			name: 'lambda__name',
 			idempotentKey: 'test',
 			payload: {},
 			date: new Date,
 			roleArn: 'arn:test',
 		})
 
-		expect(mock).toBeCalledTimes(1)
+		expect(mock.lambda__name).toBeCalledTimes(1)
 	})
 })
