@@ -14,14 +14,14 @@ export const mockScheduler = <T extends Lambdas>(lambdas:T) => {
 		.on(CreateScheduleCommand)
 		.callsFake(async (input: CreateScheduleCommandInput) => {
 			const parts = input.Target.Arn.split(':')
-			const lambda = parts[ parts.length - 1 ]
-			const callback = list[ lambda ]
+			const name = parts[ parts.length - 1 ]
+			const callback = list[ name ]
 
 			if(!callback) {
-				throw new TypeError(`Scheduler mock function not defined for: ${ lambda }`)
+				throw new TypeError(`Scheduler mock function not defined for: ${ name }`)
 			}
 
-			await callback()
+			await callback(input.Target.Input)
 		})
 
 	beforeEach(() => {

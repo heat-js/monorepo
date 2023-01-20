@@ -18,7 +18,7 @@ describe('Scheduler Mock', () => {
 			FlexibleTimeWindow: { Mode: 'OFF' },
 			Target: {
 				Arn: `arn:aws:lambda:eu-west-1:xxx:lambda__name`,
-				Input: '',
+				Input: 'hello world',
 				RoleArn: '',
 			}
 		}))
