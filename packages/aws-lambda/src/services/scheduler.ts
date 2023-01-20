@@ -16,7 +16,7 @@ interface Schedule {
 }
 
 /** Create lambda scheduler */
-export const schedule = ({ client = schedulerClient.get(), name, payload, date, idempotentKey, timezone, accountId = process.env.AWS_ACCOUNT_ID }: Schedule) => {
+export const schedule = ({ client = schedulerClient.get(), name, payload, date, idempotentKey, roleArn, timezone, accountId = process.env.AWS_ACCOUNT_ID }: Schedule) => {
 	const command = new CreateScheduleCommand({
 		ClientToken: idempotentKey,
 		Name: `${name}|${idempotentKey}`,
@@ -26,7 +26,7 @@ export const schedule = ({ client = schedulerClient.get(), name, payload, date, 
 		Target: {
 			Arn: `arn:aws:lambda:${client.config.region}:${accountId}:${name}`,
 			Input: payload ? JSON.stringify(payload) : undefined,
-			RoleArn: '',
+			RoleArn: roleArn,
 		}
 	})
 

@@ -1,6 +1,6 @@
 
 import { describe, it } from 'vitest'
-import { schedule } from '../../src'
+import { schedule } from '../../src/services/scheduler'
 import { mockScheduler } from '@heat/aws-test'
 
 describe('Scheduler', () => {
