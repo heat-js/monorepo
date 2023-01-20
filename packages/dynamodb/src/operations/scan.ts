@@ -2,7 +2,8 @@
 import { ScanCommand, ScanCommandOutput } from '@aws-sdk/lib-dynamodb'
 import { addExpression } from '../helper/expression.js'
 import { send } from '../helper/send.js'
-import { Expression, Item, Key, Options } from '../types.js'
+import { Table } from '../table.js'
+import { Expression, Item, Key, Options, ReturnModelType } from '../types.js'
 
 export interface ScanOptions extends Options {
 	projection?: Expression
@@ -12,15 +13,18 @@ export interface ScanOptions extends Options {
 	cursor?: Key
 }
 
-export interface ScanResponse<T extends Item> {
+export interface ScanResponse<I, T> {
 	count: number
-	items: T[]
+	items: ReturnModelType<I, T>[]
 	cursor?: Key
 }
 
-export const scan = async <T extends Item>(table:string, options:ScanOptions = {}): Promise<ScanResponse<T>> => {
+export const scan = async <I extends Item, T extends Table | string = string>(
+	table: T,
+	options:ScanOptions = {}
+): Promise<ScanResponse<I, T>> => {
 	const command = new ScanCommand({
-		TableName: table,
+		TableName: table.toString(),
 		IndexName: options.index,
 		ConsistentRead: options.consistentRead,
 		Limit: options.limit || 10,
@@ -36,7 +40,7 @@ export const scan = async <T extends Item>(table:string, options:ScanOptions = {
 
 	return {
 		count: result.Count || 0,
-		items: result.Items as T[],
+		items: result.Items as ReturnModelType<I, T>[],
 		cursor: result.LastEvaluatedKey
 	}
 }

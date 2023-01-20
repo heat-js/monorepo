@@ -3252,7 +3252,7 @@ __metadata:
     "@bugsnag/source-maps": ^2.0.0
     "@graphql-tools/merge": ^6.2.7
     "@heat/cloud-front-function": ^0.0.17
-    "@heat/code": ^0.0.33
+    "@heat/code": ^0.0.44
     "@heat/s3-sync": ^0.0.14
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^20.0.0
@@ -3345,6 +3345,45 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@heat/code@^0.0.44, @heat/code@workspace:^, @heat/code@workspace:packages/code":
+  version: 0.0.0-use.local
+  resolution: "@heat/code@workspace:packages/code"
+  dependencies:
+    "@babel/plugin-transform-runtime": ^7.19.6
+    "@babel/preset-env": ^7.20.2
+    "@babel/preset-react": ^7.18.6
+    "@heat/aws-lambda": "workspace:^"
+    "@lopatnov/rollup-plugin-uglify": ^2.1.5
+    "@rollup/plugin-babel": ^6.0.2
+    "@rollup/plugin-commonjs": ^23.0.2
+    "@rollup/plugin-json": ^5.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-terser": ^0.3.0
+    "@rollup/plugin-typescript": ^9.0.2
+    "@wwa/rollup-plugin-terser": ^1.0.1
+    clean-css: ^5.3.1
+    coffeescript: ^2.7.0
+    commander: ^9.4.1
+    jest: ^28.1.1
+    node-eval: ^2.0.0
+    object-assign: ^4.1.1
+    rollup: ^3.2.5
+    rollup-plugin-coffee-script: ^2.0.0
+    rollup-plugin-uglify: ^6.0.4
+    rollup-pluginutils: ^2.8.2
+    stylus: ^0.59.0
+    ts-jest: ^29.0.3
+    tslib: ^2.4.1
+    tsup: ^6.5.0
+    typescript: ^4.8.4
+    uuid: ^9.0.0
+    vite: ^3.2.3
+    vitest: ^0.25.1
+  bin:
+    code: ./dist/bin.js
+  languageName: unknown
+  linkType: soft
+
 "@heat/code@npm:0.0.20":
   version: 0.0.20
   resolution: "@heat/code@npm:0.0.20"
@@ -3402,38 +3441,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heat/code@npm:^0.0.33":
-  version: 0.0.33
-  resolution: "@heat/code@npm:0.0.33"
-  dependencies:
-    "@babel/plugin-transform-runtime": ^7.19.6
-    "@babel/preset-env": ^7.20.2
-    "@babel/preset-react": ^7.18.6
-    "@lopatnov/rollup-plugin-uglify": ^2.1.5
-    "@rollup/plugin-babel": ^6.0.2
-    "@rollup/plugin-commonjs": ^23.0.2
-    "@rollup/plugin-json": ^5.0.1
-    "@rollup/plugin-node-resolve": ^15.0.1
-    "@rollup/plugin-terser": ^0.2.1
-    "@rollup/plugin-typescript": ^9.0.2
-    "@wwa/rollup-plugin-terser": ^1.0.1
-    coffeescript: ^2.7.0
-    commander: ^9.4.1
-    object-assign: ^4.1.1
-    rollup: ^3.2.5
-    rollup-plugin-coffee-script: ^2.0.0
-    rollup-plugin-uglify: ^6.0.4
-    rollup-pluginutils: ^2.8.2
-    tslib: ^2.4.1
-    typescript: ^4.8.4
-    vite: ^3.2.3
-    vitest: ^0.25.1
-  bin:
-    code: ./dist/bin.js
-  checksum: bbacd14bbe802be1bca0eb968f83b5d36ce379466f6b1a6207ab6240d8739088ffb407914d6b43be2071b38b7893bc3e0e95ba0d1a36227ea2eb9e0d2842e07e
-  languageName: node
-  linkType: hard
-
 "@heat/code@npm:^0.0.35":
   version: 0.0.35
   resolution: "@heat/code@npm:0.0.35"
@@ -3465,45 +3472,6 @@ __metadata:
   checksum: 24a67ff5cc475eda8d87e56859a1604d5f9121c90d1bad6979f5d5c79c1847c82a8f4b405f4011f41e9bdfbae501a82ef771edd017a5f6085a503325b6860800
   languageName: node
   linkType: hard
-
-"@heat/code@workspace:^, @heat/code@workspace:packages/code":
-  version: 0.0.0-use.local
-  resolution: "@heat/code@workspace:packages/code"
-  dependencies:
-    "@babel/plugin-transform-runtime": ^7.19.6
-    "@babel/preset-env": ^7.20.2
-    "@babel/preset-react": ^7.18.6
-    "@heat/aws-lambda": "workspace:^"
-    "@lopatnov/rollup-plugin-uglify": ^2.1.5
-    "@rollup/plugin-babel": ^6.0.2
-    "@rollup/plugin-commonjs": ^23.0.2
-    "@rollup/plugin-json": ^5.0.1
-    "@rollup/plugin-node-resolve": ^15.0.1
-    "@rollup/plugin-terser": ^0.3.0
-    "@rollup/plugin-typescript": ^9.0.2
-    "@wwa/rollup-plugin-terser": ^1.0.1
-    clean-css: ^5.3.1
-    coffeescript: ^2.7.0
-    commander: ^9.4.1
-    jest: ^28.1.1
-    node-eval: ^2.0.0
-    object-assign: ^4.1.1
-    rollup: ^3.2.5
-    rollup-plugin-coffee-script: ^2.0.0
-    rollup-plugin-uglify: ^6.0.4
-    rollup-pluginutils: ^2.8.2
-    stylus: ^0.59.0
-    ts-jest: ^29.0.3
-    tslib: ^2.4.1
-    tsup: ^6.5.0
-    typescript: ^4.8.4
-    uuid: ^9.0.0
-    vite: ^3.2.3
-    vitest: ^0.25.1
-  bin:
-    code: ./dist/bin.js
-  languageName: unknown
-  linkType: soft
 
 "@heat/coffee-run@npm:0.0.20":
   version: 0.0.20

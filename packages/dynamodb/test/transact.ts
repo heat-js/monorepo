@@ -1,13 +1,20 @@
 
 import { describe, it, expect } from 'vitest'
 import { mockDynamoDB } from '@heat/aws-test'
-import { ql, scan, transactWrite, transactPut, transactConditionCheck } from '../src/index'
+import { ql, scan, transactWrite, transactPut, transactConditionCheck, Table } from '../src/index'
 import { TransactionCanceledException } from '@aws-sdk/client-dynamodb'
 
 describe('DynamoDB Transact', () => {
 
 	mockDynamoDB({ path: './test/aws/dynamodb.yml' })
-	const posts = 'posts'
+
+	type Post = {
+		userId: number
+		id: number
+		title: string
+	}
+
+	const posts = new Table<Post, { userId: number, id: number }>('posts')
 
 	it('should transact', async () => {
 		await transactWrite({
@@ -16,9 +23,9 @@ describe('DynamoDB Transact', () => {
 					condition: ql`attribute_not_exists(#id)`
 				}),
 
-				transactPut(posts, { userId: 1, id: 1 }),
-				transactPut(posts, { userId: 1, id: 2 }),
-				transactPut(posts, { userId: 1, id: 3 }),
+				transactPut(posts, { userId: 1, id: 1, title: '' }),
+				transactPut(posts, { userId: 1, id: 2, title: '' }),
+				transactPut(posts, { userId: 1, id: 3, title: '' }),
 			]
 		})
 
@@ -27,9 +34,9 @@ describe('DynamoDB Transact', () => {
 			cursor: undefined,
 			count: 3,
 			items: [
-				{ userId: 1, id: 1 },
-				{ userId: 1, id: 2 },
-				{ userId: 1, id: 3 }
+				{ userId: 1, id: 1, title: '' },
+				{ userId: 1, id: 2, title: '' },
+				{ userId: 1, id: 3, title: '' }
 			]}
 		)
 	})
@@ -40,7 +47,7 @@ describe('DynamoDB Transact', () => {
 				transactConditionCheck(posts, { userId: 1, id: 1 }, {
 					condition: ql`attribute_not_exists(#id)`
 				}),
-				transactPut(posts, { userId: 1, id: 4 }),
+				transactPut(posts, { userId: 1, id: 4, title: '' }),
 			]
 		})
 
@@ -51,9 +58,9 @@ describe('DynamoDB Transact', () => {
 			cursor: undefined,
 			count: 3,
 			items: [
-				{ userId: 1, id: 1 },
-				{ userId: 1, id: 2 },
-				{ userId: 1, id: 3 }
+				{ userId: 1, id: 1, title: '' },
+				{ userId: 1, id: 2, title: '' },
+				{ userId: 1, id: 3, title: '' }
 			]}
 		)
 	})

@@ -2,7 +2,8 @@
 import { QueryCommand, QueryCommandOutput } from '@aws-sdk/lib-dynamodb'
 import { addExpression } from '../helper/expression.js'
 import { send } from '../helper/send.js'
-import { Expression, Item, Key, Options } from '../types.js'
+import { Table } from '../table.js'
+import { Expression, Item, Key, Options, ReturnModelType } from '../types.js'
 
 export interface QueryOptions extends Options {
 	keyCondition: Expression
@@ -14,16 +15,19 @@ export interface QueryOptions extends Options {
 	cursor?: Key
 }
 
-export interface QueryResponse<T> {
+export interface QueryResponse<I, T> {
 	count: number
-	items: T[]
+	items: ReturnModelType<I, T>[]
 	cursor?: Key
 }
 
-export const query = async <T extends Item>(table:string, options:QueryOptions): Promise<QueryResponse<T>> => {
+export const query = async <I extends Item, T extends Table | string = string>(
+	table: T,
+	options:QueryOptions
+): Promise<QueryResponse<I, T>> => {
 	const { forward = true } = options
 	const command = new QueryCommand({
-		TableName: table,
+		TableName: table.toString(),
 		IndexName: options.index,
 		KeyConditionExpression: options.keyCondition.expression,
 		ConsistentRead: options.consistentRead,
@@ -43,7 +47,7 @@ export const query = async <T extends Item>(table:string, options:QueryOptions):
 
 	return {
 		count: result.Count || 0,
-		items: result.Items as T[],
+		items: (result.Items || []) as ReturnModelType<I, T>[],
 		cursor: result.LastEvaluatedKey
 	}
 }
