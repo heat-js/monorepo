@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest'
-import { dynamoDBDocumentClient, iotClient, lambdaClient, snsClient, sqsClient, ssmClient } from '../src'
+import { dynamoDBDocumentClient, iotClient, lambdaClient, schedulerClient, sesClient, snsClient, sqsClient, ssmClient } from '../src'
 
 process.env.IOT_ENDPOINT = 'endpoint'
 
@@ -9,6 +9,8 @@ describe('clients', () => {
 	const clients = [
 		dynamoDBDocumentClient,
 		lambdaClient,
+		schedulerClient,
+		sesClient,
 		snsClient,
 		sqsClient,
 		ssmClient
