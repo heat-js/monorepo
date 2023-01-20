@@ -15,7 +15,6 @@ const handleInt = (value: string) => {
 
 const handleArgs = (value: string) => {
 	const args: Record<string, string> = {}
-	console.log(value)
 
 	for (const item of value.split(',')) {
 		const [key, value] = item.split('=')

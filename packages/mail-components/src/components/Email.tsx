@@ -14,7 +14,7 @@ type Email = {
 export default ({
 	children,
 	title,
-	darkMode,
+	darkMode = true,
 	bgColor = ['#ffffff', '#0c1018'],
 	lang = 'en',
 }: Email) => {

@@ -14,7 +14,7 @@ import {
 export default ({ userName }: { userName: string }) => {
 	return (
 		<>
-			<Email title='Start your VIP journey now!' darkMode={false}>
+			<Email title='Start your VIP journey now!' darkMode={true}>
 				<PreviewText>Welcome to Jacks Club! Start your VIP journey now!</PreviewText>
 				<Layout width='540px'>
 					<Section bgColor={['#F3F5F9', '#111722']} borderRadius='20px'>

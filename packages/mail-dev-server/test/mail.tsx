@@ -1,3 +1,9 @@
+import { Email } from '@heat/mail-components'
+
 export default ({ userName }: { userName: string }) => {
-	return <p>Hello {userName}</p>
+	return (
+		<Email title='test' darkMode={true}>
+			<p>Hello {userName}</p>
+		</Email>
+	)
 }

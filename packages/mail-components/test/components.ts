@@ -25,6 +25,6 @@ describe('Build Jsx', () => {
 	it('should render a complete mail', () => {
 		const jsx = mail({ userName: 'Jack' })
 		const html = render(jsx)
-		expect(html.length).toBe(12817)
+		expect(html.length).toBe(13613)
 	})
 })

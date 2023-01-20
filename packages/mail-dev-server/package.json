@@ -1,6 +1,6 @@
 {
 	"name": "@heat/mail-dev-server",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "MIT",
 	"type": "module",
 	"files": [
@@ -22,7 +22,7 @@
 		"url": "https://github.com/heat-js/monorepo/tree/master/packages/mail-dev-server"
 	},
 	"scripts": {
-		"start": "yarn build; node ./dist/bin.js start ./test -a userName='Kennedy'",
+		"dev": "yarn build; node ./dist/bin.js start ./test -a userName='Kennedy'",
 		"build": "yarn tsup src/index.ts src/bin.ts --format cjs,esm --dts-resolve --clean",
 		"publish": "yarn build; yarn npm publish --access=public"
 	},

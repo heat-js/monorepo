@@ -6,7 +6,9 @@ export const render = (jsx: preact.JSX.Element) => {
 	styles = []
 	map = {}
 
-	return renderTo(jsx)
+	const html = renderTo(jsx)
+
+	return html
 		.replaceAll('<fragment id="color-scheme"></fragment>', getColorScheme())
 		.replaceAll('<fragment>', '')
 		.replaceAll('</fragment>', '')
@@ -41,7 +43,7 @@ export const combineClasses = (...args: (string | undefined)[]) => {
 // ---------------------
 
 let ids = 0
-let styles: { id: string; property: string; value: string }[] = []
+let styles: { id: string, property: string, value: string }[] = []
 let map: Record<string, string> = {}
 
 export const addStyle = (property: string, value: string) => {
