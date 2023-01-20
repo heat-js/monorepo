@@ -14,7 +14,8 @@ export default (input, output, options) ->
 				return true
 
 			if importee.indexOf('@aws-sdk') is 0
-				return true
+				return !['@aws-sdk/client-scheduler', '@aws-sdk/util-retry', '@aws-sdk/util-base64', '@aws-sdk/middleware-signing'].includes(importee)
+				# return true
 
 			return (options.externals or []).includes importee
 
