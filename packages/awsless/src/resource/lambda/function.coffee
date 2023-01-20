@@ -18,17 +18,17 @@ import output				from '../output'
 import addPolicy, { addManagedPolicy, policyChecksum } from './policy'
 
 reservedConcurrentExecutions = (ctx) ->
-	reserved = ctx.number [
+	concurrency = ctx.number [
 		'Reserved'
 		'ReservedConcurrentExecutions'
 		'@Config.Lambda.Reserved'
 		'@Config.Lambda.ReservedConcurrentExecutions'
 	], 0
 
-	if reserved <= 0
+	if concurrency <= 0
 		return {}
 
-	return { ReservedConcurrentExecutions: reserved }
+	return { ReservedConcurrentExecutions: concurrency }
 
 vpcConfig = (ctx) ->
 	vpc = ctx.object [

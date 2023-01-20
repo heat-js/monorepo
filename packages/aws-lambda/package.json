@@ -1,6 +1,6 @@
 {
 	"name": "@heat/aws-lambda",
-	"version": "0.0.74",
+	"version": "0.0.76",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -39,6 +39,7 @@
 		"@aws-sdk/client-iot": "^3.204.0",
 		"@aws-sdk/client-iot-data-plane": "^3.204.0",
 		"@aws-sdk/client-lambda": "^3.202.0",
+		"@aws-sdk/client-scheduler": "^3.254.0",
 		"@aws-sdk/client-sns": "^3.204.0",
 		"@aws-sdk/client-sqs": "^3.204.0",
 		"@aws-sdk/client-ssm": "^3.204.0",
@@ -49,7 +50,7 @@
 		"@heat/validate": "^0.0.8"
 	},
 	"dependencies": {
-		"@heat/aws-clients": "^0.0.3",
+		"@heat/aws-clients": "^0.0.4",
 		"@types/aws-lambda": "^8.10.108",
 		"chunk": "^0.0.3",
 		"type-fest": "^3.5.0"
@@ -59,13 +60,14 @@
 		"@aws-sdk/client-iot": "^3.204.0",
 		"@aws-sdk/client-iot-data-plane": "^3.204.0",
 		"@aws-sdk/client-lambda": "^3.202.0",
+		"@aws-sdk/client-scheduler": "^3.254.0",
 		"@aws-sdk/client-sns": "^3.204.0",
 		"@aws-sdk/client-sqs": "^3.204.0",
 		"@aws-sdk/client-ssm": "^3.204.0",
 		"@aws-sdk/lib-dynamodb": "^3.226.0",
 		"@aws-sdk/util-dynamodb": "^3.226.0",
 		"@aws-sdk/util-utf8-node": "^3.208.0",
-		"@heat/aws-test": "^0.0.25",
+		"@heat/aws-test": "^0.0.27",
 		"@heat/code": "^0.0.35",
 		"@heat/validate": "^0.0.9",
 		"@types/chunk": "^0.0.0",

@@ -3,6 +3,30 @@ import resource						from '../../../feature/resource'
 import { GetAtt, Sub, isFn, isArn }	from '../../../feature/cloudformation/fn'
 import addPolicy					from '../policy'
 
+maximumBatchingWindowInSeconds = (ctx) ->
+	batchingWindow = ctx.number [
+		'MaxBatchingWindow'
+		'MaxBatchingWindowInSeconds'
+		'MaximumBatchingWindowInSeconds'
+	], null
+
+	if not batchingWindow
+		return {}
+
+	return { MaximumBatchingWindowInSeconds: batchingWindow }
+
+maximumConcurrency = (ctx) ->
+	concurrency = ctx.number [
+		'Concurrency'
+		'MaxConcurrency'
+		'MaximumConcurrency'
+	], null
+
+	if not concurrency
+		return {}
+
+	return { ScalingConfig: MaximumConcurrency: concurrency }
+
 export default resource (ctx) ->
 
 	Region	= ctx.string '#Region', ''
@@ -20,7 +44,8 @@ export default resource (ctx) ->
 			Enabled:		true
 			BatchSize:		ctx.number 'BatchSize', 10
 			EventSourceArn: queue
-			MaximumBatchingWindowInSeconds:	ctx.number [ 'MaximumBatchingWindowInSeconds' ], 10
+			...maximumBatchingWindowInSeconds ctx
+			...maximumConcurrency ctx
 		}
 	}
 

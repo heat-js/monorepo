@@ -16,6 +16,7 @@ export { bugsnag } from './loggers/bugsnag/index.js'
 // services
 export { ssm } from './services/ssm.js'
 export { invoke } from './services/lambda.js'
+// export { schedule } from './services/scheduler.js' NOT YET BUILD IN LAMBDA nodejs18x
 export { publish } from './services/iot.js'
 export { sendNotification } from './services/sns.js'
 export { addQueueMessage, addQueueBatch, getCachedQueueUrl, getQueueUrl } from './services/sqs.js'

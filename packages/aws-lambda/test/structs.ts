@@ -68,16 +68,19 @@ describe('structs', () => {
 
 	it('sqsStruct', async () => {
 		const struct = sqsStruct(object({ id: number() }))
-		const event = { Records:[{
+
+		const record = {
 			messageId: '1',
-			body: '{ "id": 1 }',
+			body: JSON.stringify({ id: 1 }),
 			messageAttributes: {}
-		}]}
+		}
+
+		const event = { Records: [record, record] }
 
 		const result = mask(event, struct)
 		const records = sqsRecords(result)
 
 		expect(result.Records[0].body).toStrictEqual({ id: 1 })
-		expect(records).toStrictEqual([{ id: 1 }])
+		expect(records).toStrictEqual([{ id: 1 }, { id: 1 }])
 	})
 })

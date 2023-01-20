@@ -29,8 +29,8 @@ export const start = async ({
 		const path = join(folder, url.pathname)
 		const module = await importModule(path)
 
-		return render(
-			module({
+		return (module.render || render)(
+			(module.default || module)({
 				...args,
 				...Object.fromEntries(url.searchParams),
 			})
