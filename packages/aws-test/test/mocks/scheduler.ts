@@ -18,7 +18,7 @@ describe('Scheduler Mock', () => {
 			FlexibleTimeWindow: { Mode: 'OFF' },
 			Target: {
 				Arn: `arn:aws:lambda:eu-west-1:xxx:lambda__name`,
-				Input: 'hello world',
+				Input: JSON.stringify('hello world'),
 				RoleArn: '',
 			}
 		}))
@@ -33,7 +33,6 @@ describe('Scheduler Mock', () => {
 			FlexibleTimeWindow: { Mode: 'OFF' },
 			Target: {
 				Arn: `arn:aws:lambda:eu-west-1:xxx:unknown`,
-				Input: '',
 				RoleArn: '',
 			}
 		}))
