@@ -1,18 +1,16 @@
 
 import { TransactWriteCommand, TransactWriteCommandOutput } from '@aws-sdk/lib-dynamodb'
-import { Expression, Item, Key, Options, Value } from '../types.js'
+import { Expression, Item, Key, Options, ReturnKeyType, ReturnModelType, Value } from '../types.js'
 import { addExpression } from '../helper/expression.js'
 import { send } from '../helper/send.js'
+import { Table } from '../table.js'
 
 interface TransactWriteOptions extends Options {
 	idempotantKey?: string
 	items: Transactable[]
 }
 
-interface Transactable {
-	table: string
-	command: ConditionCheck | Put | Update | Delete
-}
+type Transactable = ConditionCheck | Put | Update | Delete
 
 interface Command {
 	TableName: string
@@ -50,10 +48,8 @@ interface Delete {
 export const transactWrite = async (options:TransactWriteOptions): Promise<void> => {
 	const command = new TransactWriteCommand({
 		ClientRequestToken: options.idempotantKey,
-		TransactItems: options.items.map(item => item.command)
+		TransactItems: options.items
 	})
-
-	// await items[0]?.table.db.send(command)
 
 	await send(command, options) as TransactWriteCommandOutput
 }
@@ -62,27 +58,35 @@ interface ConditionCheckOptions {
 	condition: Expression
 }
 
-export const transactConditionCheck = (table: string, key: Key, { condition }: ConditionCheckOptions): Transactable => {
+export const transactConditionCheck = <T extends Table | string = string>(
+	table: T,
+	key: ReturnKeyType<T>,
+	{ condition }: ConditionCheckOptions
+): Transactable => {
 	const command: ConditionCheck = {
 		ConditionCheck: {
-			TableName: table,
+			TableName: table.toString(),
 			Key: key,
 			ConditionExpression: condition.expression
 		}
 	}
 
 	addExpression(command.ConditionCheck, condition)
-	return { table, command }
+	return command
 }
 
 interface PutOptions {
 	condition?: Expression
 }
 
-export const transactPut = <T extends Item>(table: string, item: T, { condition }: PutOptions = {}): Transactable => {
+export const transactPut = <I extends Item, T extends Table | string = string>(
+	table: T,
+	item: ReturnModelType<I, T>,
+	{ condition }: PutOptions = {}
+): Transactable => {
 	const command: Put = {
 		Put: {
-			TableName: table,
+			TableName: table.toString(),
 			Item: item,
 		}
 	}
@@ -92,7 +96,7 @@ export const transactPut = <T extends Item>(table: string, item: T, { condition 
 		addExpression(command.Put, condition)
 	}
 
-	return { table, command }
+	return command
 }
 
 interface UpdateOptions {
@@ -100,10 +104,14 @@ interface UpdateOptions {
 	condition?: Expression
 }
 
-export const transactUpdate = (table: string, key: Key, { update, condition }: UpdateOptions): Transactable => {
+export const transactUpdate = <T extends Table | string = string>(
+	table: T,
+	key: ReturnKeyType<T>,
+	{ update, condition }: UpdateOptions
+): Transactable => {
 	const command: Update = {
 		Update: {
-			TableName: table,
+			TableName: table.toString(),
 			Key: key,
 			UpdateExpression: update.expression,
 		}
@@ -116,17 +124,21 @@ export const transactUpdate = (table: string, key: Key, { update, condition }: U
 		addExpression(command.Update, condition)
 	}
 
-	return { table, command }
+	return command
 }
 
 interface DeleteOptions {
 	condition?: Expression
 }
 
-export const transactDelete = (table: string, key: Key, { condition }: DeleteOptions = {}): Transactable => {
+export const transactDelete = <T extends Table | string = string>(
+	table: T,
+	key: ReturnKeyType<T>,
+	{ condition }: DeleteOptions = {}
+): Transactable => {
 	const command: Delete = {
 		Delete: {
-			TableName: table,
+			TableName: table.toString(),
 			Key: key,
 		}
 	}
@@ -136,5 +148,5 @@ export const transactDelete = (table: string, key: Key, { condition }: DeleteOpt
 		addExpression(command.Delete, condition)
 	}
 
-	return { table, command }
+	return command
 }

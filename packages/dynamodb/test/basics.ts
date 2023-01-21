@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { mockDynamoDB } from '@heat/aws-test'
-import { getItem, putItem, query, ql, updateItem, pagination, deleteItem, scan, batchGetItem } from '../src/index'
+import { getItem, putItem, query, ql, updateItem, pagination, deleteItem, scan, batchGetItem, Table } from '../src/index'
 
 describe('DynamoDB Basic OPS', () => {
 
@@ -9,7 +9,10 @@ describe('DynamoDB Basic OPS', () => {
 		path: './test/aws/dynamodb.yml'
 	})
 
-	const posts = 'posts'
+	type User = {
+		id: number
+		name: string
+	}
 
 	type Post = {
 		userId: number
@@ -18,8 +21,16 @@ describe('DynamoDB Basic OPS', () => {
 		content?: string
 	}
 
+	const posts = 'posts'
+	const users = new Table<User, { id: number }>('users')
+
 	describe('putItem', () => {
 		it('should put item', async () => {
+			await putItem(users, {
+				id: 1,
+				name: 'John'
+			})
+
 			await putItem<Post>(posts, {
 				userId: 1,
 				id: 1,
@@ -59,6 +70,12 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('getItem', () => {
 		it('should get item', async () => {
+			const user = await getItem(users, { id: 1 })
+			expect(user).toStrictEqual({
+				id: 1,
+				name: 'John',
+			})
+
 			const result = await getItem<Post>(posts, { userId: 1, id: 1 })
 			expect(result).toStrictEqual({
 				userId: 1,
@@ -76,6 +93,10 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('updateItem', () => {
 		it('should update item', async () => {
+			await updateItem(users, { id: 1 }, {
+				update: ql`SET #name = ${'Jessy'}`
+			})
+
 			const content = 'updated 1'
 			const result = await updateItem<Post>(posts, { userId: 1, id: 1 }, {
 				update: ql`SET #content = ${content}`
@@ -126,6 +147,13 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('deleteItem', () => {
 		it('should delete item', async () => {
+			await putItem(users, {
+				id: 2,
+				name: 'Temp'
+			})
+
+			await deleteItem(users, { id: 2 })
+
 			await putItem<Post>(posts, {
 				userId: 2,
 				id: 1,
@@ -175,11 +203,26 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('query', () => {
 		it('should query list', async () => {
-			const result = await query<Post>(posts, {
+			const result1 = await query(users, {
+				keyCondition: ql`#id = ${1}`,
+			})
+
+			expect(result1).toStrictEqual({
+				cursor: undefined,
+				count: 1,
+				items: [
+					{
+						id: 1,
+						name: 'Jessy',
+					}
+				]
+			})
+
+			const result2 = await query<Post>(posts, {
 				keyCondition: ql`#userId = ${1}`,
 			})
 
-			expect(result).toStrictEqual({
+			expect(result2).toStrictEqual({
 				cursor: undefined,
 				count: 3,
 				items: [
@@ -244,11 +287,26 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('pagination', () => {
 		it('should query list', async () => {
-			const result = await pagination<Post>(posts, {
+			const result1 = await pagination(users, {
+				keyCondition: ql`#id = ${1}`,
+			})
+
+			expect(result1).toStrictEqual({
+				cursor: undefined,
+				count: 1,
+				items: [
+					{
+						id: 1,
+						name: 'Jessy',
+					}
+				]
+			})
+
+			const result2 = await pagination<Post>(posts, {
 				keyCondition: ql`#userId = ${1}`,
 			})
 
-			expect(result).toStrictEqual({
+			expect(result2).toStrictEqual({
 				cursor: undefined,
 				count: 3,
 				items: [
@@ -323,9 +381,22 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('scan', () => {
 		it('should scan list', async () => {
-			const result = await scan<Post>(posts)
+			const result1 = await scan(users)
 
-			expect(result).toStrictEqual({
+			expect(result1).toStrictEqual({
+				cursor: undefined,
+				count: 1,
+				items: [
+					{
+						id: 1,
+						name: 'Jessy',
+					}
+				]
+			})
+
+			const result2 = await scan<Post>(posts)
+
+			expect(result2).toStrictEqual({
 				cursor: undefined,
 				count: 3,
 				items: [
@@ -388,14 +459,25 @@ describe('DynamoDB Basic OPS', () => {
 
 	describe('batchGetItem', () => {
 		it('should batch get items', async () => {
-			const result = await batchGetItem<Post>(posts, [
+			const result1 = await batchGetItem(users, [
+				{ id: 1 },
+			])
+
+			expect(result1).toStrictEqual([
+				{
+					id: 1,
+					name: 'Jessy',
+				},
+			])
+
+			const result2 = await batchGetItem<Post>(posts, [
 				{ userId: 1, id: 1 },
 				{ userId: 1, id: 2 },
 				{ userId: 1, id: 3 },
 				{ userId: 1, id: 1000 },
 			])
 
-			expect(result).toStrictEqual([
+			expect(result2).toStrictEqual([
 				{
 					userId: 1,
 					id: 1,

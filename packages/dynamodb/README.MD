@@ -35,7 +35,7 @@ await putItem<Post>('posts', {
 })
 
 // Get a post from the posts table
-const user = await getItem<User>('posts', { user: 1, id: 1 })
+const user = await getItem<Post>('posts', { user: 1, id: 1 })
 
 // Update a post in the posts table
 await updateItem('posts', { user: 1, id: 1 }, {

@@ -1,5 +1,6 @@
 
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
+import { Table } from './table'
 
 export interface Options {
 	client?: DynamoDBDocumentClient
@@ -22,3 +23,6 @@ export type Expression = {
 export type Key = { [ key: string ]: string | number }
 export type Value = string | number | boolean | null | undefined | Value[] | { [key:string]:Value }
 export type Item = { [ key: string ]: Value | Item | [ Value | Item ] }
+
+export type ReturnModelType<I, T> = T extends Table ? T extends Table<infer X> ? X : I : I
+export type ReturnKeyType<T> = T extends Table<any, infer X> ? X : Key
