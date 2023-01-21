@@ -10,14 +10,16 @@ export default (input, output, options) ->
 		onwarn: -> # remove all warnings
 		# exports: 'named'
 		external: (importee) ->
+			if (options.externals or []).includes(importee)
+				return false
+
 			if importee.indexOf('aws-sdk') is 0
 				return true
 
 			if importee.indexOf('@aws-sdk') is 0
-				return !['@aws-sdk/client-scheduler', '@aws-sdk/util-retry', '@aws-sdk/util-base64', '@aws-sdk/middleware-signing'].includes(importee)
-				# return true
+				return true
 
-			return (options.externals or []).includes importee
+			return false
 
 		moduleSideEffects: (id) ->
 			return input is id

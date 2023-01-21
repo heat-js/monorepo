@@ -1,5 +1,5 @@
 
-import { SchedulerClient, CreateScheduleCommand } from '@aws-sdk/client-scheduler'
+import { SchedulerClient, CreateScheduleCommand, DeleteScheduleCommand } from '@aws-sdk/client-scheduler'
 import { schedulerClient } from '@heat/aws-clients'
 
 interface Schedule {
@@ -32,3 +32,18 @@ export const schedule = async ({ client = schedulerClient.get(), name, payload, 
 
 	return client.send(command)
 }
+
+// export const deleteSchedule = async ({
+// 	client = schedulerClient.get(),
+// 	idempotentKey,
+// }: {
+// 	client?: SchedulerClient
+// 	idempotentKey: string
+// }) => {
+// 	const command = new DeleteScheduleCommand({
+// 		ClientToken: idempotentKey,
+// 		Name: idempotentKey,
+// 	})
+
+// 	return client.send(command)
+// }
