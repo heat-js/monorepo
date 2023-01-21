@@ -1,5 +1,5 @@
 
-import { SchedulerClient, CreateScheduleCommand } from '@aws-sdk/client-scheduler'
+import { SchedulerClient, CreateScheduleCommand, DeleteScheduleCommand } from '@aws-sdk/client-scheduler'
 import { describe, it, expect } from 'vitest'
 import { mockScheduler } from '../../src'
 
@@ -11,7 +11,7 @@ describe('Scheduler Mock', () => {
 
 	const client = new SchedulerClient({})
 
-	it('should publish sns message', async () => {
+	it('should create a new schedule', async () => {
 		await client.send(new CreateScheduleCommand({
 			Name: 'test',
 			ScheduleExpression: `at(${(new Date()).toISOString()})`,
@@ -38,5 +38,12 @@ describe('Scheduler Mock', () => {
 		}))
 
 		await expect(promise).rejects.toThrow(TypeError)
+	})
+
+	it('should delete a schedule', async () => {
+		await client.send(new DeleteScheduleCommand({
+			Name: 'test',
+			ClientToken: 'test',
+		}))
 	})
 })

@@ -16,15 +16,15 @@ interface Schedule {
 }
 
 /** Create lambda scheduler */
-export const schedule = ({ client = schedulerClient.get(), name, payload, date, idempotentKey, roleArn, timezone, accountId = process.env.AWS_ACCOUNT_ID }: Schedule) => {
+export const schedule = async ({ client = schedulerClient.get(), name, payload, date, idempotentKey, roleArn, timezone, accountId = process.env.AWS_ACCOUNT_ID }: Schedule) => {
 	const command = new CreateScheduleCommand({
 		ClientToken: idempotentKey,
 		Name: `${name}|${idempotentKey}`,
-		ScheduleExpression: `at(${date.toISOString()})`,
+		ScheduleExpression: `at(${date.toISOString().split('.')[0]})`,
 		ScheduleExpressionTimezone: timezone || undefined,
 		FlexibleTimeWindow: { Mode: 'OFF' },
 		Target: {
-			Arn: `arn:aws:lambda:${client.config.region}:${accountId}:${name}`,
+			Arn: `arn:aws:lambda:${await client.config.region()}:${accountId}:function:${name}`,
 			Input: payload ? JSON.stringify(payload) : undefined,
 			RoleArn: roleArn,
 		}
