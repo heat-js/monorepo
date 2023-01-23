@@ -3847,50 +3847,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@heat/aws-test@^0.0.27, @heat/aws-test@workspace:packages/aws-test":
-  version: 0.0.0-use.local
-  resolution: "@heat/aws-test@workspace:packages/aws-test"
-  dependencies:
-    "@aws-sdk/client-dynamodb": ^3.226.0
-    "@aws-sdk/client-iot": ^3.234.0
-    "@aws-sdk/client-iot-data-plane": ^3.234.0
-    "@aws-sdk/client-lambda": ^3.234.0
-    "@aws-sdk/client-scheduler": ^3.254.0
-    "@aws-sdk/client-sesv2": ^3.245.0
-    "@aws-sdk/client-sns": ^3.234.0
-    "@aws-sdk/client-sqs": ^3.234.0
-    "@aws-sdk/client-ssm": ^3.234.0
-    "@aws-sdk/lib-dynamodb": ^3.226.0
-    "@aws-sdk/types": ^3.226.0
-    "@aws-sdk/url-parser": ^3.212.0
-    "@aws-sdk/util-endpoints": ^3.212.0
-    "@aws-sdk/util-utf8-node": ^3.208.0
-    "@heat/awsless": ^0.1.217
-    "@heat/code": ^0.0.27
-    await-sleep: ^0.0.1
-    aws-sdk-client-mock: ^2.0.1
-    dynamo-db-local: ^4.1.3
-    proper-lockfile: ^4.1.1
-    redis: ^3.0.2
-    redis-server: ^1.2.2
-    tsup: ^6.5.0
-  peerDependencies:
-    "@aws-sdk/client-dynamodb": ^3.226.0
-    "@aws-sdk/client-iot": ^3.234.0
-    "@aws-sdk/client-iot-data-plane": ^3.234.0
-    "@aws-sdk/client-lambda": ^3.234.0
-    "@aws-sdk/client-scheduler": ^3.254.0
-    "@aws-sdk/client-sesv2": ^3.245.0
-    "@aws-sdk/client-sns": ^3.234.0
-    "@aws-sdk/client-sqs": ^3.234.0
-    "@aws-sdk/client-ssm": ^3.234.0
-    "@aws-sdk/lib-dynamodb": ^3.226.0
-    "@aws-sdk/url-parser": ^3.212.0
-    "@aws-sdk/util-endpoints": ^3.212.0
-    "@aws-sdk/util-utf8-node": ^3.208.0
-  languageName: unknown
-  linkType: soft
-
 "@heat/aws-test@npm:^0.0.19":
   version: 0.0.19
   resolution: "@heat/aws-test@npm:0.0.19"
@@ -3947,6 +3903,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heat/aws-test@npm:^0.0.27":
+  version: 0.0.27
+  resolution: "@heat/aws-test@npm:0.0.27"
+  dependencies:
+    "@aws-sdk/types": ^3.226.0
+    "@heat/awsless": ^0.1.217
+    await-sleep: ^0.0.1
+    aws-sdk-client-mock: ^2.0.1
+    dynamo-db-local: ^4.1.3
+    proper-lockfile: ^4.1.1
+    redis: ^3.0.2
+    redis-server: ^1.2.2
+  peerDependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-scheduler": ^3.254.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
+  checksum: 760478021b0f520278fa05ac5a2e5449fae553d7cf58c4293bebe6037141444247caccc3af77dba9941d61a70ed57b69087d4460714b3f9d607493665c682144
+  languageName: node
+  linkType: hard
+
 "@heat/aws-test@npm:^0.0.8":
   version: 0.0.8
   resolution: "@heat/aws-test@npm:0.0.8"
@@ -3965,6 +3951,50 @@ __metadata:
   checksum: c19993d0189d6e9b58c370d6bb9254024973c7fab8883cbea5a683405d16666eb6b7c24c6d7c251980fdd959634bf6ea424304b4c91374ddcfa9cd56a72decfe
   languageName: node
   linkType: hard
+
+"@heat/aws-test@workspace:packages/aws-test":
+  version: 0.0.0-use.local
+  resolution: "@heat/aws-test@workspace:packages/aws-test"
+  dependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-scheduler": ^3.254.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/types": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
+    "@heat/awsless": ^0.1.217
+    "@heat/code": ^0.0.27
+    await-sleep: ^0.0.1
+    aws-sdk-client-mock: ^2.0.1
+    dynamo-db-local: ^4.1.3
+    proper-lockfile: ^4.1.1
+    redis: ^3.0.2
+    redis-server: ^1.2.2
+    tsup: ^6.5.0
+  peerDependencies:
+    "@aws-sdk/client-dynamodb": ^3.226.0
+    "@aws-sdk/client-iot": ^3.234.0
+    "@aws-sdk/client-iot-data-plane": ^3.234.0
+    "@aws-sdk/client-lambda": ^3.234.0
+    "@aws-sdk/client-scheduler": ^3.254.0
+    "@aws-sdk/client-sesv2": ^3.245.0
+    "@aws-sdk/client-sns": ^3.234.0
+    "@aws-sdk/client-sqs": ^3.234.0
+    "@aws-sdk/client-ssm": ^3.234.0
+    "@aws-sdk/lib-dynamodb": ^3.226.0
+    "@aws-sdk/url-parser": ^3.212.0
+    "@aws-sdk/util-endpoints": ^3.212.0
+    "@aws-sdk/util-utf8-node": ^3.208.0
+  languageName: unknown
+  linkType: soft
 
 "@heat/awsless@^0.1.109, @heat/awsless@^0.1.192, @heat/awsless@^0.1.217, @heat/awsless@workspace:packages/awsless":
   version: 0.0.0-use.local
@@ -4407,13 +4437,14 @@ __metadata:
   resolution: "@heat/mail-components@workspace:packages/mail-components"
   dependencies:
     "@heat/code": "workspace:^"
+    "@heat/mail-dev-server": "workspace:^"
     preact: ^10.11.3
     preact-render-to-string: ^5.2.6
     tsup: ^6.5.0
   languageName: unknown
   linkType: soft
 
-"@heat/mail-dev-server@workspace:packages/mail-dev-server":
+"@heat/mail-dev-server@workspace:^, @heat/mail-dev-server@workspace:packages/mail-dev-server":
   version: 0.0.0-use.local
   resolution: "@heat/mail-dev-server@workspace:packages/mail-dev-server"
   dependencies:

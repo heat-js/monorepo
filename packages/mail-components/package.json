@@ -1,6 +1,6 @@
 {
 	"name": "@heat/mail-components",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"license": "MIT",
 	"type": "module",
 	"files": [
@@ -21,6 +21,7 @@
 		"url": "https://github.com/heat-js/monorepo/tree/master/packages/mail-components"
 	},
 	"scripts": {
+		"dev": "yarn build; yarn run mail-dev-server start ./test/data -a userName='Kennedy'",
 		"test": "yarn run code test",
 		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
 		"publish": "yarn build; yarn npm publish --access=public"
@@ -34,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@heat/code": "workspace:^",
+		"@heat/mail-dev-server": "workspace:^",
 		"tsup": "^6.5.0"
 	}
 }

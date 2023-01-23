@@ -10,6 +10,7 @@ import {
 	Button,
 	Emoji,
 } from '../../src/index.js'
+export { render } from '../../src/index.js'
 
 export default ({ userName }: { userName: string }) => {
 	return (
@@ -90,6 +91,40 @@ export default ({ userName }: { userName: string }) => {
 						</Section>
 					</Section>
 					<Section padding='15px 25px'>
+						<Section padding='0 150px 20px'>
+							<Image
+								inline={true}
+								align='center'
+								width='32px'
+								alt='Twitter'
+								href={`https://jacksclub.io`}
+								src={`https://mail.jacksclub.dev/twitter.png`}
+							/>
+							<Image
+								inline={true}
+								align='center'
+								width='32px'
+								alt='Bitcointalk'
+								href={`https://jacksclub.io`}
+								src={`https://mail.jacksclub.dev/bitcointalk.png`}
+							/>
+							<Image
+								inline={true}
+								align='center'
+								width='32px'
+								alt='Telegram Channel'
+								href={`https://jacksclub.io`}
+								src={`https://mail.jacksclub.dev/telegram-channel.png`}
+							/>
+							<Image
+								inline={true}
+								align='center'
+								width='32px'
+								alt='Telegram Chat'
+								href={`https://jacksclub.io`}
+								src={`https://mail.jacksclub.dev/telegram-chat.png`}
+							/>
+						</Section>
 						<Image
 							align='center'
 							width='70px'
