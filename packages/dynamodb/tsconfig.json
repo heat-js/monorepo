@@ -1,6 +1,10 @@
 {
 	"compilerOptions": {
 		"strict": true,
+		"noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
 		"target": "ESNext",
 		"types": ["node", "vitest/globals"],
 		"lib": ["es2022"],

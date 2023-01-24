@@ -1,6 +1,6 @@
 
 import { SchedulerClient, CreateScheduleCommand, CreateScheduleCommandInput } from '@aws-sdk/client-scheduler'
-import { mockObjectKeys } from '../helpers/mock'
+import { asyncCall, mockObjectKeys } from '../helpers/mock'
 import { mockClient } from 'aws-sdk-client-mock'
 
 type Lambdas = {
@@ -10,10 +10,12 @@ type Lambdas = {
 export const mockScheduler = <T extends Lambdas>(lambdas:T) => {
 	const list = mockObjectKeys(lambdas)
 
+	// @ts-ignore
 	mockClient(SchedulerClient)
+		// @ts-ignore
 		.on(CreateScheduleCommand)
 		.callsFake(async (input: CreateScheduleCommandInput) => {
-			const parts = input.Target.Arn.split(':')
+			const parts = input.Target?.Arn?.split(':') || []
 			const name = parts[ parts.length - 1 ]
 			const callback = list[ name ]
 
@@ -21,12 +23,12 @@ export const mockScheduler = <T extends Lambdas>(lambdas:T) => {
 				throw new TypeError(`Scheduler mock function not defined for: ${ name }`)
 			}
 
-			const payload = input.Target.Input ? JSON.parse(input.Target.Input) : undefined
+			const payload = input.Target?.Input ? JSON.parse(input.Target.Input) : undefined
 
-			await callback(payload)
+			await asyncCall(callback, payload)
 		})
 
-	beforeEach(() => {
+	beforeEach && beforeEach(() => {
 		Object.values(list).forEach(fn => {
 			fn.mockClear()
 		})

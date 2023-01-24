@@ -1,19 +1,21 @@
 
-import dynamoDbLocal from 'dynamo-db-local'
 import { DynamoDBClient, ListTablesCommand } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
 import { parseUrl } from '@aws-sdk/url-parser'
 import { Endpoint } from '@aws-sdk/types'
-import sleep from 'await-sleep'
 import { migrate, seed, SeedData } from './database'
 import { loadDefinitions } from './definition'
+import { sleepAwait as sleep } from 'sleep-await'
+
+// @ts-ignore
+import dynamoDbLocal from 'dynamo-db-local'
 
 export class DynamoDBServer {
-	private client: DynamoDBClient
-	private documentClient: DynamoDBDocumentClient
+	private client?: DynamoDBClient
+	private documentClient?: DynamoDBDocumentClient
 	private endpoint: Endpoint
 
-	private process
+	private process: any
 
 	constructor(private region = 'us-east-1') {
 		this.endpoint = parseUrl(`http://localhost`)

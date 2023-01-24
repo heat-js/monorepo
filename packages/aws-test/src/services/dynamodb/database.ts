@@ -2,7 +2,7 @@
 import { CreateTableCommand, DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb'
 
-export const migrate = (client:DynamoDBClient, definitions) => {
+export const migrate = (client:DynamoDBClient, definitions:any[]) => {
 	return Promise.all(definitions.map(definition => {
 		return client.send(new CreateTableCommand(definition))
 	}))
@@ -19,7 +19,11 @@ export const seed = (client:DynamoDBDocumentClient, data: SeedData) => {
 					Item: item,
 				}))
 			} catch(error) {
-				throw new Error(`DynamoDB Seeding Error: ${error.message}`)
+				if(error instanceof Error) {
+					throw new Error(`DynamoDB Seeding Error: ${ error.message }`)
+				}
+
+				throw error
 			}
 		}))
 	}))

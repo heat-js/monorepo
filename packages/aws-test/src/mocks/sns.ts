@@ -1,6 +1,6 @@
 
 import { PublishCommand, PublishCommandInput, SNSClient } from '@aws-sdk/client-sns'
-import { mockObjectKeys } from '../helpers/mock'
+import { asyncCall, mockObjectKeys } from '../helpers/mock'
 import { randomUUID } from 'crypto'
 import { mockClient } from 'aws-sdk-client-mock'
 
@@ -14,7 +14,7 @@ export const mockSNS = <T extends Topics>(topics:T) => {
 	mockClient(SNSClient)
 		.on(PublishCommand)
 		.callsFake(async (input: PublishCommandInput) => {
-			const parts = input.TopicArn.split(':')
+			const parts = (input.TopicArn || '').split(':')
 			const topic = parts[ parts.length - 1 ]
 			const callback = list[ topic ]
 
@@ -22,7 +22,7 @@ export const mockSNS = <T extends Topics>(topics:T) => {
 				throw new TypeError(`Sns mock function not defined for: ${ topic }`)
 			}
 
-			await callback({
+			await asyncCall(callback, {
 				Records: [{
 					Sns: {
 						TopicArn: input.TopicArn,
@@ -34,7 +34,7 @@ export const mockSNS = <T extends Topics>(topics:T) => {
 			})
 		})
 
-	beforeEach(() => {
+	beforeEach && beforeEach(() => {
 		Object.values(list).forEach(fn => {
 			fn.mockClear()
 		})

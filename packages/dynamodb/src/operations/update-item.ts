@@ -1,6 +1,6 @@
 
 import { UpdateCommand, UpdateCommandOutput } from '@aws-sdk/lib-dynamodb'
-import { Expression, Item, Key, MutateOptions, ReturnKeyType, ReturnModelType } from '../types.js'
+import { Expression, Item, MutateOptions, ReturnKeyType, ReturnModelType } from '../types.js'
 import { extendMutateCommand } from '../helper/mutate.js'
 import { addExpression } from '../helper/expression.js'
 import { send } from '../helper/send.js'

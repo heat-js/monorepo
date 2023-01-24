@@ -1,8 +1,9 @@
 
+// @ts-ignore
 import { load } from '@heat/awsless'
 
 export const loadDefinitions = async (paths: string | string[]) => {
-	const definitions = []
+	const definitions:any[] = []
 
 	if(!Array.isArray(paths)) {
 		paths = [ paths ]

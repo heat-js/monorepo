@@ -1,5 +1,7 @@
 
 import net from 'net'
+
+// @ts-ignore
 import lockfile from 'proper-lockfile'
 import { unlink, access, constants, open } from 'fs/promises'
 
@@ -7,13 +9,13 @@ interface NetworkError extends Error {
     code?: string
 }
 
-const random = (min, max) => {
+const random = (min:number, max:number) => {
 	return Math.floor(
 		( Math.random() * (max - min) ) + min
 	)
 }
 
-const isAvailable = (port):Promise<boolean> => {
+const isAvailable = (port:number):Promise<boolean> => {
 	return new Promise((resolve, reject) => {
 		const server = net.createServer()
 
@@ -30,7 +32,7 @@ const isAvailable = (port):Promise<boolean> => {
 	})
 }
 
-const prepareLockFile = async (file) => {
+const prepareLockFile = async (file:string) => {
 	try {
 		await access(file, constants.W_OK)
 	} catch (error) {
@@ -39,7 +41,7 @@ const prepareLockFile = async (file) => {
 	}
 }
 
-const lock = async (file, timeout) => {
+const lock = async (file:string, timeout:number) => {
 	try {
 		await prepareLockFile(file)
 		await lockfile.lock(file, {
@@ -53,11 +55,11 @@ const lock = async (file, timeout) => {
 	return true
 }
 
-const unlock = (file) => {
+const unlock = (file:string) => {
 	return lockfile.unlock(file)
 }
 
-export const requestPort = async ({ min = 32768, max = 65535, timeout = 1000 * 60 * 5 } = {}): Promise<[number, () => {}]> => {
+export const requestPort = async ({ min = 32768, max = 65535, timeout = 1000 * 60 * 5 } = {}): Promise<[number, () => Promise<void>]> => {
 	let times = 10
 
 	while(times--) {

@@ -31,6 +31,17 @@ describe('SQS Mock', () => {
 		expect(sqs.service__echo).toBeCalledTimes(1)
 	})
 
+	it('should only send message async', async () => {
+		const promise = client.send(new SendMessageCommand({
+			QueueUrl: 'service__echo',
+			MessageBody: ''
+		}))
+
+		expect(sqs.service__echo).not.toBeCalled()
+
+		await promise
+	})
+
 	it('should batch send messages', async () => {
 		await client.send(new SendMessageBatchCommand({
 			QueueUrl: 'service__echo',

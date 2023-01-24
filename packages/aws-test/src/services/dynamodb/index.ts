@@ -13,7 +13,7 @@ export interface StartDynamoDBOptions {
 export const startDynamoDB = ({ path, timeout = 30 * 1000, seed = {} }:StartDynamoDBOptions) => {
 
 	const server = new DynamoDBServer()
-	let releasePort
+	let releasePort: () => Promise<void>
 
 	beforeAll(async () => {
 		const [ port, release ] = await requestPort()

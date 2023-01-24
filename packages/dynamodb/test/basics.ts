@@ -246,6 +246,51 @@ describe('DynamoDB Basic OPS', () => {
 			})
 		})
 
+		it('should return correct cursor for backwards list', async () => {
+			const result1 = await query(posts, {
+				keyCondition: ql`#userId = ${1}`,
+				forward: false,
+				limit: 1
+			})
+
+			expect(result1).toStrictEqual({
+				cursor: {
+					userId: 1,
+					id: 3
+				},
+				count: 1,
+				items: [
+					{
+						userId: 1,
+						id: 3,
+						title: 'Third',
+					}
+				]
+			})
+
+			const result2 = await query(posts, {
+				keyCondition: ql`#userId = ${1}`,
+				forward: false,
+				limit: 1,
+				cursor: result1.cursor
+			})
+
+			expect(result2).toStrictEqual({
+				cursor: {
+					userId: 1,
+					id: 2
+				},
+				count: 1,
+				items: [
+					{
+						userId: 1,
+						id: 2,
+						title: 'Second',
+					}
+				]
+			})
+		})
+
 		it('should support limit & cursor', async () => {
 			const result1 = await query<Post>(posts, {
 				keyCondition: ql`#userId = ${1}`,
@@ -286,7 +331,7 @@ describe('DynamoDB Basic OPS', () => {
 	})
 
 	describe('pagination', () => {
-		it('should query list', async () => {
+		it('should pagination list', async () => {
 			const result1 = await pagination(users, {
 				keyCondition: ql`#id = ${1}`,
 			})
