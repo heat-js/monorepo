@@ -11,6 +11,7 @@ type Image = {
 	target?: string
 	align?: 'left' | 'right' | 'center'
 	borderRadius?: string
+	inline?: boolean
 }
 
 const Image = ({
@@ -41,7 +42,17 @@ const Image = ({
 	/>
 )
 
-export default ({ href, src, alt, width, height, target = '_blank', align, borderRadius }: Image) => {
+export default ({
+	href,
+	src,
+	alt,
+	width,
+	height,
+	target = '_blank',
+	align,
+	borderRadius,
+	inline = false,
+}: Image) => {
 	let image
 	if (!Array.isArray(src)) {
 		image = <Image {...{ src, alt, width, height, borderRadius }} />
@@ -58,22 +69,23 @@ export default ({ href, src, alt, width, height, target = '_blank', align, borde
 		)
 	}
 
-	return (
-		<tr>
-			<td align={align}>
-				<a
-					href={href}
-					target={target}
-					title={alt}
-					style={{
-						display: 'block',
-						width: formatStyleNumber(width),
-						height: formatStyleNumber(height),
-						borderRadius,
-					}}>
-					{image}
-				</a>
-			</td>
-		</tr>
+	const output = (
+		<td align={align}>
+			<a
+				href={href}
+				target={target}
+				title={alt}
+				style={{
+					display: 'block',
+					width: formatStyleNumber(width),
+					height: formatStyleNumber(height),
+					borderRadius,
+				}}>
+				{image}
+			</a>
+		</td>
 	)
+
+	if (inline) return output
+	return <tr>{output}</tr>
 }

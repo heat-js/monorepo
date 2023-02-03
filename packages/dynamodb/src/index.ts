@@ -17,3 +17,5 @@ export { scan, ScanOptions } from './operations/scan.js'
 
 export { transactWrite, transactUpdate, transactPut, transactDelete, transactConditionCheck } from './operations/transact-write.js'
 export { migrate } from './operations/migrate.js'
+
+export { ConditionalCheckFailedException } from '@aws-sdk/client-dynamodb'

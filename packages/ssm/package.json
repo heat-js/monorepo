@@ -1,8 +1,15 @@
 {
-	"name": "@heat/mail-components",
-	"version": "0.0.4",
+	"name": "@heat/ssm",
+	"version": "0.0.1",
 	"license": "MIT",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
 	"files": [
 		"dist"
 	],
@@ -16,26 +23,28 @@
 			"types": "./dist/index.d.ts"
 		}
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/heat-js/monorepo/tree/master/packages/mail-components"
-	},
 	"scripts": {
-		"dev": "yarn build; yarn run mail-dev-server start ./test/data -a userName='Kennedy'",
 		"test": "yarn run code test",
 		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
 		"publish": "yarn build; yarn npm publish --access=public"
 	},
 	"vitest": {
-		"exclude": "./test/data/**"
+		"exclude": [
+			"test/aws/**/*"
+		]
+	},
+	"peerDependencies": {
+		"@heat/aws-clients": "^0.0.2"
 	},
 	"dependencies": {
-		"preact": "^10.11.3",
-		"preact-render-to-string": "^5.2.6"
+		"chunk": "^0.0.3"
 	},
 	"devDependencies": {
-		"@heat/code": "workspace:^",
-		"@heat/mail-dev-server": "workspace:^",
-		"tsup": "^6.5.0"
+		"@heat/aws-test": "^0.0.23",
+		"@heat/code": "^0.0.27",
+		"@types/chunk": "^0.0.0",
+		"@types/node": "^18.11.9",
+		"tsup": "^6.5.0",
+		"typescript": "^4.9.4"
 	}
 }

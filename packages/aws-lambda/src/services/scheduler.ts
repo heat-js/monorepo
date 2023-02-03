@@ -1,5 +1,5 @@
 
-import { SchedulerClient, CreateScheduleCommand } from '@aws-sdk/client-scheduler'
+import { SchedulerClient, CreateScheduleCommand, DeleteScheduleCommand } from '@aws-sdk/client-scheduler'
 import { schedulerClient } from '@heat/aws-clients'
 
 interface Schedule {
@@ -16,15 +16,15 @@ interface Schedule {
 }
 
 /** Create lambda scheduler */
-export const schedule = ({ client = schedulerClient.get(), name, payload, date, idempotentKey, roleArn, timezone, accountId = process.env.AWS_ACCOUNT_ID }: Schedule) => {
+export const schedule = async ({ client = schedulerClient.get(), name, payload, date, idempotentKey, roleArn, timezone, accountId = process.env.AWS_ACCOUNT_ID }: Schedule) => {
 	const command = new CreateScheduleCommand({
 		ClientToken: idempotentKey,
 		Name: `${name}|${idempotentKey}`,
-		ScheduleExpression: `at(${date.toISOString()})`,
+		ScheduleExpression: `at(${date.toISOString().split('.')[0]})`,
 		ScheduleExpressionTimezone: timezone || undefined,
 		FlexibleTimeWindow: { Mode: 'OFF' },
 		Target: {
-			Arn: `arn:aws:lambda:${client.config.region}:${accountId}:${name}`,
+			Arn: `arn:aws:lambda:${await client.config.region()}:${accountId}:function:${name}`,
 			Input: payload ? JSON.stringify(payload) : undefined,
 			RoleArn: roleArn,
 		}
@@ -32,3 +32,18 @@ export const schedule = ({ client = schedulerClient.get(), name, payload, date, 
 
 	return client.send(command)
 }
+
+// export const deleteSchedule = async ({
+// 	client = schedulerClient.get(),
+// 	idempotentKey,
+// }: {
+// 	client?: SchedulerClient
+// 	idempotentKey: string
+// }) => {
+// 	const command = new DeleteScheduleCommand({
+// 		ClientToken: idempotentKey,
+// 		Name: idempotentKey,
+// 	})
+
+// 	return client.send(command)
+// }

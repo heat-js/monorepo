@@ -1,5 +1,5 @@
 
-import { SchedulerClient, CreateScheduleCommand, CreateScheduleCommandInput } from '@aws-sdk/client-scheduler'
+import { SchedulerClient, CreateScheduleCommand, CreateScheduleCommandInput, DeleteScheduleCommand, DeleteScheduleCommandInput } from '@aws-sdk/client-scheduler'
 import { asyncCall, mockObjectKeys } from '../helpers/mock'
 import { mockClient } from 'aws-sdk-client-mock'
 
@@ -28,7 +28,13 @@ export const mockScheduler = <T extends Lambdas>(lambdas:T) => {
 			await asyncCall(callback, payload)
 		})
 
-	beforeEach && beforeEach(() => {
+		// @ts-ignore
+		.on(DeleteScheduleCommand)
+		.callsFake(async (_: DeleteScheduleCommandInput) => {
+
+		})
+
+	beforeEach(() => {
 		Object.values(list).forEach(fn => {
 			fn.mockClear()
 		})

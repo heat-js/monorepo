@@ -1,4 +1,4 @@
-import { combineClasses, formatThemeProperty } from '../helpers.js'
+import { combineClasses, formatStyleNumber, formatThemeProperty } from '../helpers.js'
 
 type Section = {
 	children: any
@@ -6,9 +6,10 @@ type Section = {
 	bgImage?: string
 	padding?: string
 	borderRadius?: string
+	width?: number
 }
 
-export default ({ children, bgColor, bgImage, padding, borderRadius }: Section) => {
+export default ({ children, bgColor, bgImage, padding, borderRadius, width }: Section) => {
 	const [id1, color] = formatThemeProperty('background-color', bgColor)
 	const [id2, image] = formatThemeProperty('background-image', bgImage)
 
@@ -25,6 +26,7 @@ export default ({ children, bgColor, bgImage, padding, borderRadius }: Section) 
 				}}>
 				<table
 					style={{
+						maxWidth: width ? formatStyleNumber(width) : '100%',
 						width: '100%',
 						border: 0,
 						borderSpacing: 0,
