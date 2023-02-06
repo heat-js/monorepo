@@ -6,7 +6,7 @@ import { mockLambda } from '../../src'
 describe('Lambda Mock', () => {
 
 	const lambda = mockLambda({
-		service__echo: (payload) => {
+		service__echo: (payload: unknown) => {
 			return payload
 		}
 	})

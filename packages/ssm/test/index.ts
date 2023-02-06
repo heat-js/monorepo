@@ -5,7 +5,7 @@ import { mockSSM } from '@heat/aws-test'
 
 describe('SSM', () => {
 
-	mockSSM({
+	const mock = mockSSM({
 		'/string': 'string',
 		'/integer': '1',
 		'/float': '1.1',
@@ -27,6 +27,7 @@ describe('SSM', () => {
 			json: json<JSON>('json'),
 		})
 
+		expect(mock).toBeCalled()
 		expect(result).toStrictEqual({
 			default: 'string',
 			string: 'string',
@@ -38,18 +39,15 @@ describe('SSM', () => {
 	})
 
 	it('should cache paths results', async () => {
-		let count = 0
-		const fetch = (ttl:number) => ssm({
-			key: {
-				path: 'string', transform: () => ++count
-			}
-		}, { ttl })
+		const fetch = (ttl:number) => ssm({ key: 'string'}, { ttl })
 
-		expect(await fetch(0)).toStrictEqual({ key: 1 })
-		expect(await fetch(0)).toStrictEqual({ key: 2 })
+		await fetch(0)
+		expect(mock).toBeCalledTimes(1)
 
-		expect(await fetch(10)).toStrictEqual({ key: 3 })
-		expect(await fetch(10)).toStrictEqual({ key: 3 })
+		await fetch(10)
+		expect(mock).toBeCalledTimes(2)
+
+		await fetch(10)
+		expect(mock).toBeCalledTimes(2)
 	})
-
 })

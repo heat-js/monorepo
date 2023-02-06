@@ -1,6 +1,6 @@
 {
 	"name": "@heat/ssm",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -40,7 +40,7 @@
 		"chunk": "^0.0.3"
 	},
 	"devDependencies": {
-		"@heat/aws-test": "^0.0.23",
+		"@heat/aws-test": "^0.0.33",
 		"@heat/code": "^0.0.27",
 		"@types/chunk": "^0.0.0",
 		"@types/node": "^18.11.9",

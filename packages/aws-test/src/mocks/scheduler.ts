@@ -23,7 +23,7 @@ export const mockScheduler = <T extends Lambdas>(lambdas:T) => {
 				throw new TypeError(`Scheduler mock function not defined for: ${ name }`)
 			}
 
-			const payload = input.Target?.Input ? JSON.parse(input.Target.Input) : undefined
+			const payload:unknown = input.Target?.Input ? JSON.parse(input.Target.Input) : undefined
 
 			await asyncCall(callback, payload)
 		})

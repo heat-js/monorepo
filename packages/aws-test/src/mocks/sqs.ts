@@ -1,5 +1,5 @@
 
-import { SQSClient, SendMessageCommand, GetQueueUrlCommand, SendMessageBatchCommand, MessageAttributeValue, SendMessageCommandInput, SendMessageBatchCommandInput } from '@aws-sdk/client-sqs'
+import { SQSClient, SendMessageCommand, GetQueueUrlCommand, SendMessageBatchCommand, MessageAttributeValue, SendMessageCommandInput, SendMessageBatchCommandInput, GetQueueUrlCommandInput } from '@aws-sdk/client-sqs'
 import { asyncCall, mockObjectKeys } from '../helpers/mock'
 import { randomUUID } from 'crypto'
 import { mockClient } from 'aws-sdk-client-mock'
@@ -10,7 +10,7 @@ type Queues = {
 
 const formatAttributes = (attributes: Record<string, MessageAttributeValue> | undefined) => {
 	const list:Record<string, { dataType:string, stringValue:string }> = {}
-	for(let key in attributes) {
+	for(const key in attributes) {
 		list[key] = {
 			dataType: attributes[key].DataType as string,
 			stringValue: attributes[key].StringValue as string
@@ -36,7 +36,7 @@ export const mockSQS = <T extends Queues>(queues:T) => {
 
 	mockClient(SQSClient)
 		.on(GetQueueUrlCommand)
-		.callsFake(input => ({ QueueUrl: input.QueueName }))
+		.callsFake((input:GetQueueUrlCommandInput) => ({ QueueUrl: input.QueueName }))
 
 		.on(SendMessageCommand)
 		.callsFake(async (input:SendMessageCommandInput) => {

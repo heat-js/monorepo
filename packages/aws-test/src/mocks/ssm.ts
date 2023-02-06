@@ -20,5 +20,9 @@ export const mockSSM = (values:Record<string, string>) => {
 			}
 		})
 
+	beforeEach && beforeEach(() => {
+		mock.mockClear()
+	})
+
 	return mock
 }

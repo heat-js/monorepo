@@ -31,7 +31,8 @@ export const ssm = async <T extends Paths>(paths:T, { client = ssmClient.get(), 
 		}
 	}).filter(({key, path, transform}) => {
 		const item = cache[path]
-		if(item && item.ttl < now) {
+
+		if(item && item.ttl > now) {
 			values[key] = transform(cache[path].value)
 			return false
 		}
@@ -55,7 +56,9 @@ export const ssm = async <T extends Paths>(paths:T, { client = ssmClient.get(), 
 
 			result.Parameters?.forEach(({ Name: path, Value: value }) => {
 				if(typeof value === 'string' && typeof path === 'string') {
-					cache[path] = { value, ttl: now + ttl }
+					if(ttl > 0) {
+						cache[path] = { value, ttl: now + ttl }
+					}
 
 					list.forEach(item => {
 						if(path === item.path) {

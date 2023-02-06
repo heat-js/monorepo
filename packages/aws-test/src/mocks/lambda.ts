@@ -16,7 +16,7 @@ export const mockLambda = <T extends Lambdas>(lambdas:T) => {
 		.callsFake(async (input:InvokeCommandInput) => {
 			const name = input.FunctionName || ''
 			const type = input.InvocationType || 'RequestResponse'
-			const payload = input.Payload ? JSON.parse(toUtf8(input.Payload)) : undefined
+			const payload: unknown = input.Payload ? JSON.parse(toUtf8(input.Payload)) : undefined
 			const callback = list[ name ]
 
 			if(!callback) {

@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto'
 import { mockClient } from 'aws-sdk-client-mock'
 
 type Topics = {
-	[key: string]: (payload:any) => any
+	[key: string]: (payload:unknown) => unknown
 }
 
 export const mockSNS = <T extends Topics>(topics:T) => {

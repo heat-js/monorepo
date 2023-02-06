@@ -19,11 +19,11 @@ describe('DynamoDB', () => {
 		await dynamo.ping()
 	})
 
-	it('should provide a client & document client', async () => {
+	it('should provide a client & document client', () => {
 		expect(dynamo.getClient()).toBeDefined()
-		expect(dynamo.getClient().send).toBeDefined()
+		expect(dynamo.getClient().send.bind(null)).toBeDefined()
 		expect(dynamo.getDocumentClient()).toBeDefined()
-		expect(dynamo.getDocumentClient().send).toBeDefined()
+		expect(dynamo.getDocumentClient().send.bind(null)).toBeDefined()
 	})
 
 	it('should have created test table', async () => {
