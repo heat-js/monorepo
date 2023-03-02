@@ -1,5 +1,5 @@
 
-import { mask, number, object, string, create } from 'superstruct'
+import { number, type, create } from 'superstruct'
 import { describe, it, expect } from 'vitest'
 import { dynamodbStreamRecords, dynamodbStreamStruct, elbRequest, elbStruct, snsRecords, snsStruct, sqsRecords, sqsStruct } from '../src'
 
@@ -33,11 +33,11 @@ describe('structs', () => {
 	// 	})
 	// })
 
-	it('dynamodbStreamStruct', async () => {
-		const struct = dynamodbStreamStruct({ newImage: object({ id: number() }) })
+	it('dynamodbStreamStruct', () => {
+		const struct = dynamodbStreamStruct({ newImage: type({ id: number() }) })
 		const event = { Records: [ { eventName: 'MODIFY', dynamodb: { SequenceNumber: '1', NewImage: { id: { N: '1' } } } } ] }
 
-		const result = mask(event, struct)
+		const result = create(event, struct)
 		const records = dynamodbStreamRecords(result)
 
 		expect(result.Records[0].dynamodb.NewImage).toStrictEqual({ id: 1 })
@@ -50,8 +50,8 @@ describe('structs', () => {
 		}])
 	})
 
-	it('snsStruct', async () => {
-		const struct = snsStruct(object({ id: number() }))
+	it('snsStruct', () => {
+		const struct = snsStruct(type({ id: number() }))
 		const event = { Records: [{ Sns: {
 			TopicArn: 'topic',
 			MessageId: '1',
@@ -59,15 +59,15 @@ describe('structs', () => {
 			Timestamp: new Date().toISOString()
 		} } ] }
 
-		const result = mask(event, struct)
+		const result = create(event, struct)
 		const records = snsRecords(result)
 
 		expect(result.Records[0].Sns.Message).toStrictEqual({ id: 1 })
 		expect(records).toStrictEqual([{ id: 1 }])
 	})
 
-	it('sqsStruct', async () => {
-		const struct = sqsStruct(object({ id: number() }))
+	it('sqsStruct', () => {
+		const struct = sqsStruct(type({ id: number() }))
 
 		const record = {
 			messageId: '1',
@@ -77,7 +77,7 @@ describe('structs', () => {
 
 		const event = { Records: [record, record] }
 
-		const result = mask(event, struct)
+		const result = create(event, struct)
 		const records = sqsRecords(result)
 
 		expect(result.Records[0].body).toStrictEqual({ id: 1 })
