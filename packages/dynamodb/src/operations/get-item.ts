@@ -1,6 +1,6 @@
 
 import { GetCommand, GetCommandOutput } from '@aws-sdk/lib-dynamodb'
-import { Item, Key, Options, ReturnKeyType, ReturnModelType } from '../types.js'
+import { Item, Options, ReturnKeyType, ReturnModelType } from '../types.js'
 import { send } from '../helper/send.js'
 import { Table } from '../table.js'
 

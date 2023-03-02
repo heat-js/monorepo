@@ -5,7 +5,7 @@ import { mockSSM } from '../../src'
 
 describe('SSM Mock', () => {
 
-	mockSSM({
+	const mock = mockSSM({
 		'/path': 'secret'
 	})
 
@@ -16,6 +16,7 @@ describe('SSM Mock', () => {
 			Names: [ '/path', '/unknown' ]
 		}))
 
+		expect(mock).toBeCalled()
 		expect(result.Parameters).toStrictEqual([{
 			Name: '/path',
 			Value: 'secret'

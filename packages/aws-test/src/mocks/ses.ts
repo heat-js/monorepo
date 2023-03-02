@@ -1,18 +1,20 @@
+
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2'
 import { mockClient } from 'aws-sdk-client-mock'
+import { asyncCall, Func, mockFn } from '../helpers/mock'
 
-export const mockSES = () => {
-	const fn = vi.fn()
+export const mockSES = (fn: Func = () => {}) => {
+	const mock = mockFn(fn)
 
 	mockClient(SESv2Client)
 		.on(SendEmailCommand)
 		.callsFake(() => {
-			fn()
+			return asyncCall(mock)
 		})
 
-	beforeEach(() => {
-		fn.mockClear()
+	beforeEach && beforeEach(() => {
+		mock.mockClear()
 	})
 
-	return fn
+	return mock
 }

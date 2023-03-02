@@ -1,6 +1,6 @@
 
 import { BatchGetCommand, BatchGetCommandOutput } from '@aws-sdk/lib-dynamodb'
-import { Expression, Item, Key, Options, ReturnKeyType, ReturnModelType } from '../types.js'
+import { Expression, Item, Options, ReturnKeyType, ReturnModelType } from '../types.js'
 import { send } from '../helper/send.js'
 import { Table } from '../table.js'
 

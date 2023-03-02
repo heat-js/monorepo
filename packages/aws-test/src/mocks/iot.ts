@@ -1,10 +1,11 @@
 
-import { IoTClient, DescribeEndpointCommand, DescribeEndpointCommandOutput } from '@aws-sdk/client-iot'
+import { IoTClient, DescribeEndpointCommand } from '@aws-sdk/client-iot'
 import { IoTDataPlaneClient, PublishCommand } from '@aws-sdk/client-iot-data-plane'
 import { mockClient } from 'aws-sdk-client-mock'
+import { mockFn, Func, asyncCall } from '../helpers/mock'
 
-export const mockIoT = () => {
-	const fn = vi.fn()
+export const mockIoT = (fn: Func = () => {}) => {
+	const mock = mockFn(fn)
 
 	mockClient(IoTClient)
 		.on(DescribeEndpointCommand)
@@ -15,12 +16,12 @@ export const mockIoT = () => {
 	mockClient(IoTDataPlaneClient)
 		.on(PublishCommand)
 		.callsFake(() => {
-			fn()
+			return asyncCall(mock)
 		})
 
-	beforeEach(() => {
-		fn.mockClear()
+	beforeEach && beforeEach(() => {
+		mock.mockClear()
 	})
 
-	return fn
+	return mock
 }

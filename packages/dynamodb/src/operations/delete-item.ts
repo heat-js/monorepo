@@ -1,6 +1,6 @@
 
 import { DeleteCommand, DeleteCommandOutput } from '@aws-sdk/lib-dynamodb'
-import { Item, Key, MutateOptions, ReturnKeyType, ReturnModelType } from '../types.js'
+import { Item, MutateOptions, ReturnKeyType, ReturnModelType } from '../types.js'
 import { extendMutateCommand } from '../helper/mutate.js'
 import { send } from '../helper/send.js'
 import { Table } from '../table.js'
