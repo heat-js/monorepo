@@ -1,6 +1,12 @@
 import Raw from './Raw'
 
-export default (props: any) => {
+type Mso = {
+	children?: unknown
+	if?: string
+	negative?: boolean
+}
+
+export default (props: Mso) => {
 	if (props.negative) {
 		return (
 			<>

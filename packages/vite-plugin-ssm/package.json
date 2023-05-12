@@ -1,7 +1,6 @@
 {
 	"name": "@heat/vite-plugin-ssm",
-	"main": "index",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"type": "module",
 	"license": "MIT",
 	"repository": {
@@ -11,12 +10,33 @@
 	"bugs": {
 		"url": "https://github.com/heat-js/monorepo/issues"
 	},
+	"files": [
+		"dist"
+	],
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
 	"scripts": {
-		"patch": "npm version patch; npm publish --access=public",
-		"minor": "npm version minor; npm publish --access=public",
-		"major": "npm version major; npm publish --access=public"
+		"test": "yarn run code test",
+		"build": "yarn tsup src/index.ts --format cjs,esm --dts --clean",
+		"publish": "yarn build; yarn npm publish --access=public"
 	},
 	"dependencies": {
+		"@aws-sdk/credential-providers": "^3.329.0",
+		"@awsless/ssm": "^0.0.6",
+		"@types/recursive-readdir": "^2.2.1",
 		"aws-param-store": "^3.2.0"
+	},
+	"devDependencies": {
+		"@heat/code": "^0.0.35",
+		"tsup": "^6.7.0",
+		"vite": "^4.3.5"
 	}
 }

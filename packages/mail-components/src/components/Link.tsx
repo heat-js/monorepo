@@ -1,7 +1,7 @@
 import { formatThemeProperty } from '../helpers.js'
 
 type Link = {
-	children: any
+	children: unknown
 	href: string
 	title: string
 	target?: string

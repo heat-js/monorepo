@@ -3,7 +3,7 @@ import Mso from './Mso'
 import Raw from './Raw'
 
 type Layout = {
-	children: any
+	children: unknown
 	width: string | number
 	bgColor?: [string, string] | string
 }
@@ -17,11 +17,7 @@ export default ({ children, width, bgColor = ['#ffffff', '#0c1018'] }: Layout) =
 				<td class={id} align='center' bgcolor={color}>
 					<Mso if='(gte mso 9)|(IE)'>
 						<Raw
-							html={`<table style="borderSpacing: 0;" align="center" border="0" cellspacing="0" cellpadding="0" width="${formatAttributeNumber(
-								width
-							)}"><tr><td align="center" valign="top" width="${formatAttributeNumber(
-								width
-							)}">`}
+							html={`<table style="borderSpacing: 0;" align="center" border="0" cellspacing="0" cellpadding="0" width="${formatAttributeNumber(width)}"><tr><td align="center" valign="top" width="${formatAttributeNumber(width)}">`}
 						/>
 					</Mso>
 					<table

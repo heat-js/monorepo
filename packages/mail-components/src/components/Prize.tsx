@@ -1,5 +1,5 @@
 type Prize = {
-	children: any
+	children: unknown
 	color?: string
 	padding?: string
 	align?: 'left' | 'right' | 'center'

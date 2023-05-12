@@ -4,7 +4,7 @@ import Raw from './Raw'
 import Style from './Style'
 
 type Email = {
-	children: any
+	children: HTMLBodyElement
 	title: string
 	darkMode: boolean
 	bgColor?: [string, string] | string

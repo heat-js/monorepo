@@ -1,7 +1,7 @@
 import { combineClasses, formatStyleNumber, formatThemeProperty } from '../helpers.js'
 
 type Section = {
-	children: any
+	children: unknown
 	bgColor?: [string, string] | string
 	bgImage?: string
 	padding?: string

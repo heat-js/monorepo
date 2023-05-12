@@ -1,7 +1,7 @@
 import { formatThemeProperty } from '../helpers.js'
 
 type Link = {
-	children: any
+	children: unknown
 	align?: 'left' | 'right' | 'center'
 	margin?: string
 	color?: [string, string] | string
