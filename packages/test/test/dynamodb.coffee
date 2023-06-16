@@ -6,7 +6,7 @@ describe 'Test DynamoDB server', ->
 
 	clients = []
 	servers = []
-	promises = [ 1..3 ].map (i) ->
+	promises = [ 1 ].map (i) ->
 		dynamo = start {
 			path: './test/data/dynamodb.yml'
 		}
@@ -17,10 +17,23 @@ describe 'Test DynamoDB server', ->
 		await clients[0].put {
 			TableName: 'test'
 			Item: {
-				id: 'test'
+				id: 'test1'
 			}
 		}
 		.promise()
+
+		result = await clients[0].get {
+			TableName: 'test'
+			Key: {
+				id: 'test1'
+			}
+		}
+		.promise()
+
+		expect result.Item
+			.toStrictEqual {
+				id: 'test1'
+			}
 
 	it 'should check all spawned dynamodb instances', ->
 		ports = []

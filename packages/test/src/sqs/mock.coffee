@@ -5,7 +5,7 @@ export default class SqsMock
 		for queue in queues
 			@[ queue ] = jest.fn()
 
-	send: vi.fn ({ service, name, payload }) ->
+	send: jest.fn ({ service, name, payload }) ->
 		if service and name
 			name = "#{ service }__#{ name }"
 

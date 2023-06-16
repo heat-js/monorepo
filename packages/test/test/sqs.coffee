@@ -9,7 +9,7 @@ describe 'Sqs Mock', ->
 	]
 
 	beforeEach ->
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 
 	it 'should be able to send to a mocked sqs queue', ->
 		await mock.send {

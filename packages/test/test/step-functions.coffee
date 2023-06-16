@@ -2,17 +2,17 @@
 import path 	 from 'path'
 import { start } from '../src/step-functions-server'
 
-jest.setTimeout 15000
+vi.setTimeout 15000
 
 describe 'Test Step Functions Server with Mocks', ->
 
 	taskToken = null
 
 	mocks = {
-		WaitForTaskToken: jest.fn (input) ->
+		vi.fn (input) ->
 			taskToken = input.taskToken
 			return taskToken
-		Lambda: jest.fn().mockReturnValue 'somevalue'
+		vi.fn().mockReturnValue 'somevalue'
 	}
 
 	stepFunctions = start mocks

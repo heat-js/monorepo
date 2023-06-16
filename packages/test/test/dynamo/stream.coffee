@@ -3,7 +3,7 @@ import { start } from '../../src/dynamodb/index'
 
 describe 'DynamoDB stream', ->
 
-	listener = jest.fn()
+	listener = vi.fn()
 
 	dynamo = start {
 		path: './test/data/dynamodb.yml'

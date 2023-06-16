@@ -9,7 +9,7 @@ describe 'Sns Mock', ->
 	]
 
 	beforeEach ->
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 
 	it 'should be able to publish a mocked sns topic', ->
 		await mock.publish {

@@ -1,24 +1,20 @@
 
-import FileSystem		from '../dynamodb/file-system'
-import PortFinder		from '../dynamodb/port-finder'
+import { requestPort }	from '@heat/request-port'
 import Server			from './server'
 
 export start = (config = {}) ->
-	fs 			= new FileSystem
-	portFinder	= new PortFinder fs
 	server		= new Server
 	timeout		= config.timeout or 30 * 1000
 
+	releasePort = null
 	beforeAll ->
-		port = config.port or await portFinder.find()
+		[port, releasePort] = await requestPort()
 		await server.listen port
-
 	, timeout
 
 	afterAll ->
 		await server.destroy()
-		await portFinder.release()
-
+		await releasePort()
 	, timeout
 
 	return {

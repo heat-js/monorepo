@@ -4,17 +4,17 @@ import { createLambdaMock } from '../src/index'
 describe 'Lambda Mock', ->
 
 	lambdaMock = createLambdaMock {
-		test: jest.fn -> return true
+		test: vi.fn -> return true
 
 		unmocked__function: ({ a, b }) -> return a + b
 		unmocked__static: 	{ foo: 'bar' }
 
-		mocked__function: 	jest.fn ({ a, b }) -> return a * b
-		mocked__static: 	jest.fn -> { foo: 'bar' }
+		mocked__function: 	vi.fn ({ a, b }) -> return a * b
+		mocked__static: 	vi.fn -> { foo: 'bar' }
 	}
 
 	beforeEach ->
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 
 	it 'should throw for unknown lambda function', ->
 		await expect lambdaMock.invoke {

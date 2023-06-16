@@ -1,6 +1,6 @@
 {
 	"name": "@heat/test",
-	"version": "0.2.122",
+	"version": "0.2.127",
 	"license": "MIT",
 	"main": "./index.js",
 	"repository": {
@@ -12,21 +12,26 @@
 	},
 	"scripts": {
 		"test": "yarn run code test",
-		"test2": "yarn run -T jest",
+		"build": "yarn run -T ncp-build",
 		"patch": "npm version patch; yarn run -T ncp",
 		"minor": "npm version minor; yarn run -T ncp",
 		"major": "npm version major; yarn run -T ncp"
+	},
+	"vitest": {
+		"transpilers": {
+			"coffeescript": true
+		}
 	},
 	"jest": {
 		"preset": "@heat/jest-preset",
 		"testEnvironment": "node"
 	},
 	"dependencies": {
-		"@heat/awsless": "^0.1.109",
+		"@awsless/dynamodb-server": "^0.0.6",
+		"@heat/awsless": "0.1.162",
+		"@heat/request-port": "^0.0.1",
 		"@heat/step-functions-local": "^0.0.6",
 		"asl-validator": "^1.3.0",
-		"dynamo-db-local": "^3.2.1",
-		"get-port": "^5.0.0",
 		"js-yaml": "^4.1.0",
 		"koa": "^2.7.0",
 		"proper-lockfile": "^4.1.1",
@@ -35,10 +40,7 @@
 		"vitest": "^0.25.2"
 	},
 	"devDependencies": {
-		"@heat/code": "0.0.20",
+		"@awsless/code": "^0.0.10",
 		"@heat/jest-preset": "0.0.12"
-	},
-	"peerDependencies": {
-		"vitest": ">= 0.25.0"
 	}
 }

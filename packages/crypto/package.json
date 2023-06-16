@@ -1,26 +1,26 @@
 {
-  "name": "@heat/crypto",
-  "version": "0.1.0",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heat-js/monorepo.git"
-  },
-  "bugs": {
-    "url": "https://github.com/heat-js/monorepo/issues"
-  },
-  "scripts": {
-    "test": "yarn run -T jest",
-    "patch": "npm version patch; yarn run -T ncp",
-    "minor": "npm version minor; yarn run -T ncp",
-    "major": "npm version major; yarn run -T ncp"
-  },
-  "jest": {
-    "preset": "@heat/jest-preset-coffeescript",
-    "testEnvironment": "node",
-    "rootDir": "./test/"
-  },
-  "devDependencies": {
-    "bcrypt": "^3.0.3"
-  }
+	"name": "@heat/crypto",
+	"version": "0.1.0",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/heat-js/monorepo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/heat-js/monorepo/issues"
+	},
+	"scripts": {
+		"test": "yarn run -T jest",
+		"patch": "npm version patch; yarn run -T ncp",
+		"minor": "npm version minor; yarn run -T ncp",
+		"major": "npm version major; yarn run -T ncp"
+	},
+	"jest": {
+		"preset": "@heat/jest-preset",
+		"testEnvironment": "node",
+		"rootDir": "./test/"
+	},
+	"devDependencies": {
+		"bcrypt": "^5.1.0"
+	}
 }

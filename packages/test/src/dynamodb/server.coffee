@@ -1,6 +1,6 @@
 
 import AWS				from 'aws-sdk'
-import dynamoDbLocal	from 'dynamo-db-local'
+import { DynamoDBServer } 		from '@awsless/dynamodb-server'
 
 export default class Server
 
@@ -10,15 +10,24 @@ export default class Server
 		@port		= 80
 
 	listen: (@port) ->
+		endpoint = new AWS.Endpoint "http://localhost:#{ @port }"
+
 		for dynamo in @dynamos
-			dynamo.endpoint.port = @port
+			dynamo.config.endpoint = "http://localhost:#{ @port }"
+			dynamo.endpoint = endpoint
 
 		for client in @clients
-			client.service.endpoint.port = @port
+			client.service.config.endpoint = "http://localhost:#{ @port }"
+			client.service.endpoint = endpoint
 
-		@process = await dynamoDbLocal.spawn {
-			port: @port
-		}
+		server = new DynamoDBServer()
+		@process = server
+
+		await server.listen @port
+
+		# @process = await dynamoDbLocal.spawn {
+		# 	port: @port
+		# }
 
 	destroy: ->
 		if @process
