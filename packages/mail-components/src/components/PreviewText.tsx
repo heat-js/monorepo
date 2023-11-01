@@ -1,6 +1,6 @@
 import Raw from './Raw'
 
-export default ({ children }: { children: unknown }) => (
+export default ({ children }: { children: any }) => (
 	<div
 		class='preview-text'
 		style={{

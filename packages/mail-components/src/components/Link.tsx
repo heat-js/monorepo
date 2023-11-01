@@ -1,7 +1,7 @@
 import { formatThemeProperty } from '../helpers.js'
 
 type Link = {
-	children: unknown
+	children: any
 	href: string
 	title: string
 	target?: string
@@ -23,7 +23,7 @@ export default ({
 			href={href}
 			class={id}
 			target={target}
-			title={title || (children as string)}
+			title={title || (children as any)}
 			style={{
 				color: color1,
 			}}>

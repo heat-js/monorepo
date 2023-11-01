@@ -1,5 +1,5 @@
 type Button = {
-	children: unknown
+	children: any
 	href: string
 	target?: string
 	align?: 'left' | 'right' | 'center'

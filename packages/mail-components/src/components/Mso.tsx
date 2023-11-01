@@ -1,7 +1,7 @@
 import Raw from './Raw'
 
 type Mso = {
-	children?: unknown
+	children?: any
 	if?: string
 	negative?: boolean
 }

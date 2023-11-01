@@ -1,7 +1,7 @@
 import { formatThemeProperty } from '../helpers.js'
 
 type Heading = {
-	children?: unknown
+	children?: HTMLHeadingElement
 	color?: [string, string] | string
 	padding?: string
 	align?: 'left' | 'right' | 'center'

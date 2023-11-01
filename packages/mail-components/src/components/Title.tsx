@@ -1,7 +1,7 @@
 import { formatThemeProperty } from '../helpers.js'
 
 type Title = {
-	children: unknown
+	children: any
 	color?: [string, string] | string
 	padding?: string
 	align?: 'left' | 'right' | 'center'
