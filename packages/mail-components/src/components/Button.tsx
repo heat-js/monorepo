@@ -22,12 +22,13 @@ export default ({
 	textColor = '#ffffff',
 }: Button) => {
 	return (
-		<tr>
+		<tr mc:hideable>
 			<td align={align} style={{ padding: margin }}>
 				<table border='0' cellSpacing='0' cellPadding='0'>
 					<tr>
 						<td align='center' bgcolor={bgColor} style={{ borderRadius }}>
 							<a
+								mc:edit
 								href={href}
 								target={target}
 								style={{

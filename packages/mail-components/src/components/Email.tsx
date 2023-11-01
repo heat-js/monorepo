@@ -15,7 +15,7 @@ export default ({
 	children,
 	title,
 	darkMode,
-	bgColor = ['#ffffff', '#0c1018'],
+	bgColor = ['#ffffff', '#020204'],
 	lang = 'en',
 }: Email) => {
 	const [id, color] = formatThemeProperty('background-color', bgColor)

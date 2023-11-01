@@ -19,10 +19,11 @@ export default ({
 
 	return (
 		<a
+			mc:edit
 			href={href}
 			class={id}
 			target={target}
-			title={title || children}
+			title={title || (children as string)}
 			style={{
 				color: color1,
 			}}>

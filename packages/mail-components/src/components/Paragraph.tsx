@@ -16,9 +16,10 @@ export default ({
 	const [id, color1] = formatThemeProperty('color', color)
 
 	return (
-		<tr>
+		<tr mc:repeatable mc:hideable>
 			<td style={{ padding: margin }} align={align}>
 				<p
+					mc:edit
 					class={id}
 					style={{
 						color: color1,

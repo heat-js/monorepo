@@ -22,6 +22,7 @@ const Image = ({
 	borderRadius,
 }: Pick<Image, 'alt' | 'width' | 'height' | 'borderRadius'> & { src: string }) => (
 	<img
+		mc:edit
 		src={src}
 		alt={alt}
 		width={formatAttributeNumber(width)}

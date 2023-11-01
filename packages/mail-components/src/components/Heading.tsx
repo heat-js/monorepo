@@ -16,9 +16,10 @@ export default ({
 	const [id, color1] = formatThemeProperty('color', color)
 
 	return (
-		<tr>
+		<tr mc:hideable>
 			<td style={{ padding }} align={align}>
 				<h2
+					mc:edit
 					class={id}
 					style={{
 						color: color1,
